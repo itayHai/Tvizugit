@@ -1,0 +1,10 @@
+# dependency directory
+server/node_modules/
+client/node_modules/
+
+# build es6 directories
+server/dist/
+server/dist-server/
+
+# workspace directory
+server/.vscode/
