@@ -42,7 +42,7 @@ const theme = createMuiTheme({
 });
 
 const styles = { 
-  width: '85%',
+  width: '100%',
   margin: 'auto',
   height: '100%'
 }
