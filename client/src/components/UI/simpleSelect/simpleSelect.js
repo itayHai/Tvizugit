@@ -25,19 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleSelect = (props) => {
   const classesStyle = useStyles();
-  const items = [];
 
-  for ( let item in props.items ) {
-    items.push(
-        {
-            value: item,
-            label: props.items[item]
-        }
-    );
-}
-
-  const itemsOutput = items.map((item)=>{
-    return <MenuItem  key={item.value} value={item.value}>{item.label}</MenuItem>;
+  const itemsOutput = props.items.map((item)=>{
+    return <MenuItem  key={item.key} value={item.key}>{item.value}</MenuItem>;
 
   });
 
@@ -56,6 +46,6 @@ const SimpleSelect = (props) => {
       </FormControl>
     </div>
   );
-};
+}
 
 export default SimpleSelect;
