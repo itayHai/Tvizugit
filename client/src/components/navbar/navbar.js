@@ -18,7 +18,7 @@ function Navbar() {
               <label className="slogan">לתבוע בידיים טובות</label>
             </div>
           </Link>
-          <Link to="/cases" className="link" >
+          <Link to="/classActionsStock" className="link" >
             <h3>מאגר התביעות</h3>
           </Link>
           <Link to="/lawyers" className="link" >
