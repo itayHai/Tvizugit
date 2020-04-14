@@ -1,5 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require('path');
+
+const bodyParser = require('body-parser');
+
+const mongoConnect = require('./utils/database');
 
 const app = express();
 const port = 8000;

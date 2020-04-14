@@ -7,9 +7,8 @@ import classes from "./searchHeader.module.css";
 
 const searchHeader = (props) => {
 
-    const changeSelectHandler = (event) =>{
-        alert(event.target.value);
-    }
+    
+
 
   return (
     <div className={classes.searchHeader}>
@@ -18,8 +17,8 @@ const searchHeader = (props) => {
         <SimpleSelect
           className={classes.select}
           label="מיון"
-          items={{ name: "שם", description: "תאור" }}
-          changed = {(event) => changeSelectHandler(event)}
+          items={props.itemsToSelect}
+          changed = {props.changed}
         />
   
         <Button style={{display:'flex',justifyContent:'space-around',border:'0.5px solid rgba(0, 0, 0, 0.331)',margin: '6px'}}
