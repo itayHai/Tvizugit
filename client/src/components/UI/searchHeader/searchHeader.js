@@ -9,6 +9,8 @@ const searchHeader = (props) => {
 
     
 
+    }
+
   return (
     <div className={classes.searchHeader}>
       <h1 className={classes.searchTitle}>{props.title}</h1>
