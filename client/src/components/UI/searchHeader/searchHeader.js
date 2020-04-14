@@ -9,7 +9,6 @@ const searchHeader = (props) => {
 
     
 
-    }
 
   return (
     <div className={classes.searchHeader}>
