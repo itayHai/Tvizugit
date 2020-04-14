@@ -1,5 +1,5 @@
 import React from 'react';
-import ResultCard from '../resultCard/resultCard';
+import ResultCard from '../../UI/resultCard/resultCard';
 
 const classActionResultCard = props => {
     let propertiesToShow = [{
