@@ -2,8 +2,8 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import SimpleSelect from "../simpleSelect/simpleSelect";
-import TransitionsModal from "../../modal/modal";
-import SearchActionResult from "../../searchActionResult/searchActionResult";
+import TransitionsModal from "../modal/modal";
+import SearchActionResult from "../searchActionResult/searchActionResult";
 
 
 import classes from "./searchHeader.module.css";
