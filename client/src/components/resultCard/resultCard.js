@@ -10,7 +10,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Divider from '@material-ui/core/Divider';
 import propTypes from 'prop-types';
+import ActionCardContent from '../classActionStock/classActionResultCards/classActionResultCard/actionCardContent/actionCardContent';
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,6 +43,12 @@ export default function RecipeReviewCard(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const cardContent = props.descTitleCard === "תיאור תובענה" ?
+        <ActionCardContent cAction={props.item}/> :
+        // TODO: insert here <LawyerCardContent />
+        null
+        ;
 
     let combinedProperties = props.propertiesToShow.map((p) => {
         return <CardHeader
@@ -76,15 +84,9 @@ export default function RecipeReviewCard(props) {
                     <Typography paragraph>
                         {props.item.description}
                     </Typography>
-                    <Typography paragraph>
-
-                    </Typography>
-                    <Typography paragraph>
-
-                    </Typography>
-                    <Typography>
-
-                    </Typography>
+                    {
+                        cardContent
+                    }
                 </CardContent>
             </Collapse>
         </Card>
