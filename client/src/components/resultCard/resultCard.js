@@ -60,7 +60,7 @@ export default function RecipeReviewCard(props) {
 
     return (
         <Card className={classes.root}>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 {combinedPropertiesToShow}
                 <CardActions disableSpacing>
                     <IconButton aria-label="share">
@@ -80,7 +80,7 @@ export default function RecipeReviewCard(props) {
             </div>
             <Divider />
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
+                <CardContent style={{padding: "0px 30px"}}>
                     <h1 >{props.descTitleCard}:</h1>
                     <Typography paragraph>
                         {props.item.description}

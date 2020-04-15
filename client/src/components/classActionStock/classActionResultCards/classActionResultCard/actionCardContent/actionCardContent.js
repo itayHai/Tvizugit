@@ -4,30 +4,28 @@ import { Gavel, CalendarToday, Person } from '@material-ui/icons';
 import ManagerMessages from '../managerMessages/managerMessages';
 
 const actionCardContent = props => {
-    const lawyerName = props.cAction.lawyer ? <h3 className={classes.h3}>props.cAction.lawyer</h3> : <h3 className={classes.h3}>טרם נקבע עו"ד</h3>;
+    const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: "space-around", paddingLeft: "950px" }}>
-                <div style={{ display: 'flex', flexDirection: "row" }}>
+            <div className={classes.infoRow}>
+                <div className={classes.cellInRow}>
                     <Gavel className={classes.icon} color="action" fontSize="large" />
-                    <div 
-                    style={{ paddingTop: "27px" }}
-                    >
-                        {lawyerName}
+                    <div className={classes.cellNoIcon}>
+                    <h3 className={classes.h3}>{lawyerName} </h3>
                         <div>עו"ד מייצג</div>
                     </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: "row" }}>
+                <div className={classes.cellInRow}>
                     <CalendarToday className={classes.icon} color="action" fontSize="large" />
-                    <div style={{ paddingTop: "27px" }}>
+                    <div className={classes.cellNoIcon}>
                         <h3 className={classes.h3}>{props.cAction.startDate}</h3>
                         <div>תאריך פתיחת התובענה</div>
                     </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: "row" }}>
+                <div className={classes.cellInRow}>
                     <Person className={classes.icon} color="action" fontSize="large" />
-                    <div style={{ paddingTop: "27px" }}>
+                    <div className={classes.cellNoIcon}>
                         <h3 className={classes.h3}>{props.cAction.manUser}</h3>
                         <div>מנהל התובענה</div>
                     </div>
