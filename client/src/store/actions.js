@@ -1,0 +1,1 @@
+export const CHANGED_SORT = 'CHANGED_SORT';
