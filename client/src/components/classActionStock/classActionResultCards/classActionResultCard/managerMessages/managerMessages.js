@@ -6,7 +6,7 @@ const managerMessages = props => {
         return <ManagerMessage message={mes}/>
     })
     return (
-        <div>
+        <div style={{overflow:"auto"}}>
             {messagesToshow}
         </div>
     );
