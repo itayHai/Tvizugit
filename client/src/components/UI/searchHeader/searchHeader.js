@@ -3,6 +3,8 @@ import { Button } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import SimpleSelect from "../simpleSelect/simpleSelect";
 import TransitionsModal from "../../modal/modal";
+import SearchActionResult from "../../searchActionResult/searchActionResult";
+
 
 import classes from "./searchHeader.module.css";
 import { connect } from "react-redux";
@@ -45,8 +47,7 @@ const SearchHeader = (props) => {
           חפש שוב
         </Button>
         <TransitionsModal show={open} onClose={handleClose}>
-            ,sdnf
-            dfljhdfjgh
+          <SearchActionResult close={handleClose}/>
         </TransitionsModal>
       </div>
     </div>
