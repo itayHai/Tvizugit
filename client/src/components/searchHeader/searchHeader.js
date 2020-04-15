@@ -2,23 +2,35 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import SimpleSelect from "../simpleSelect/simpleSelect";
+import TransitionsModal from "../../modal/modal";
 
 import classes from "./searchHeader.module.css";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
 
-const searchHeader = (props) => {
+const SearchHeader = (props) => {
+  
+    const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className={classes.searchHeader}>
       <h1 className={classes.searchTitle}>{props.title}</h1>
       <div className={classes.buttonRow}>
-          <SimpleSelect
-            className={classes.select}
-            label="מיון"
-            items={props.itemsToSelect}
-            changed={(event) => props.onSortChanged(event.target.value)}
-          />
+        <SimpleSelect
+          className={classes.select}
+          label="מיון"
+          items={props.itemsToSelect}
+          changed={(event) => props.onSortChanged(event.target.value)}
+        />
+
         <Button
           style={{
             display: "flex",
@@ -27,10 +39,15 @@ const searchHeader = (props) => {
             margin: "6px",
           }}
           className={classes.filterButton}
+           onClick={handleOpen}
           startIcon={<SortIcon />}
         >
-          סינון
+          חפש שוב
         </Button>
+        <TransitionsModal show={open} onClose={handleClose}>
+            ,sdnf
+            dfljhdfjgh
+        </TransitionsModal>
       </div>
     </div>
   );
@@ -49,4 +66,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(searchHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchHeader);
