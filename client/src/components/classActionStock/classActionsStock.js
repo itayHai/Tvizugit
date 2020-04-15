@@ -21,21 +21,13 @@ const classActionsStock = (props) => {
     key: "numberOfProsecutors"
 }];
 
-
-
-  let sortResultsBy;
-  const changeSelectHandler = (event) => {
-    alert(event.target.value);
-    sortResultsBy = event.target.value;
-  }
+  
   return <div>
     <SearchHeader
       title='מאגר תביעות'
-      changed={(event) => changeSelectHandler(event)}
       itemsToSelect = {basicProperties}
     />
     <ClassActionResultCards
-      sortBy={sortResultsBy}  
       basicProperties = {basicProperties}
     />
   </div>;
