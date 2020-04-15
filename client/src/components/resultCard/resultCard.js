@@ -45,7 +45,7 @@ export default function RecipeReviewCard(props) {
     };
 
     const cardContent = props.descTitleCard === "תיאור תובענה" ?
-        <ActionCardContent cAction={props.item}/> :
+        <ActionCardContent cAction={props.item} /> :
         // TODO: insert here <LawyerCardContent />
         null
         ;
@@ -78,6 +78,7 @@ export default function RecipeReviewCard(props) {
                     <ExpandMoreIcon />
                 </IconButton>
             </CardActions>
+            <Divider />
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <h1 >{props.descTitleCard}:</h1>
