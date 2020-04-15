@@ -1,6 +1,6 @@
 import React from "react";
-import SearchHeader from '../UI/searchHeader/searchHeader';
-import ClassActionResultCards from '../classActionResultCards/classActionResultCards';
+import SearchHeader from '../searchHeader/searchHeader';
+import ClassActionResultCards from './classActionResultCards/classActionResultCards';
 
 const classActionsStock = (props) => {
 

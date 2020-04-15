@@ -1,5 +1,5 @@
 import React from 'react';
-import ResultCard from '../../UI/resultCard/resultCard';
+import ResultCard from '../../../resultCard/resultCard';
 
 const classActionResultCard = props => {
     let propertiesToShow = [{
@@ -22,7 +22,8 @@ const classActionResultCard = props => {
     return (
         <ResultCard
             propertiesToShow={propertiesToShow}
-            classAction={props.classAction}
+            item={props.classAction}
+            descTitleCard="תיאור תובענה"
         />
     );
 };
