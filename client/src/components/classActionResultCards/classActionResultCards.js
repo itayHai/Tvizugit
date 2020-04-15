@@ -9,7 +9,7 @@ const classActionResultCards = (props) => {
     {
       Id: "1",
       actionName: "אתביעת המאה",
-      defendantParty: "שטראוס",
+      defendantParty: "שטראוס1",
       actionStage: "תוך כדי משפט",
       numberOfProsecutors: 10000
     },
