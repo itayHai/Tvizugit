@@ -5,30 +5,24 @@ import SearchIcon from "@material-ui/icons/Search";
 import CategoryCard from "../categoryCard/categoryCard";
 import { categories } from "../../utils/globalConsts";
 
-import classes from "./searchActionClass.module.css";
+import classes from "./searchClassAction.module.css";
 
 const searchActionClass = (props) => {
   let allCategories = [];
+  let threeCategories = [];
   for (let i = 0; i < categories.length; i += 3) {
-    allCategories.push(
-      <div>
+
+    for (let j = i; j < i + 3; j++) {
+      threeCategories.push(
         <CategoryCard
-          key={categories[i].id}
-          icon={categories[i].icon}
-          title={categories[i].name}
+          key={categories[j].id}
+          icon={categories[j].icon}
+          title={categories[j].name}
         />
-        <CategoryCard
-          key={categories[i + 1].id}
-          icon={categories[i + 1].icon}
-          title={categories[i + 1].name}
-        />
-        <CategoryCard
-          key={categories[i + 2].id}
-          icon={categories[i + 2].icon}
-          title={categories[i + 2].name}
-        />
-      </div>
-    );
+      );
+    }
+    allCategories.push(<div key={i}>{threeCategories}</div>);
+    threeCategories = [];
   }
 
   return (
@@ -54,7 +48,7 @@ const searchActionClass = (props) => {
       <Button variant="contained" onClick={props.close}>
         ביטול
       </Button>
-      <Button
+      <Button 
         className={classes.SearchButton}
         style={{ backgroundColor: "#009688", color: "white" }}
       >
