@@ -21,3 +21,8 @@
 .SearchButton {
   float: left;
 }
+
+.Categories {
+  display: flex;
+  flex-direction: row;
+}
