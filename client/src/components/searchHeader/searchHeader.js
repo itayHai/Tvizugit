@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import SimpleSelect from "../simpleSelect/simpleSelect";
 import TransitionsModal from "../../modal/modal";
-import SearchActionResult from "../../searchActionResult/searchActionResult";
+import SearchActionClass from "../searchActionClass/searchActionClass";
 
 
 import classes from "./searchHeader.module.css";
@@ -47,7 +47,7 @@ const SearchHeader = (props) => {
           חפש שוב
         </Button>
         <TransitionsModal show={open} onClose={handleClose}>
-          <SearchActionResult close={handleClose}/>
+          <SearchActionClass close={handleClose}/>
         </TransitionsModal>
       </div>
     </div>

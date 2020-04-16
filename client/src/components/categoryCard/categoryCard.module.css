@@ -1,0 +1,19 @@
+.CategoryCard {
+    text-align: center;
+    border: 1px solid rgb(207, 204, 204);
+    border-radius: 5px;
+    height: 90px;
+    width: 110px;
+    box-shadow: grey;
+    background-color: white;
+    font-size: small;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding-top: 5px;
+    box-sizing: content-box;
+}
+
+.CategoryCard:hover{
+
+    background-color: rgb(216, 210, 210);
+}
