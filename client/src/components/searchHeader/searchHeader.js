@@ -5,14 +5,12 @@ import SimpleSelect from "../simpleSelect/simpleSelect";
 import TransitionsModal from "../../modal/modal";
 import SearchClassAction from "../searchClassAction/searchClassAction";
 
-
 import classes from "./searchHeader.module.css";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
 
 const SearchHeader = (props) => {
-  
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -34,20 +32,14 @@ const SearchHeader = (props) => {
         />
 
         <Button
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            border: "0.5px solid rgba(0, 0, 0, 0.331)",
-            margin: "6px",
-          }}
           className={classes.filterButton}
-           onClick={handleOpen}
+          onClick={handleOpen}
           startIcon={<SortIcon />}
         >
           חפש שוב
         </Button>
         <TransitionsModal show={open} onClose={handleClose}>
-          <SearchClassAction close={handleClose}/>
+          <SearchClassAction close={handleClose} />
         </TransitionsModal>
       </div>
     </div>

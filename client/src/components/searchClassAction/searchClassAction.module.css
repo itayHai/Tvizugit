@@ -20,7 +20,8 @@
 
 .SearchButton {
   float: left;
- 
+  background-color:#009688 !important;
+  color:white !important;
 }
 
 .Categories {

@@ -11,7 +11,6 @@ const searchActionClass = (props) => {
   let allCategories = [];
   let threeCategories = [];
   for (let i = 0; i < categories.length; i += 3) {
-
     for (let j = i; j < i + 3; j++) {
       threeCategories.push(
         <CategoryCard
@@ -48,12 +47,7 @@ const searchActionClass = (props) => {
       <Button variant="contained" onClick={props.close}>
         ביטול
       </Button>
-      <Button 
-        className={classes.SearchButton}
-        style={{ backgroundColor: "#009688", color: "white" }}
-      >
-        חיפוש
-      </Button>
+      <Button className={classes.SearchButton} >חיפוש</Button>
     </div>
   );
 };
