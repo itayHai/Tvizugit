@@ -5,6 +5,7 @@ import GavelIcon from '@material-ui/icons/Gavel';
 import PersonIcon from '@material-ui/icons/Person';
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
+import { login } from "../login/login"
 import './navbar.css' 
 
 function Navbar() {
@@ -24,7 +25,7 @@ function Navbar() {
           <Link to="/lawyers" className="link" >
             <h3>מאגר עורכי הדין</h3>
           </Link>     
-          <Button className="login"
+          <Button onClick={login} className="login"
             variant="contained"
               color="secondary"
             startIcon={<PersonIcon />}
