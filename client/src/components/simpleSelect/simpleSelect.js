@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SimpleSelect = React.forwardRef((props,ref) => {
+const SimpleSelect = props => {
   const classesStyle = useStyles();
 
   const itemsOutput = props.items.map((item) => {
@@ -35,12 +35,12 @@ const SimpleSelect = React.forwardRef((props,ref) => {
     
       <FormControl variant="outlined" className={classesStyle.formControl}>
         <InputLabel>{props.label}</InputLabel>
-        <Select ref={ref} value={props.sortBy} onChange={props.changed} label={props.label}>
+        <Select value={props.sortBy} onChange={props.changed} label={props.label}>
           {itemsOutput}
         </Select>
       </FormControl>
   );
-});
+};
 
 const mapStateToProps = (state) => {
   return {
