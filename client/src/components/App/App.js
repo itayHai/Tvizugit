@@ -2,18 +2,15 @@ import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "./App.css";
 import Navbar from "../navbar/navbar";
-import Background from "../../images/home-background.jpg";
+import HomePage from '../homePage/homePage'
 import ClassActionsStock from "../classActionStock/classActionsStock";
-
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-var sectionStyle = {
-  width: "100%",
-  height: "500px",
-  backgroundImage: `url(${Background})`,
-  backgroundSize: "100% 600px",
-  backgroundRepeat: "no-repeat",
-};
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const theme = createMuiTheme({
   typography: {
@@ -27,9 +24,9 @@ const theme = createMuiTheme({
       contrastText: "#fff",
     },
     secondary: {
-      light: "#7f97a2",
-      main: "#607d8b",
-      dark: "#435761",
+      light: "#ffffff",
+      main: "#FFFFFF",
+      dark: "#b2b2b2",
       contrastText: "#000",
     },
   },
@@ -44,22 +41,26 @@ const styles = {
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <div style={styles} className="App">
-          <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <section style={sectionStyle}></section>
-            </Route>
-            <Route path="/classActionsStock" component={ClassActionsStock} />
-            <Route path="/lawyers">
-              <h1>Lawyers</h1>
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </ThemeProvider>
+    <StylesProvider jss={jss}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div style={styles} className="App">
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={HomePage}>
+              </Route>
+              <Route path="/classActionsStock" component={ClassActionsStock} />
+              <Route path="/lawyers">
+                <h1>Lawyers</h1>
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+        <footer style={{height: 30, backgroundColor: theme.palette.primary.main}}>
+
+        </footer>
+      </ThemeProvider>
+    </StylesProvider>
   );
 }
 
