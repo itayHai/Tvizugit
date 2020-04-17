@@ -8,19 +8,19 @@ import trophy_icon from '../../../images/icons/trophy_icon.png'
 import classes from './classActionCard.module.css'
 
 const classActionCard = (props) => {
-    const {name, participants, chance} = props.classAction
+    const {actionName, numberOfProsecutors, chance} = props.classAction
 
     return (
         <Card className={classes.root}>
             <CardContent>
                 <label className={classes.title}>
-                    {name}
+                    {actionName}
                 </label>
                 <hr className={classes.underlineTitle} />
                 <br/>
                 <img className={classes.icon} src={people_icon} alt="members"/>
                 <label>
-                    <b>{participants}</b> כבר הצטרפו למאבק
+                    <b>{numberOfProsecutors}</b> כבר הצטרפו למאבק
                 </label>
                 <br/>
                 <img className={classes.icon} src={trophy_icon} alt="trophy"/>
