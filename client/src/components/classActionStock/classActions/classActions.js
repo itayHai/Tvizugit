@@ -1,10 +1,12 @@
 import React from "react";
 import ClassAction from "./classAction/classAction";
-import { connect } from "react-redux";
+import {  useSelector } from "react-redux";
 import * as actionTypes from "../../../store/actions";
 import { dummyData } from '../../../utils/globalConsts';
 
-const classActions = (props) => {
+const ClassActions = (props) => {
+
+  const sortBy = useSelector(state => state.sortBy);
 
   const compareValues = (key, order = "asc") => {
     return function innerSort(a, b) {
@@ -21,7 +23,7 @@ const classActions = (props) => {
     };
   }
 
-  const classActions = dummyData.sort(compareValues(props.sortBy)).map((cAction) => {
+  const classActions = dummyData.sort(compareValues(sortBy)).map((cAction) => {
     return <ClassAction
       classAction={cAction}
       key={cAction.Id} />;
@@ -32,21 +34,5 @@ const classActions = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    sortBy: state.sortBy,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSortChanged: (sortBy) =>
-      dispatch({ type: actionTypes.CHANGED_SORT, sortBy: sortBy }),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(classActions);
+export default ClassActions;
 
