@@ -1,27 +1,13 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-
+import classes from "./simpleSelect.module.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    boxShadow: "0px 2px 6px #00000029",
-    fontFamily: "Segoe UI",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-const SimpleSelect = React.forwardRef((props,ref) => {
-  const classesStyle = useStyles();
+const SimpleSelect = (props) => {
+  const sortBy = useSelector((state) => state.sortBy);
 
   const itemsOutput = props.items.map((item) => {
     return (
@@ -32,27 +18,13 @@ const SimpleSelect = React.forwardRef((props,ref) => {
   });
 
   return (
-    
-      <FormControl variant="outlined" className={classesStyle.formControl}>
-        <InputLabel>{props.label}</InputLabel>
-        <Select ref={ref} value={props.sortBy} onChange={props.changed} label={props.label}>
-          {itemsOutput}
-        </Select>
-      </FormControl>
+    <FormControl variant="outlined" className={classes.formControl}>
+      <InputLabel className={classes.label}>{props.label}</InputLabel>
+      <Select value={sortBy} onChange={props.changed} label={props.label}>
+        {itemsOutput}
+      </Select>
+    </FormControl>
   );
-});
-
-const mapStateToProps = (state) => {
-  return {
-    sortBy: state.sortBy,
-  };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSortChanged: (sortBy) =>
-      dispatch({ type: actionTypes.CHANGED_SORT, sortBy: sortBy }),
-  };
-};
-
-export default connect(mapStateToProps,mapDispatchToProps)(SimpleSelect);
+export default SimpleSelect;

@@ -1,0 +1,30 @@
+.InputSearch {
+  margin-top: 40px;
+  direction: rtl;
+}
+
+.SearchByCategory {
+  margin-top: 40px;
+  color: grey;
+}
+
+.Title {
+  display: flex;
+  flex-direction: row;
+}
+
+.SearchIcon {
+  padding-top: 35px;
+  padding-left: 12px;
+}
+
+.SearchButton {
+  float: left;
+  background-color:#009688 !important;
+  color:white !important;
+}
+
+.Categories {
+  display: flex;
+  flex-direction: row;
+}

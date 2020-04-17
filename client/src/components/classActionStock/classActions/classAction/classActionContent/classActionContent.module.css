@@ -1,0 +1,22 @@
+.icon{
+    padding-top:35px;
+    /* padding-left:15px */
+}
+
+.infoRow{
+    display:flex;
+    flex-direction:row;
+}
+
+.h3{
+    margin:auto;
+}
+
+.cellInRow{
+    display: flex;
+    padding-left:80px;
+}
+
+.cellNoIcon{
+    padding-top: 27px;
+}
