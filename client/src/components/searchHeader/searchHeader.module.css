@@ -15,12 +15,17 @@
 }
 
 .filterButton {
-  border: 3px solid rgba(0, 0, 0, 0.451);
-  display: flex;
-  justify-content: space-around;
-  width: 113px;
+  background-color: white !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.291) !important;
+  display: flex !important;
+  justify-content: space-around !important;
+  width: 130px;
   box-shadow: 0px 2px 6px #00000029;
   border-radius: 3px;
-  opacity: 0.8;
-  margin:6px;
+  margin: 6px !important;
+}
+
+.filterButton:hover {
+  border: 0.5px solid black !important;
+  border-radius: 3px;
 }
