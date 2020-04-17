@@ -6,8 +6,8 @@ import Modal from "../modal/modal";
 import SearchClassAction from "../searchClassAction/searchClassAction";
 
 import classes from "./searchHeader.module.css";
-import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import { useDispatch } from "react-redux";
+import {changeSort} from "../../store/actions";
 
 const SearchHeader = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -20,6 +20,8 @@ const SearchHeader = (props) => {
     setOpen(false);
   };
 
+  const dispatch=useDispatch();
+
   return (
     <div className={classes.searchHeader}>
       <h1 className={classes.searchTitle}>{props.title}</h1>
@@ -28,7 +30,7 @@ const SearchHeader = (props) => {
           className={classes.select}
           label="מיון"
           items={props.itemsToSelect}
-          changed={(event) => props.onSortChanged(event.target.value)}
+          changed={(event) => dispatch(changeSort(event.target.value))}
         />
 
         <Button
@@ -46,17 +48,5 @@ const SearchHeader = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    sortBy: state.sortBy,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSortChanged: (sortBy) =>
-      dispatch({ type: actionTypes.CHANGED_SORT, sortBy: sortBy }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchHeader);
+export default SearchHeader;

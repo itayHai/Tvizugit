@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CHANGED_SORT:
       return {
         ...state,
-        sortBy: [action.sortBy],
+        sortBy: [action.payload],
       };
     default:
       return state;
