@@ -1,7 +1,4 @@
 .message{
-    top: 708px;
-    left: 120px;
-    height: 100px;
     background: #45AB921F 0% 0% no-repeat padding-box;
     box-shadow: 0px 1px 6px #0000001A;
     opacity: 1;
@@ -9,4 +6,15 @@
 .icon{
     padding-top:15px;
     padding-left:10px
+}
+.oneMessage{
+    margin:15px;
+}
+.messDate{
+    display:flex;
+    flex-direction:row;
+}
+.contentDate{
+    margin:7px;
+    padding-top:10px;
 }

@@ -1,18 +1,17 @@
 import React from "react";
 import SearchHeader from '../searchHeader/searchHeader';
-import ClassActionResultCards from './classActionResultCards/classActionResultCards';
+import ClassActions from './classActions/classActions';
 import classes from './classActionStock.module.css';
 import { propertiesToShow } from '../../utils/globalConsts';
 
 const classActionsStock = (props) => {
-  
+  const selectOptions = propertiesToShow.find(m => m.name === "classAction").classActionPro;
   return <div className={classes.page}>
     <SearchHeader
       title='מאגר תביעות'
-      itemsToSelect={propertiesToShow.find(m => m.name === "classAction").classActionPro}
+      itemsToSelect={selectOptions}
     />
-    <ClassActionResultCards
-      basicProperties={propertiesToShow.find(m => m.name === "classAction").classActionPro}
+    <ClassActions
     />
   </div>;
 };

@@ -13,8 +13,7 @@
 }
 
 .label {
-    margin-left: 20px;
-    
+    font-weight: 500 !important;
 }
 
 .selectDiv{
@@ -22,19 +21,9 @@
     padding:0px;
     box-shadow: 0px 2px 6px #00000029;
 }
-
-/*
-box-shadow: 0px 2px 6px #00000029;
-  border-radius: 3px;
-  opacity: 1;
-  text-align: left;
-  font: Regular 18px/24px Segoe UI;
-  letter-spacing: 0px;
-  color: #5b5b5b;
-  opacity: 0.8;
-  display: flex;
-  justify-content: space-around;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  padding: 10px;
-
-*/
+.formControl{
+  margin: 8px !important;
+  min-width: 100px !important;
+  box-shadow:0px 2px 6px #00000029;
+  max-width: 150px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import ManagerMessage from './managerMessage/managerMessage';
+import classes from './managerMessages.module.css';
 
 const managerMessages = props => {
     const messagesToshow = props.messages?.map((mes) => {
@@ -8,7 +9,7 @@ const managerMessages = props => {
     return (
         props.messages? <div>
             <h3>הודעות</h3>
-            <div style={{ overflow: "auto" }}>
+            <div className={classes.messages}>
                 {messagesToshow}
             </div>
         </div>:

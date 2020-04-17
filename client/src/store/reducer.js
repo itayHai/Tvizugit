@@ -6,7 +6,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "CHANGED_SORT":
+    case actionTypes.CHANGED_SORT:
       return {
         ...state,
         sortBy: [action.sortBy],

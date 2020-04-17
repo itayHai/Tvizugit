@@ -1,0 +1,26 @@
+.root {
+    margin:10px;
+}
+.media {
+    height: 0;
+    padding-top:56.25%;
+}
+.expand{
+    transform:rotate(0deg);
+    margin-left:auto;
+    transition: transform;
+    transition-duration:shortest;
+}
+.expandOpen{
+    transform: rotate(180deg);
+}
+.rootDiv{
+    display:flex;
+    justify-content:space-between;
+}
+.content{
+    padding:0px 30px !important;
+}
+.cellInRow{
+    width: 250px;
+}

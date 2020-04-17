@@ -5,12 +5,12 @@ import { CalendarToday } from '@material-ui/icons';
 const managerMessage = (props) => {
     return (
         <div className={classes.message}>
-            <div style={{margin:"15px"}}>
+            <div className={classes.oneMessage}>
                 <h3>{props.message.title}</h3>
                 {props.message.content}
-                <div style={{ display: 'flex', flexDirection: "row" }}>
+                <div className={classes.messDate}>
                     <CalendarToday className={classes.icon} color="action" fontSize="small" />
-                    <h5 style={{ margin: "7px" , paddingTop:"10px"}}>{props.message.date}</h5>
+                    <h5 className={classes.contentDate}>{props.message.date}</h5>
                 </div>
             </div>
         </div>

@@ -1,18 +1,19 @@
 import React from 'react';
-import classes from './actionCardContent.module.css';
+import classes from './classActionContent.module.css';
 import { Gavel, CalendarToday, Person } from '@material-ui/icons';
 import ManagerMessages from '../managerMessages/managerMessages';
 
-const actionCardContent = props => {
+const classActionContent = props => {
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
-
     return (
         <div>
+            <h1 >תיאור תובענה:</h1>
+            {props.cAction.description}
             <div className={classes.infoRow}>
                 <div className={classes.cellInRow}>
                     <Gavel className={classes.icon} color="action" fontSize="large" />
                     <div className={classes.cellNoIcon}>
-                    <h3 className={classes.h3}>{lawyerName} </h3>
+                        <h3 className={classes.h3}>{lawyerName} </h3>
                         <div>עו"ד מייצג</div>
                     </div>
                 </div>
@@ -39,4 +40,4 @@ const actionCardContent = props => {
 };
 
 
-export default actionCardContent;
+export default classActionContent;
