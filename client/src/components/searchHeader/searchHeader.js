@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import SimpleSelect from "../simpleSelect/simpleSelect";
-import TransitionsModal from "../../modal/modal";
+import Modal from "../modal/modal";
 import SearchClassAction from "../searchClassAction/searchClassAction";
 
 import classes from "./searchHeader.module.css";
@@ -38,9 +38,9 @@ const SearchHeader = (props) => {
         >
           חפש שוב
         </Button>
-        <TransitionsModal show={open} onClose={handleClose}>
+        <Modal show={open} onClose={handleClose}>
           <SearchClassAction close={handleClose} />
-        </TransitionsModal>
+        </Modal>
       </div>
     </div>
   );

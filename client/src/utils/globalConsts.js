@@ -46,7 +46,8 @@ export const propertiesToShow = [
       },
       {},
     ],
-  },
+  }
+];
 
 export const dummyData = [
     {

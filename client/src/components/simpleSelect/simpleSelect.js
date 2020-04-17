@@ -7,7 +7,6 @@ import Select from "@material-ui/core/Select";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
 
-const SimpleSelect = (props) => {
 const SimpleSelect = props => {
   const itemsOutput = props.items.map((item) => {
     return (
