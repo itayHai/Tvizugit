@@ -1,0 +1,21 @@
+.UserNameInput {
+    margin-top: 40px;
+    direction: rtl;
+  }
+
+.PasswordInput {
+    margin-top: 40px;
+    direction: rtl;
+  }
+  
+  .LoginTitle {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .LoginButton {
+    float: left;
+    background-color:#009688 !important;
+    color:white !important;
+  }
+  
