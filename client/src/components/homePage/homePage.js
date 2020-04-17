@@ -50,6 +50,7 @@ export default function homePage() {
                     filter={ CONSTS.filters.MOST_PROMINENT }
                     size={ 4 }
                 />
+                {/* <Categories /> */}
             </article>
         </div>
     )

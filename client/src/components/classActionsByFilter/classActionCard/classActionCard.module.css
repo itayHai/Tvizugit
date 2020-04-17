@@ -6,6 +6,17 @@
     justify-content: flex-start;
 }
 
+.underlineTitle {
+    width: 75%;
+    margin-left: 0px;
+    margin-right: 0px; 
+}
+
+.icon {
+    width: 19px;
+    margin-left: 4px;
+}
+
 .bullet {
     display: inline-block;
     margin: 0 2px;

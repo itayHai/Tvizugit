@@ -13,7 +13,7 @@ function classActionsByFilter(props) {
         {
             name: "טלי נ' האנושות",
             participants: 50000,
-            chance: '02%'
+            chance: '2%'
         },
         {
             name: "טלי נ' הנאצים",
