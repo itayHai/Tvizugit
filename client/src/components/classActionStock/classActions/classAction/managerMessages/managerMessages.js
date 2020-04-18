@@ -31,8 +31,10 @@ const ManagerMessages = props => {
             deleteClick={props.delMessClick}
         />
     })
+    // const handleOpen = () => {
+    // };
     return (
-        props.messages? <div>
+        props.messages ? <div>
         <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
