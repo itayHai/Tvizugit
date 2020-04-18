@@ -39,11 +39,8 @@ const Navbar = (props) => {
             <h3>מאגר עורכי הדין</h3>
           </Link>     
           <Button onClick={handleOpen} className="login"
-            variant="contained"
-              color="secondary"
-            startIcon={<PersonIcon />}
-          >
-            כניסה
+                  variant="contained"
+          > <PersonIcon/> כניסה
           </Button>
           <Modal show={open} onClose={handleClose}>
           <Login close={handleClose} />
