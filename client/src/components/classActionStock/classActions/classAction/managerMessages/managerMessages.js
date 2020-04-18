@@ -31,6 +31,7 @@ const ManagerMessages = props => {
         />
     })
 
+    // };
     return (
         <div>
             <div className={classes.addMessage}>
