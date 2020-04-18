@@ -1,0 +1,21 @@
+.joinForm{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 400px;
+}
+.ul{
+    text-align: right;
+}
+.JoinButton {
+    background-color:#009688 !important;
+    color:white !important;
+}
+.agree{
+      display: flex !important;
+      flex-direction: column;
+}
+.bar{
+    /* width:100%;
+    margin-top: 16px; */
+}

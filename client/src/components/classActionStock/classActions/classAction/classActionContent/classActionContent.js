@@ -2,8 +2,14 @@ import React from 'react';
 import classes from './classActionContent.module.css';
 import { Gavel, CalendarToday, Person } from '@material-ui/icons';
 import ManagerMessages from '../managerMessages/managerMessages';
+import JoinAction from './joinAction/joinAction';
+import {dummyUser} from '../../../../../utils/globalConsts';
 
 const classActionContent = props => {
+    const userInAction = props.cAction.users?.find(({Id}) => Id === dummyUser.Id) || 
+                         props.cAction.managerUser?.Id === dummyUser.Id;
+    const messagesOrJoin = userInAction ? <ManagerMessages messages={props.cAction.manMessages} /> :
+                                          <JoinAction></JoinAction>;
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
     return (
         <div>
@@ -33,7 +39,7 @@ const classActionContent = props => {
                 </div>
             </div>
             <div>
-                <ManagerMessages messages={props.cAction.manMessages} />
+                { messagesOrJoin }
             </div>
         </div>
     );
