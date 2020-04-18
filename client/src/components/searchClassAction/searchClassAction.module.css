@@ -1,3 +1,8 @@
+.SearchClassAction {
+  max-width: 410px;
+  align-content: center !important;
+}
+
 .InputSearch {
   margin-top: 40px;
   direction: rtl;
@@ -20,8 +25,8 @@
 
 .SearchButton {
   float: left;
-  background-color:#009688 !important;
-  color:white !important;
+  background-color: #009688 !important;
+  color: white !important;
 }
 
 .Categories {
