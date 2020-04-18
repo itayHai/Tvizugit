@@ -1,6 +1,10 @@
-import {LockOpen,RoomService,Eco,Accessible,Receipt,Accessibility,Work,MonetizationOn,AccountBalance } from "@material-ui/icons/";
+import {Gavel, Person, LockOpen,RoomService,Eco,Accessible,Receipt,Accessibility,Work,MonetizationOn,AccountBalance } from "@material-ui/icons/";
 import React from 'react';
 
+export const users = [
+  { id: 1, name: "עורך דין", icon: <Gavel/> },
+  { id: 2, name: "משתמש", icon: <Person/> },
+];
 
 export const categories = [
   { id: 1, name: "חוק הגנת הצרכן", icon: <Accessibility/> },
