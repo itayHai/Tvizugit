@@ -30,9 +30,9 @@ const ManagerMessages = props => {
             deleteClick={props.delMessClick}
         />
     })
-
+    // };
     return (
-        <div>
+        props.messages? <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
                 {props.isUserManager ? <Button
