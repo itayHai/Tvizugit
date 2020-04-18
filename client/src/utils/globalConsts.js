@@ -66,6 +66,10 @@ export const dummyData = [
         title:"הודעה שנייה",
         content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut dhfhyjy fhfd sdfg dg dfhg  dhfghfdgh gfdsgf sdfgsdg sd sd sdhghgh d enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut dhfhyjy fhfd sdfg dg dfhg  dhfghfdgh gfdsgf sdfgsdg sd sd sdhghgh d enim ad minim veniam, quis nostrud "
       }],
+      users:[{
+        Id:1,
+        name:"איתי הייזלר"        
+      }],
       description: "כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבהכאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122 .כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122. אנ",
       defendantParty: "שטראוס1",
       actionStage: "תוך כדי משפט",
@@ -74,6 +78,10 @@ export const dummyData = [
     {
       Id: "2",
       actionName: " 222222בתביעת המאה",
+      managerUser:{
+        Id:2,
+        name:"אלה פורטנוב"        
+      },
       startDate:"15/04/2020",
       manUser:"עידו פרלמן",
       description: "כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבהכאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122 .כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122. אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122",
@@ -82,3 +90,7 @@ export const dummyData = [
       numberOfProsecutors: 2000
     },
   ];
+  export const dummyUser = {
+    Id:1,
+    name:"איתי הייזלר"
+  }
