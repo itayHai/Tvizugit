@@ -3,8 +3,7 @@ import classes from './joinForm.module.css';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { dummyUser } from '../../../../../../../utils/globalConsts';
 import Button from "@material-ui/core/Button";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import AlertUser from '../../../../../../alertUser/alertUser';
 
 const JoinForm = () => {
     const [open, setOpen] = React.useState(false);
@@ -12,9 +11,7 @@ const JoinForm = () => {
     const handleClick = () => {
         setOpen(true);
     };
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -38,13 +35,7 @@ const JoinForm = () => {
                         <Button className={classes.JoinButton} onClick={handleClick} >שלח</Button>
                     </div>
                 </div>}
-            <div className={classes.bar}>
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success">
-                        המייל נשלח בהצלחה!
-                    </Alert>
-                </Snackbar>
-            </div>
+            <AlertUser open={open} handleClose={handleClose} message="המייל נשלח בהצלחה!" severity="success" />
         </div>
 
     );
