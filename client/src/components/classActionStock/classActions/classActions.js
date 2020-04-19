@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ClassAction from "./classAction/classAction";
-import {  useSelector } from "react-redux";
-import * as actionTypes from "../../../store/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { updateClassActions } from "../../../store/actions";
 import { dummyData } from '../../../utils/globalConsts';
 
 const ClassActions = (props) => {
-
   const sortBy = useSelector(state => state.sortBy);
+  const stateClassActions = useSelector(state => state.classActions);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(updateClassActions(dummyData));
+
+  }, [dispatch]);
 
   const compareValues = (key, order = "asc") => {
     return function innerSort(a, b) {
@@ -22,8 +28,8 @@ const ClassActions = (props) => {
       return order === "desc" ? comparison * -1 : comparison;
     };
   }
-
-  const classActions = dummyData.sort(compareValues(sortBy)).map((cAction) => {
+  
+  const classActions = stateClassActions.sort(compareValues(sortBy)).map((cAction) => {
     return <ClassAction
       classAction={cAction}
       key={cAction.Id} />;
