@@ -9,6 +9,9 @@ const AddMessage = (props) => {
     useEffect(() => {
         titleRef.current.focus()
     });
+    const saveClick = () => {
+        props.saveClick(contentRef.current.value, titleRef.current.value, 2)
+    }
     return (
         <div className={classes.newMessage}>
             <div className={classes.textFileds}>
