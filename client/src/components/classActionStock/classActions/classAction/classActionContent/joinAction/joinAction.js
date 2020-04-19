@@ -22,7 +22,7 @@ const JoinAction = () => {
                 onClick={handleOpen}
                 startIcon={<AddCircleIcon fontSize="large"/>}
             >
-                הצטרף לתובענה
+                 הצטרף לתובענה
         </Button>
             <Modal show={open} onClose={handleClose}>
                 <JoinForm/>
