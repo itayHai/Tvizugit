@@ -19,6 +19,11 @@ const ClassActionContent = props => {
         addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
     /> : null;
     const isJoin = userInAction ? null : <JoinAction />;
+                                            messages={props.cAction.manMessages} 
+                                            isUserManager={isUserManager}
+                                            delMessClick={(message) => handleDelMessClick(message)}
+                                            addMessClick={(message, title, actionId) => handleAddMessClick(message, title, actionId)}
+                                            /> :
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
 
     return (
