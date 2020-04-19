@@ -18,6 +18,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         classActions: action.classActions,
       };
+    case actionTypes.UPDATE_CLASS_ACTIONS:
+
+      return {
+        ...state,
+        classActions: action.classActions,
+      };
     case actionTypes.REMOVE_MESSAGE_ACTION: {
       const newClassActions = removeMessage(action.classAction, action.message, [...state.classActions])
       return {
