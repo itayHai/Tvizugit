@@ -33,7 +33,7 @@ const ManagerMessages = props => {
     })
 
     return (
-        messagesToshow.length !== 0 ? <div>
+        // messagesToshow.length !== 0 ? 
         <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
