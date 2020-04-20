@@ -11,6 +11,7 @@ const AddMessage = (props) => {
     });
     return (
         <div className={classes.newMessage}>
+            <h1> הוספת הודעה</h1>
             <div className={classes.textFileds}>
                 <TextareaAutosize className={[classes.textBox, classes.titleTextBox].join(' ')} rowsMin={1} ref={titleRef} placeholder="כותרת הודעה"></TextareaAutosize>
                 <TextareaAutosize className={classes.textBox} ref={contentRef} rowsMin={3} placeholder="תוכן ההודעה"></TextareaAutosize>
