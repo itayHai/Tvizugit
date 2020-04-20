@@ -7,6 +7,7 @@ import AddMessage from './addMessage/addMessage';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
+    const isMessages = props.messages.length !== 0 ? "הודעות" : "אין הודעות";
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -21,10 +22,10 @@ const ManagerMessages = props => {
         setOpen(false);
         props.addMessClick(title, message, actionId)
     };
-    
+
     const messagesToshow = props.messages.map((mes) => {
         return <ManagerMessage
-            key={mes.Id}
+            key={mes.title}
             message={mes}
             isUserManager={props.isUserManager}
             deleteClick={props.delMessClick}
@@ -32,9 +33,10 @@ const ManagerMessages = props => {
     })
 
     return (
-        messagesToshow.length !== 0 ? <div>
+        // messagesToshow.length !== 0 ? 
+        <div>
             <div className={classes.addMessage}>
-                <h3>הודעות</h3>
+                <h3>{isMessages}</h3>
                 {props.isUserManager ? <Button
                     className={classes.filterButton}
                     onClick={handleOpen}
@@ -48,11 +50,12 @@ const ManagerMessages = props => {
                         saveClick={(title, message, actionId) => handleSave(title, message, actionId)}></AddMessage>
                 </Modal>
             </div>
+            { props.messages.length !== 0 ?
             <div className={classes.messages}>
                 {messagesToshow}
-            </div>
-        </div> :
-            <h3>אין הודעות</h3>
+            </div> : null}
+        </div>
+        // : <h3>אין הודעות</h3>
     );
 };
 
