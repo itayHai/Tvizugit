@@ -33,6 +33,7 @@ const ManagerMessages = props => {
     })
     return (
         props.messages? <div>
+        <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
                 {props.isUserManager ? <Button
