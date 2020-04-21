@@ -1,7 +1,6 @@
 import React from "react";
 import ClassAction from "./classAction/classAction";
 import {  useSelector } from "react-redux";
-import * as actionTypes from "../../../store/actions";
 import { dummyData } from '../../../utils/globalConsts';
 
 const ClassActions = (props) => {
