@@ -1,5 +1,4 @@
-import ClassActionQueries from './classActionQueries'
+import ClassActionQueries from "./classActionQueries";
+import ClassActionMutation from "./classActionMutation";
 
-export {
-    ClassActionQueries
-}
+export { ClassActionQueries, ClassActionMutation };

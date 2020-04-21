@@ -21,8 +21,8 @@ const CategoryMutation = new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (root, params, context, ast) => {
-        return await addCategory(params);
+      resolve: (root, params, context, ast) => {
+        return addCategory(params);
       },
     },
     categories: {
@@ -34,8 +34,8 @@ const CategoryMutation = new GraphQLObjectType({
           ),
         },
       },
-      resolve: async (root, { categoriesList }, context, ast) => {
-        return await addCategories(categoriesList);
+      resolve: (root, { categoriesList }, context, ast) => {
+        return addCategories(categoriesList);
       },
     },
   }),

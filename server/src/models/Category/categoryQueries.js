@@ -9,14 +9,9 @@ const CategoryQueries = new GraphQLObjectType({
       type: CategoryType,
       args: {
         id: { type: GraphQLString },
-        name: { type: GraphQLString },
       },
-      resolve: async (root, { name, id }, context, ast) => {
-        if (id) {
-          return await getCategory(id);
-        } else if (name) {
-          return await searchCategory(name);
-        }
+      resolve: (root, params, context, ast) => {
+        return getCategory(params);
 
         throw new Error("invalid Params");
       },

@@ -1,7 +1,7 @@
 import UserModel from "./userSchema";
 
-function getUser(args) {
-  return UserModel.find({ id: args.id });
+function getUser({ id }) {
+  return UserModel.findOne({ _id: id });
 }
 
 function addUser(userToAdd) {

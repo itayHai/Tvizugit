@@ -8,6 +8,7 @@ import {
 const CategoryType = new GraphQLObjectType({
   name: "CategoryType",
   fields: () => ({
+    id: { type: GraphQLString },
     name: {
       type: GraphQLString,
     },

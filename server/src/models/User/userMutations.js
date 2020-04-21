@@ -10,8 +10,8 @@ const UserMutation = new GraphQLObjectType({
       args: {
         user: { type: new GraphQLNonNull(UserInputType) },
       },
-      resolve: async (root, { user }, context, ast) => {
-        return await addUser(user);
+      resolve: (root, { user }, context, ast) => {
+        return addUser(user);
       },
     },
   }),

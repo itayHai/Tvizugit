@@ -1,4 +1,4 @@
-import CategoryModel from "./CategorySchema";
+import CategoryModel from "./categorySchema";
 
 function addCategory(categoryToAdd) {
   const newCategory = new CategoryModel(categoryToAdd);
@@ -16,11 +16,11 @@ function addCategories(categoriesToAdd) {
 }
 
 function getCategory({ id }) {
-  return CategoryModel.find({ id: id });
+  return CategoryModel.findOne({ _id: id });
 }
 
 function searchCategory({ name }) {
-  return CategoryModel.find({ name: name });
+  return CategoryModel.findOne({ name: name });
 }
 
 export { addCategory, getCategory, searchCategory, addCategories };

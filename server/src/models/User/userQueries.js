@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
 import { getUser } from "./userBL";
 import { UserType } from "./userType";
 
@@ -7,9 +7,11 @@ const UserQueries = new GraphQLObjectType({
   fields: () => ({
     user: {
       type: UserType,
-      args: {},
-      resolve: async (root, params, context, ast) => {
-        return await getUser(args);
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve: (root, params, context, ast) => {
+        return getUser(params);
       },
     },
   }),

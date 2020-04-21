@@ -1,4 +1,4 @@
-import categoryModel from "./CategorySchema";
+import categoryModel from "./categorySchema";
 import CategoryQueries from "./categoryQueries";
 import CategoryMutation from "./categoryMutation";
 
