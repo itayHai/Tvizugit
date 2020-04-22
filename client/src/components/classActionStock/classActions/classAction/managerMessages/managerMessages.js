@@ -43,11 +43,6 @@ const ManagerMessages = props => {
                 >
                     הוספה
                 </Button> : null}
-                <Modal show={open} onClose={handleClose}>
-                    <AddMessage
-                        close={handleClose}
-                        saveClick={(title, message, actionId) => handleSave(title, message, actionId)}></AddMessage>
-                </Modal>
             </div>
             {addMes ? <AddMessage
                 close={handleCancelMessage}
