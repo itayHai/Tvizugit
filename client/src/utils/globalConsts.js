@@ -119,7 +119,7 @@ export const dummyData = [
     managerUser: {
       Id: 3,
       name: "טלי כהן"
-    },
+  },
     users: [{
       Id: 1,
       name: "איתי הייזלר"
