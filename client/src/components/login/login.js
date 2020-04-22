@@ -23,19 +23,19 @@ function Login (props) {
                                           title={users[1].name}
                   /></div>);   
     
-    const [isLogin,SetIsLogin] = useState(true)
+    const [showLogin,SetShowLogin] = useState(true)
 
     function changeToSignUp(){
-        SetIsLogin(false);
+        SetShowLogin(false);
     }
 
     function changeToLogin(){
-        SetIsLogin(true);
+        SetShowLogin(true);
     }
 
   return (
     <div>
-    <div style={{display: isLogin? "block" : "none"}}>
+    <div style={{display: showLogin? "block" : "none"}}>
       <div className={classes.Center}>
         <h2> <PersonIcon/> כניסה לאתר</h2>
         <hr color="#e6e6e6"/>
@@ -69,7 +69,7 @@ function Login (props) {
         <Link onClick={changeToSignUp}>אין לך חשבון?</Link>
       </div>
     </div>
-    <div style={{display: isLogin? "none" : "block"}}>
+    <div style={{display: showLogin? "none" : "block"}}>
     <div className={classes.Center}>
         <h3>אנחנו שמחים שבחרת להירשם לתביצוגית!</h3>
         <h4>איזה סוג חשבון מתאים לך?</h4>
