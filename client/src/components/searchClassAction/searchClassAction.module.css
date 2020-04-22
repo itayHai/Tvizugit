@@ -3,6 +3,11 @@
   align-content: center !important;
 }
 
+.Chip{
+  margin-left: 3px;
+
+}
+
 .InputSearch {
   margin-top: 40px;
   direction: rtl;

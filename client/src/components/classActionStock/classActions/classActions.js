@@ -8,7 +8,7 @@ import { changeCurAction } from '../../../store/actions';
 import UpdateClassAction from './classAction/classActionContent/updateClassAction/updateClassAction';
 
 const ClassActions = (props) => {
-  const sortBy = useSelector(state => state.sortBy);
+  const sortBy = useSelector(state => state.classAction.sortBy);
   const stateClassActions = useSelector(state => state.classActions);
   const currClassAction = useSelector(state => state.currClassAction)
   const showEditModal = Object.keys(currClassAction).length !== 0;

@@ -62,7 +62,7 @@ const SearchActionClass = (props) => {
       />
 
       {hashtags.map((hashtag, index) => {
-        return <Chip key={index} label={hashtag} />;
+        return <Chip className={classes.Chip} key={index} label={hashtag} />;
       })}
 
       <h3 className={classes.SearchByCategory}>חיפוש לפי קטגוריה</h3>

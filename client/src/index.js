@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./components/app/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
+import store from './store'
 import { createStore } from "redux";
 import reducer from "./store/reducer";
 import { create } from "jss";
@@ -13,7 +14,6 @@ import ApolloClient from "apollo-boost";
 import { URL } from "./utils/globalConsts";
 import { gql } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-
 const client = new ApolloClient({
   uri: URL,
 });
