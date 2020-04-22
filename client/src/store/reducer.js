@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
         classActions: action.classActions,
       };
     case actionTypes.REMOVE_MESSAGE_ACTION: {
-      const newClassActions = removeMessage(action.classAction, action.message, state)
+      const newClassActions = removeMessage(action.classAction, action.message, [...state.classActions])
       return {
         ...state,
         classActions:
@@ -28,7 +28,22 @@ const reducer = (state = initialState, action) => {
       }
     }
     case actionTypes.ADD_MESSAGE_ACTION: {
-      const newClassActions = addMessage(action.message, action.title, action.actionId, state)
+      const newClassActions = addMessage(action.message, action.title, action.classAction, [...state.classActions])
+      return {
+        ...state,
+        classActions:
+          newClassActions
+      }
+    }
+    case actionTypes.UPDATE_CLASS_ACION: {
+      // const newClassActions = updateAction(action.classAction, [...state.classActions])
+      const newClassActions = [...state.classActions].map((cAction) => {
+        if (cAction.Id === action.classAction.Id) {
+          return action.classAction;
+        }
+        return cAction;
+      })
+      console.log(newClassActions);
       return {
         ...state,
         classActions:
@@ -41,10 +56,8 @@ const reducer = (state = initialState, action) => {
 
 };
 
-const removeMessage = (classAction, message, state) => {
-  const currClassAction = { ...classAction };
+const removeMessage = (currClassAction, message, classActions) => {
   currClassAction.manMessages = currClassAction.manMessages.filter((mes) => { return mes !== message })
-  let classActions = [...state.classActions];
   classActions = classActions.map((cAction) => {
     if (cAction.Id === currClassAction.Id) {
       return currClassAction;
@@ -54,9 +67,7 @@ const removeMessage = (classAction, message, state) => {
   return classActions;
 }
 
-const addMessage = (message, title, actionId, state) => {
-  let classActions = [...state.classActions];
-  let classActionToChange = classActions.find((cAction) => cAction.Id === actionId);
+const addMessage = (message, title, classAction, classActions) => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -68,13 +79,23 @@ const addMessage = (message, title, actionId, state) => {
     title: title,
     content: message
   }
-  classActionToChange.manMessages.push(newMessage);
+  classAction.manMessages.push(newMessage);
   classActions = classActions.map((cAction) => {
-    if (cAction.Id === classActionToChange.Id) {
-      return classActionToChange;
+    if (cAction.Id === classAction.Id) {
+      return classAction;
     }
     return cAction;
   })
   return classActions;
 }
+// const updateActionDesc = (classAction, classActions) => {
+//   console.log(classAction);
+//   classActions = classActions.map((cAction) => {
+//     if (cAction.Id === classAction.Id) {
+//       return classAction;
+//     }
+//     return cAction;
+//   })
+//   return classActions;
+// }
 export default reducer;

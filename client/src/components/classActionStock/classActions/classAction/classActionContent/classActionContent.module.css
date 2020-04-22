@@ -20,3 +20,7 @@
 .cellNoIcon{
     padding-top: 27px;
 }
+.title{
+    display:flex;
+    /* justify-content: space-between; */
+}

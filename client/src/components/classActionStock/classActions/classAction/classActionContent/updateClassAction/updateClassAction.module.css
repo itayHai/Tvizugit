@@ -1,0 +1,18 @@
+.saveButton {
+    float: left;
+    background-color:#009688 !important;
+    color:white !important;
+  }
+.updateDesc{
+    display:flex;
+    flex-direction: column;
+}
+.textBox{
+  font-family: "Segoe UI";
+  font-size: large;
+  border: aliceblue;
+}
+.buttons{
+  display: flex;
+  flex-direction: row-reverse;
+}
