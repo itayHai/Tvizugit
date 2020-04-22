@@ -48,20 +48,20 @@ export const propertiesToShow = [
     name: "classAction",
     classActionPro: [
       {
-        value: "שם התביעה",
-        key: "actionName",
+        name: "שם התביעה",
+        engName: "actionName",
       },
       {
-        value: "הגוף הנתבע",
-        key: "defendantParty",
+        name: "הגוף הנתבע",
+        engName: "defendantParty",
       },
       {
-        value: "שלב התביעה",
-        key: "actionStage",
+        name: "שלב התביעה",
+        engName: "actionStage",
       },
       {
-        value: "מספר תובעים",
-        key: "numberOfProsecutors",
+        name: "מספר תובעים",
+        engName: "numberOfProsecutors",
       },
     ],
   },
@@ -69,8 +69,8 @@ export const propertiesToShow = [
     name: "lawyers",
     lawyerProp: [
       {
-        value: "מספר תיקים",
-        key: "numberOfCases",
+        name: "מספר תיקים",
+        engName: "numberOfCases",
       },
       {},
     ],
@@ -107,7 +107,7 @@ export const dummyData = [
     description: "כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבהכאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122 .כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122. אנ",
     defendantParty: "שטראוס1",
     actionStage: "תוך כדי משפט",
-    numberOfProsecutors: 10000
+    numberOfProsecutors: 10000,
     chance: "25%",
   },
   {
@@ -133,9 +133,42 @@ export const dummyData = [
       "כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבהכאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122 .כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122. אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122",
     defendantParty: "פייסבוק",
     actionStage: "לפני משפט",
-    numberOfProsecutors: 2000
+    numberOfProsecutors: 2000,
     chance: "50%",
   },
+  {
+    Id: 3,
+    actionName: "לחם מלוח",
+    manMessages: [{
+      Id: 1,
+      date: "12/01/2017",
+      title: "פתיחת תביעה",
+      content: "שלום לכולם, אנחנו בתחילת התביעה, מחפשים כמה שיותר אנשים שיצטרפו אלינו, בבקשה הפיצו לחבריכם"
+    }, {
+      Id: 2,
+      date: "16/10/2017",
+      title: "עורך דין מצטרף",
+      content: "שמח לבשר שהצטרף אלינו עורך הדין המצוין אבי רון, למרות שמו המצחיק, אני בוטח בו שיוכל להוביל אותנו לסכום נכבד"
+    }],
+    managerUser: {
+      Id: 3,
+      name: "טלי כהן"
+    },
+    users: [{
+      Id: 1,
+      name: "איתי הייזלר"
+    }, {
+      Id: 2,
+      name: "אלה פורטנוב"
+    }],
+    startDate: "10/01/2017",
+    lawyer: 'ד"ר אבי רון',
+    description: "התביעה היא כנגד חברת מאפים גדולה שכמות המלח שהם מציינים שיש בלחם האחיד הרגיל שלהם, הוא לא נכון, יש מעל לפי 2 מלח וזה אחד הגורמים העיקריים ללחץ הדם הגבוה שלי",
+    defendantParty: "לחם אנג'ל",
+    actionStage: "לפני משפט",
+    numberOfProsecutors: 3000,
+    chance: "60%",
+  }
 ];
 export const dummyUser = {
   Id: 2,

@@ -1,25 +1,24 @@
 import React from 'react';
 import ManagerMessage from './managerMessage/managerMessage';
 import classes from './managerMessages.module.css';
-import Modal from '../../../../modal/modal';
 import { Button } from "@material-ui/core";
 import AddMessage from './addMessage/addMessage';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
     const isMessages = props.messages.length !== 0 ? "הודעות" : "אין הודעות";
-    const [open, setOpen] = React.useState(false);
+    const [addMes, setaddMes] = React.useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
+    const handleAddMessage = () => {
+        setaddMes(!addMes);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const handleCancelMessage = () => {
+        setaddMes(false);
     };
 
     const handleSave = (title, message, actionId) => {
-        setOpen(false);
+        handleCancelMessage();
         props.addMessClick(title, message, actionId)
     };
 
@@ -33,29 +32,26 @@ const ManagerMessages = props => {
     })
 
     return (
-        // messagesToshow.length !== 0 ? 
         <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
                 {props.isUserManager ? <Button
                     className={classes.filterButton}
-                    onClick={handleOpen}
+                    onClick={handleAddMessage}
                     startIcon={<AddCircleIcon fontSize="large" />}
                 >
                     הוספה
                 </Button> : null}
-                <Modal show={open} onClose={handleClose}>
-                    <AddMessage
-                        close={handleClose}
-                        saveClick={(title, message, actionId) => handleSave(title, message, actionId)}></AddMessage>
-                </Modal>
             </div>
+            {addMes ? <AddMessage
+                        close={handleCancelMessage}
+                        saveClick={(title, message, actionId) => handleSave(title, message, actionId)}/>:
+                        null}
             { props.messages.length !== 0 ?
             <div className={classes.messages}>
                 {messagesToshow}
             </div> : null}
         </div>
-        // : <h3>אין הודעות</h3>
     );
 };
 

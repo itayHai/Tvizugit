@@ -31,7 +31,7 @@ const JoinForm = () => {
                         <li>המייל עם התיאור יישלח מהמייל איתו נרשמת</li>
                     </ul>
                     <div className={classes.agree}>
-                        <TextareaAutosize rowsMin={3} aria-label="empty textarea" placeholder="תיאור המקרה" />
+                        <TextareaAutosize className={classes.textBox} rowsMin={3} aria-label="empty textarea" placeholder="תיאור המקרה" />
                         <Button className={classes.JoinButton} onClick={handleClick} >שלח</Button>
                     </div>
                 </div>}
