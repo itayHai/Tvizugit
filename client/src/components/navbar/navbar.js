@@ -36,7 +36,7 @@ const Navbar = (props) => {
           </Link>
           <Link to="/lawyers" className="link" >
             <h3>מאגר עורכי הדין</h3>
-          </Link>     
+          </Link>
           <Button onClick={handleOpen} className="login"
                   variant="contained"
           > <PersonIcon/> כניסה
