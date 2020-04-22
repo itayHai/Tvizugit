@@ -4,6 +4,7 @@ import classes from "./homePage.module.css";
 import { Button } from "@material-ui/core";
 import ClassActionsByFilter from "../classActionsByFilter/classActionsByFilter";
 import CategoriesCards from "../categoriesCards/categoriesCards";
+import SearchClassAction from "../searchClassAction/searchClassAction";
 
 const CONSTS = {
   filters: {
@@ -11,6 +12,17 @@ const CONSTS = {
     LOGGED_USER: "LOGGED_USER",
   },
 };
+
+export default function HomePage() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 export default function HomePage() {
   return (
@@ -32,9 +44,14 @@ export default function HomePage() {
             variant="contained"
             color="secondary"
             size="large"
+            onClick={handleOpen}
           >
             בדוק את זכאותך עוד היום
           </Button>
+          <Modal show={open} onClose={handleClose}>
+            <SearchClassAction close={handleClose} />
+          </Modal>
+
           <Button
             className={classes.sectionButtons}
             variant="contained"
@@ -48,8 +65,8 @@ export default function HomePage() {
       <article className={classes.article}>
         <p className={classes.classActionTitle}>התובענות הבולטות ביותר</p>
         <ClassActionsByFilter filter={CONSTS.filters.MOST_PROMINENT} size={4} />
-        <p className={classes.classActionTitle}>קטגוריות התובענות</p>
-        <CategoriesCards />
+                </p>
+                <ClassActionsByFilter
       </article>
     </div>
   );
