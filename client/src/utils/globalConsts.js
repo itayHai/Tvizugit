@@ -1,6 +1,10 @@
-import {LockOpen,RoomService,Eco,Accessible,Receipt,Accessibility,Work,MonetizationOn,AccountBalance } from "@material-ui/icons/";
+import {Gavel, Person, LockOpen,RoomService,Eco,Accessible,Receipt,Accessibility,Work,MonetizationOn,AccountBalance } from "@material-ui/icons/";
 import React from 'react';
 
+export const users = [
+  { id: 1, name: "עורך דין", icon: <Gavel/> },
+  { id: 2, name: "משתמש", icon: <Person/> },
+];
 
 export const categories = [
   { id: 1, name: "חוק הגנת הצרכן", icon: <Accessibility/> },
@@ -13,7 +17,6 @@ export const categories = [
   { id: 9, name: "נגישות", icon: <Accessible/> },
   { id: 11, name: "גבייה שלא כדין", icon: <MonetizationOn/> },
 ];
-
 
 export const propertiesToShow = [
   {
@@ -69,7 +72,8 @@ export const dummyData = [
       description: "כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבהכאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122 .כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122. אנ",
       defendantParty: "שטראוס1",
       actionStage: "תוך כדי משפט",
-      numberOfProsecutors: 10000
+      numberOfProsecutors: 10000,
+      chance: "25%",
     },
     {
       Id: "2",
@@ -79,6 +83,7 @@ export const dummyData = [
       description: "כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבהכאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122 .כאן נרשום תיאור מאוד מאוד ארוך על התביעה עצמה ונספר מה העילה לתביעה. זה יכול להיות מאוד ארוך וצריך לספר הרבה אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122. אנחנו נסתמך על חוקים הגנת הצרכן סעיף 122",
       defendantParty: "פייסבוק",
       actionStage: "לפני משפט",
-      numberOfProsecutors: 2000
+      numberOfProsecutors: 2000,
+      chance: "50%",
     },
   ];

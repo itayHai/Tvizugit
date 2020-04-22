@@ -1,0 +1,24 @@
+.Input {
+    margin-top: 40px;
+    direction: rtl;
+  }
+  
+  .LoginButton {
+    background-color:#009688 !important;
+    color:white !important;
+  }
+
+  .LogoIcon {
+    width: 29px;
+    height: 29px;
+  }
+
+  .Center {
+    text-align: center;
+  }
+  
+  .Users {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+  }
