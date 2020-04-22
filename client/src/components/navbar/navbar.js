@@ -1,5 +1,5 @@
 import React from 'react'
-import AppBar from '@material-ui/core/AppBar';
+import AppBar from '@material-ui/core/AppBar'
 import {Toolbar, Button } from '@material-ui/core'
 import GavelIcon from '@material-ui/icons/Gavel';
 import PersonIcon from '@material-ui/icons/Person';
@@ -7,7 +7,6 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "../login/login";
 import Modal from "../modal/modal";
-
 import './navbar.css' 
 
 const Navbar = (props) => {

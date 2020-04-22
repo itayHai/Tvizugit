@@ -1,0 +1,33 @@
+.root {
+    max-width: 20vw;
+    min-width: 275px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.underlineTitle {
+    width: 75%;
+    margin-left: 0px;
+    margin-right: 0px; 
+}
+
+.icon {
+    width: 19px;
+    margin-left: 4px;
+}
+
+.bullet {
+    display: inline-block;
+    margin: 0 2px;
+    transform: scale(0.8);
+}
+
+.title {
+    font-size: 14px;
+    /* text-decoration: underline; */
+}
+
+.pos {
+    margin-bottom: 12px;
+}
