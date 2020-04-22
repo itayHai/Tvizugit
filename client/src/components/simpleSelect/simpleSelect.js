@@ -11,8 +11,8 @@ const SimpleSelect = (props) => {
 
   const itemsOutput = props.items.map((item) => {
     return (
-      <MenuItem key={item.key} value={item.key}>
-        {item.value}
+      <MenuItem key={item.engName} value={item.engName}>
+        {item.name}
       </MenuItem>
     );
   });

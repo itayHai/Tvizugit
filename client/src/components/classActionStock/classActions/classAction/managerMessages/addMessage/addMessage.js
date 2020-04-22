@@ -9,23 +9,21 @@ const AddMessage = (props) => {
     useEffect(() => {
         titleRef.current.focus()
     });
-    const saveClick = () => {
-        props.saveClick(contentRef.current.value, titleRef.current.value, 2)
-    }
     return (
-        <div>
-            <h1> הוספת הודעה</h1>
+        <div className={classes.newMessage}>
             <div className={classes.textFileds}>
-                <TextareaAutosize ref={titleRef} placeholder="כותרת הודעה"></TextareaAutosize>
-                <TextareaAutosize ref={contentRef} rowsMin={3} placeholder="תוכן ההודעה"></TextareaAutosize>
+                <TextareaAutosize className={[classes.textBox, classes.titleTextBox].join(' ')} rowsMin={1} ref={titleRef} placeholder="כותרת הודעה"></TextareaAutosize>
+                <TextareaAutosize className={classes.textBox} ref={contentRef} rowsMin={3} placeholder="תוכן ההודעה"></TextareaAutosize>
             </div>
-            <Button variant="contained" onClick={props.close}>
-                ביטול
-      </Button>
+            <div className={classes.buttons}>
             <Button
                 className={classes.saveButton}
-                onClick={() => saveClick()}
+                onClick={() => props.saveClick(contentRef.current.value, titleRef.current.value)}
             >הוסף</Button>
+            <Button variant="contained" onClick={props.close}>
+                ביטול
+            </Button>
+            </div>
         </div>
     );
 };
