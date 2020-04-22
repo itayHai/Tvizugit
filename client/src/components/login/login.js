@@ -6,36 +6,30 @@ import PersonIcon from '@material-ui/icons/Person';
 import FacebookIcon from '../../images/icons/facebook_icon.png';
 import GoogleIcon from '../../images/icons/google_icon.png';
 import { users } from "../../utils/globalConsts";
-
+import UserCard from "../userCard/userCard";
 import classes from "./login.module.css"
-
-const UserCard = (props) => {
-    return (
-      <div className={classes.UserCard} onClick={props.click}>
-          {props.icon}
-         <h3> {props.title}</h3>
-      </div>
-    );
-  };
 
 function Login (props) {
     let allusers = [];
+    // Get the lawyer box
     allusers.push(<div key={0}> <UserCard key={users[0].id}
-                               icon={users[0].icon}
-                               title={users[0].name}
-        /></div>);
+                                          icon={users[0].icon}
+                                          title={users[0].name}
+                  /></div>);
+    
+    // Get the user box
     allusers.push(<div key={1}> <UserCard key={users[1].id}
                                           icon={users[1].icon}
                                           title={users[1].name}
-        /></div>);   
+                  /></div>);   
     
     const [isLogin,SetIsLogin] = useState(true)
 
-    function change_to_sign_up(){
+    function changeToSignUp(){
         SetIsLogin(false);
     }
 
-    function change_to_login(){
+    function changeToLogin(){
         SetIsLogin(true);
     }
 
@@ -72,7 +66,7 @@ function Login (props) {
             <span> </span>
             <img className={classes.LogoIcon} src={GoogleIcon}/>
         </p>
-        <Link onClick={change_to_sign_up}>אין לך חשבון?</Link>
+        <Link onClick={changeToSignUp}>אין לך חשבון?</Link>
       </div>
     </div>
     <div style={{display: isLogin? "none" : "block"}}>
@@ -87,7 +81,7 @@ function Login (props) {
       <span> </span>
       <Button className={classes.LoginButton}>המשך</Button>
       </p>
-      <Link onClick={change_to_login}>כבר יש לך חשבון?</Link>
+      <Link onClick={changeToLogin}>כבר יש לך חשבון?</Link>
       </div>
     </div>
     </div>
