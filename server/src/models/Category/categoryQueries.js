@@ -1,6 +1,6 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLList } from "graphql";
 import { CategoryType } from "./cateogryType";
-import { getCategory, searchCategory } from "./categoryBL";
+import { getCategory, getAllCategories } from "./categoryBL";
 
 const CategoryQueries = new GraphQLObjectType({
   name: "CategoryQueryType",
@@ -14,6 +14,13 @@ const CategoryQueries = new GraphQLObjectType({
         return getCategory(params);
 
         throw new Error("invalid Params");
+      },
+    },
+    categories: {
+      type: new GraphQLList(CategoryType),
+      args: {},
+      resolve: (root, params, context, ast) => {
+        return getAllCategories();
       },
     },
   }),

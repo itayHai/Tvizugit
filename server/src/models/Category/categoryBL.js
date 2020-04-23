@@ -19,8 +19,12 @@ function getCategory({ id }) {
   return CategoryModel.findOne({ _id: id });
 }
 
+function getAllCategories() {
+  return CategoryModel.find();
+}
+
 function searchCategory({ name }) {
   return CategoryModel.findOne({ name: name });
 }
 
-export { addCategory, getCategory, searchCategory, addCategories };
+export { addCategory, getCategory, getAllCategories, addCategories };

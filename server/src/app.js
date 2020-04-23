@@ -4,6 +4,7 @@ import path from "path";
 import graphqlHTTP from "express-graphql";
 import { rootQueries, rootMutations } from "./models";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
@@ -12,12 +13,13 @@ const schema = new GraphQLSchema({
   query: rootQueries,
   mutation: rootMutations,
 });
+app.use(cors());
 
 app.use(
   "/graphql",
   graphqlHTTP({
     schema: schema, // Must be provided
-    graphiql: true, // Enable GraphiQL when server endpoint is accessed in browser
+    graphiql: true, // Enable GraphiQL when server endpoint is accessed in browser,
   })
 );
 
