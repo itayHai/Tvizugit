@@ -7,21 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import { Share, ExpandMore, Edit } from "@material-ui/icons";
+import { Share, ExpandMore, Edit, BookmarkBorder } from "@material-ui/icons";
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
-import { dummyUser } from '../../utils/globalConsts';
-import Modal from '../modal/modal';
 
 export default function ResultBanner(props) {
     const [expanded, setExpanded] = React.useState(false);
-    const [updateMode, setupdateMode] = React.useState(false);
-
-    const isUserManager = props.classAction.managerUser?.Id === dummyUser.Id;
-
-    const handleOpenUpdateMode = () => {
-        setupdateMode(true);
-    };
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -38,18 +29,17 @@ export default function ResultBanner(props) {
     return (
         <Card className={classes.root}>
             <div className={classes.rootDiv}>
+                {
+                    props.showBookmark ? <div style={{ backgroundColor: "#009688", width: "10px" }} /> : null
+                }
                 {combinedPropertiesToShow}
                 <CardActions disableSpacing>
-                    {isUserManager ?
+                    {props.editAuth ?
                         <IconButton
-                            onClick={handleOpenUpdateMode}
+                            onClick={() => props.handleOpenEditAction()}
                         >
                             <Edit />
                         </IconButton> : null}
-                    <Modal
-                        show={updateMode}>
-                        {props.editComp}
-                    </Modal>
                     <IconButton aria-label="share">
                         <Share />
                     </IconButton>
@@ -79,11 +69,15 @@ ResultBanner.propTypes = {
     // The children is the component to show when opening the banner
     children: PropTypes.element,
     // Array of the properties to show in the banner {content: content of property, 
-    //                                                value: Hebrew name of the property, 
-    //                                                key: english name of the property}
+    //                                                name: Hebrew name of the property, 
+    //                                                engName: english name of the property}
     selectedProperties: PropTypes.arrayOf(PropTypes.shape({
         content: PropTypes.any,
         engName: PropTypes.string,
         name: PropTypes.string
-    }))
+    })),
+    // True - has authorization to edit, False - otherwise
+    editAuth: PropTypes.bool,
+    // Function the fires when pressing the edit button, only if editAuth is True
+    handleOpenEditAction: PropTypes.func
 }

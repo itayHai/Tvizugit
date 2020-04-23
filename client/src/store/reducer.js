@@ -2,6 +2,7 @@ import * as actionTypes from "./actions";
 
 const initialState = {
   sortBy: "",
+  currClassAction: {},
   classActions: []
 };
 
@@ -13,16 +14,21 @@ const reducer = (state = initialState, action) => {
         sortBy: action.sortBy,
       };
     case actionTypes.UPDATE_CLASS_ACTIONS:
-
       return {
         ...state,
         classActions: action.classActions,
       };
-    case actionTypes.UPDATE_CLASS_ACTIONS:
-
+    case actionTypes.UPDATE_CLASS_ACTION:
+      const newClassActions = [...state.classActions].map((cAction) => {
+        if (cAction.Id === action.classAction.Id) {
+          return action.classAction;
+        }
+        return cAction;
+      })
       return {
         ...state,
-        classActions: action.classActions,
+        classActions: newClassActions,
+        currClassAction: action.classAction,
       };
     case actionTypes.REMOVE_MESSAGE_ACTION: {
       const newClassActions = removeMessage(action.classAction, action.message, [...state.classActions])
@@ -41,19 +47,11 @@ const reducer = (state = initialState, action) => {
           newClassActions
       }
     }
-    case actionTypes.UPDATE_CLASS_ACION: {
-      // const newClassActions = updateAction(action.classAction, [...state.classActions])
-      const newClassActions = [...state.classActions].map((cAction) => {
-        if (cAction.Id === action.classAction.Id) {
-          return action.classAction;
-        }
-        return cAction;
-      })
-      console.log(newClassActions);
+    case actionTypes.CHANGE_CURR_ACTION: {
       return {
         ...state,
-        classActions:
-          newClassActions
+        currClassAction:
+          action.classAction
       }
     }
     default:
@@ -94,14 +92,4 @@ const addMessage = (message, title, classAction, classActions) => {
   })
   return classActions;
 }
-// const updateActionDesc = (classAction, classActions) => {
-//   console.log(classAction);
-//   classActions = classActions.map((cAction) => {
-//     if (cAction.Id === classAction.Id) {
-//       return classAction;
-//     }
-//     return cAction;
-//   })
-//   return classActions;
-// }
 export default reducer;

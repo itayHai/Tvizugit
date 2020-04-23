@@ -63,6 +63,10 @@ export const propertiesToShow = [
         name: "מספר תובעים",
         engName: "numberOfProsecutors",
       },
+      {
+        name: "קטגוריה",
+        engName: "category",
+      },
     ],
   },
   {
@@ -81,6 +85,7 @@ export const dummyData = [
   {
     Id: 1,
     actionName: "אתביעת המאה",
+    category: "ביטוח",
     startDate: "15/04/2020",
     manMessages: [{
       {
@@ -99,6 +104,10 @@ export const dummyData = [
     users: [{
       Id: 1,
       name: "איתי הייזלר"
+    },
+    {
+      Id: 4,
+      name: "עידו פרלמן"
     }],
     managerUser: {
       Id: 4,
@@ -113,6 +122,7 @@ export const dummyData = [
   {
     Id: 2,
     actionName: " 222222בתביעת המאה",
+    category: "חוק ההגבלים העסקיים",
     manMessages: [{
       Id: 1,
       date: "11/11/2018",
@@ -123,6 +133,14 @@ export const dummyData = [
       date: "11/11/2018",
       title: "הודעה שנייה",
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut dhfhyjy fhfd sdfg dg dfhg  dhfghfdgh gfdsgf sdfgsdg sd sd sdhghgh d enim ad minim veniam, quis nostrud Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut dhfhyjy fhfd sdfg dg dfhg  dhfghfdgh gfdsgf sdfgsdg sd sd sdhghgh d enim ad minim veniam, quis nostrud "
+    }],
+    users: [{
+      Id: 1,
+      name: "איתי הייזלר"
+    },
+    {
+      Id: 2,
+      name: "אלה פורטנוב"
     }],
     managerUser: {
       Id: 2,
@@ -139,6 +157,7 @@ export const dummyData = [
   {
     Id: 3,
     actionName: "לחם מלוח",
+    category: "מפגע סביבתי",
     manMessages: [{
       Id: 1,
       date: "12/01/2017",
@@ -160,6 +179,10 @@ export const dummyData = [
     }, {
       Id: 2,
       name: "אלה פורטנוב"
+    },
+    {
+      Id: 3,
+      name: "טלי כהן"
     }],
     startDate: "10/01/2017",
     lawyer: 'ד"ר אבי רון',
@@ -175,4 +198,6 @@ export const dummyUser = {
   name: "אלה פורטנוב"
   // Id:1,
   // name:"איתי הייזלר"
+  // Id: 3,
+  // name: "טלי כהן"
 }

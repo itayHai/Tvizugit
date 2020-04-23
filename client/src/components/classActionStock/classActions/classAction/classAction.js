@@ -2,30 +2,28 @@ import React from 'react';
 import ResultBanner from '../../../resultBanner/resultBanner';
 import { propertiesToShow } from '../../../../utils/globalConsts';
 import ClassActionContent from '../classAction/classActionContent/classActionContent';
-import UpdateClassAction from './classActionContent/updateClassAction/updateClassAction';
 import { useDispatch } from 'react-redux';
-import { updateClassAction } from '../../../../store/actions'
+import { changeCurAction } from '../../../../store/actions'
+import { dummyUser } from '../../../../utils/globalConsts';
 
 const ClassAction = props => {
     const dispatch = useDispatch();
-
-    const handleSaveDescClick = (classAction) => {
-        // handleCloseChangeDesc();
-        dispatch(updateClassAction(classAction))
+    const handleOpenEditAction = () => {
+        dispatch(changeCurAction(props.classAction))
     }
     const basicProperties = propertiesToShow[0].classActionPro;
     const selectedProperties = basicProperties.map((bProp) => {
         return { ...bProp, content: props.classAction[bProp.engName] };
     });
     return (
-            <ResultBanner 
+        <ResultBanner
             selectedProperties={selectedProperties}
-            // edit = {props.}
-            classAction = {props.classAction} 
-            // editComp={<UpdateClassAction saveClick={(classAction) => handleSaveDescClick(classAction)} classAction={props.classAction}/>}
-            >
-                <ClassActionContent cAction={props.classAction} />
-            </ResultBanner>
+            handleOpenEditAction={() => handleOpenEditAction()}
+            editAuth={props.classAction.managerUser.Id === dummyUser.Id}
+            showBookmark = {props.classAction.users.find(usr => usr.Id === dummyUser.Id)}
+        >
+            <ClassActionContent cAction={props.classAction} />
+        </ResultBanner>
     );
 };
 

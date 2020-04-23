@@ -4,14 +4,13 @@ import classes from './managerMessages.module.css';
 import { Button } from "@material-ui/core";
 import AddMessage from './addMessage/addMessage';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
     const isMessages = props.messages.length !== 0 ? "הודעות" : "אין הודעות";
     const [addMes, setaddMes] = React.useState(false);
 
     const handleAddMessage = () => {
-        setaddMes(!addMes);
+        setaddMes(true);
     };
 
     const handleCancelMessage = () => {
@@ -34,7 +33,6 @@ const ManagerMessages = props => {
 
     return (
         <div>
-        <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
                 {props.isUserManager ? <Button
@@ -44,20 +42,15 @@ const ManagerMessages = props => {
                 >
                     הוספה
                 </Button> : null}
-                <Modal show={open} onClose={handleClose}>
-                    <AddMessage
-                        close={handleClose}
-                        saveClick={(title, message, actionId) => handleSave(title, message, actionId)}></AddMessage>
-                </Modal>
             </div>
             {addMes ? <AddMessage
-                        close={handleCancelMessage}
-                        saveClick={(title, message, actionId) => handleSave(title, message, actionId)}/>:
-                        null}
-            { props.messages.length !== 0 ?
-            <div className={classes.messages}>
-                {messagesToshow}
-            </div> : null}
+                close={handleCancelMessage}
+                saveClick={(title, message, actionId) => handleSave(title, message, actionId)} /> :
+                null}
+            {props.messages.length !== 0 ?
+                <div className={classes.messages}>
+                    {messagesToshow}
+                </div> : null}
         </div>
     );
 };

@@ -6,8 +6,13 @@
 .infoRow{
     display:flex;
     flex-direction:row;
+    /* justify-content: space-between; */
+    padding-bottom:15px;
 }
-
+.joinbutton{
+    float:left;
+    /* padding-bottom: 15px; */
+}
 .h3{
     margin:auto;
 }
@@ -22,5 +27,9 @@
 }
 .title{
     display:flex;
-    /* justify-content: space-between; */
+}
+.joinButton{
+    display:flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
 }
