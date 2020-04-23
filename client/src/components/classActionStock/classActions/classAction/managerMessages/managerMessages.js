@@ -4,7 +4,6 @@ import classes from './managerMessages.module.css';
 import { Button } from "@material-ui/core";
 import AddMessage from './addMessage/addMessage';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
     const isMessages = props.messages.length !== 0 ? "הודעות" : "אין הודעות";
@@ -44,11 +43,6 @@ const ManagerMessages = props => {
                 >
                     הוספה
                 </Button> : null}
-                <Modal show={open} onClose={handleClose}>
-                    <AddMessage
-                        close={handleClose}
-                        saveClick={(title, message, actionId) => handleSave(title, message, actionId)}></AddMessage>
-                </Modal>
             </div>
             {addMes ? <AddMessage
                 close={handleCancelMessage}

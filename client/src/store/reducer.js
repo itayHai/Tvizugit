@@ -47,7 +47,7 @@ const reducer = (state = initialState, action) => {
           newClassActions
       }
     }
-    case actionTypes.UPDATE_CLASS_ACION: {
+    case actionTypes.UPDATE_CLASS_ACTION: {
       // const newClassActions = updateAction(action.classAction, [...state.classActions])
       const newClassActions = [...state.classActions].map((cAction) => {
         if (cAction.Id === action.classAction.Id) {
@@ -107,10 +107,7 @@ const addMessage = (message, title, classAction, classActions) => {
   })
   return classActions;
 }
-    return cAction;
-  })
-  return classActions;
-}
+
 // const updateActionDesc = (classAction, classActions) => {
 //   console.log(classAction);
 //   classActions = classActions.map((cAction) => {

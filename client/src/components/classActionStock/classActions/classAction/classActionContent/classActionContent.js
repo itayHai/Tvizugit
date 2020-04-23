@@ -2,24 +2,25 @@ import React from 'react';
 import classes from './classActionContent.module.css';
 import { Gavel, CalendarToday, Person } from '@material-ui/icons';
 import ManagerMessages from '../managerMessages/managerMessages';
-import UpdateClassAction from './updateClassAction/updateClassAction';
 import JoinAction from './joinAction/joinAction';
 import { dummyUser } from '../../../../../utils/globalConsts';
 import { useDispatch } from 'react-redux';
+import {removeMessageAction,addMessageAction} from '../../../../../store/actions';
 
 const ClassActionContent = props => {
-    const [changeDesc, setchangeDesc] = React.useState(false);
-    const [changeLawyer, setchangeLawyer] = React.useState(false);
-
-    };
-    const handleCloseChangelawyer = () => {
-        setchangeLawyer(false);
+    const dispatch = useDispatch();
+    const isUserManager = props.managerUser === dummyUser
     const userInAction = props.cAction.users?.find(({ Id }) => Id === dummyUser.Id);
-        messages={props.cAction.manMessages}
-        isUserManager={isUserManager}
-        delMessClick={(message) => dispatch(removeMessageAction(props.cAction, message))}
-        addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
-    /> : null;
+    const isMessages = props.cAction.manMessages ? props.cAction.manMessages.map((message) => {
+        return <ManagerMessages
+            messages={props.cAction.manMessages}
+            isUserManager={isUserManager}
+            delMessClick={(message) => dispatch(removeMessageAction(props.cAction, message))}
+            addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
+        />
+    }) : null;
+    const isJoin = userInAction? null: <JoinAction/>
+
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
 
     return (
