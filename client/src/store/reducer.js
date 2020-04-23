@@ -47,21 +47,6 @@ const reducer = (state = initialState, action) => {
           newClassActions
       }
     }
-    case actionTypes.UPDATE_CLASS_ACTION: {
-      // const newClassActions = updateAction(action.classAction, [...state.classActions])
-      const newClassActions = [...state.classActions].map((cAction) => {
-        if (cAction.Id === action.classAction.Id) {
-          return action.classAction;
-        }
-        return cAction;
-      })
-      console.log(newClassActions);
-      return {
-        ...state,
-        classActions:
-          newClassActions
-      }
-    }
     case actionTypes.CHANGE_CURR_ACTION: {
       return {
         ...state,

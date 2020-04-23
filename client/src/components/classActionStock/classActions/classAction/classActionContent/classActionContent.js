@@ -5,21 +5,22 @@ import ManagerMessages from '../managerMessages/managerMessages';
 import JoinAction from './joinAction/joinAction';
 import { dummyUser } from '../../../../../utils/globalConsts';
 import { useDispatch } from 'react-redux';
-import {removeMessageAction,addMessageAction} from '../../../../../store/actions';
+import { removeMessageAction, addMessageAction } from '../../../../../store/actions';
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
-    const isUserManager = props.managerUser === dummyUser
+    const isUserManager = props.cAction.managerUser.Id === dummyUser.Id;
     const userInAction = props.cAction.users?.find(({ Id }) => Id === dummyUser.Id);
-    const isMessages = props.cAction.manMessages ? props.cAction.manMessages.map((message) => {
-        return <ManagerMessages
+
+    const isMessages = userInAction ?
+        <ManagerMessages
             messages={props.cAction.manMessages}
             isUserManager={isUserManager}
             delMessClick={(message) => dispatch(removeMessageAction(props.cAction, message))}
             addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
         />
-    }) : null;
-    const isJoin = userInAction? null: <JoinAction/>
+        : null;
+    const isJoin = userInAction ? null : <JoinAction />
 
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
 
