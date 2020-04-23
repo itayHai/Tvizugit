@@ -11,6 +11,8 @@ const ClassAction = props => {
     const handleOpenEditAction = () => {
         dispatch(changeCurAction(props.classAction))
     }
+        dispatch(updateClassAction(classAction))
+    }
     const basicProperties = propertiesToShow[0].classActionPro;
     const selectedProperties = basicProperties.map((bProp) => {
         return { ...bProp, content: props.classAction[bProp.engName] };
@@ -22,8 +24,8 @@ const ClassAction = props => {
             editAuth={props.classAction.managerUser.Id === dummyUser.Id}
             showBookmark = {props.classAction.users.find(usr => usr.Id === dummyUser.Id)}
         >
-            <ClassActionContent cAction={props.classAction} />
-        </ResultBanner>
+                <ClassActionContent cAction={props.classAction} />
+            </ResultBanner>
     );
 };
 

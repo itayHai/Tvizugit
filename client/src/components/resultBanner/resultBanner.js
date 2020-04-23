@@ -10,9 +10,17 @@ import IconButton from "@material-ui/core/IconButton";
 import { Share, ExpandMore, Edit, BookmarkBorder } from "@material-ui/icons";
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
+import { dummyUser } from '../../utils/globalConsts';
+import Modal from '../modal/modal';
 
 export default function ResultBanner(props) {
     const [expanded, setExpanded] = React.useState(false);
+    const [updateMode, setupdateMode] = React.useState(false);
+
+    const isUserManager = props.classAction.managerUser?.Id === dummyUser.Id;
+    const handleOpenUpdateMode = () => {
+        setupdateMode(true);
+    };
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -40,6 +48,10 @@ export default function ResultBanner(props) {
                         >
                             <Edit />
                         </IconButton> : null}
+                    <Modal
+                        show={updateMode}>
+                        {props.editComp}
+                    </Modal>
                     <IconButton aria-label="share">
                         <Share />
                     </IconButton>

@@ -17,6 +17,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         classActions: action.classActions,
+        classActions: action.classActions,
       };
     case actionTypes.UPDATE_CLASS_ACTION:
       const newClassActions = [...state.classActions].map((cAction) => {
@@ -52,6 +53,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         currClassAction:
           action.classAction
+      }
+    }
       }
     }
     default:
@@ -92,4 +95,14 @@ const addMessage = (message, title, classAction, classActions) => {
   })
   return classActions;
 }
+// const updateActionDesc = (classAction, classActions) => {
+//   console.log(classAction);
+//   classActions = classActions.map((cAction) => {
+//     if (cAction.Id === classAction.Id) {
+//       return classAction;
+//     }
+//     return cAction;
+//   })
+//   return classActions;
+// }
 export default reducer;

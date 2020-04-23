@@ -7,7 +7,6 @@ import Modal from '../../modal/modal';
 import { changeCurAction } from '../../../store/actions';
 import UpdateClassAction from './classAction/classActionContent/updateClassAction/updateClassAction';
 
-
 const ClassActions = (props) => {
   const sortBy = useSelector(state => state.sortBy);
   const stateClassActions = useSelector(state => state.classActions);
@@ -38,7 +37,7 @@ const ClassActions = (props) => {
       return order === "desc" ? comparison * -1 : comparison;
     };
   }
-
+  
   const classActions = stateClassActions.sort(compareValues(sortBy)).map((cAction) => {
     return (
         <ClassAction
