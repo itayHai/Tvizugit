@@ -9,10 +9,6 @@
     /* justify-content: space-between; */
     padding-bottom:15px;
 }
-.joinbutton{
-    float:left;
-    /* padding-bottom: 15px; */
-}
 .h3{
     margin:auto;
 }
@@ -24,9 +20,6 @@
 
 .cellNoIcon{
     padding-top: 27px;
-}
-.title{
-    display:flex;
 }
 .joinButton{
     display:flex;

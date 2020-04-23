@@ -11,8 +11,6 @@ const ClassAction = props => {
     const handleOpenEditAction = () => {
         dispatch(changeCurAction(props.classAction))
     }
-        dispatch(updateClassAction(classAction))
-    }
     const basicProperties = propertiesToShow[0].classActionPro;
     const selectedProperties = basicProperties.map((bProp) => {
         return { ...bProp, content: props.classAction[bProp.engName] };
