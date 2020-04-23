@@ -2,7 +2,8 @@ export const CHANGED_SORT = 'CHANGED_SORT';
 export const UPDATE_CLASS_ACTIONS = 'UPDATE_CLASS_ACTIONS';
 export const REMOVE_MESSAGE_ACTION = 'REMOVE_MESSAGE_ACTION';
 export const ADD_MESSAGE_ACTION = 'ADD_MESSAGE_ACTION';
-export const UPDATE_CLASS_ACION = 'UPDATE_CLASS_ACION';
+export const CHANGE_CURR_ACTION = 'CHANGE_CURR_ACTION';
+export const UPDATE_CLASS_ACTION = 'UPDATE_CLASS_ACTION';
 
 export function changeSort(sortBy){
     return {
@@ -31,9 +32,15 @@ export function addMessageAction(message, title, classAction){
         classAction
     }
 }
+export function changeCurAction(classAction){
+    return {
+        type: CHANGE_CURR_ACTION,
+        classAction
+    }
+}
 export function updateClassAction(classAction){
     return {
-        type: UPDATE_CLASS_ACION,
-        classAction,
+        type: UPDATE_CLASS_ACTION,
+        classAction
     }
 }
