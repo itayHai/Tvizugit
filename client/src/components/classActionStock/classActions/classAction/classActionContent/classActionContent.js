@@ -10,9 +10,9 @@ import { removeMessageAction, addMessageAction } from '../../../../../store/acti
 const ClassActionContent = props => {
     const dispatch = useDispatch();
     const isUserManager = props.cAction.managerUser.Id === dummyUser.Id;
-    const userInAction = props.cAction.users?.find(({ Id }) => Id === dummyUser.Id);
+    const isUserInAction = props.cAction.users?.find(({ Id }) => Id === dummyUser.Id);
 
-    const isMessages = userInAction ?
+    const showMessages = isUserInAction ?
         <ManagerMessages
             messages={props.cAction.manMessages}
             isUserManager={isUserManager}
@@ -20,7 +20,7 @@ const ClassActionContent = props => {
             addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
         />
         : null;
-    const isJoin = userInAction ? null : <JoinAction />
+    const showJoin = isUserInAction ? null : <JoinAction />
 
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
 
@@ -52,9 +52,9 @@ const ClassActionContent = props => {
                         </div>
                     </div>
                 </div>
-                {isJoin}
+                {showJoin}
             </div>
-            {isMessages}
+            {showMessages}
         </div >
     );
 };

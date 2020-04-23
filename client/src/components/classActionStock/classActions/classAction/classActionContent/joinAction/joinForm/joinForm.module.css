@@ -4,7 +4,7 @@
     text-align: center;
     width: 400px;
 }
-.ul{
+.intructions{
     text-align: right;
 }
 .JoinButton {
@@ -18,5 +18,4 @@
 .textBox{
     font-family: "Segoe UI";
     font-size: large;
-    /* border: aliceblue; */
   }

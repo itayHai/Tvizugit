@@ -26,7 +26,6 @@ const JoinAction = () => {
         </Button>
             <Modal show={open} onClose={handleClose}>
                 <JoinForm/>
-                {/* <SearchClassAction close={handleClose} /> */}
             </Modal>
         </div>
     );

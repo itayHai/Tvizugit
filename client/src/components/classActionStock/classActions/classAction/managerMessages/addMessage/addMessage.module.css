@@ -24,7 +24,6 @@
     opacity: 1;
 }
 .buttons{
-  /* float: left; */
   display: flex;
   flex-direction: row-reverse;
 }

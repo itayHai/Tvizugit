@@ -80,5 +80,7 @@ ResultBanner.propTypes = {
     // True - has authorization to edit, False - otherwise
     editAuth: PropTypes.bool,
     // Function the fires when pressing the edit button, only if editAuth is True
-    handleOpenEditAction: PropTypes.func
+    handleOpenEditAction: PropTypes.func,
+    // True - shows bookmark in the right side of the banner
+    showBookmark : PropTypes.bool
 }

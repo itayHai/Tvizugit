@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useRef } from 'react';
 import classes from './updateClassAction.module.css';
 import Button from "@material-ui/core/Button";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
-// import Autocomplete from '../../../../../../../node_modules/@material-ui/lab/Autocomplete';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { updateClassAction } from '../../../../../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,33 +11,29 @@ import { useDispatch, useSelector } from 'react-redux';
 const UpdateClassAction = props => {
     const dispatch = useDispatch();
     const classAction = useSelector(state => state.currClassAction)
-    const newClassAction = { ...classAction };
     const descriptionRef = useRef();
 
     const handleSave = () => {
-        newClassAction.description = descriptionRef.current.value;
-        dispatch(updateClassAction(newClassAction))
+        classAction.description = descriptionRef.current.value;
+        dispatch(updateClassAction(classAction))
         props.close();
     }
     const handleChange = (event) => {
-        newClassAction[event.target.id] = event.target.value;
+        classAction[event.target.id] = event.target.value;
     }
     const handleManagerchange = (event, values) => {
-        newClassAction.managerUser = values;
+        classAction.managerUser = values;
     }
-    useEffect(() => {
-        descriptionRef.current.focus()
-    });
     return (
 
         <div className={classes.updateModal}>
             <h2>עריכת תובענה</h2>
-            <TextareaAutosize className={classes.textBox} ref={descriptionRef} rowsMin={3} defaultValue={newClassAction.description}></TextareaAutosize>
+            <TextareaAutosize autoFocus className={classes.textBox} ref={descriptionRef} rowsMin={3} defaultValue={classAction.description}></TextareaAutosize>
             <div className={classes.updateBanner}>
-                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={newClassAction.actionName} id="actionName" onChange={handleChange}></TextField>
-                <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={newClassAction.lawyer} id="lawyer" onChange={handleChange} ></TextField>
-                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={newClassAction.actionStage} id="actionStage" onChange={handleChange}></TextField>
-                <TextField className={classes.ManagerAction} label="קטגוריה" defaultValue={newClassAction.category} id="category" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={classAction.actionName} id="actionName" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={classAction.lawyer} id="lawyer" onChange={handleChange} ></TextField>
+                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={classAction.actionStage} id="actionStage" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="קטגוריה" defaultValue={classAction.category} id="category" onChange={handleChange}></TextField>
                 {classAction.users ?
                 <Autocomplete
                     options={classAction.users}
@@ -54,7 +49,7 @@ const UpdateClassAction = props => {
             </div>
 
             <div className={classes.buttons}>
-                <Button variant="contained" onClick={props.close} className={classes.cancelButton}>
+                <Button variant="contained" onClick={props.close}>
                     ביטול
                 </Button>
                 <Button

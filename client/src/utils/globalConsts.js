@@ -1,8 +1,4 @@
-import { LockOpen, RoomService, Eco, Accessible, Receipt, Accessibility, Work, MonetizationOn, AccountBalance } from "@material-ui/icons/";
-import {
-  Gavel,
-  Person,
-} from "@material-ui/icons/";
+import { LockOpen, RoomService, Eco, Accessible, Receipt, Accessibility, Work, MonetizationOn, AccountBalance, Gavel, Person } from "@material-ui/icons/";
 import React from "react";
 
 export const URL = "http://localhost:8000/graphql";

@@ -92,15 +92,4 @@ const addMessage = (message, title, classAction, classActions) => {
   })
   return classActions;
 }
-
-// const updateActionDesc = (classAction, classActions) => {
-//   console.log(classAction);
-//   classActions = classActions.map((cAction) => {
-//     if (cAction.Id === classAction.Id) {
-//       return classAction;
-//     }
-//     return cAction;
-//   })
-//   return classActions;
-// }
 export default reducer;

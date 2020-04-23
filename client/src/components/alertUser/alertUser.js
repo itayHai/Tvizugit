@@ -20,6 +20,9 @@ const AlertUser = (props) => {
 };
 
 AlertUser.propTypes = {
-    severity: PropTypes.string //error, warning, info, success
+    severity: PropTypes.string, // Error, warning, info, success
+    message: PropTypes.string, // Message to show in alert
+    open: PropTypes.bool,
+    handleClose: PropTypes.func
   };
 export default AlertUser;

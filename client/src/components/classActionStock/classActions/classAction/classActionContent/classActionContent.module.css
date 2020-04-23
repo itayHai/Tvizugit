@@ -1,12 +1,10 @@
 .icon{
     padding-top:35px;
-    /* padding-left:15px */
 }
 
 .infoRow{
     display:flex;
     flex-direction:row;
-    /* justify-content: space-between; */
     padding-bottom:15px;
 }
 .h3{
@@ -28,5 +26,4 @@
 }
 .title{
     display:flex;
-    /* justify-content: space-between; */
 }
