@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import SearchIcon from "@material-ui/icons/Search";
 import CategoryCard from "../categoryCard/categoryCard";
-import { categories } from "../../utils/globalConsts";
 import Chip from "@material-ui/core/Chip";
-
+import { useQuery } from "@apollo/react-hooks";
+import { categoriesIcons } from "../../utils/globalConsts";
+import { categoriesRequest } from "../../utils/requests";
 import classes from "./searchClassAction.module.css";
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");
   const [hashtags] = useState([]);
+
+  const { data } = useQuery(categoriesRequest.getAll);
+  useEffect(() => {
+    console.log("updated");
+  }, [data]);
+  const categories = data.CategoryQueries.categories;
 
   let allCategories = [];
   let threeCategories = [];
@@ -19,7 +26,7 @@ const SearchActionClass = (props) => {
       threeCategories.push(
         <CategoryCard
           key={categories[j].id}
-          icon={categories[j].icon}
+          icon={categoriesIcons[categories[j].name]}
           title={categories[j].name}
         />
       );

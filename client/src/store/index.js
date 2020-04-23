@@ -1,4 +1,3 @@
-import Redux from 'redux'
 import {combineReducers, createStore} from 'redux'
 import classAction from './classAction'
 

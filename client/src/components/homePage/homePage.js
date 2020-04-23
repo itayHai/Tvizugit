@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core";
 import ClassActionsByFilter from "../classActionsByFilter/classActionsByFilter";
 import CategoriesCards from "../categoriesCards/categoriesCards";
 import SearchClassAction from "../searchClassAction/searchClassAction";
+import Modal from '../modal/modal';
 
 const CONSTS = {
   filters: {
@@ -24,7 +25,6 @@ export default function HomePage() {
     setOpen(false);
   };
 
-export default function HomePage() {
   return (
     <div>
       <section className={classes.section}>
@@ -65,8 +65,8 @@ export default function HomePage() {
       <article className={classes.article}>
         <p className={classes.classActionTitle}>התובענות הבולטות ביותר</p>
         <ClassActionsByFilter filter={CONSTS.filters.MOST_PROMINENT} size={4} />
-                </p>
-                <ClassActionsByFilter
+        <p className={classes.classActionTitle}>קטגוריות התובענות</p>
+        <CategoriesCards />
       </article>
     </div>
   );
