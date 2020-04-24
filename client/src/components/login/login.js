@@ -12,12 +12,28 @@ import classes from "./login.module.css"
 
 function Login (props) {
 
+const [hashtags] = useState([]);
+const [mode,SetMode] = useState("login")
+const [value, setValue] = useState("");
+
 const screen = {
   login: 1,
   regiester: 2,
   lawyer: 3,
   user: 4
 }
+
+const keyDownHandler = (event) => {
+  if (["Enter", "Tab", ","].includes(event.key)) {
+    event.preventDefault();
+    hashtags.push(value.trim());
+    setValue("");
+  }
+};
+
+const inputChangedHandler = (event) => {
+  setValue(event.target.value);
+};
     
   let allusers = [];
 
@@ -36,8 +52,6 @@ const screen = {
                                icon={users[1].icon}
                                title={users[1].name}
                  /></div>);   
-
-  const [mode,SetMode] = useState("login")
 
   function changeToRegister(){
     SetMode("register");
@@ -111,32 +125,42 @@ const screen = {
         <h2> <GavelIcon/> יצירת פרופיל עו"ד בתביצוגית</h2>
         <hr color="#e6e6e6"/>
       </div>
+      <div className={classes.LawyerRegister}>
       <Input placeholder="שם המשרד"
              className={classes.Input}
-             autoFocus={true}
-      /><br/>
+             fullWidth={true}
+             autoFocus={true}/>
       <Input placeholder="תיאור המשרד"
-             className={classes.Input}
-      /><br/>
+             fullWidth={true}
+             className={classes.Input}/>
       <Input placeholder="תחומי ההתמחות של המשרד"
              className={classes.Input}
-      /><br/>
+             fullWidth={true}
+             value={value}
+             onChange={inputChangedHandler}
+             onKeyDown={keyDownHandler}/>
       <Input placeholder="כתובת המשרד"
-             className={classes.Input}
-      /><br/>
+             fullWidth={true}
+             className={classes.Input}/>
       <Input placeholder="טלפון המשרד"
-             className={classes.Input}
-      /><br/>
+             fullWidth={true}
+             className={classes.Input}/>
       <Input placeholder="ותק המשרד"
-             className={classes.Input}
-      />
+             fullWidth={true}
+             className={classes.Input}/>
       <p>
-      <Button className={classes.LoginButton} 
+      <Button className={classes.ProfileButton} 
               variant="contained" 
               onClick={props.close}>
         יצירת פרופיל
       </Button>
+      <Button className={classes.BackButton} 
+              variant="contained" 
+              onClick={changeToRegister}>
+        חזור
+      </Button>
       </p>
+      </div>
     </div>
     </div>
   );

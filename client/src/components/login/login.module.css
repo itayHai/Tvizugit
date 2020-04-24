@@ -9,6 +9,16 @@
     color:white !important;
   }
 
+  .BackButton {
+    float: right;
+  }
+
+  .ProfileButton {
+    float: left;
+    background-color:#009688 !important;
+    color:white !important;
+  }
+
   .LogoIcon {
     width: 29px;
     height: 29px;
@@ -16,6 +26,11 @@
 
   .Center {
     text-align: center;
+  }
+
+  .LawyerRegister {
+    text-align: center;
+    width: 400px;
   }
   
   .Users {
