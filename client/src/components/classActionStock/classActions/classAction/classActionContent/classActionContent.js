@@ -10,7 +10,7 @@ import { removeMessageAction, addMessageAction } from '../../../../../store/acti
 const ClassActionContent = props => {
     const dispatch = useDispatch();
     const isUserManager = props.cAction.managerUser.Id === dummyUser.Id;
-    const isUserInAction = props.cAction.users?.find(({ Id }) => Id === dummyUser.Id);
+    const isUserInAction = props.cAction.users.find(({ Id }) => Id === dummyUser.Id);
 
     const showMessages = isUserInAction ?
         <ManagerMessages

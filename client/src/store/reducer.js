@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
         classActions: action.classActions
       };
     case actionTypes.UPDATE_CLASS_ACTION:
-      const newClassActions = [...state.classActions].map((cAction) => {
+      const newClassActions = state.classActions.map((cAction) => {
         if (cAction.Id === action.classAction.Id) {
           return action.classAction;
         }
@@ -72,14 +72,9 @@ const removeMessage = (currClassAction, message, classActions) => {
 }
 
 const addMessage = (message, title, classAction, classActions) => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = today.getFullYear();
-
-  today = dd + '/' + mm + '/' + yyyy;
+  var todayDate = new Date();
   const newMessage = {
-    date: today,
+    date: todayDate,
     title: title,
     content: message
   }

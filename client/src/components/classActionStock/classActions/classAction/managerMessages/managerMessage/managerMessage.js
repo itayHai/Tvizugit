@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './managerMessage.module.css';
 import { CalendarToday, Delete } from '@material-ui/icons';
-import { Button } from '@material-ui/core'
+import { Button } from '@material-ui/core';
+import DateHandler from '../../../../../../utils/dateHandler';
 
 const managerMessage = (props) => {
     return (
@@ -20,7 +21,9 @@ const managerMessage = (props) => {
                 {props.message.content}
                 <div className={classes.messDate}>
                     <CalendarToday className={classes.icon} color="action" fontSize="small" />
-                    <h5 className={classes.contentDate}>{props.message.date}</h5>
+                    <h5 className={classes.contentDate}>
+                        <DateHandler date={props.message.date} />
+                    </h5>
                 </div>
             </div>
         </div>

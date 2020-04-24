@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import ManagerMessage from './managerMessage/managerMessage';
 import classes from './managerMessages.module.css';
 import { Button } from "@material-ui/core";
@@ -7,7 +7,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
     const isMessages = props.messages.length !== 0 ? "הודעות" : "אין הודעות";
-    const [addMessage, setAddMessage] = React.useState(false);
+    const [addMessage, setAddMessage] = useState(false);
 
     const handleAddMessage = () => {
         setAddMessage(true);

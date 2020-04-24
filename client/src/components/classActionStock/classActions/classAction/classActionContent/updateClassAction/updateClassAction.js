@@ -12,14 +12,14 @@ const UpdateClassAction = props => {
     const dispatch = useDispatch();
     const classAction = useSelector(state => state.currClassAction)
     const descriptionRef = useRef();
-
+    
     const handleSave = () => {
         classAction.description = descriptionRef.current.value;
         dispatch(updateClassAction(classAction))
         props.close();
     }
     const handleChange = (event) => {
-        classAction[event.target.id] = event.target.value;
+        classAction[event.target.name] = event.target.value;
     }
     const handleManagerchange = (event, values) => {
         classAction.managerUser = values;
@@ -30,12 +30,11 @@ const UpdateClassAction = props => {
             <h2>עריכת תובענה</h2>
             <TextareaAutosize autoFocus className={classes.textBox} ref={descriptionRef} rowsMin={3} defaultValue={classAction.description}></TextareaAutosize>
             <div className={classes.updateBanner}>
-                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={classAction.actionName} id="actionName" onChange={handleChange}></TextField>
-                <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={classAction.lawyer} id="lawyer" onChange={handleChange} ></TextField>
-                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={classAction.actionStage} id="actionStage" onChange={handleChange}></TextField>
-                <TextField className={classes.ManagerAction} label="קטגוריה" defaultValue={classAction.category} id="category" onChange={handleChange}></TextField>
-                {classAction.users ?
-                <Autocomplete
+                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={classAction.actionName} name="actionName" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={classAction.lawyer} name="lawyer" onChange={handleChange} ></TextField>
+                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={classAction.actionStage} name="actionStage" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="קטגוריה" defaultValue={classAction.category} name="category" onChange={handleChange}></TextField>
+                {classAction.users? <Autocomplete
                     options={classAction.users}
                     className={classes.ManagerAction}
                     getOptionLabel={(user) => user.name}
