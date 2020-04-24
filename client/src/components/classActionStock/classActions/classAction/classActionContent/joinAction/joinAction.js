@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Modal from '../../../../../modal/modal';
 import classes from './joinAction.module.css';
@@ -6,7 +6,7 @@ import { Button } from "@material-ui/core";
 import JoinForm from './joinForm/joinForm';
 
 const JoinAction = () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);

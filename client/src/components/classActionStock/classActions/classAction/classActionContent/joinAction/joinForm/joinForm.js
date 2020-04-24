@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import classes from './joinForm.module.css';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { dummyUser } from '../../../../../../../utils/globalConsts';
@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import AlertUser from '../../../../../../alertUser/alertUser';
 
 const JoinForm = () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(true);

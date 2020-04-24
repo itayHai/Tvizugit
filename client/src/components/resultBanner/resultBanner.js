@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import classes from './resultBanner.module.css'
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 
 export default function ResultBanner(props) {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -81,6 +81,4 @@ ResultBanner.propTypes = {
     editAuth: PropTypes.bool,
     // Function the fires when pressing the edit button, only if editAuth is True
     handleOpenEditAction: PropTypes.func,
-    // True - shows bookmark in the right side of the banner
-    showBookmark : PropTypes.bool
 }
