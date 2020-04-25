@@ -63,7 +63,11 @@ const inputChangedHandler = (event) => {
   }
 
   function regiesterAsLawyer(){
-    SetMode("lawyer");
+    SetMode("lawyer1");
+  }
+
+  function regiester2AsLawyer(){
+    SetMode("lawyer2");
   }
 
   function regiesterAsUser(){
@@ -73,19 +77,18 @@ const inputChangedHandler = (event) => {
   return (
     <div>
     <div style={{display: mode == "login" ? "block" : "none"}}>
-      <div className={classes.Center}>
+      <div className={classes.LoginScreen}>
         <h2> <PersonIcon/> כניסה לאתר</h2>
         <hr color="#e6e6e6"/>
-      </div>
-      <Input placeholder="אימייל או מספר טלפון"
-             className={classes.Input}
-             autoFocus={true}
-             fullWidth={true}
-      />
-      <Input placeholder="סיסמא"
-             className={classes.Input}
-             fullWidth={true}
-             type="password"
+      <TextField label="שם משתמש או אימייל"
+                 className={classes.Input}
+                 type="email"
+                 fullWidth={true}
+      /><br/><br/>
+      <TextField label="סיסמא"
+                 className={classes.Input}
+                 fullWidth={true}
+                 type="password"
       />
       <p>
       <Button className={classes.LoginButton} 
@@ -105,6 +108,7 @@ const inputChangedHandler = (event) => {
         </p>
         <Link onClick={changeToRegister}>אין לך חשבון?</Link>
       </div>
+      </div>
     </div>
     <div style={{display: mode == "register" ? "block" : "none"}}>
     <div className={classes.Center}>
@@ -121,20 +125,84 @@ const inputChangedHandler = (event) => {
       <Link onClick={changeToLogin}>כבר יש לך חשבון?</Link>
       </div>
     </div>
-    <div style={{display: mode == "lawyer" ? "block" : "none"}}>
+    <div style={{display: mode == "user" ? "block" : "none"}}>
       <div className={classes.Center}>
-        <h2> <GavelIcon/> יצירת פרופיל עו"ד בתביצוגית</h2>
+        <h2> <PersonIcon/> הרשמה בתור משתמש לתביצוגית</h2>
+        <hr color="#e6e6e6"/>
+      </div>
+      <div className={classes.UserRegister}>
+        <TextField label="שם מלא"
+                   className={classes.Input}
+                   fullWidth={true}/><br/><br/>
+        <TextField label="שם משתמש"
+                   className={classes.Input}
+                   fullWidth={true}/><br/><br/>
+        <TextField label="אימייל"
+                   className={classes.Input}
+                   type="email"
+                   fullWidth={true}/><br/><br/>
+        <TextField label="סיסמא"
+                   className={classes.Input}
+                   fullWidth={true}
+                   type="password"/><br/><br/>
+        <TextField label="אימות סיסמא"
+                   className={classes.Input}
+                   fullWidth={true}
+                   type="password"/><br/><br/>
+        <Button className={classes.ProfileButton}>סיום הרשמה</Button>
+        <Button className={classes.BackButton} 
+                variant="contained" 
+                onClick={changeToRegister}>
+        חזור
+      </Button>
+        </div>
+      </div>
+    <div style={{display: mode == "lawyer1" ? "block" : "none"}}>
+      <div className={classes.Center}>
+        <h2> <GavelIcon/> הרשמה בתור עורך דין לתביצוגית</h2>
         <hr color="#e6e6e6"/>
       </div>
       <div className={classes.LawyerRegister}>
+        <TextField label="שם מלא"
+                   className={classes.Input}
+                   fullWidth={true}/><br/><br/>
+        <TextField label="שם משתמש"
+                   className={classes.Input}
+                   fullWidth={true}/><br/><br/>
+        <TextField label="אימייל"
+                   className={classes.Input}
+                   type="email"
+                   fullWidth={true}/><br/><br/>
+        <TextField label="סיסמא"
+                   className={classes.Input}
+                   fullWidth={true}
+                   type="password"/><br/><br/>
+        <TextField label="אימות סיסמא"
+                   className={classes.Input}
+                   fullWidth={true}
+                   type="password"/><br/><br/>
+        <Button className={classes.ProfileButton} 
+                onClick={regiester2AsLawyer}>המשך 1/2</Button>
+        <Button className={classes.BackButton} 
+                variant="contained" 
+                onClick={changeToRegister}>
+        חזור
+      </Button>
+        </div>
+      </div>
+      <div style={{display: mode == "lawyer2" ? "block" : "none"}} 
+           className={classes.LawyerRegister}>
+        <div className={classes.Center}>
+          <h2> <GavelIcon/> יצירת פרופיל עו"ד בתביצוגית</h2>
+          <hr color="#e6e6e6"/>
+        </div>
       <TextField label="שם המשרד"
                  className={classes.Input}
-                 fullWidth={true}
-                 autoFocus={true}/><br/><br/>
+                 fullWidth={true}/><br/><br/>
       <TextField label="תיאור המשרד" 
                  fullWidth={true}
-                 multiline={true}
-                 rows={4}
+                 multiline
+                 rowsMax={5}
                  className={classes.Input}/><br/><br/>
       <TextField label="תחומי ההתמחות של המשרד"
                  className={classes.Input}
@@ -147,9 +215,11 @@ const inputChangedHandler = (event) => {
                  className={classes.Input}/><br/><br/>
       <TextField label="טלפון המשרד"
                  fullWidth={true}
+                 type="tel"
                  className={classes.Input}/><br/><br/>
       <TextField label="ותק המשרד (בשנים)"
                  fullWidth={true}
+                 type="number"
                  className={classes.Input}/><br/><br/>
       <p>
       <Button className={classes.ProfileButton} 
@@ -159,12 +229,11 @@ const inputChangedHandler = (event) => {
       </Button>
       <Button className={classes.BackButton} 
               variant="contained" 
-              onClick={changeToRegister}>
+              onClick={regiesterAsLawyer}>
         חזור
       </Button>
       </p>
       </div>
-    </div>
     </div>
   );
 };

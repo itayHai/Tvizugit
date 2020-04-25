@@ -24,6 +24,11 @@
     height: 29px;
   }
 
+  .LoginScreen {
+    text-align: center;
+    width: 350px;
+  }
+
   .Center {
     text-align: center;
   }
