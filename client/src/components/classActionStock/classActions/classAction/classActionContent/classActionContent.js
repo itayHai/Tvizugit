@@ -5,7 +5,7 @@ import ManagerMessages from '../managerMessages/managerMessages';
 import JoinAction from './joinAction/joinAction';
 import { dummyUser } from '../../../../../utils/globalConsts';
 import { useDispatch } from 'react-redux';
-import { removeMessageAction, addMessageAction } from '../../../../../store/actions';
+import { removeMessageAction, addMessageAction } from '../../../../../store/classAction';
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();

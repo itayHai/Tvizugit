@@ -36,11 +36,6 @@ const SearchActionClass = (props) => {
   let threeCategories = [];
   for (let i = 0; i < categories.length; i += 3) {
     for (let j = i; j < i + 3; j++) {
-      let categoryClass;
-      if (chosenCategories.includes(categories[j].id)) {
-        categoryClass = classes.CategoryClass;
-      } else categoryClass = classes.ClickedCategoryClass;
-
       threeCategories.push(
         <CategoryCard
           click={handleCategoryClick}

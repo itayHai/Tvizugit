@@ -4,13 +4,13 @@ import Button from "@material-ui/core/Button";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { updateClassAction } from '../../../../../../store/actions';
+import { updateClassAction } from '../../../../../../store/classAction';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 const UpdateClassAction = props => {
     const dispatch = useDispatch();
-    const classAction = useSelector(state => state.currClassAction)
+    const classAction = useSelector(state => state.classAction.currClassAction)
     const descriptionRef = useRef();
     
     const handleSave = () => {
