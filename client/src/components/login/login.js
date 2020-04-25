@@ -9,6 +9,7 @@ import { users } from "../../utils/globalConsts";
 import UserCard from "../userCard/userCard";
 import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
+import Chip from "@material-ui/core/Chip";
 
 function Login (props) {
 
@@ -200,6 +201,9 @@ function Login (props) {
                  value={value}
                  onChange={inputChangedHandler}
                  onKeyDown={keyDownHandler}/><br/><br/>
+      {hashtags.map((hashtag, index) => {
+        return <Chip className={classes.Chip} key={index} label={hashtag} />;
+      })}
       <TextField label="כתובת המשרד"
                  fullWidth={true}
                  className={classes.Input}/><br/><br/>
