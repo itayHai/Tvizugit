@@ -10,7 +10,9 @@ const CategoryCard = (props) => {
     if (!classClicked) {
       setClassClicked(true);
     } else setClassClicked(false);
-    props.click(props.id);
+
+    if(props.click)
+      props.click(props.id);
   };
 
   return (
