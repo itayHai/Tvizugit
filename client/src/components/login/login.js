@@ -9,6 +9,7 @@ import GoogleIcon from '../../images/icons/google_icon.png';
 import { users } from "../../utils/globalConsts";
 import UserCard from "../userCard/userCard";
 import classes from "./login.module.css"
+import { TextField } from "@material-ui/core";
 
 function Login (props) {
 
@@ -126,28 +127,30 @@ const inputChangedHandler = (event) => {
         <hr color="#e6e6e6"/>
       </div>
       <div className={classes.LawyerRegister}>
-      <Input placeholder="שם המשרד"
-             className={classes.Input}
-             fullWidth={true}
-             autoFocus={true}/>
-      <Input placeholder="תיאור המשרד"
-             fullWidth={true}
-             className={classes.Input}/>
-      <Input placeholder="תחומי ההתמחות של המשרד"
-             className={classes.Input}
-             fullWidth={true}
-             value={value}
-             onChange={inputChangedHandler}
-             onKeyDown={keyDownHandler}/>
-      <Input placeholder="כתובת המשרד"
-             fullWidth={true}
-             className={classes.Input}/>
-      <Input placeholder="טלפון המשרד"
-             fullWidth={true}
-             className={classes.Input}/>
-      <Input placeholder="ותק המשרד"
-             fullWidth={true}
-             className={classes.Input}/>
+      <TextField label="שם המשרד"
+                 className={classes.Input}
+                 fullWidth={true}
+                 autoFocus={true}/><br/><br/>
+      <TextField label="תיאור המשרד" 
+                 fullWidth={true}
+                 multiline={true}
+                 rows={4}
+                 className={classes.Input}/><br/><br/>
+      <TextField label="תחומי ההתמחות של המשרד"
+                 className={classes.Input}
+                 fullWidth={true}
+                 value={value}
+                 onChange={inputChangedHandler}
+                 onKeyDown={keyDownHandler}/><br/><br/>
+      <TextField label="כתובת המשרד"
+                 fullWidth={true}
+                 className={classes.Input}/><br/><br/>
+      <TextField label="טלפון המשרד"
+                 fullWidth={true}
+                 className={classes.Input}/><br/><br/>
+      <TextField label="ותק המשרד (בשנים)"
+                 fullWidth={true}
+                 className={classes.Input}/><br/><br/>
       <p>
       <Button className={classes.ProfileButton} 
               variant="contained" 
