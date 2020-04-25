@@ -1,4 +1,4 @@
-import ClassActionModel from "./classActionSchema";
+import ClassActionModel from "./classActionModel";
 
 function addClassAction(classActionToAdd) {
   const newClassAction = new ClassActionModel(classActionToAdd);

@@ -1,4 +1,4 @@
-import UserModel from "./userSchema";
+import UserModel from "./userModel";
 
 function getUser({ id }) {
   return UserModel.findOne({ _id: id });
