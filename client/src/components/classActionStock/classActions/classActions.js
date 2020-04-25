@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ClassAction from "./classAction/classAction";
-import {  useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateClassActions } from "../../../store/actions";
 import { dummyData } from '../../../utils/globalConsts';
+import Modal from '../../modal/modal';
+import { changeCurAction } from '../../../store/actions';
+import UpdateClassAction from './classAction/classActionContent/updateClassAction/updateClassAction';
 
 const ClassActions = (props) => {
-
   const sortBy = useSelector(state => state.sortBy);
+  const stateClassActions = useSelector(state => state.classActions);
+  const currClassAction = useSelector(state => state.currClassAction)
+  const showEditModal = Object.keys(currClassAction).length !== 0;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateClassActions(dummyData));
+
+  }, [dispatch]);
+
+  const handleCloseEditAction = () => {
+    dispatch(changeCurAction({}))
+  }
 
   const compareValues = (key, order = "asc") => {
     return function innerSort(a, b) {
@@ -21,15 +37,26 @@ const ClassActions = (props) => {
       return order === "desc" ? comparison * -1 : comparison;
     };
   }
-
-  const classActions = dummyData.sort(compareValues(sortBy)).map((cAction) => {
-    return <ClassAction
-      classAction={cAction}
-      key={cAction.Id} />;
+  
+  const classActions = stateClassActions.sort(compareValues(sortBy)).map((cAction) => {
+    return (
+        <ClassAction
+          classAction={cAction}
+          key={cAction.Id} />
+    )
   });
 
   return (
-    <div>{classActions}</div>
+    <div>
+      <Modal
+        show={showEditModal}
+        onClose={() => handleCloseEditAction()}>
+        <UpdateClassAction
+          close={() => handleCloseEditAction()}
+        />
+      </Modal>
+      {classActions}
+    </div>
   );
 };
 
