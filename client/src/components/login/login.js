@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
-import Input from "@material-ui/core/Input";
 import PersonIcon from '@material-ui/icons/Person';
 import GavelIcon from '@material-ui/icons/Gavel';
 import FacebookIcon from '../../images/icons/facebook_icon.png';
@@ -16,13 +15,6 @@ function Login (props) {
 const [hashtags] = useState([]);
 const [mode,SetMode] = useState("login")
 const [value, setValue] = useState("");
-
-const screen = {
-  login: 1,
-  regiester: 2,
-  lawyer: 3,
-  user: 4
-}
 
 const keyDownHandler = (event) => {
   if (["Enter", "Tab", ","].includes(event.key)) {
@@ -76,7 +68,7 @@ const inputChangedHandler = (event) => {
 
   return (
     <div>
-    <div style={{display: mode == "login" ? "block" : "none"}}>
+    <div style={{display: mode === "login" ? "block" : "none"}}>
       <div className={classes.LoginScreen}>
         <h2> <PersonIcon/> כניסה לאתר</h2>
         <hr color="#e6e6e6"/>
@@ -110,7 +102,7 @@ const inputChangedHandler = (event) => {
       </div>
       </div>
     </div>
-    <div style={{display: mode == "register" ? "block" : "none"}}>
+    <div style={{display: mode === "register" ? "block" : "none"}}>
     <div className={classes.Center}>
         <h3>אנחנו שמחים שבחרת להירשם לתביצוגית!</h3>
         <h4>איזה סוג חשבון מתאים לך?</h4>
@@ -125,7 +117,7 @@ const inputChangedHandler = (event) => {
       <Link onClick={changeToLogin}>כבר יש לך חשבון?</Link>
       </div>
     </div>
-    <div style={{display: mode == "user" ? "block" : "none"}}>
+    <div style={{display: mode === "user" ? "block" : "none"}}>
       <div className={classes.Center}>
         <h2> <PersonIcon/> הרשמה בתור משתמש לתביצוגית</h2>
         <hr color="#e6e6e6"/>
@@ -157,7 +149,7 @@ const inputChangedHandler = (event) => {
       </Button>
         </div>
       </div>
-    <div style={{display: mode == "lawyer1" ? "block" : "none"}}>
+    <div style={{display: mode === "lawyer1" ? "block" : "none"}}>
       <div className={classes.Center}>
         <h2> <GavelIcon/> הרשמה בתור עורך דין לתביצוגית</h2>
         <hr color="#e6e6e6"/>
@@ -190,7 +182,7 @@ const inputChangedHandler = (event) => {
       </Button>
         </div>
       </div>
-      <div style={{display: mode == "lawyer2" ? "block" : "none"}} 
+      <div style={{display: mode === "lawyer2" ? "block" : "none"}} 
            className={classes.LawyerRegister}>
         <div className={classes.Center}>
           <h2> <GavelIcon/> יצירת פרופיל עו"ד בתביצוגית</h2>

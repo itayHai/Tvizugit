@@ -36,6 +36,10 @@
   .LawyerRegister {
     width: 500px;
   }
+
+  .UserRegister {
+    width: 400px;
+  }
   
   .Users {
     align-items: flex-end;
