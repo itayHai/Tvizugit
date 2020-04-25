@@ -56,9 +56,10 @@ const initialState = {
 const classActionReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGED_SORT:
+      console.log(action)
       return {
         ...state,
-        sortBy: action.sortBy,
+        sortBy: action.payload,
       };
     case UPDATE_CLASS_ACTIONS:
       return {
