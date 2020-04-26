@@ -6,11 +6,10 @@ function addClassAction(classActionToAdd) {
 }
 
 function updateClassAction(id, classActionToAdd) {
-  ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd)
+  return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd)
     .populate("category")
     .populate("leadingUser")
     .populate("defendants");
-  return ClassActionModel.findOne({ _id: id });
 }
 
 function getClassAction({ id }) {

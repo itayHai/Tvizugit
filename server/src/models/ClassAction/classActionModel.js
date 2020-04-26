@@ -12,6 +12,7 @@ export const classActionSchema = new Schema({
     },
   ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  leadingUser: { type: Schema.Types.ObjectId, ref: "user" },
   openDate: { type: Date },
   successChances: { type: String },
 });
