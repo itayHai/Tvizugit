@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from "graphql";
-import { addUser } from "./userBL";
+import { addUser, updateUser } from "./userBL";
 import { UserType, UserInputType } from "./userType";
 
 const UserMutation = new GraphQLObjectType({
@@ -9,8 +9,13 @@ const UserMutation = new GraphQLObjectType({
       type: UserType,
       args: {
         user: { type: new GraphQLNonNull(UserInputType) },
+        id: { type: GraphQLString },
       },
-      resolve: (root, { user }, context, ast) => {
+      resolve: (root, { id, user }, context, ast) => {
+        if (id) {
+          return updateUser(id, user);
+        }
+
         return addUser(user);
       },
     },
