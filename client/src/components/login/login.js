@@ -41,11 +41,11 @@ function Login (props) {
     SetMode("login");
   }
 
-  function regiesterAsLawyer(){
+  function regiesterProfile(){
     SetMode("lawyerProfile");
   }
 
-  function regiester2AsLawyer(){
+  function regiesterOffice(){
     SetMode("lawyerOffice");
   }
 
@@ -92,7 +92,7 @@ function Login (props) {
           <h3>אנחנו שמחים שבחרת להירשם לתביצוגית!</h3>
           <h4>איזה סוג חשבון מתאים לך?</h4>
         <div className={classes.Users}>
-          <div onClick={regiesterAsLawyer}> 
+          <div onClick={regiesterProfile}> 
                <UserCard key={lawyer.id}
                          icon={lawyer.icon}
                          title={lawyer.name}
@@ -137,12 +137,11 @@ function Login (props) {
                     className={classes.Input}
                     fullWidth={true}
                     type="password"/><br/><br/>
-          <Button className={classes.ProfileButton}>סיום הרשמה</Button>
+          <Button className={classes.ProfileButton} 
+                  onClick={props.close}>סיום הרשמה</Button>
           <Button className={classes.BackButton} 
                   variant="contained" 
-                  onClick={changeToRegister}>
-            חזור
-          </Button>
+                  onClick={changeToRegister}>חזור</Button>
         </div>
       </div>
     <div style={{display: mode === "lawyerProfile" ? "block" : "none"}}>
@@ -170,7 +169,7 @@ function Login (props) {
                    fullWidth={true}
                    type="password"/><br/><br/>
         <Button className={classes.ProfileButton} 
-                onClick={regiester2AsLawyer}>המשך 1/2</Button>
+                onClick={regiesterOffice}>המשך 1/2</Button>
         <Button className={classes.BackButton} 
                 variant="contained" 
                 onClick={changeToRegister}>
@@ -231,7 +230,7 @@ function Login (props) {
         </Button>
         <Button className={classes.BackButton} 
                 variant="contained" 
-                onClick={regiesterAsLawyer}>
+                onClick={regiesterProfile}>
           חזור
         </Button>
       </p>
