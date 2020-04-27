@@ -42,11 +42,11 @@ function Login (props) {
   }
 
   function regiesterAsLawyer(){
-    SetMode("lawyer1");
+    SetMode("lawyerProfile");
   }
 
   function regiester2AsLawyer(){
-    SetMode("lawyer2");
+    SetMode("lawyerOffice");
   }
 
   function regiesterAsUser(){
@@ -145,7 +145,7 @@ function Login (props) {
           </Button>
         </div>
       </div>
-    <div style={{display: mode === "lawyer1" ? "block" : "none"}}>
+    <div style={{display: mode === "lawyerProfile" ? "block" : "none"}}>
       <div className={classes.Center}>
         <h2> <GavelIcon/> הרשמה בתור עורך דין לתביצוגית</h2>
         <hr color="#e6e6e6"/>
@@ -178,7 +178,7 @@ function Login (props) {
         </Button>
       </div>
     </div>
-    <div style={{display: mode === "lawyer2" ? "block" : "none"}} 
+    <div style={{display: mode === "lawyerOffice" ? "block" : "none"}} 
          className={classes.LawyerRegister}>
       <div className={classes.Center}>
         <h2> <GavelIcon/> יצירת פרופיל עו"ד בתביצוגית</h2>
