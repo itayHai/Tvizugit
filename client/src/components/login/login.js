@@ -27,9 +27,7 @@ function Login (props) {
       style: {
         maxHeight: 225,
         width: 250,
-      },
-    },
-  };
+  }, }, };
 
   const handleChange = (event) => {
     setSpecialty(event.target.value);
@@ -206,8 +204,7 @@ function Login (props) {
                       <Chip key={value} label={value}/>
                     ))}
                   </div>
-                )}
-        >
+                )}>
           {Specialties.map((Specialty) => (
             <MenuItem key={Specialty} value={Specialty}>
               {Specialty}

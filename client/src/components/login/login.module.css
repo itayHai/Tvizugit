@@ -46,8 +46,3 @@
     display: flex;
     flex-direction: row;
   }
-
-  .SearchBox {
-    direction: rtl;
-    text-align: right;
-  }
