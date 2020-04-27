@@ -6,7 +6,7 @@ import classes from "./categoriesCards.module.css";
 import { categoriesRequest } from "../../utils/requests";
 
 function CategoriesCards() {
-  const { loading, error, data } = useQuery(categoriesRequest.getAll);
+  const { loading, data } = useQuery(categoriesRequest.getAll);
   useEffect(() => {
     console.log("updated");
   }, [data]);
