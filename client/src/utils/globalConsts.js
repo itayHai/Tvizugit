@@ -15,10 +15,10 @@ import React from "react";
 
 export const URL = "http://localhost:8000/graphql";
 
-export const users = [
-  { id: 1, name: "עורך דין", icon: <Gavel/> },
-  { id: 2, name: "משתמש", icon: <Person/> },
-];
+export const users = { 
+  lawyer: { id: 1, name: "עורך דין", icon: <Gavel/> },
+  user: { id: 2, name: "משתמש", icon: <Person/> },
+};
 export const categories = [
   { id: 1, name: "חוק הגנת הצרכן", icon: <Accessibility /> },
   { id: 2, name: "ביטוח", icon: <LockOpen /> },

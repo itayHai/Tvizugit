@@ -13,6 +13,7 @@ import Chip from "@material-ui/core/Chip";
 
 function Login (props) {
 
+  const {lawyer,user} = users;
   const [hashtags] = useState([]);
   const [mode,SetMode] = useState("login")
   const [value, setValue] = useState("");
@@ -28,24 +29,6 @@ function Login (props) {
   const inputChangedHandler = (event) => {
     setValue(event.target.value);
   };
-    
-  let allusers = [];
-
-  // Get the lawyer box
-  allusers.push(<div key={0} 
-                     onClick={regiesterAsLawyer}> 
-                     <UserCard key={users[0].id}
-                               icon={users[0].icon}
-                               title={users[0].name}
-                 /></div>);
-    
-  // Get the user box
-  allusers.push(<div key={1}
-                     onClick={regiesterAsUser}> 
-                     <UserCard key={users[1].id}
-                               icon={users[1].icon}
-                               title={users[1].name}
-                 /></div>);   
 
   function changeToRegister(){
     SetMode("register");
@@ -105,7 +88,18 @@ function Login (props) {
       <div className={classes.Center}>
           <h3>אנחנו שמחים שבחרת להירשם לתביצוגית!</h3>
           <h4>איזה סוג חשבון מתאים לך?</h4>
-        <div className={classes.Users}>{allusers}</div>
+        <div className={classes.Users}>
+          <div onClick={regiesterAsLawyer}> 
+               <UserCard key={lawyer.id}
+                         icon={lawyer.icon}
+                         title={lawyer.name}
+          /></div>
+          <div onClick={regiesterAsUser}> 
+               <UserCard key={user.id}
+                         icon={user.icon}
+                         title={user.name}
+          /></div>
+        </div>
         <p>
           <Button variant="contained" onClick={props.close}>
             ביטול
