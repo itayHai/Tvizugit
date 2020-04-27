@@ -5,29 +5,34 @@ import PersonIcon from '@material-ui/icons/Person';
 import GavelIcon from '@material-ui/icons/Gavel';
 import FacebookIcon from '../../images/icons/facebook_icon.png';
 import GoogleIcon from '../../images/icons/google_icon.png';
-import { users } from "../../utils/globalConsts";
+import { specialties, users } from "../../utils/globalConsts";
 import UserCard from "../userCard/userCard";
 import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
-import Chip from "@material-ui/core/Chip";
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import Chip from '@material-ui/core/Chip';
 
 function Login (props) {
 
+  const Specialties = specialties.sort();
   const {lawyer,user} = users;
-  const [hashtags] = useState([]);
   const [mode,SetMode] = useState("login")
-  const [value, setValue] = useState("");
+  const [Specialty, setSpecialty] = useState([]); 
 
-  const keyDownHandler = (event) => {
-    if (["Enter", "Tab", ","].includes(event.key)) {
-      event.preventDefault();
-      hashtags.push(value.trim());
-      setValue("");
-    }
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: 225,
+        width: 250,
+      },
+    },
   };
 
-  const inputChangedHandler = (event) => {
-    setValue(event.target.value);
+  const handleChange = (event) => {
+    setSpecialty(event.target.value);
   };
 
   function changeToRegister(){
@@ -189,15 +194,27 @@ function Login (props) {
                  multiline
                  rowsMax={5}
                  className={classes.Input}/><br/><br/>
-      <TextField label="תחומי ההתמחות של המשרד"
-                 className={classes.Input}
-                 fullWidth={true}
-                 value={value}
-                 onChange={inputChangedHandler}
-                 onKeyDown={keyDownHandler}/><br/><br/>
-      {hashtags.map((hashtag, index) => {
-        return <Chip className={classes.Chip} key={index} label={hashtag} />;
-      })}
+      <FormControl className={classes.LawyerRegister}>
+        <InputLabel>תחומי התמחות של המשרד</InputLabel>
+        <Select multiple
+                value={Specialty}
+                onChange={handleChange}
+                MenuProps={MenuProps}
+                renderValue={(selected) => (
+                  <div>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value}/>
+                    ))}
+                  </div>
+                )}
+        >
+          {Specialties.map((Specialty) => (
+            <MenuItem key={Specialty} value={Specialty}>
+              {Specialty}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl><br/><br/>
       <TextField label="כתובת המשרד"
                  fullWidth={true}
                  className={classes.Input}/><br/><br/>
