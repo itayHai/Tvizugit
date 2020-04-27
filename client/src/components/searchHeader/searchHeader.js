@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 import SimpleSelect from "../simpleSelect/simpleSelect";
@@ -7,10 +7,10 @@ import SearchClassAction from "../searchClassAction/searchClassAction";
 
 import classes from "./searchHeader.module.css";
 import { useDispatch } from "react-redux";
-import {changeSort} from "../../store/actions";
+import {changeSort} from "../../store/classAction";
 
 const SearchHeader = (props) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);

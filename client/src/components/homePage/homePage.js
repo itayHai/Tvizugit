@@ -4,6 +4,8 @@ import classes from "./homePage.module.css";
 import { Button } from "@material-ui/core";
 import ClassActionsByFilter from "../classActionsByFilter/classActionsByFilter";
 import CategoriesCards from "../categoriesCards/categoriesCards";
+import SearchClassAction from "../searchClassAction/searchClassAction";
+import Modal from '../modal/modal';
 
 const CONSTS = {
   filters: {
@@ -13,6 +15,16 @@ const CONSTS = {
 };
 
 export default function HomePage() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <section className={classes.section}>
@@ -32,9 +44,14 @@ export default function HomePage() {
             variant="contained"
             color="secondary"
             size="large"
+            onClick={handleOpen}
           >
             בדוק את זכאותך עוד היום
           </Button>
+          <Modal show={open} onClose={handleClose}>
+            <SearchClassAction close={handleClose} />
+          </Modal>
+
           <Button
             className={classes.sectionButtons}
             variant="contained"

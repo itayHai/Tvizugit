@@ -1,3 +1,10 @@
 .messages{
+    max-height: 350px;
     overflow: auto;
 }
+.addMessage{
+    display: flex;
+}
+.filterButton {
+    margin-left: auto !important;
+  }

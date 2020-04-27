@@ -1,21 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import SearchIcon from "@material-ui/icons/Search";
 import CategoryCard from "../categoryCard/categoryCard";
-import { categories } from "../../utils/globalConsts";
-
+import Chip from "@material-ui/core/Chip";
+import { useQuery } from "@apollo/react-hooks";
+import { categoriesIcons } from "../../utils/globalConsts";
+import { categoriesRequest } from "../../utils/requests";
 import classes from "./searchClassAction.module.css";
+import Spinner from "../spinner/spinner";
 
-const searchActionClass = (props) => {
+const SearchActionClass = (props) => {
+  const [value, setValue] = useState("");
+  const [hashtags] = useState([]);
+  let [chosenCategories] = useState([]);
+  const { loading, data } = useQuery(categoriesRequest.getAll);
+
+  useEffect(() => {}, [data]);
+
+  if (loading) return <Spinner />;
+
+  const categories = data.CategoryQueries.categories;
+
+  const handleCategoryClick = (id) => {
+    if (chosenCategories.includes(id)) {
+      chosenCategories = chosenCategories.filter(
+        (item) => item !== id
+      );
+    } else {
+      chosenCategories.push(id);
+    }
+  };
+
   let allCategories = [];
   let threeCategories = [];
   for (let i = 0; i < categories.length; i += 3) {
     for (let j = i; j < i + 3; j++) {
       threeCategories.push(
         <CategoryCard
+          click={handleCategoryClick}
           key={categories[j].id}
-          icon={categories[j].icon}
+          id={categories[j].id}
+          icon={categoriesIcons[categories[j].name]}
           title={categories[j].name}
         />
       );
@@ -24,8 +50,31 @@ const searchActionClass = (props) => {
     threeCategories = [];
   }
 
+  const keyDownHandler = (event) => {
+    if (["Enter", "Tab", ","].includes(event.key)) {
+      event.preventDefault();
+      hashtags.push(value.trim());
+      setValue("");
+    }
+  };
+
+  const inputChangedHandler = (event) => {
+    setValue(event.target.value);
+  };
+
+  const searchButtonHandler = () => {
+    //const name
+  };
+
+const cancelButtonHandler = () => 
+{
+  chosenCategories = [];
+  props.close();
+}
+
+
   return (
-    <div>
+    <div className={classes.SearchClassAction}>
       <div className={classes.Title}>
         <SearchIcon className={classes.SearchIcon} />
         <h1>חיפוש תובענה ייצוגית</h1>
@@ -37,19 +86,29 @@ const searchActionClass = (props) => {
         fullWidth={true}
       />
       <Input
-        placeholder="חיפוש לפי תגיות"
+        placeholder=" חיפוש לפי תגיות (לחץ Enter עבור כל תגית)"
         className={classes.InputSearch}
         fullWidth={true}
+        value={value}
+        onChange={inputChangedHandler}
+        onKeyDown={keyDownHandler}
       />
 
+      {hashtags.map((hashtag, index) => {
+        return <Chip className={classes.Chip} key={index} label={hashtag} />;
+      })}
+
       <h3 className={classes.SearchByCategory}>חיפוש לפי קטגוריה</h3>
+
       <div className={classes.Categories}>{allCategories}</div>
-      <Button variant="contained" onClick={props.close}>
+      <Button variant="contained" onClick={cancelButtonHandler}>
         ביטול
       </Button>
-      <Button className={classes.SearchButton} >חיפוש</Button>
+      <Button className={classes.SearchButton} onClick={searchButtonHandler}>
+        חיפוש
+      </Button>
     </div>
   );
 };
 
-export default searchActionClass;
+export default SearchActionClass;

@@ -30,6 +30,7 @@ const theme = createMuiTheme({
 });
 
 const styles = {
+  background: "#F1F1F1 0% 0% no-repeat padding-box",
   width: "100%",
   margin: "auto",
   height: "100%",
