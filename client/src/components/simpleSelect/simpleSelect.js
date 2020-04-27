@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 import { useSelector } from "react-redux";
 
 const SimpleSelect = (props) => {
-  const sortBy = useSelector((state) => state.sortBy);
+  const sortBy = useSelector((state) => state.classAction.sortBy);
 
   const itemsOutput = props.items.map((item) => {
     return (

@@ -3,7 +3,7 @@ import ResultBanner from '../../../resultBanner/resultBanner';
 import { propertiesToShow } from '../../../../utils/globalConsts';
 import ClassActionContent from '../classAction/classActionContent/classActionContent';
 import { useDispatch } from 'react-redux';
-import { changeCurAction } from '../../../../store/actions'
+import { changeCurAction } from '../../../../store/classAction'
 import { dummyUser } from '../../../../utils/globalConsts';
 
 const ClassAction = props => {
