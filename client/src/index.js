@@ -4,15 +4,13 @@ import "./index.css";
 import App from "./components/app/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import reducer from "./store/reducer";
+import store from './store'
 import { create } from "jss";
 import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 import ApolloClient from "apollo-boost";
 import { URL } from "./utils/globalConsts";
 import { ApolloProvider } from "@apollo/react-hooks";
-
 const client = new ApolloClient({
   uri: URL,
 });
@@ -20,7 +18,7 @@ const client = new ApolloClient({
 // Create the jss rtl fix plugin
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
-const store = createStore(reducer);
+//const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>

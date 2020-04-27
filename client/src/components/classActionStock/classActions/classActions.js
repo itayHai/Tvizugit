@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
-import { updateClassActions } from "../../../store/actions";
 import { dummyData } from '../../../utils/globalConsts';
 import Modal from '../../modal/modal';
-import { changeCurAction } from '../../../store/actions';
+import { changeCurAction, updateClassActions } from '../../../store/classAction';
 import UpdateClassAction from './classAction/classActionContent/updateClassAction/updateClassAction';
 
 const ClassActions = (props) => {
-  const sortBy = useSelector(state => state.sortBy);
-  const stateClassActions = useSelector(state => state.classActions);
-  const currClassAction = useSelector(state => state.currClassAction)
+  const sortBy = useSelector(state => state.classAction.sortBy);
+  const stateClassActions = useSelector(state => state.classAction.classActions);
+  const currClassAction = useSelector(state => state.classAction.currClassAction)
   const showEditModal = Object.keys(currClassAction).length !== 0;
   const dispatch = useDispatch();
 

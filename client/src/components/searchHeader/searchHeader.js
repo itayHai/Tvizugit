@@ -7,7 +7,7 @@ import SearchClassAction from "../searchClassAction/searchClassAction";
 
 import classes from "./searchHeader.module.css";
 import { useDispatch } from "react-redux";
-import {changeSort} from "../../store/actions";
+import {changeSort} from "../../store/classAction";
 
 const SearchHeader = (props) => {
   const [open, setOpen] = useState(false);
