@@ -1,16 +1,33 @@
 import { gql } from "apollo-boost";
 
 const getAll = gql`
-  {
+{
     ClassActionQueries {
       classActions {
         title
+        id
+        name
         description
-        category {
+        category{
+          name
           engName
+        }
+        defendants
+        messages{
+          id
+          title
+          date
+          content
+        }
+        users {
+          id
           name
         }
         status
+        leadingUser {
+          id
+          name
+        }
         openDate
         successChances
       }
@@ -19,5 +36,5 @@ const getAll = gql`
 `;
 
 export default {
-    getAll,
+  getAll,
 };

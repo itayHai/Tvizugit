@@ -10,7 +10,6 @@ import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 import ApolloClient from "apollo-boost";
 import { URL } from "./utils/globalConsts";
-import { gql } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 const client = new ApolloClient({
   uri: URL,

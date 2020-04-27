@@ -6,7 +6,7 @@ import AddMessage from './addMessage/addMessage';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
-    const isMessages = props.messages?.length === 0 ? "הודעות" : "אין הודעות";
+    const isMessages = props.messages?.length !== 0 ? "הודעות" : "אין הודעות";
     const [addMessage, setAddMessage] = useState(false);
 
     const handleAddMessage = () => {

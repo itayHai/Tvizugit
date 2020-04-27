@@ -30,10 +30,10 @@ const UpdateClassAction = props => {
             <h2>עריכת תובענה</h2>
             <TextareaAutosize autoFocus className={classes.textBox} ref={descriptionRef} rowsMin={3} defaultValue={classAction.description}></TextareaAutosize>
             <div className={classes.updateBanner}>
-                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={classAction.actionName} name="actionName" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={classAction.name} name="actionName" onChange={handleChange}></TextField>
                 <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={classAction.lawyer} name="lawyer" onChange={handleChange} ></TextField>
-                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={classAction.actionStage} name="actionStage" onChange={handleChange}></TextField>
-                <TextField className={classes.ManagerAction} label="קטגוריה" defaultValue={classAction.category} name="category" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={classAction.status} name="actionStage" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="קטגוריה" defaultValue={classAction.category?.name} name="category" onChange={handleChange}></TextField>
                 {classAction.users? <Autocomplete
                     options={classAction.users}
                     className={classes.ManagerAction}

@@ -14,7 +14,7 @@ const ClassActionContent = props => {
 
     const showMessages = isUserInAction ?
         <ManagerMessages
-            messages={props.cAction.manMessages}
+            messages={props.cAction.messages}
             isUserManager={isUserManager}
             delMessClick={(message) => dispatch(removeMessageAction(props.cAction, message))}
             addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}

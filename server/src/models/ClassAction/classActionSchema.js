@@ -20,6 +20,26 @@ export const classActionSchema = new Schema({
       type: String,
     },
   ],
+  messages: [
+    {
+      id: { type: Schema.Types.ObjectId },
+      title: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      content: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      date: {
+        type: Date,
+        trim: true,
+        required: true,
+      },
+    }
+  ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
   representingLawyer: { type: String },
   openDate: { type: Date },

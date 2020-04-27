@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
-import { dummyData } from '../../../utils/globalConsts';
 import Modal from '../../modal/modal';
 import { changeCurAction, updateClassActions } from '../../../store/classAction';
 import UpdateClassAction from './classAction/classActionContent/updateClassAction/updateClassAction';
@@ -13,7 +12,7 @@ const ClassActions = (props) => {
   const showEditModal = Object.keys(currClassAction).length !== 0;
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  if(error) console.log(error);
     dispatch(updateClassActions(dummyData));
 
   }, [dispatch]);
