@@ -3,18 +3,25 @@ import { userSchema } from "../User/userSchema";
 import { GraphQLNonNull, GraphQLList } from "graphql";
 
 export const classActionSchema = new Schema({
-  title: { type: String, required: true },
+  name: { type: String, required: true },
   description: { type: String },
   category: { type: Schema.Types.ObjectId, ref: "category", required: true },
-  status: { type: Schema.Types.ObjectId },
+  status: { type: String },
   defendants: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+      type: String,
+    },
+  ],
+  users: [
+    { type: Schema.Types.ObjectId, ref: "user" }
+  ],
+  hashtags: [
+    {
+      type: String,
     },
   ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
-  leadingUser: { type: Schema.Types.ObjectId, ref: "user" },
+  representingLawyer: { type: String },
   openDate: { type: Date },
   successChances: { type: String },
 });
