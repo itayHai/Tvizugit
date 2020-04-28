@@ -21,10 +21,9 @@ const ManagerMessages = props => {
         handleCancelMessage();
         props.addMessClick(title, message)
     };
-
     const messagesToshow = props.messages.map((mes) => {
         return <ManagerMessage
-            key={mes.title}
+            key={mes.id}
             message={mes}
             isUserManager={props.isUserManager}
             deleteClick={props.delMessClick}

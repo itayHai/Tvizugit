@@ -24,15 +24,15 @@ export const propertiesToShow = [
     classActionPro: [
       {
         name: "שם התביעה",
-        engName: "actionName",
+        engName: "name",
       },
       {
         name: "הגוף הנתבע",
-        engName: "defendantParty",
+        engName: "defendants",
       },
       {
         name: "שלב התביעה",
-        engName: "actionStage",
+        engName: "status",
       },
       {
         name: "מספר תובעים",
@@ -167,10 +167,14 @@ export const dummyData = [
   }
 ];
 export const dummyUser = {
-  Id: 2,
-  name: "אלה פורטנוב"
-  // Id:1,
+  // id: "5ea6da2e79e90e30cc08a4bb",
+  // name: "אלה פורטנוב"
+  // id:"5ea6dade79e90e30cc08a4bc",
   // name:"איתי הייזלר"
-  // Id: 3,
+  // id: "5ea6db0a79e90e30cc08a4bd",
   // name: "טלי כהן"
+    // id: "5ea6db3879e90e30cc08a4be",
+  // name: "רותם חוגי",
+  id : "5e9d8bc9d43a5108ecf17822",
+  name :"עידו פרלמן"
 }
