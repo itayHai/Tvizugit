@@ -26,7 +26,6 @@ const SearchActionClass = (props) => {
 
   const { loading, data } = useQuery(classActionsRequest.getAll);
   useEffect(() => {}, [data]);
-  if (loading) return <Spinner />;
   classActions = data.ClassActionQueries.classActions;
 
   {
