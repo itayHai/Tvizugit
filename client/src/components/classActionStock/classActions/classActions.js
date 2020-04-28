@@ -6,6 +6,7 @@ import Modal from '../../modal/modal';
 import { classActionsRequest } from '../../../utils/requests';
 import { changeCurAction, updateClassActions } from '../../../store/classAction';
 import UpdateClassAction from './classAction/classActionContent/updateClassAction/updateClassAction';
+import { useParams} from "react-router";
 
 const ClassActions = (props) => {
   const { loading, error, data } = useQuery(classActionsRequest.getAll);
@@ -13,16 +14,14 @@ const ClassActions = (props) => {
   const stateClassActions = useSelector(state => state.classAction.classActions);
   const currClassAction = useSelector(state => state.classAction.currClassAction)
   const showEditModal = Object.keys(currClassAction).length !== 0;
-  console.log("stateClassActions");
-  console.log(stateClassActions);
-
+  let {all} = useParams();
 
   const dispatch = useDispatch();
   if (loading) return <p>Loading...</p>;
   if(error) console.log(error);
-  if (stateClassActions.length === 0) {
-    // get classActions from server
-    dispatch(updateClassActions(data.ClassActionQueries.classActions));
+
+  if (all === "all") {
+   dispatch(updateClassActions(data.ClassActionQueries.classActions));
   }
   const handleCloseEditAction = () => {
     dispatch(changeCurAction({}))
@@ -61,8 +60,8 @@ const ClassActions = (props) => {
         />
       </Modal>
       
-      
-      {stateClassActions.length === 0 ? "לא נמצאו תביעות בחיפוש" : classActions}
+      {stateClassActions.length === 0 ? "לא נמצאו תביעות בחיפוש" :"" }
+      {classActions}
     </div>
   );
 };

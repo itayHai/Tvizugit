@@ -9,7 +9,7 @@ import {
 import { GraphQLDate } from "graphql-compose";
 import { UserType, UserInputType } from "../User/userType";
 import { CategoryType } from "../Category/cateogryType";
-import {MessageType} from '../Message/messageType';
+import { MessageType } from "../Message/messageType";
 
 const ClassActionType = new GraphQLObjectType({
   name: "ClassActionType",
@@ -25,13 +25,14 @@ const ClassActionType = new GraphQLObjectType({
     defendants: {
       type: new GraphQLList(GraphQLString),
     },
-    messages :{
+    messages: {
       type: new GraphQLList(MessageType),
     },
     leadingUser: { type: UserType },
     representingLawyer: { type: UserType },
     openDate: { type: GraphQLDate },
     successChances: { type: GraphQLString },
+    hashtags: { type: new GraphQLList(GraphQLString) }
   }),
 });
 
@@ -54,7 +55,7 @@ const ClassActionInputType = new GraphQLInputObjectType({
       ),
     },
     hashtags: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
     },
     // messages :{
     //   type: new GraphQLList(GraphQLString),

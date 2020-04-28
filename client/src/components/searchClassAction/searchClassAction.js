@@ -11,13 +11,12 @@ import { classActionsRequest } from "../../utils/requests";
 import classes from "./searchClassAction.module.css";
 import Spinner from "../spinner/spinner";
 import { useDispatch } from "react-redux";
-import {useHistory} from 'react-router-dom';
-import { updateClassActions } from '../../store/classAction';
-
+import { useHistory } from "react-router-dom";
+import { updateClassActions } from "../../store/classAction";
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");
-  const [hashtags] = useState([]);
+  let [hashtags] = useState([]);
   let [chosenCategories] = useState([]);
   let [chosenName, setChosenName] = useState("");
   let categories = null;
@@ -77,19 +76,30 @@ const SearchActionClass = (props) => {
 
   const searchButtonHandler = (e) => {
     let filterdClassActions = classActions.filter((classAction) => {
-      if (chosenName === "") {
+      if (hashtags?.filter((hashtag) => classAction.hashtags.includes(hashtag))
+          .length !== 0) {
+        return true;
+      }
+
+      if (!chosenName) {
         return chosenCategories.includes(classAction.category.name);
       }
       return (
-        classAction.category.name.includes(chosenName) ||
-        chosenCategories.includes(classAction.category.name)
+        chosenCategories.includes(classAction.category.name) ||
+        classAction.name.includes(chosenName)
       );
     });
+
     dispatch(updateClassActions(filterdClassActions));
-    console.log("filterdClassActions");
-    console.log(filterdClassActions);
-    history.push("/classActionsStock");
+    clearLocalState();
+    history.push("/classActionsStock/searchResult");
     props.close();
+  };
+
+  const clearLocalState = () => {
+    setChosenName("");
+    chosenCategories = [];
+    hashtags = [];
   };
 
   const nameInputHandler = (event) => {
@@ -97,7 +107,7 @@ const SearchActionClass = (props) => {
   };
 
   const cancelButtonHandler = () => {
-    chosenCategories = [];
+    clearLocalState();
     props.close();
   };
 
@@ -108,7 +118,7 @@ const SearchActionClass = (props) => {
         <h1>חיפוש תובענה ייצוגית</h1>
       </div>
       <Input
-        placeholder="חיפוש לפי הגורם הנתבע"
+        placeholder="חיפוש לפי שם התביעה"
         className={classes.InputSearch}
         autoFocus={true}
         fullWidth={true}
