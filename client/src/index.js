@@ -15,27 +15,6 @@ const client = new ApolloClient({
   uri: URL,
 });
 
-client
-  .query({
-    query: gql`
-      query {
-        ClassActionQueries {
-          classActions {
-            title
-            description
-            category {
-              engName
-              name
-            }
-            status
-            openDate
-            successChances
-          }
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
 
 // Create the jss rtl fix plugin
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });

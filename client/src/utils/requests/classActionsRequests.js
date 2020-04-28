@@ -2,36 +2,36 @@ import { gql } from "apollo-boost";
 
 const getAll = gql`
 {
-    ClassActionQueries {
-      classActions {
+  ClassActionQueries {
+    classActions {
+      id
+      name
+      description
+      category{
+        name
+        engName
+      }
+      defendants
+      messages{
+        id
+        title
+        date
+        content
+      }
+      users {
         id
         name
-        description
-        category{
-          name
-          engName
-        }
-        defendants
-        messages{
-          _id
-          title
-          date
-          content
-        }
-        users {
-          id
-          name
-        }
-        status
-        leadingUser {
-          id
-          name
-        }
-        openDate
-        successChances
       }
+      status
+      leadingUser {
+        id
+        name
+      }
+      openDate
+      successChances
     }
   }
+}
 `;
 const updateClassActionServer = gql`
 mutation ($classAction: ClassActionInputType!, $id: String) {
