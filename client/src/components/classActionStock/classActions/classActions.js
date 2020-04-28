@@ -13,6 +13,9 @@ const ClassActions = (props) => {
   const stateClassActions = useSelector(state => state.classAction.classActions);
   const currClassAction = useSelector(state => state.classAction.currClassAction)
   const showEditModal = Object.keys(currClassAction).length !== 0;
+  console.log("stateClassActions");
+  console.log(stateClassActions);
+
 
   const dispatch = useDispatch();
   if (loading) return <p>Loading...</p>;
@@ -57,7 +60,9 @@ const ClassActions = (props) => {
           close={() => handleCloseEditAction()}
         />
       </Modal>
-      {classActions}
+      
+      
+      {stateClassActions.length === 0 ? "לא נמצאו תביעות בחיפוש" : classActions}
     </div>
   );
 };

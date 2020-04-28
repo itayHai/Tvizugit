@@ -19,6 +19,7 @@ function getClassAction({ id }) {
     .populate("users");
 }
 
+
 function getAllClassActions() {
   return ClassActionModel.find({})
     .populate("category")

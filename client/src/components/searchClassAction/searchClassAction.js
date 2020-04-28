@@ -7,28 +7,40 @@ import Chip from "@material-ui/core/Chip";
 import { useQuery } from "@apollo/react-hooks";
 import { categoriesIcons } from "../../utils/globalConsts";
 import { categoriesRequest } from "../../utils/requests";
+import { classActionsRequest } from "../../utils/requests";
 import classes from "./searchClassAction.module.css";
 import Spinner from "../spinner/spinner";
+import { useDispatch } from "react-redux";
+import {useHistory} from 'react-router-dom';
+import { updateClassActions } from '../../store/classAction';
+
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");
   const [hashtags] = useState([]);
   let [chosenCategories] = useState([]);
-  const { loading, data } = useQuery(categoriesRequest.getAll);
+  let [chosenName, setChosenName] = useState("");
+  let categories = null;
+  let classActions = null;
+  const dispatch = useDispatch();
+  let history = useHistory();
 
+  const { loading, data } = useQuery(classActionsRequest.getAll);
   useEffect(() => {}, [data]);
+  classActions = data.ClassActionQueries.classActions;
 
-  if (loading) return <Spinner />;
+  {
+    const { loading, data } = useQuery(categoriesRequest.getAll);
+    useEffect(() => {}, [data]);
+    if (loading) return <Spinner />;
+    categories = data.CategoryQueries.categories;
+  }
 
-  const categories = data.CategoryQueries.categories;
-
-  const handleCategoryClick = (id) => {
-    if (chosenCategories.includes(id)) {
-      chosenCategories = chosenCategories.filter(
-        (item) => item !== id
-      );
+  const handleCategoryClick = (name) => {
+    if (chosenCategories.includes(name)) {
+      chosenCategories = chosenCategories.filter((item) => item !== name);
     } else {
-      chosenCategories.push(id);
+      chosenCategories.push(name);
     }
   };
 
@@ -41,6 +53,7 @@ const SearchActionClass = (props) => {
           click={handleCategoryClick}
           key={categories[j].id}
           id={categories[j].id}
+          name={categories[j].name}
           icon={categoriesIcons[categories[j].name]}
           title={categories[j].name}
         />
@@ -62,16 +75,31 @@ const SearchActionClass = (props) => {
     setValue(event.target.value);
   };
 
-  const searchButtonHandler = () => {
-    //const name
+  const searchButtonHandler = (e) => {
+    let filterdClassActions = classActions.filter((classAction) => {
+      if (chosenName === "") {
+        return chosenCategories.includes(classAction.category.name);
+      }
+      return (
+        classAction.category.name.includes(chosenName) ||
+        chosenCategories.includes(classAction.category.name)
+      );
+    });
+    dispatch(updateClassActions(filterdClassActions));
+    console.log("filterdClassActions");
+    console.log(filterdClassActions);
+    history.push("/classActionsStock");
+    props.close();
   };
 
-const cancelButtonHandler = () => 
-{
-  chosenCategories = [];
-  props.close();
-}
+  const nameInputHandler = (event) => {
+    setChosenName(event.target.value);
+  };
 
+  const cancelButtonHandler = () => {
+    chosenCategories = [];
+    props.close();
+  };
 
   return (
     <div className={classes.SearchClassAction}>
@@ -84,6 +112,7 @@ const cancelButtonHandler = () =>
         className={classes.InputSearch}
         autoFocus={true}
         fullWidth={true}
+        onChange={nameInputHandler}
       />
       <Input
         placeholder=" חיפוש לפי תגיות (לחץ Enter עבור כל תגית)"
