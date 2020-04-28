@@ -17,7 +17,7 @@ const ClassActions = (props) => {
   const dispatch = useDispatch();
   if (loading) return <p>Loading...</p>;
   if(error) console.log(error);
-  if (stateClassActions) {
+  if (stateClassActions.length === 0) {
     // get classActions from server
     dispatch(updateClassActions(data.ClassActionQueries.classActions));
   }
