@@ -26,6 +26,7 @@ const SearchActionClass = (props) => {
 
   const { loading, data } = useQuery(classActionsRequest.getAll);
   useEffect(() => {}, [data]);
+  if (loading) return <Spinner />;
   classActions = data.ClassActionQueries.classActions;
 
   {
@@ -80,7 +81,6 @@ const SearchActionClass = (props) => {
           .length !== 0) {
         return true;
       }
-
       if (!chosenName) {
         return chosenCategories.includes(classAction.category.name);
       }
