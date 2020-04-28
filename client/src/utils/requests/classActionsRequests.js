@@ -4,7 +4,6 @@ const getAll = gql`
 {
     ClassActionQueries {
       classActions {
-        title
         id
         name
         description
@@ -14,7 +13,7 @@ const getAll = gql`
         }
         defendants
         messages{
-          id
+          _id
           title
           date
           content
@@ -34,7 +33,18 @@ const getAll = gql`
     }
   }
 `;
+const updateClassActionServer = gql`
+mutation ($classAction: ClassActionInputType!, $id: String) {
+  ClassActionMutation {
+    classAction(classAction: $classAction, id: $id) {
+      id: id
+      name: name
+      status: status
+    }
+  }
+}`;
 
 export default {
   getAll,
+  updateClassActionServer
 };

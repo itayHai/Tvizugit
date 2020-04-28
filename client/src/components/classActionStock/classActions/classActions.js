@@ -40,7 +40,7 @@ const ClassActions = (props) => {
     return (
         <ClassAction
           classAction={cAction}
-          key={cAction.Id} />
+        key={cAction.id} />
     )
   });
 

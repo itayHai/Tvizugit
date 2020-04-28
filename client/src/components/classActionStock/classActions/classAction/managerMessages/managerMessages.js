@@ -6,7 +6,7 @@ import AddMessage from './addMessage/addMessage';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const ManagerMessages = props => {
-    const isMessages = props.messages?.length !== 0 ? "הודעות" : "אין הודעות";
+    const isMessages = props.messages.length !== 0 ? "הודעות" : "אין הודעות";
     const [addMessage, setAddMessage] = useState(false);
 
     const handleAddMessage = () => {
@@ -21,10 +21,9 @@ const ManagerMessages = props => {
         handleCancelMessage();
         props.addMessClick(title, message)
     };
-
-    const messagesToshow = props.messages?.map((mes) => {
+    const messagesToshow = props.messages.map((mes) => {
         return <ManagerMessage
-            key={mes.title}
+            key={mes._id}
             message={mes}
             isUserManager={props.isUserManager}
             deleteClick={props.delMessClick}
@@ -47,7 +46,7 @@ const ManagerMessages = props => {
                 close={handleCancelMessage}
                 saveClick={(title, message) => handleSave(title, message)} /> :
                 null}
-            {props.messages?.length !== 0 ?
+            {props.messages.length !== 0 ?
                 <div className={classes.messages}>
                     {messagesToshow}
                 </div> : null}

@@ -7,15 +7,14 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { updateClassAction } from '../../../../../../store/classAction';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 const UpdateClassAction = props => {
     const dispatch = useDispatch();
     const classAction = useSelector(state => state.classAction.currClassAction)
     const descriptionRef = useRef();
-    
+
     const handleSave = () => {
         classAction.description = descriptionRef.current.value;
-        dispatch(updateClassAction(classAction))
+        dispatch(updateClassAction(classAction));
         props.close();
     }
     const handleChange = (event) => {
