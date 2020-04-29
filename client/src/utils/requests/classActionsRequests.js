@@ -1,5 +1,6 @@
 import { gql } from "apollo-boost";
 
+        id
 const updateClassActionServer = gql`
   mutation($classAction: ClassActionInputType!, $id: String) {
     ClassActionMutation {

@@ -123,7 +123,6 @@ const ClassActions = (props) => {
             return order === "desc" ? comparison * -1 : comparison;
         };
     };
-
     const classActions = stateClassActions
         .sort(compareValues(sortBy))
         .map((cAction) => {
