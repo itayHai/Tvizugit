@@ -3,10 +3,34 @@ import React from "react";
 
 export const URL = "http://localhost:8000/graphql";
 
-export const users = [
-  { id: 1, name: "עורך דין", icon: <Gavel /> },
-  { id: 2, name: "משתמש", icon: <Person /> },
+export const users = { 
+  lawyer: { id: 1, name: "עורך דין", icon: <Gavel/> },
+  user: { id: 2, name: "משתמש", icon: <Person/> },
+};
+
+export const specialties = [
+  'גבייה לעסקים',
+  'הוצאה לפועל',
+  'ייצוג בנקים',
+  'הפקעת קרקעות',
+  'תכנון ובנייה',
+  'המגזר החקלאי',
+  'ייפוי כוח מתמשך',
+  'נדל"ן',
+  'משפט אזרחי ומסחרי',
+  'דיני עבודה',
+  'חברות',
+  'קניין רוחני',
+  'צוואות',
+  'פשיטת רגל',
+  'ביטוח לאומי',
+  'מיסים',
+  'מקרקעין',
+  'משרד הביטחון',
+  'דיני משפחה',
+  'צוואה/ירושה',
 ];
+
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,
   ביטוח: <LockOpen />,
