@@ -29,6 +29,7 @@ const getAll = gql`
       }
       openDate
       successChances
+      hashtags
     }
   }
 }

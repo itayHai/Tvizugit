@@ -68,7 +68,7 @@ const classActionReducer = (state = initialState, action) => {
       };
     case UPDATE_CLASS_ACTION:
       const newClassActions = state.classActions.map((cAction) => {
-        if (cAction.Id === action.classAction.Id) {
+        if (cAction.id === action.classAction.id) {
           return action.classAction;
         }
         return cAction;
@@ -114,11 +114,11 @@ const classActionReducer = (state = initialState, action) => {
 };
 
 const removeMessage = (currClassAction, message, classActions) => {
-  currClassAction.manMessages = currClassAction.manMessages.filter((mes) => {
+  currClassAction.messages = currClassAction.messages.filter((mes) => {
     return mes !== message;
   });
   classActions = classActions.map((cAction) => {
-    if (cAction.Id === currClassAction.Id) {
+    if (cAction.id === currClassAction.id) {
       return currClassAction;
     }
     return cAction;
@@ -134,9 +134,9 @@ const addMessage = (message, title, classAction, classActions) => {
     title: title,
     content: message,
   };
-  classAction.manMessages.push(newMessage);
+  classAction.messages.push(newMessage);
   classActions = classActions.map((cAction) => {
-    if (cAction.Id === classAction.Id) {
+    if (cAction.id === classAction.id) {
       return classAction;
     }
     return cAction;
