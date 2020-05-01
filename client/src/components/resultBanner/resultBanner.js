@@ -47,7 +47,7 @@ export default function ResultBanner(props) {
           ) : null}
           {loggedInUser.role.engName === "admin" && (
             <IconButton
-              aria-label="share"
+              aria-label="delete"
               onClick={() => dispatch(deleteClassAction())}
             >
               <Delete />
