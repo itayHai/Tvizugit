@@ -4,6 +4,7 @@ import {
   GraphQLSchema,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
 } from "graphql";
 import { ClassActionType } from "./classActionType";
 import { getClassAction, getAllClassActions } from "./classActionBL";
@@ -14,7 +15,7 @@ const ClassActionQueries = new GraphQLObjectType({
     classAction: {
       type: ClassActionType,
       args: {
-        id: { type: GraphQLString },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: (root, params, context, ast) => {
         return getClassAction(params);

@@ -10,11 +10,11 @@ function deleteClassAction({ id }) {
 }
 
 function updateClassAction(id, classActionToAdd) {
-  ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd)
+  ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd);
+  return ClassActionModel.findOne({ _id: id })
     .populate("category")
     .populate("leadingUser")
     .populate("defendants");
-  return ClassActionModel.findOne({ _id: id });
 }
 
 function getClassAction({ id }) {
