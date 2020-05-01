@@ -1,6 +1,10 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from "graphql";
 import { ClassActionType, ClassActionInputType } from "./classActionType";
-import { addClassAction, updateClassAction } from "./classActionBL";
+import {
+  addClassAction,
+  updateClassAction,
+  deleteClassAction,
+} from "./classActionBL";
 
 const ClassActionMutation = new GraphQLObjectType({
   name: "ClassActionMutationType",
@@ -17,6 +21,15 @@ const ClassActionMutation = new GraphQLObjectType({
         } else {
           return addClassAction(classAction);
         }
+      },
+    },
+    deleteClassAction: {
+      type: ClassActionType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (root, params) => {
+        return deleteClassAction(params);
       },
     },
   }),

@@ -5,6 +5,10 @@ function addClassAction(classActionToAdd) {
   return newClassAction.save();
 }
 
+function deleteClassAction({ id }) {
+  return ClassActionModel.deleteOne({ _id: id });
+}
+
 function updateClassAction(id, classActionToAdd) {
   ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd)
     .populate("category")
@@ -32,4 +36,5 @@ export {
   getClassAction,
   getAllClassActions,
   updateClassAction,
+  deleteClassAction,
 };
