@@ -8,6 +8,10 @@ const updateClassActionServer = gql`
         id: id
         name: name
         status: status
+        title
+        date
+        content
+      }
       }
     }
   }

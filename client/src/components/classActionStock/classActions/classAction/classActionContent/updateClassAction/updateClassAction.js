@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import classes from './updateClassAction.module.css';
 import Button from "@material-ui/core/Button";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
@@ -9,30 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { classActionsRequest, categoriesRequest } from '../../../../../../utils/requests';
 import Spinner from '../../../../../spinner/spinner';
-import AlertUser from '../../../../../alertUser/alertUser';
 
 const UpdateClassAction = props => {
-    const [isSaveSuccsess, setSaveSuccsess] = useState(false);
-    const dataReturn = null;
     const dispatch = useDispatch();
     const stateClassAction = useSelector(state => state.classAction.currClassAction);
     const { loading, error, data } = useQuery(categoriesRequest.getAll);
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
     const descriptionRef = useRef();
-    let alertMessage = "הנתונים נשמרו בהצלחה";
-    let alertSeverity = "success";
-
-    // const handleCloseAlert = () => {
-    //     setSaveSuccsess(false);
-    // };
-    // useEffect(() => {
-    //     if (dataReturn) {
-    //         alertMessage = "הנתונים לא נשמרו";
-    //         alertSeverity = "error";
-    //     };
-    //     setSaveSuccsess(true);
-    // },dataReturn);
     if (loading) return <Spinner />;
+    if(error) console.log(error);
 
     const handleSave = () => {
         stateClassAction.description = descriptionRef.current.value;
@@ -53,15 +38,6 @@ const UpdateClassAction = props => {
                 id: stateClassAction.id
             }
         })
-            // .then(( dataReturn ) => {
-            //     // dataReturn = data;
-            //     console.log(dataReturn);
-            // }
-            // )
-            // .catch(e => {
-
-            //     setSaveSuccsess(true);
-            // })
         dispatch(updateClassAction(stateClassAction));
         props.close();
     }
@@ -113,7 +89,6 @@ const UpdateClassAction = props => {
                     onClick={() => handleSave()}
                 >שמור</Button>
             </div>
-            {/* <AlertUser open={isSaveSuccsess} handleClose={handleCloseAlert} message={alertMessage} severity={alertSeverity} /> */}
         </div>
     );
 };
