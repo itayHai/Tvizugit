@@ -12,13 +12,27 @@ import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteClassAction } from "../../store/classAction";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
 
 export default function ResultBanner(props) {
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const hadleDeleteClassAction = (entityId) => {
+    dispatch(deleteClassAction(entityId));
+    setDeleteDialogOpen(false);
   };
 
   let combinedPropertiesToShow = props.selectedProperties.map((p) => {
@@ -46,12 +60,48 @@ export default function ResultBanner(props) {
             </IconButton>
           ) : null}
           {loggedInUser.role.engName === "admin" && (
-            <IconButton
-              aria-label="delete"
-              onClick={() => dispatch(deleteClassAction())}
-            >
-              <Delete />
-            </IconButton>
+            <div>
+              <IconButton
+                aria-label="delete"
+                onClick={
+                  () =>
+                    setDeleteDialogOpen(true) /* dispatch(deleteClassAction()*/
+                }
+              >
+                <Delete />
+              </IconButton>
+              <Dialog
+                open={deleteDialogOpen}
+                onClose={() => setDeleteDialogOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  בוודאות בא לך למחוק? אין חרטות
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    לאחר אישור המחיקה התובענה תמחק ואף משתמש לא יוכל לצפות בה
+                    יותר.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => setDeleteDialogOpen(false)}
+                    color="primary"
+                  >
+                    וואלה התחרטתי
+                  </Button>
+                  <Button
+                    onClick={() => hadleDeleteClassAction(props.entityId)}
+                    color="primary"
+                    autoFocus
+                  >
+                    כן
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
           )}
           <IconButton
             className={clsx(classes.expand, {

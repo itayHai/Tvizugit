@@ -16,17 +16,12 @@ export function updateClassActions(classActions) {
   };
 }
 
-export function deleteClassAction(classActionToRemove) {
+export function deleteClassAction(classActionId) {
   const DELETE_CLASS_ACTION_MUTATION = gql`
     mutation ClassActionMutation($id: String!) {
       ClassActionMutation {
         deleteClassAction(id: $id) {
           id
-          title
-          description
-          category {
-            name
-          }
         }
       }
     }
@@ -37,12 +32,12 @@ export function deleteClassAction(classActionToRemove) {
       .mutate({
         mutation: DELETE_CLASS_ACTION_MUTATION,
         // Any hard coded existing id for now
-        variables: { id: "5ea7400546895c128867d79b" },
+        variables: { id: classActionId },
       })
       .then((result) =>
         dispatch({
           type: DELETE_CLASS_ACTION,
-          classActionToRemove: { id: 2 },
+          classActionToRemove: { id: classActionId },
         })
       );
   };
