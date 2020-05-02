@@ -31,7 +31,7 @@ const Navbar = (props) => {
               <label className="slogan">לתבוע בידיים טובות</label>
             </div>
           </Link>
-          <Link to="/classActionsStock" className="link" >
+          <Link to="/classActionsStock/all" className="link" >
             <h3>מאגר התביעות</h3>
           </Link>
           <Link to="/lawyers" className="link" >

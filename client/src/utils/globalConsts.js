@@ -3,21 +3,34 @@ import React from "react";
 
 export const URL = "http://localhost:8000/graphql";
 
-export const users = [
-  { id: 1, name: "עורך דין", icon: <Gavel /> },
-  { id: 2, name: "משתמש", icon: <Person /> },
+export const users = { 
+  lawyer: { id: 1, name: "עורך דין", icon: <Gavel/> },
+  user: { id: 2, name: "משתמש", icon: <Person/> },
+};
+
+export const specialties = [
+  'גבייה לעסקים',
+  'הוצאה לפועל',
+  'ייצוג בנקים',
+  'הפקעת קרקעות',
+  'תכנון ובנייה',
+  'המגזר החקלאי',
+  'ייפוי כוח מתמשך',
+  'נדל"ן',
+  'משפט אזרחי ומסחרי',
+  'דיני עבודה',
+  'חברות',
+  'קניין רוחני',
+  'צוואות',
+  'פשיטת רגל',
+  'ביטוח לאומי',
+  'מיסים',
+  'מקרקעין',
+  'משרד הביטחון',
+  'דיני משפחה',
+  'צוואה/ירושה',
 ];
-export const categories = [
-  { id: 1, name: "חוק הגנת הצרכן", icon: <Accessibility /> },
-  { id: 2, name: "ביטוח", icon: <LockOpen /> },
-  { id: 3, name: "בנקאות", icon: <AccountBalance /> },
-  { id: 4, name: "חוק ההגבלים העסקיים", icon: <Receipt /> },
-  { id: 6, name: "מפגע סביבתי", icon: <Eco /> },
-  { id: 7, name: "אפליה בשירות", icon: <RoomService /> },
-  { id: 8, name: "אפליה בעבודה ושכר", icon: <Work /> },
-  { id: 9, name: "נגישות", icon: <Accessible /> },
-  { id: 11, name: "גבייה שלא כדין", icon: <MonetizationOn /> },
-];
+
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,
   ביטוח: <LockOpen />,
@@ -35,15 +48,15 @@ export const propertiesToShow = [
     classActionPro: [
       {
         name: "שם התביעה",
-        engName: "actionName",
+        engName: "name",
       },
       {
         name: "הגוף הנתבע",
-        engName: "defendantParty",
+        engName: "defendants",
       },
       {
         name: "שלב התביעה",
-        engName: "actionStage",
+        engName: "status",
       },
       {
         name: "מספר תובעים",
@@ -178,10 +191,14 @@ export const dummyData = [
   }
 ];
 export const dummyUser = {
-  Id: 2,
-  name: "אלה פורטנוב"
-  // Id:1,
+  // id: "5ea6da2e79e90e30cc08a4bb",
+  // name: "אלה פורטנוב"
+  // id:"5ea6dade79e90e30cc08a4bc",
   // name:"איתי הייזלר"
-  // Id: 3,
+  // id: "5ea6db0a79e90e30cc08a4bd",
   // name: "טלי כהן"
+    // id: "5ea6db3879e90e30cc08a4be",
+  // name: "רותם חוגי",
+  id : "5e9d8bc9d43a5108ecf17822",
+  name :"עידו פרלמן"
 }

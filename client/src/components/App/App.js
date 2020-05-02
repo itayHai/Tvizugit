@@ -44,7 +44,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
-            <Route path="/classActionsStock" component={ClassActionsStock} />
+            <Route path="/classActionsStock/:all" component={ClassActionsStock} />
             <Route path="/lawyers">
               <h1>Lawyers</h1>
             </Route>

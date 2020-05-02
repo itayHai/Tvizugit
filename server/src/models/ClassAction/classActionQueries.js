@@ -17,6 +17,10 @@ const ClassActionQueries = new GraphQLObjectType({
         id: { type: GraphQLString },
       },
       resolve: (root, params, context, ast) => {
+        if(params){
+          getClassActionByParams(params);
+          console.log(params)
+        }
         return getClassAction(params);
       },
     },

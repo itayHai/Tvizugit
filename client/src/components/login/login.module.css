@@ -1,9 +1,20 @@
-.Input {
+  .Input {
     margin-top: 40px;
     direction: rtl;
+    width: 400px;
   }
   
   .LoginButton {
+    background-color:#009688 !important;
+    color:white !important;
+  }
+
+  .BackButton {
+    float: right;
+  }
+
+  .ProfileButton {
+    float: left;
     background-color:#009688 !important;
     color:white !important;
   }
@@ -13,8 +24,21 @@
     height: 29px;
   }
 
+  .LoginScreen {
+    text-align: center;
+    width: 350px;
+  }
+
   .Center {
     text-align: center;
+  }
+
+  .LawyerRegister {
+    width: 500px;
+  }
+
+  .UserRegister {
+    width: 400px;
   }
   
   .Users {

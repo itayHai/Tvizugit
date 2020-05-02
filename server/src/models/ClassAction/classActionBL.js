@@ -9,21 +9,22 @@ function updateClassAction(id, classActionToAdd) {
   return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd)
     .populate("category")
     .populate("leadingUser")
-    .populate("defendants");
+    .populate("users");
 }
 
 function getClassAction({ id }) {
   return ClassActionModel.findOne({ _id: id })
     .populate("category")
     .populate("leadingUser")
-    .populate("defendants");
+    .populate("users");
 }
+
 
 function getAllClassActions() {
   return ClassActionModel.find({})
     .populate("category")
     .populate("leadingUser")
-    .populate("defendants");
+    .populate("users");
 }
 
 export {

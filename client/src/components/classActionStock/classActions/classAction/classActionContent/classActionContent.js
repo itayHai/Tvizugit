@@ -5,16 +5,17 @@ import ManagerMessages from '../managerMessages/managerMessages';
 import JoinAction from './joinAction/joinAction';
 import { dummyUser } from '../../../../../utils/globalConsts';
 import { useDispatch } from 'react-redux';
-import { removeMessageAction, addMessageAction } from '../../../../../store/actions';
+import { removeMessageAction, addMessageAction } from '../../../../../store/classAction';
+import DateHandler from '../../../../../utils/dateHandler';
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
-    const isUserManager = props.cAction.managerUser.Id === dummyUser.Id;
-    const isUserInAction = props.cAction.users.find(({ Id }) => Id === dummyUser.Id);
+    const isUserManager = props.cAction.leadingUser.id === dummyUser.id;
+    const isUserInAction = props.cAction.users.find(({ id }) => id === dummyUser.id);
 
     const showMessages = isUserInAction ?
         <ManagerMessages
-            messages={props.cAction.manMessages}
+            messages={props.cAction.messages}
             isUserManager={isUserManager}
             delMessClick={(message) => dispatch(removeMessageAction(props.cAction, message))}
             addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
@@ -40,14 +41,16 @@ const ClassActionContent = props => {
                     <div className={classes.cellInRow}>
                         <CalendarToday className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.h3}>{props.cAction.startDate}</h3>
+                            <h3 className={classes.h3}>
+                                <DateHandler date={props.cAction.openDate} />
+                            </h3>
                             <div>תאריך פתיחת התובענה</div>
                         </div>
                     </div>
                     <div className={classes.cellInRow}>
                         <Person className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.h3}>{props.cAction.managerUser.name}</h3>
+                            <h3 className={classes.h3}>{props.cAction.leadingUser.name}</h3>
                             <div>מנהל התובענה</div>
                         </div>
                     </div>
