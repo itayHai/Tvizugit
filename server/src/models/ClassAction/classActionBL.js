@@ -24,18 +24,22 @@ function getClassAction({ id }) {
     .populate("users");
 }
 
-
-function getAllClassActions() {
-  return ClassActionModel.find({})
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users");
+function getClassActionsByParams(params) {
+  return params
+    ? ClassActionModel.find({ _id: params.id })
+        .populate("category")
+        .populate("leadingUser")
+        .populate("users")
+    : ClassActionModel.find({})
+        .populate("category")
+        .populate("leadingUser")
+        .populate("users");
 }
 
 export {
   addClassAction,
   getClassAction,
-  getAllClassActions,
+  getClassActionsByParams,
   updateClassAction,
   deleteClassAction,
 };

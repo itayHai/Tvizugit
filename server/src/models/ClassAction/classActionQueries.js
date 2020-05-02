@@ -7,7 +7,7 @@ import {
   GraphQLNonNull,
 } from "graphql";
 import { ClassActionType } from "./classActionType";
-import { getClassAction, getAllClassActions } from "./classActionBL";
+import { getClassAction, getClassActionsByParams } from "./classActionBL";
 
 const ClassActionQueries = new GraphQLObjectType({
   name: "ClassActionQueryType",
@@ -18,22 +18,18 @@ const ClassActionQueries = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: (root, params, context, ast) => {
-        if(params){
-          getClassActionByParams(params);
-          console.log(params)
-        }
         return getClassAction(params);
       },
     },
     classActions: {
       type: new GraphQLList(ClassActionType),
       args: {
-        topic: {
+        id: {
           type: GraphQLString,
         },
       },
-      resolve: (parentValue, { topic }) => {
-        return getAllClassActions();
+      resolve: (parentValue, params) => {
+        return getClassActionsByParams();
       },
     },
   }),
