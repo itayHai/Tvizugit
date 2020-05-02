@@ -24,12 +24,12 @@ const ClassActionQueries = new GraphQLObjectType({
     classActions: {
       type: new GraphQLList(ClassActionType),
       args: {
-        id: {
+        name: {
           type: GraphQLString,
         },
       },
       resolve: (parentValue, params) => {
-        return getClassActionsByParams();
+        return getClassActionsByParams(params);
       },
     },
   }),

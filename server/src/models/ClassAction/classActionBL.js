@@ -25,8 +25,8 @@ function getClassAction({ id }) {
 }
 
 function getClassActionsByParams(params) {
-  return params
-    ? ClassActionModel.find({ _id: params.id })
+  return params.name
+    ? ClassActionModel.find({ name: params.name })
         .populate("category")
         .populate("leadingUser")
         .populate("users")
