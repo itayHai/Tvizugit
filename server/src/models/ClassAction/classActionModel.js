@@ -1,6 +1,4 @@
-import mongoose, { Schema } from "mongoose";
-import { userSchema } from "../User/userSchema";
-import { GraphQLNonNull, GraphQLList } from "graphql";
+import { Schema, model } from "mongoose";
 
 export const classActionSchema = new Schema({
   name: { type: String, required: true },
@@ -46,6 +44,6 @@ export const classActionSchema = new Schema({
   successChances: { type: String },
 });
 
-const ClassActionModel = mongoose.model("classAction", classActionSchema);
+const ClassActionModel = model("classAction", classActionSchema);
 
 export default ClassActionModel;
