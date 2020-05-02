@@ -12,7 +12,7 @@ const CategoryCard = (props) => {
     } else setClassClicked(false);
 
     if(props.click)
-      props.click(props.id);
+      props.click(props.name);
   };
 
   return (
@@ -20,7 +20,7 @@ const CategoryCard = (props) => {
       className={
         classClicked ? classes.CategoryCardClicked : classes.CategoryCard
       }
-      id={props.id}
+      id={props.name}
       onClick={handleClick}
     >
       {props.icon}
