@@ -8,7 +8,7 @@ import RegisterLawyerOffice from "./registerLawyerOffice";
 
 function ManageLogin (props) {
     
-    const mode = useSelector(state => state.users.mode)
+    const mode = useSelector(state => state.user.mode)
     let showMode = <Login close={()=>props.close()}/>;
     
     switch(mode){
