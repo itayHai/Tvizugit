@@ -5,7 +5,7 @@ import classes from './joinAction.module.css';
 import { Button } from "@material-ui/core";
 import JoinForm from './joinForm/joinForm';
 
-const JoinAction = () => {
+const JoinAction = (props) => {
     const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -25,7 +25,7 @@ const JoinAction = () => {
                  הצטרף לתובענה
         </Button>
             <Modal show={open} onClose={handleClose}>
-                <JoinForm/>
+                <JoinForm classAction={props.classAction}/>
             </Modal>
         </div>
     );

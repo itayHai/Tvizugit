@@ -78,10 +78,10 @@ const ClassActionContent = props => {
             addMessClick={(message, title) => addMessageHandler(message, title)}
         />
         : null;
-    const showJoin = isUserInAction ? null : <JoinAction />
+    const showJoin = isUserInAction ? null : <JoinAction classAction={props.cAction}/>
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
-    const allHashtags = props.cAction.hashtags.map((tag) => {
-        return <div className={classes.tag}>
+    const allHashtags = props.cAction.hashtags.map((tag, index) => {
+        return <div className={classes.tag} key={index}>
             {"#" + tag}
         </div>
     })

@@ -48,6 +48,9 @@ export const classActionsFilters = {
   LOGGED_USER: "LOGGED_USER",
 }
 
+"במהלך פשרה"
+];
+
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,
   ביטוח: <LockOpen />,
@@ -231,12 +234,9 @@ export const dummyData = [
   },
 ];
 export const dummyUser = {
-  // id: "5ea6da2e79e90e30cc08a4bb",
-  // name: "אלה פורטנוב"
-  // id:"5ea6dade79e90e30cc08a4bc",
+  // id:"5e9cae20a9c09c48d8be3776",
   // name:"איתי הייזלר"
-  // id: "5ea6db0a79e90e30cc08a4bd",
-  // name: "טלי כהן"
+  //   id: "5ea9e2c7d34cb906dcfaf28d",
   // id: "5ea6db3879e90e30cc08a4be",
   // name: "רותם חוגי",
   id: "5e9d8bc9d43a5108ecf17822",

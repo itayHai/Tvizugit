@@ -9,10 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { classActionsRequest, categoriesRequest } from '../../../../../../utils/requests';
 import Spinner from '../../../../../spinner/spinner';
+import {statuses} from '../../../../../../utils/globalConsts';
 
 const UpdateClassAction = props => {
     const dispatch = useDispatch();
     const stateClassAction = useSelector(state => state.classAction.currClassAction);
+    const classAction = {...stateClassAction};
     const { loading, error, data } = useQuery(categoriesRequest.getAll);
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
     const descriptionRef = useRef();
@@ -20,59 +22,69 @@ const UpdateClassAction = props => {
     if(error) console.log(error);
 
     const handleSave = () => {
-        stateClassAction.description = descriptionRef.current.value;
+        classAction.description = descriptionRef.current.value;
         updateClassActionServer({
             variables:
             {
                 classAction:
                 {
-                    defendants: stateClassAction.defendants,
-                    users: stateClassAction.users.map(usr => usr.id),
-                    hashtags: stateClassAction.hashtags,
-                    name: stateClassAction.name,
-                    description: stateClassAction.description,
-                    category: stateClassAction.category.id,
-                    status: stateClassAction.status,
-                    leadingUser: stateClassAction.leadingUser.id,
+                    defendants: classAction.defendants,
+                    users: classAction.users.map(usr => usr.id),
+                    hashtags: classAction.hashtags,
+                    name: classAction.name,
+                    description: classAction.description,
+                    category: classAction.category.id,
+                    status: classAction.status,
+                    leadingUser: classAction.leadingUser.id,
                 },
-                id: stateClassAction.id
+                id: classAction.id
             }
         })
-        dispatch(updateClassAction(stateClassAction));
+        dispatch(updateClassAction(classAction));
         props.close();
     }
     const handleChange = (event) => {
-        stateClassAction[event.target.name] = event.target.value;
+        classAction[event.target.name] = event.target.value;
     }
     return (
         <div className={classes.updateModal}>
             <h2>עריכת תובענה</h2>
-            <TextareaAutosize autoFocus className={classes.textBox} ref={descriptionRef} rowsMin={3} defaultValue={stateClassAction.description}></TextareaAutosize>
+            <TextareaAutosize autoFocus className={classes.textBox} ref={descriptionRef} rowsMin={3} defaultValue={classAction.description}></TextareaAutosize>
             <div className={classes.updateBanner}>
-                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={stateClassAction.name} name="name" onChange={handleChange}></TextField>
-                <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={stateClassAction.lawyer} name="lawyer" onChange={handleChange} ></TextField>
-                <TextField className={classes.ManagerAction} label="שלב התובענה" defaultValue={stateClassAction.status} name="status" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={classAction.name} name="name" onChange={handleChange}></TextField>
+                <TextField className={classes.ManagerAction} label='ע"וד מייצג' defaultValue={classAction.lawyer} name="lawyer" onChange={handleChange} ></TextField>
+                <Autocomplete
+                    options={statuses}
+                    className={classes.ManagerAction}
+                    defaultValue={classAction.status}
+                    id="status"
+                    autoComplete
+                    onChange={(event, values) => classAction.status = values}
+                    includeInputInList
+                    renderInput={(params) => <TextField {...params} placeholder="שלב התובענה" margin="normal"/>}
+                />
+                
                 <Autocomplete
                     options={data.CategoryQueries.categories}
                     className={classes.ManagerAction}
-                    defaultValue={data.CategoryQueries.categories.find(cat => cat.id === stateClassAction.category?.id)}
+                    defaultValue={data.CategoryQueries.categories.find(cat => cat.id === classAction.category?.id)}
                     getOptionLabel={(cat) => cat.name}
                     id="category"
                     autoComplete
-                    onChange={(event, values) => stateClassAction.category = values}
+                    onChange={(event, values) => classAction.category = values}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="קטגוריה" margin="normal" />}
                 />
                 {
-                    stateClassAction.users ?
+                    classAction.users ?
                         <Autocomplete
-                            options={stateClassAction.users}
-                            defaultValue={stateClassAction.users.find(usr => usr.id === stateClassAction.leadingUser.id)}
+                            options={classAction.users}
+                            defaultValue={classAction.users.find(usr => usr.id === classAction.leadingUser.id)}
                             className={classes.ManagerAction}
                             getOptionLabel={(user) => user.name}
                             id="leadingUser"
                             autoComplete
-                            onChange={(event, values) => stateClassAction.leadingUser = values}
+                            onChange={(event, values) => classAction.leadingUser = values}
                             includeInputInList
                             renderInput={(params) => <TextField {...params} placeholder="מנהל תובענה" margin="normal" />}
                         />
