@@ -15,9 +15,9 @@ import React from "react";
 
 export const URL = "http://localhost:8000/graphql";
 
-export const users = { 
-  lawyer: { id: 1, name: "עורך דין", icon: <Gavel/> },
-  user: { id: 2, name: "משתמש", icon: <Person/> },
+export const users = {
+  lawyer: { id: 1, name: "עורך דין", icon: <Gavel /> },
+  user: { id: 2, name: "משתמש", icon: <Person /> },
 };
 
 export const specialties = [
@@ -42,6 +42,11 @@ export const specialties = [
   'דיני משפחה',
   'צוואה/ירושה',
 ];
+
+export const classActionsFilters = {
+  MOST_PROMINENT: "MOST_PROMINENT",
+  LOGGED_USER: "LOGGED_USER",
+}
 
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,
@@ -232,8 +237,8 @@ export const dummyUser = {
   // name:"איתי הייזלר"
   // id: "5ea6db0a79e90e30cc08a4bd",
   // name: "טלי כהן"
-    // id: "5ea6db3879e90e30cc08a4be",
+  // id: "5ea6db3879e90e30cc08a4be",
   // name: "רותם חוגי",
-  id : "5e9d8bc9d43a5108ecf17822",
-  name :"עידו פרלמן"
+  id: "5e9d8bc9d43a5108ecf17822",
+  name: "עידו פרלמן"
 }

@@ -18,11 +18,17 @@ export function setMode(mode) {
 // TODO: This only until evrything is connected to the server
 const initialState = {
   loggedInUser: {
+    id: "5e9cae20a9c09c48d8be3776",
     name: "Itay Haizler",
+    displayName: "איתי הייזלר",
     role: {
-      engName: "admin",
+      id: "5ea43b9a7157be568022babd",
+      engName: "viewer",
+      name: "מנהל מערכת"
     },
-  },
+    email: "itay@gmail.com",
+    password: "123456"
+  },  
   mode: 'login'
 };
 
