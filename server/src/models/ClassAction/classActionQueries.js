@@ -27,10 +27,17 @@ const ClassActionQueries = new GraphQLObjectType({
         name: {
           type: GraphQLString,
         },
+        userId: {
+          type: GraphQLString,
+        },
+        limit: {
+          type: GraphQLInt
+        }
       },
       resolve: (parentValue, params) => {
         return getClassActionsByParams(params);
       },
+      
     },
   }),
 });
