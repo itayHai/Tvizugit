@@ -9,7 +9,7 @@ import { classActionsFilters } from "../../utils/globalConsts"
 
 const getClassActionByUser = () => {
   return gql`
-  query ClassActionQueries ($userId:String) {
+  query getClassActionByUser ($userId:String) {
     ClassActionQueries {
       classActions (userId:$userId) {
         id
@@ -64,7 +64,6 @@ function ClassActionsByFilter({ filter, limit }) {
   }
 
   const { classActions } = data.ClassActionQueries
-  console.log(classActions);
 
   const ClassActionCards = classActions.map((classAction) => {
     return <ClassActionCard key={classAction.id} classAction={classAction} />;

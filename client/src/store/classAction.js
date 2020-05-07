@@ -18,7 +18,7 @@ export function updateClassActions(classActions) {
 
 export function deleteClassAction(classActionId) {
   const DELETE_CLASS_ACTION_MUTATION = gql`
-    mutation ClassActionMutation($id: String!) {
+    mutation deleteClassAction($id: String!) {
       ClassActionMutation {
         deleteClassAction(id: $id) {
           id
@@ -88,7 +88,6 @@ const initialState = {
 const classActionReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGED_SORT:
-      console.log(action);
       return {
         ...state,
         sortBy: action.payload,
