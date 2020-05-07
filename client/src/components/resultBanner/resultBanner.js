@@ -59,7 +59,7 @@ export default function ResultBanner(props) {
               <Edit />
             </IconButton>
           ) : null}
-          {loggedInUser.role.engName === "admin" && (
+          {Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin" && (
             <div>
               <IconButton
                 aria-label="delete"

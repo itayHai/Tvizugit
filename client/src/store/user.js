@@ -17,8 +17,10 @@ export function setMode(mode) {
 
 // TODO: This only until evrything is connected to the server
 const initialState = {
+  //  loggedInUser: {
+  // },  
   loggedInUser: {
-    id: "5e9cae20a9c09c48d8be3776",
+    id: "5ea9e2c7d34cb906dcfaf28d",
     name: "Itay Haizler",
     displayName: "איתי הייזלר",
     role: {

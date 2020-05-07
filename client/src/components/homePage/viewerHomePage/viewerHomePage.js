@@ -1,7 +1,8 @@
 import React from "react"
 import classes from "./viewerHomePage.module.css";
-import { Typography, Button, Modal } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import SearchClassAction from "../../searchClassAction/searchClassAction";
+import Modal from "../../modal/modal";
 
 
 export default function ViewerHomePage() {
