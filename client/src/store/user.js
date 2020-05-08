@@ -8,7 +8,12 @@ export const SET_MODE = "SET_MODE";
   }
 
 const initialState = {
-    mode: 'login'
+    mode: 'login',
+    user: {
+        name: '',
+        userName: '',
+        email: ''
+    }
 }
 
 const usersReducer = (state = initialState, action) => {
