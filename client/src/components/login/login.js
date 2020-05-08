@@ -6,15 +6,25 @@ import FacebookIcon from '../../images/icons/facebook_icon.png';
 import GoogleIcon from '../../images/icons/google_icon.png';
 import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
-import { setMode } from '../../store/user';
+import { setMode , changeLoggedInUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
 
 function Login (props) {
 
     const dispatch = useDispatch();
+    let user = {
+      name: "Itay Haizler",
+      displayName: "רותם חוגי",
+      email: "itay@gmail.com"
+    }
   
     function changeToRegister(){
       dispatch(setMode("register"));
+    }
+
+    function login(){
+      dispatch(changeLoggedInUser(user));
+      
     }
 
 return(
@@ -32,7 +42,7 @@ return(
         <p>
           <Button className={classes.LoginButton} 
                   variant="contained" 
-                  onClick={props.close}
+                  onClick={login}
                   fullWidth={true}>
             התחברות
           </Button>

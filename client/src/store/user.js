@@ -22,7 +22,7 @@ const initialState = {
   loggedInUser: {
     id: "5ea9e2c7d34cb906dcfaf28d",
     name: "Itay Haizler",
-    displayName: "איתי הייזלר",
+    displayName: null ,
     role: {
       id: "5ea43b9a7157be568022babd",
       engName: "viewer",
@@ -30,7 +30,7 @@ const initialState = {
     },
     email: "itay@gmail.com",
     password: "123456"
-  },  
+  },
   mode: 'login'
 };
 

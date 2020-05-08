@@ -9,10 +9,13 @@ import ManageLogin from "../login/manageLogin";
 import Modal from "../modal/modal";
 import { setMode } from '../../store/user';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import CustomerIcon from '../../images/icons/customer_icon.png';
 import './navbar.css';
 
 const Navbar = (props) => {
-  
+
+  const loggedInUser = useSelector(state => state.user.loggedInUser)  
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -24,6 +27,15 @@ const Navbar = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  function isLoginUser(){
+    if(loggedInUser.displayName == null){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 
   return (
       <AppBar position="static">
@@ -41,13 +53,21 @@ const Navbar = (props) => {
           <Link to="/lawyers" className="link" >
             <h3>מאגר עורכי הדין</h3>
           </Link>
-          <Button onClick={handleOpen} className="login"
-                  variant="contained"
-          > <PersonIcon/> כניסה
-          </Button>
-          <Modal show={open} onClose={handleClose}>
-          <ManageLogin close={handleClose} />
-        </Modal>
+          <div className="login" style={{display: isLoginUser()? "none" : "block"}} >
+            <Button 
+                    onClick={handleOpen} 
+                    className="login"
+                    variant="contained"
+                    > <PersonIcon/> כניסה
+            </Button> 
+            <Modal show={open} onClose={handleClose}>
+              <ManageLogin close={handleClose} />
+            </Modal>
+          </div>
+          <div className="login" style={{display: isLoginUser()? "block" : "none"}}>
+            <img className="Icon" src={CustomerIcon} alt="Customer"/>
+            <label>{loggedInUser.displayName}</label>
+          </div>
         </Toolbar>
       </AppBar>
   );
