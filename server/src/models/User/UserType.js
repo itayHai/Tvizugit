@@ -13,6 +13,9 @@ const UserType = new GraphQLObjectType({
     name: {
       type: GraphQLString,
     },
+    displayName: {
+      type: GraphQLString,
+    },
     role: {
       type: UserRoleType,
     },
@@ -30,6 +33,9 @@ const UserInputType = new GraphQLInputObjectType({
   description: "Input payload for creating user",
   fields: () => ({
     name: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    displayName: {
       type: new GraphQLNonNull(GraphQLString),
     },
     role: {

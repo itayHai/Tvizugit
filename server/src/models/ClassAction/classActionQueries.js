@@ -27,9 +27,35 @@ const ClassActionQueries = new GraphQLObjectType({
         name: {
           type: GraphQLString,
         },
+        userId: {
+          type: GraphQLString,
+        },
+        limit: {
+          type: GraphQLInt
+        }
       },
       resolve: (parentValue, params) => {
         return getClassActionsByParams(params);
+      },
+    },
+    count: {
+      type: GraphQLInt,
+      args: {
+        name: {
+          type: GraphQLString,
+        },
+        userId: {
+          type: GraphQLString,
+        },
+        limit: {
+          type: GraphQLInt
+        }
+      },
+      resolve: async (parentValue, params) => {
+        const data = await getClassActionsByParams(params);
+        console.log(data.length);
+        
+        return data.length;
       },
     },
   }),

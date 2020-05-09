@@ -61,8 +61,7 @@ const SearchActionClass = (props) => {
 
   const { loading, data } = useQuery(getAllClassActions);
   useEffect(() => { }, [data]);
-  classActions = data.ClassActionQueries.classActions;
-
+  
   {
     const { loading, data } = useQuery(categoriesRequest.getAll);
     useEffect(() => { }, [data]);
@@ -70,6 +69,10 @@ const SearchActionClass = (props) => {
     categories = data.CategoryQueries.categories;
   }
 
+  if (loading) return <Spinner />;
+  
+  classActions = data.ClassActionQueries.classActions;
+  
   const handleCategoryClick = (name) => {
     if (chosenCategories.includes(name)) {
       chosenCategories = chosenCategories.filter((item) => item !== name);
