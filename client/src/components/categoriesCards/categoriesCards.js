@@ -5,7 +5,7 @@ import { categoriesIcons } from "../../utils/globalConsts";
 import classes from "./categoriesCards.module.css";
 import { categoriesRequest } from "../../utils/requests";
 
-function CategoriesCards() {
+function CategoriesCards(props) {
   const { loading, data } = useQuery(categoriesRequest.getAll);
 
   if (loading) return <p>Loading...</p>;
@@ -15,6 +15,7 @@ function CategoriesCards() {
       key={category.id}
       icon={categoriesIcons[category.name]}
       title={category.name}
+      homePage={props.homePage}
     />
   ));
 

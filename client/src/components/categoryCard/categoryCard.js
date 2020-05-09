@@ -11,18 +11,20 @@ const CategoryCard = (props) => {
       setClassClicked(true);
     } else setClassClicked(false);
 
-    if(props.click)
-      props.click(props.name);
+    if (props.click) props.click(props.name);
   };
 
+  let categoryClassName = classes.CategoryCard;
+  if (props.homePage) {
+    categoryClassName = classes.homePageCategoryCard;
+  } else if (classClicked) {
+    categoryClassName = classes.CategoryCardClicked;
+  }
+
+  const clicked = props.homePage ? props.clicked : handleClick;
+
   return (
-    <div
-      className={
-        classClicked ? classes.CategoryCardClicked : classes.CategoryCard
-      }
-      id={props.name}
-      onClick={handleClick}
-    >
+    <div className={categoryClassName} id={props.name} onClick={clicked}>
       {props.icon}
       <h3 id={props.id}> {props.title}</h3>
     </div>

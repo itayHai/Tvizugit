@@ -15,39 +15,39 @@ import { updateClassActions } from "../../store/classAction";
 import gql from "graphql-tag";
 
 const getAllClassActions = gql`
-{
-  ClassActionQueries {
-    classActions {
-      id
-      name
-      description
-      category {
-        name
-        engName
-      }
-      defendants
-      messages {
-        id
-        title
-        date
-        content
-      }
-      users {
+  {
+    ClassActionQueries {
+      classActions {
         id
         name
+        description
+        category {
+          name
+          engName
+        }
+        defendants
+        messages {
+          id
+          title
+          date
+          content
+        }
+        users {
+          id
+          name
+        }
+        status
+        leadingUser {
+          id
+          name
+        }
+        openDate
+        successChances
+        hashtags
       }
-      status
-      leadingUser {
-        id
-        name
-      }
-      openDate
-      successChances
-      hashtags
     }
   }
-}
-`
+`;
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");
@@ -60,11 +60,11 @@ const SearchActionClass = (props) => {
   let history = useHistory();
 
   const { loading, data } = useQuery(getAllClassActions);
-  useEffect(() => { }, [data]);
+  useEffect(() => {}, [data]);
   
   {
     const { loading, data } = useQuery(categoriesRequest.getAll);
-    useEffect(() => { }, [data]);
+    useEffect(() => {}, [data]);
     if (loading) return <Spinner />;
     categories = data.CategoryQueries.categories;
   }
@@ -114,8 +114,10 @@ const SearchActionClass = (props) => {
 
   const searchButtonHandler = (e) => {
     let filterdClassActions = classActions.filter((classAction) => {
-      if (hashtags?.filter((hashtag) => classAction.hashtags.includes(hashtag))
-        .length !== 0) {
+      if (
+        hashtags?.filter((hashtag) => classAction.hashtags.includes(hashtag))
+          .length !== 0
+      ) {
         return true;
       }
       if (!chosenName) {
