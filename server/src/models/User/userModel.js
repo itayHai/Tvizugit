@@ -6,6 +6,11 @@ export const userSchema = new Schema({
     trim: true,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+    ref: "userRole",
+  },
   email: {
     type: String,
     trim: true,

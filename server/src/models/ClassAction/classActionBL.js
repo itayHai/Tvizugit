@@ -5,8 +5,12 @@ function addClassAction(classActionToAdd) {
   return newClassAction.save();
 }
 
+function deleteClassAction({ id }) {
+  return ClassActionModel.deleteOne({ _id: id });
+}
+
 function updateClassAction(id, classActionToAdd) {
-  return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd)
+  return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, { new: true })
     .populate("category")
     .populate("leadingUser")
     .populate("users");
@@ -19,17 +23,22 @@ function getClassAction({ id }) {
     .populate("users");
 }
 
-
-function getAllClassActions() {
-  return ClassActionModel.find({})
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users");
+function getClassActionsByParams(params) {
+  return params.name
+    ? ClassActionModel.find({ name: params.name })
+      .populate("category")
+      .populate("leadingUser")
+      .populate("users")
+    : ClassActionModel.find({})
+      .populate("category")
+      .populate("leadingUser")
+      .populate("users");
 }
 
 export {
   addClassAction,
   getClassAction,
-  getAllClassActions,
+  getClassActionsByParams,
   updateClassAction,
+  deleteClassAction,
 };

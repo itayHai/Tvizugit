@@ -28,7 +28,8 @@
 .section{
     overflow: auto;
     height: 420px;
-    background: url('../../images/home-background.jpg');
+    background-color: #F7F7F7;
+    background-image: url('../../images/home-background.png');
     background-size: 100% 600px;
     background-repeat: no-repeat;
 }

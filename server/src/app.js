@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import path from "path";
 import graphqlHTTP from "express-graphql";
 import { rootQueries, rootMutations } from "./models";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
