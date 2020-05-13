@@ -1,11 +1,30 @@
+import { useState } from "react";
 import React from "react";
 import classes from "./categoryCard.module.css";
 
 const CategoryCard = (props) => {
+  let [classClicked, setClassClicked] = useState();
+  //setClassClicked(false);
+
+  const handleClick = (event) => {
+    if (!classClicked) {
+      setClassClicked(true);
+    } else setClassClicked(false);
+
+    if(props.click)
+      props.click(props.name);
+  };
+
   return (
-    <div className={classes.CategoryCard} onClick={props.click}>
+    <div
+      className={
+        classClicked ? classes.CategoryCardClicked : classes.CategoryCard
+      }
+      id={props.name}
+      onClick={handleClick}
+    >
       {props.icon}
-      <h3> {props.title}</h3>
+      <h3 id={props.id}> {props.title}</h3>
     </div>
   );
 };
