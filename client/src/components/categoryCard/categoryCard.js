@@ -11,7 +11,7 @@ const CategoryCard = (props) => {
       setClassClicked(true);
     } else setClassClicked(false);
 
-    if (props.click) props.click(props.name);
+    if (props.click) props.click(props.id);
   };
 
   let categoryClassName = classes.CategoryCard;

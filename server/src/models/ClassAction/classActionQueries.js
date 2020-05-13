@@ -27,14 +27,22 @@ const ClassActionQueries = new GraphQLObjectType({
         name: {
           type: GraphQLString,
         },
+        categories: {
+          type: GraphQLList(GraphQLString),
+        },
+        hashtags: {
+          type: GraphQLList(GraphQLString),
+        },
         userId: {
           type: GraphQLString,
         },
         limit: {
-          type: GraphQLInt
-        }
+          type: GraphQLInt,
+        },
       },
       resolve: (parentValue, params) => {
+        console.log(params);
+
         return getClassActionsByParams(params);
       },
     },
@@ -48,13 +56,13 @@ const ClassActionQueries = new GraphQLObjectType({
           type: GraphQLString,
         },
         limit: {
-          type: GraphQLInt
-        }
+          type: GraphQLInt,
+        },
       },
       resolve: async (parentValue, params) => {
         const data = await getClassActionsByParams(params);
         console.log(data.length);
-        
+
         return data.length;
       },
     },

@@ -7,12 +7,22 @@ export const UPDATE_MESSAGES_ACTION = "UPDATE_MESSAGES_ACTION";
 export const CHANGE_CURR_ACTION = "CHANGE_CURR_ACTION";
 export const UPDATE_CLASS_ACTION = "UPDATE_CLASS_ACTION";
 export const DELETE_CLASS_ACTION = "DELETE_CLASS_ACTION";
+export const CHANGE_FILTER = "CHANGE_FILTER";
 
 export function updateClassActions(classActions) {
   return {
     type: UPDATE_CLASS_ACTIONS,
     classActions,
   };
+}
+
+export function changeFilter(filter)
+{
+  return {
+    type: CHANGE_FILTER,
+    filter
+  }
+
 }
 
 export function deleteClassAction(classActionId) {
@@ -73,6 +83,11 @@ const initialState = {
   sortBy: "",
   currClassAction: {},
   classActions: [],
+  filter:{
+    name:"",
+    categories:[],
+    hashtags:[]
+  }
 };
 
 const classActionReducer = (state = initialState, action) => {
@@ -127,6 +142,13 @@ const classActionReducer = (state = initialState, action) => {
         ...state,
         classActions: newClassActions,
       };
+    }
+    case CHANGE_FILTER:{
+      return {
+        ...state,
+        filter:action.filter
+
+      }
     }
     default:
       return state;

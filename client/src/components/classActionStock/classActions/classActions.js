@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "../../modal/modal";
 import {
   changeCurAction,
-  updateClassActions
+  updateClassActions,
+  changeFilter,
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
 import { useParams } from "react-router";
@@ -14,8 +15,9 @@ import gql from "graphql-tag";
 const getClassActionsByParams = (params) => {
   return params
     ? gql`
-        ClassActionQueries  {
-            classActions(name: $name) {
+        query($name: String, $categories: [String]) {
+          ClassActionQueries {
+            classActions(name: $name, categories: $categories) {
               id
               name
               description
@@ -88,12 +90,22 @@ const getClassActionsByParams = (params) => {
 
 const ClassActions = (props) => {
   let { ids } = useParams();
+
+  const filter = useSelector((state) => state.classAction.filter);
+
+  let name = filter.name;
+  let categories = filter.categories;
   const { loading, error, data } = useQuery(
-    getClassActionsByParams(ids), { variables: { ids }, }
+    getClassActionsByParams(name, categories),
+    {
+      variables: { name, categories },
+    }
   );
 
   const sortBy = useSelector((state) => state.classAction.sortBy);
-  const stateClassActions = useSelector((state) => state.classAction.classActions);
+  const stateClassActions = useSelector(
+    (state) => state.classAction.classActions
+  );
   const currClassAction = useSelector(
     (state) => state.classAction.currClassAction
   );
@@ -104,9 +116,8 @@ const ClassActions = (props) => {
   if (loading) return <p>Loading...</p>;
   if (error) console.log(error);
 
-  if (!ids && stateClassActions.length === 0) {
-    dispatch(updateClassActions(data.ClassActionQueries.classActions));
-  }
+  console.log(data.ClassActionQueries.classActions);
+  dispatch(updateClassActions(data.ClassActionQueries.classActions));
 
   const handleCloseEditAction = () => {
     dispatch(changeCurAction({}));
