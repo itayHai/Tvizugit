@@ -4,6 +4,7 @@ import {
   GraphQLInputObjectType,
   GraphQLNonNull,
 } from "graphql";
+import { UserRoleType } from "../UserRole/userRoleType";
 
 const UserType = new GraphQLObjectType({
   name: "User",
@@ -11,6 +12,12 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLString },
     name: {
       type: GraphQLString,
+    },
+    displayName: {
+      type: GraphQLString,
+    },
+    role: {
+      type: UserRoleType,
     },
     email: {
       type: GraphQLString,
@@ -26,6 +33,12 @@ const UserInputType = new GraphQLInputObjectType({
   description: "Input payload for creating user",
   fields: () => ({
     name: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    displayName: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    role: {
       type: new GraphQLNonNull(GraphQLString),
     },
     email: {

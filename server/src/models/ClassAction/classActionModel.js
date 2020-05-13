@@ -10,9 +10,7 @@ export const classActionSchema = new Schema({
       type: String,
     },
   ],
-  users: [
-    { type: Schema.Types.ObjectId, ref: "user" }
-  ],
+  users: [{ type: Schema.Types.ObjectId, ref: "user" }],
   hashtags: [
     {
       type: String,
@@ -36,7 +34,7 @@ export const classActionSchema = new Schema({
         trim: true,
         required: true,
       },
-    }
+    },
   ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
   representingLawyer: { type: String },

@@ -1,0 +1,61 @@
+.text {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-right: 2vw !important;
+}
+
+.headLine {
+    margin-top: 4vh !important;
+    margin-bottom: 4vh !important;
+}
+.para {
+    color: #636363;
+    font-size: x-large;
+}
+
+.sectionButtons {
+    width: 20vw;
+    margin-top: 4vh !important;
+    margin-right: 4vw !important;
+    font-weight: normal !important;
+    font-size: 22px !important;
+    box-shadow: 1px 2px 6px #00000029 !important;
+}
+
+.myClassActions {
+    width: 50vw;
+}
+
+.section {
+    overflow: auto;
+    height: 75vh;
+    background-color: #f7f7f7;
+    background-image: url("../../../images/plaintiff-background.png");
+    background-size: 100% 600px;
+    background-repeat: no-repeat;
+}
+
+.cardsContainer {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.card {
+    max-width: 20vw;
+    max-height: 25vh;
+    max-height: 25vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.carContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

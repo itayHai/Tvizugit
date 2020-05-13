@@ -1,26 +1,30 @@
-import React from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import {Toolbar, Button } from '@material-ui/core'
-import GavelIcon from '@material-ui/icons/Gavel';
-import PersonIcon from '@material-ui/icons/Person';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import { Toolbar, Button } from "@material-ui/core";
+import GavelIcon from "@material-ui/icons/Gavel";
+import PersonIcon from "@material-ui/icons/Person";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import Login from "../login/login";
+import ManageLogin from "../login/manageLogin";
 import Modal from "../modal/modal";
-import './navbar.css' 
+import { setMode } from '../../store/user';
+import { useDispatch } from 'react-redux';
+import './navbar.css';
 
 const Navbar = (props) => {
+  
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
+    dispatch(setMode("login"));
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-//function Navbar() {
   return (
       <AppBar position="static">
         <Toolbar className="navbar">
@@ -42,11 +46,11 @@ const Navbar = (props) => {
           > <PersonIcon/> כניסה
           </Button>
           <Modal show={open} onClose={handleClose}>
-          <Login close={handleClose} />
-        </Modal>    
+          <ManageLogin close={handleClose} />
+        </Modal>
         </Toolbar>
       </AppBar>
   );
-}
+};
 
-export default withRouter(Navbar)
+export default withRouter(Navbar);

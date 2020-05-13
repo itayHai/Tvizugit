@@ -1,8 +1,11 @@
-import {combineReducers, createStore} from 'redux'
-import classAction from './classAction'
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import thunk from "redux-thunk";
+import classAction from "./classAction";
+import user from "./user";
 
 const rootReducer = combineReducers({
-    classAction,
+  classAction,
+  user,
 });
 
-export default createStore(rootReducer)
+export default createStore(rootReducer, applyMiddleware(thunk));
