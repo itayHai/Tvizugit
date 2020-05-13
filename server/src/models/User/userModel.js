@@ -1,10 +1,19 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 export const userSchema = new Schema({
   name: {
     type: String,
     trim: true,
     required: true,
+  },
+  displayName: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true,
+    ref: "userRole",
   },
   email: {
     type: String,
@@ -18,6 +27,6 @@ export const userSchema = new Schema({
   },
 });
 
-const UserModel = mongoose.model("user", userSchema);
+const UserModel = model("user", userSchema);
 
 export default UserModel;

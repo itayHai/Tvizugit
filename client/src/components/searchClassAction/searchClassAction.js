@@ -7,12 +7,47 @@ import Chip from "@material-ui/core/Chip";
 import { useQuery } from "@apollo/react-hooks";
 import { categoriesIcons } from "../../utils/globalConsts";
 import { categoriesRequest } from "../../utils/requests";
-import { classActionsRequest } from "../../utils/requests";
 import classes from "./searchClassAction.module.css";
 import Spinner from "../spinner/spinner";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { updateClassActions } from "../../store/classAction";
+import gql from "graphql-tag";
+
+const getAllClassActions = gql`
+{
+  ClassActionQueries {
+    classActions {
+      id
+      name
+      description
+      category {
+        name
+        engName
+      }
+      defendants
+      messages {
+        id
+        title
+        date
+        content
+      }
+      users {
+        id
+        name
+      }
+      status
+      leadingUser {
+        id
+        name
+      }
+      openDate
+      successChances
+      hashtags
+    }
+  }
+}
+`
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");
@@ -24,17 +59,20 @@ const SearchActionClass = (props) => {
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const { loading, data } = useQuery(classActionsRequest.getAll);
-  useEffect(() => {}, [data]);
-  classActions = data.ClassActionQueries.classActions;
-
+  const { loading, data } = useQuery(getAllClassActions);
+  useEffect(() => { }, [data]);
+  
   {
     const { loading, data } = useQuery(categoriesRequest.getAll);
-    useEffect(() => {}, [data]);
+    useEffect(() => { }, [data]);
     if (loading) return <Spinner />;
     categories = data.CategoryQueries.categories;
   }
 
+  if (loading) return <Spinner />;
+  
+  classActions = data.ClassActionQueries.classActions;
+  
   const handleCategoryClick = (name) => {
     if (chosenCategories.includes(name)) {
       chosenCategories = chosenCategories.filter((item) => item !== name);
@@ -77,7 +115,7 @@ const SearchActionClass = (props) => {
   const searchButtonHandler = (e) => {
     let filterdClassActions = classActions.filter((classAction) => {
       if (hashtags?.filter((hashtag) => classAction.hashtags.includes(hashtag))
-          .length !== 0) {
+        .length !== 0) {
         return true;
       }
       if (!chosenName) {

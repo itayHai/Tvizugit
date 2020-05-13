@@ -4,9 +4,10 @@ import {
   GraphQLSchema,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
 } from "graphql";
 import { ClassActionType } from "./classActionType";
-import { getClassAction, getAllClassActions } from "./classActionBL";
+import { getClassAction, getClassActionsByParams } from "./classActionBL";
 
 const ClassActionQueries = new GraphQLObjectType({
   name: "ClassActionQueryType",
@@ -14,25 +15,47 @@ const ClassActionQueries = new GraphQLObjectType({
     classAction: {
       type: ClassActionType,
       args: {
-        id: { type: GraphQLString },
+        id: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: (root, params, context, ast) => {
-        if(params){
-          getClassActionByParams(params);
-          console.log(params)
-        }
         return getClassAction(params);
       },
     },
     classActions: {
       type: new GraphQLList(ClassActionType),
       args: {
-        topic: {
+        name: {
           type: GraphQLString,
         },
+        userId: {
+          type: GraphQLString,
+        },
+        limit: {
+          type: GraphQLInt
+        }
       },
-      resolve: (parentValue, { topic }) => {
-        return getAllClassActions();
+      resolve: (parentValue, params) => {
+        return getClassActionsByParams(params);
+      },
+    },
+    count: {
+      type: GraphQLInt,
+      args: {
+        name: {
+          type: GraphQLString,
+        },
+        userId: {
+          type: GraphQLString,
+        },
+        limit: {
+          type: GraphQLInt
+        }
+      },
+      resolve: async (parentValue, params) => {
+        const data = await getClassActionsByParams(params);
+        console.log(data.length);
+        
+        return data.length;
       },
     },
   }),

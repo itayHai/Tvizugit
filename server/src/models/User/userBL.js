@@ -1,7 +1,7 @@
-import UserModel from "./userSchema";
+import UserModel from "./userModel";
 
 function getUser({ id }) {
-  return UserModel.findOne({ _id: id });
+  return UserModel.findOne({ _id: id }).populate("role");
 }
 
 function addUser(userToAdd) {
@@ -9,4 +9,8 @@ function addUser(userToAdd) {
   return newUser.save();
 }
 
-export { getUser, addUser };
+function updateUser(id, userToUpdate) {
+  return UserModel.findOneAndUpdate({ _id: id }, userToUpdate);
+}
+
+export { getUser, addUser, updateUser };

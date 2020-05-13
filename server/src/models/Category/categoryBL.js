@@ -1,4 +1,4 @@
-import CategoryModel from "./categorySchema";
+import CategoryModel from "./categoryModel";
 
 function addCategory(categoryToAdd) {
   const newCategory = new CategoryModel(categoryToAdd);

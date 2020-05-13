@@ -1,6 +1,4 @@
-import mongoose, { Schema } from "mongoose";
-import { userSchema } from "../User/userSchema";
-import { GraphQLNonNull, GraphQLList } from "graphql";
+import { Schema, model } from "mongoose";
 
 export const classActionSchema = new Schema({
   name: { type: String, required: true },
@@ -12,9 +10,7 @@ export const classActionSchema = new Schema({
       type: String,
     },
   ],
-  users: [
-    { type: Schema.Types.ObjectId, ref: "user" }
-  ],
+  users: [{ type: Schema.Types.ObjectId, ref: "user" }],
   hashtags: [
     {
       type: String,
@@ -38,7 +34,7 @@ export const classActionSchema = new Schema({
         trim: true,
         required: true,
       },
-    }
+    },
   ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
   representingLawyer: { type: String },
@@ -46,6 +42,6 @@ export const classActionSchema = new Schema({
   successChances: { type: String },
 });
 
-const ClassActionModel = mongoose.model("classAction", classActionSchema);
+const ClassActionModel = model("classAction", classActionSchema);
 
 export default ClassActionModel;
