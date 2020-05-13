@@ -4,6 +4,7 @@ import "./App.css";
 import Navbar from "../navbar/navbar";
 import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
+import LawyersStock from "../LawyersStock/LawyersStock";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Configure JSS
@@ -45,9 +46,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
             <Route path="/classActionsStock/:all" component={ClassActionsStock} />
-            <Route path="/lawyers">
-              <h1>Lawyers</h1>
-            </Route>
+            <Route path="/lawyers" component={LawyersStock} />
+            
           </Switch>
         </div>
       </Router>
