@@ -49,16 +49,14 @@ export default function ResultBanner(props) {
   return (
     <Card className={classes.root}>
       <div className={classes.rootDiv}>
-        {props.showBookmark ? (
-          <div style={{ backgroundColor: "#009688", width: "10px" }} />
-        ) : null}
+        {props.showBookmark && 
+          <div style={{ backgroundColor: "#009688", width: "10px" }} />}
         {combinedPropertiesToShow}
         <CardActions disableSpacing>
-          {props.editAuth ? (
+          {props.editAuth && 
             <IconButton onClick={() => props.handleOpenEditAction()}>
               <Edit />
-            </IconButton>
-          ) : null}
+            </IconButton>}
           {Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin" && (
             <div>
               <IconButton

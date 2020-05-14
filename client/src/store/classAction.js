@@ -1,9 +1,9 @@
 import client from "../utils/apolloService";
-export const UPDATE_MESSAGES_ACTION = "UPDATE_MESSAGES_ACTION";
 import gql from "graphql-tag";
 
 export const CHANGED_SORT = "CHANGED_SORT";
 export const UPDATE_CLASS_ACTIONS = "UPDATE_CLASS_ACTIONS";
+export const UPDATE_MESSAGES_ACTION = "UPDATE_MESSAGES_ACTION";
 export const CHANGE_CURR_ACTION = "CHANGE_CURR_ACTION";
 export const UPDATE_CLASS_ACTION = "UPDATE_CLASS_ACTION";
 export const DELETE_CLASS_ACTION = "DELETE_CLASS_ACTION";

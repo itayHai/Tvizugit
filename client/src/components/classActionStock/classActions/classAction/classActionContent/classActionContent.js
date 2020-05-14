@@ -15,7 +15,6 @@ const ClassActionContent = props => {
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
     const isUserManager = props.cAction.leadingUser.id === dummyUser.id;
     const isUserInAction = props.cAction.users.find(({ id }) => id === dummyUser.id);
-
     const addMessageHandler = (message, title) => {
         var todayDate = new Date();
         const newMessage = {
@@ -41,7 +40,7 @@ const ClassActionContent = props => {
             }
         }).then((data) => {
             const messagesServer = data.data.ClassActionMutation.classAction.messages;
-            const newIdMessages = { ...newMessage, _id: messagesServer[messagesServer.length - 1]._id };
+            const newIdMessages = { ...newMessage, id: messagesServer[messagesServer.length - 1].id };
             const newMessages = [...props.cAction.messages];
             newMessages.push(newIdMessages);
             dispatch(updateMessagesAction(props.cAction, newMessages))
@@ -70,15 +69,14 @@ const ClassActionContent = props => {
         })
     }
 
-    const showMessages = isUserInAction ?
+    const showMessages = isUserInAction &&
         <ManagerMessages
             messages={props.cAction.messages}
             isUserManager={isUserManager}
             delMessClick={(message) => removeMessageHandler(message)}
             addMessClick={(message, title) => addMessageHandler(message, title)}
-        />
-        : null;
-    const showJoin = isUserInAction ? null : <JoinAction classAction={props.cAction}/>
+        />;
+    const showJoin = !isUserInAction && <JoinAction classAction={props.cAction} />;
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
         return <div className={classes.tag} key={index}>

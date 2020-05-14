@@ -48,8 +48,13 @@ export const classActionsFilters = {
   LOGGED_USER: "LOGGED_USER",
 }
 
-"במהלך פשרה"
-];
+export const statuses = [
+  'תחילת תביעה - טרום עו"ד',
+  "משא ומתן עם הנתבע",
+  "לפני משפט",
+  "תוך כדי משפט",
+  "במהלך פשרה"
+  ];
 
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,

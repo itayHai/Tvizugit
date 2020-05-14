@@ -55,6 +55,7 @@ const getClassActionsByParams = (params) => {
               name
               description
               category {
+                id
                 name
                 engName
               }
