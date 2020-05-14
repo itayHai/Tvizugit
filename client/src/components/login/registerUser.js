@@ -13,10 +13,15 @@ function RegisterUser (props) {
       dispatch(setMode("register"));
     }
 
+    function finishRegister(){
+        dispatch(setMode("connected"));
+        props.close();
+    }
+
     return(
         <div className={classes.UserRegister}>
             <ProfileDetails clickBack={changeToRegister} 
-                            clickNext={props.close}
+                            clickNext={finishRegister}
                             textNext="סיום הרשמה"
                             title="הרשמה בתור משתמש לתביצוגית"> 
                             <PersonIcon/> </ProfileDetails>

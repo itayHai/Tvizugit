@@ -14,8 +14,8 @@ import CustomerIcon from '../../images/icons/customer_icon.png';
 import './navbar.css';
 
 const Navbar = (props) => {
-
-  const loggedInUser = useSelector(state => state.user.loggedInUser)  
+  const loggedInUser = useSelector(state => state.user.loggedInUser)
+  const mode = useSelector(state => state.user.mode)
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -27,15 +27,14 @@ const Navbar = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function isLoginUser(){
-    if(loggedInUser.displayName == null){
-      return false;
-    }
-    else{
-      return true;
-    }
-  }
+  const show = mode === "connected" ? 
+  <div>
+    <img className="Icon" src={CustomerIcon} alt="Customer"/>
+    <label> { loggedInUser.displayName } </label>
+  </div> :
+  <Button onClick={handleOpen} 
+          className="login"
+          variant="contained"> <PersonIcon/> כניסה  </Button> ;
 
   return (
       <AppBar position="static">
@@ -53,21 +52,12 @@ const Navbar = (props) => {
           <Link to="/lawyers" className="link" >
             <h3>מאגר עורכי הדין</h3>
           </Link>
-          <div className="login" style={{display: isLoginUser()? "none" : "block"}} >
-            <Button 
-                    onClick={handleOpen} 
-                    className="login"
-                    variant="contained"
-                    > <PersonIcon/> כניסה
-            </Button> 
-            <Modal show={open} onClose={handleClose}>
+          <div className="login">
+            {show}
+          </div>
+          <Modal show={open} onClose={handleClose}>
               <ManageLogin close={handleClose} />
             </Modal>
-          </div>
-          <div className="login" style={{display: isLoginUser()? "block" : "none"}}>
-            <img className="Icon" src={CustomerIcon} alt="Customer"/>
-            <label>{loggedInUser.displayName}</label>
-          </div>
         </Toolbar>
       </AppBar>
   );

@@ -17,21 +17,34 @@ export function setMode(mode) {
 
 // TODO: This only until evrything is connected to the server
 const initialState = {
-  //  loggedInUser: {
-  // },  
+  
+  mode: 'login',
+
   loggedInUser: {
-    id: "5ea9e2c7d34cb906dcfaf28d",
-    name: "Itay Haizler",
-    displayName: null ,
+    id: "",
+    name: "",
+    displayName: "" ,
+    email: "",
+    password: "",
+    
     role: {
-      id: "5ea43b9a7157be568022babd",
-      engName: "viewer",
-      name: "מנהל מערכת"
+      id: "",
+      engName: "",
+      name: ""
     },
-    email: "itay@gmail.com",
-    password: "123456"
+    
+    lawyerOffice: {
+      id: "",
+      officeName: "",
+      officeDescription: "",
+      officeSpecialty: [],
+      officeAddress: "",
+      officeTelephone: "",
+      officeSeniority: 0,
+      officePicture: ""
+    }
   },
-  mode: 'login'
+
 };
 
 function userReducer(state = initialState, action) {
@@ -44,6 +57,7 @@ function userReducer(state = initialState, action) {
     }
     case SET_MODE:
       return {
+        ...state,
         mode: action.mode
       }
     default: {
