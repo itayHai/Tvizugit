@@ -15,7 +15,6 @@ export function setMode(mode) {
   }
 }
 
-// TODO: This only until evrything is connected to the server
 const initialState = {
   
   mode: 'login',
@@ -32,19 +31,7 @@ const initialState = {
       engName: "",
       name: ""
     },
-    
-    lawyerOffice: {
-      id: "",
-      officeName: "",
-      officeDescription: "",
-      officeSpecialty: [],
-      officeAddress: "",
-      officeTelephone: "",
-      officeSeniority: 0,
-      officePicture: ""
-    }
   },
-
 };
 
 function userReducer(state = initialState, action) {
