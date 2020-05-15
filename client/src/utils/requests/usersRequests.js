@@ -14,6 +14,18 @@ mutation ($user: UserInputType!) {
   }
 `;
 
+const getUser = gql`
+query($email:String!,$password:String!){
+    UserQueries{
+     user(email:$email,password:$password){
+       _id
+       displayName
+     }
+    }
+ }
+`;
+
 export default {
     addNewUser,
+    getUser,
 };

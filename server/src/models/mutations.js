@@ -1,5 +1,6 @@
 import { GraphQLObjectType } from "graphql";
 import { UserMutations } from "./User";
+import { LawyerMutations } from "./Lawyer";
 import { ClassActionMutation } from "./ClassAction";
 import CategoryMutation from "./Category/categoryMutation";
 
@@ -16,6 +17,10 @@ export default new GraphQLObjectType({
     },
     UserMutations: {
       type: UserMutations,
+      resolve: () => true,
+    },
+    LawyerMutations: {
+      type: LawyerMutations,
       resolve: () => true,
     },
   }),

@@ -12,7 +12,16 @@ function ProfileDetails (props) {
     const loggedInUser = useSelector(state => state.user.loggedInUser)
     let password1;
     let password2;
+    let fullName = 'שם מלא';
+    let userName = 'שם משתמש';
+    let email = 'אימייל';
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+    if(props.role === 'lawyer'){
+        fullName = 'שם המשרד';
+        userName = 'שם משתמש למשרד';
+        email = 'אימייל המשרד';
+    }
 
     const handleChange = (event) => {
         loggedInUser[event.target.name] = event.target.value;
@@ -50,7 +59,7 @@ function ProfileDetails (props) {
             loggedInUser.password = password1;
             }
             dispatch(changeLoggedInUser(loggedInUser));
-            console.log(loggedInUser);
+            //console.log(loggedInUser);
             props.clickNext();
         }
     }
@@ -62,21 +71,21 @@ function ProfileDetails (props) {
                 <hr color="#e6e6e6"/>
             </div>
             <div className={classes.UserRegister}>
-                <TextField label="שם מלא"
+                <TextField label={fullName}
                            name="displayName"
                            defaultValue={loggedInUser.displayName}
                            required
                            onChange={handleChange}
                            className={classes.Input}
                            fullWidth={true}/><br/><br/>
-                <TextField label="שם משתמש"
+                <TextField label={userName}
                             name="name"
                             required
                             defaultValue={loggedInUser.name}
                            onChange={handleChange}
                             className={classes.Input}
                             fullWidth={true}/><br/><br/>
-                <TextField label="אימייל"
+                <TextField label={email}
                             name="email"
                             required
                             defaultValue={loggedInUser.email}

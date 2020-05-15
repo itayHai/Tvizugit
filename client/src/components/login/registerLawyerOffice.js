@@ -46,15 +46,9 @@ function RegisterLawyerOffice (props) {
     return(
         <div>
             <div className={classes.Center}>
-                <h2> <GavelIcon/> יצירת פרופיל עו"ד בתביצוגית</h2>
+                <h2> <GavelIcon/> יצירת משרד עו"ד בתביצוגית</h2>
                 <hr color="#e6e6e6"/>
             </div>
-            <TextField label="שם המשרד"
-                       name="officeName"
-                       required
-                       onChange={handleChange}
-                       className={classes.Input}
-                       fullWidth={true}/><br/><br/>
             <TextField label="תיאור המשרד" 
                         name="officeDescription"
                         required

@@ -8,17 +8,34 @@ import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
 import { setMode , changeLoggedInUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
+import { usersRequests } from '../../utils/requests';
+import { useQuery } from "@apollo/react-hooks";
 
-function Login (props) {
+const Login = (props) => {
 
     const dispatch = useDispatch();
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
     let user = {
       name: "",
-      displayName: "רותם חוגי",
-      email: "",
-      password: ""
+      displayName: "",
+      email: "rotem@gmail.com",
+      password: "123456"
     }
+
+    const { loading, error, data } = useQuery(usersRequests.getUser, {
+      variables: {
+        email: user.email,
+        password: user.password,
+      }
+    });
+
+    console.log(data);
+
+    //user.displayName = data.UserQueries.user.displayName;
+
+    if (loading) return <p>Loading...</p>;
+    if (error) console.log(error);
 
     const changePassword = (event) => {
       user.password = event.target.value;

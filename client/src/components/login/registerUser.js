@@ -4,10 +4,15 @@ import classes from "./login.module.css"
 import { setMode } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import ProfileDetails from "./profileDetails";
+import { useMutation } from "@apollo/react-hooks";
+import { usersRequests } from '../../utils/requests';
+import { useSelector } from 'react-redux';
 
 function RegisterUser (props) {
 
     const dispatch = useDispatch();
+    const [addNewUser] = useMutation(usersRequests.addNewUser);
+    const loggedInUser = useSelector(state => state.user.loggedInUser)
   
     function changeToRegister(){
       dispatch(setMode("register"));
@@ -15,6 +20,19 @@ function RegisterUser (props) {
 
     function finishRegister(){
         dispatch(setMode("connected"));
+        addNewUser({
+            variables:
+            {
+                user:
+                {
+                    name: loggedInUser.name,
+                    email:loggedInUser.email,
+                    displayName: loggedInUser.displayName,
+                    password: loggedInUser.password,
+                }
+            }
+        })
+
         props.close();
     }
 
