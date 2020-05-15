@@ -12,7 +12,6 @@ import Spinner from "../spinner/spinner";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeFilter } from "../../store/classAction";
-import gql from "graphql-tag";
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");

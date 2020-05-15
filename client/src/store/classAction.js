@@ -16,7 +16,7 @@ export function updateClassActions(classActions) {
   };
 }
 
-export function changeFilter(filter)
+export function changeFilter(filter={name:"", categories:[], hashtags:[]})
 {
   return {
     type: CHANGE_FILTER,

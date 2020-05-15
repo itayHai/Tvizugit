@@ -3,14 +3,17 @@ import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "../../modal/modal";
+import { classActionsRequest } from "../../../utils/requests";
 import {
   changeCurAction,
   updateClassActions,
   changeFilter,
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
+import UpdateClassAction from "./classAction/classActionContent/updateClassAction/updateClassAction";
 import { useParams } from "react-router";
 import gql from "graphql-tag";
+import Spinner from "../../spinner/spinner";
 
 const getClassActionsByParams = (params) => {
   return params
@@ -95,10 +98,11 @@ const ClassActions = (props) => {
 
   let name = filter.name;
   let categories = filter.categories;
+  let hashtags = filter.hashtags;
   const { loading, error, data } = useQuery(
-    getClassActionsByParams(name, categories),
+    getClassActionsByParams(name, categories, hashtags),
     {
-      variables: { name, categories },
+      variables: { name, categories, hashtags },
     }
   );
 
@@ -113,7 +117,7 @@ const ClassActions = (props) => {
 
   const dispatch = useDispatch();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner />;
   if (error) console.log(error);
 
   console.log(data.ClassActionQueries.classActions);

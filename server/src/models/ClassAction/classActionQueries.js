@@ -42,6 +42,7 @@ const ClassActionQueries = new GraphQLObjectType({
       },
       resolve: (parentValue, params) => {
         console.log(params);
+        //console.log(params.name.trim())
 
         return getClassActionsByParams(params);
       },

@@ -22,7 +22,7 @@ export default function HomePage() {
         <p className={classes.classActionTitle}>התובענות הבולטות ביותר</p>
         <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} size={4} />
         <p className={classes.classActionTitle}>קטגוריות התובענות</p>
-        <CategoriesCards  homePage={true}/>
+        <CategoriesCards homePage={true}/>
       </article>
     </div>
   );
