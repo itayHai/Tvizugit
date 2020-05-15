@@ -9,6 +9,10 @@ const UserQueries = new GraphQLObjectType({
       type: UserType,
       args: {
         id: { type: GraphQLString },
+        name: { type: GraphQLString },
+        displayName: {type: GraphQLString},
+        email: {type: GraphQLString},
+        password: {type: GraphQLString}
       },
       resolve: (root, params, context, ast) => {
         return getUser(params);
