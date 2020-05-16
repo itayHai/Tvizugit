@@ -11,12 +11,12 @@ const managerMessage = (props) => {
             <div className={classes.oneMessage}>
 
                 <h3 className={classes.title}> {props.message.title}
-                    {props.isUserManager ? <Button
+                    {props.isUserManager && <Button
                         onClick={() => props.deleteClick(props.message)}
                         startIcon={<Delete />}
                     >
                         מחיקה
-                     </Button> : null}
+                     </Button>}
                 </h3>
                 {props.message.content}
                 <div className={classes.messDate}>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import ManagerMessage from './managerMessage/managerMessage';
 import classes from './managerMessages.module.css';
 import { Button } from "@material-ui/core";
@@ -34,18 +34,17 @@ const ManagerMessages = props => {
         <div>
             <div className={classes.addMessage}>
                 <h3>{isMessages}</h3>
-                {props.isUserManager ? <Button
+                {props.isUserManager && <Button
                     className={classes.filterButton}
                     onClick={handleAddMessage}
                     startIcon={<AddCircleIcon fontSize="large" />}
                 >
                     הוספה
-                </Button> : null}
+                </Button>}
             </div>
-            {addMessage ? <AddMessage
+            {addMessage && <AddMessage
                 close={handleCancelMessage}
-                saveClick={(title, message) => handleSave(title, message)} /> :
-                null}
+                saveClick={(title, message) => handleSave(title, message)} />}
             {props.messages.length !== 0 ?
                 <div className={classes.messages}>
                     {messagesToshow}
