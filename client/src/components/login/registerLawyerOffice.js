@@ -8,16 +8,22 @@ import { TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { specialties } from "../../utils/globalConsts";
 import { useSelector } from 'react-redux';
-import { changeLoggedInUser } from '../../store/user';
+import { changeLoggedInLawyer } from '../../store/lawyer';
+import { useMutation } from "@apollo/react-hooks";
+import { usersRequests } from '../../utils/requests';
+import { lawyersRequests } from '../../utils/requests';
 
 function RegisterLawyerOffice (props) {
 
     const dispatch = useDispatch();
     const Specialties = specialties.sort();
     const loggedInUser = useSelector(state => state.user.loggedInUser)
-    
+    const loggedInLawyer = useSelector(state => state.lawyer.loggedInLawyer)
+    const [addNewUser] = useMutation(usersRequests.addNewUser);
+    const [addNewLawyer] = useMutation(lawyersRequests.addNewLawyer);
+
     const handleChange = (event) => {
-        loggedInUser.lawyerOffice[event.target.name] = event.target.value;
+        loggedInLawyer[event.target.name] = event.target.value;
     }
   
     function regiesterProfile(){
@@ -26,18 +32,50 @@ function RegisterLawyerOffice (props) {
 
     function finishRegister(){
 
-        if( loggedInUser.lawyerOffice.officeName === "" ||
-            loggedInUser.lawyerOffice.officeDescription === "" ||
-            loggedInUser.lawyerOffice.officeSpecialty === [] ||
-            loggedInUser.lawyerOffice.officeAddress === "" ||
-            loggedInUser.lawyerOffice.officeTelephone === "" ||
-            loggedInUser.lawyerOffice.officeSeniority === "" ||
-            loggedInUser.lawyerOffice.officePicture === "" ){
+        if( loggedInLawyer.description === "" ||
+            //loggedInLawyer.expertise === "" ||
+            loggedInLawyer.address === "" ||
+            loggedInLawyer.phone === "" ||
+            loggedInLawyer.seniority === "" ||
+            loggedInLawyer.img === "" ){
         
             alert("יש למלא את כל השדות");
         }
         else{
-            dispatch(changeLoggedInUser(loggedInUser));
+            dispatch(changeLoggedInLawyer(loggedInLawyer));
+
+            addNewUser({
+                variables:
+                {
+                    user:
+                    {
+                        name: loggedInUser.name,
+                        email:loggedInUser.email,
+                        displayName: loggedInUser.displayName,
+                        password: loggedInUser.password,
+                        role: "5ea43ce07157be568022babf", //Lawyer role
+                    }
+                }
+            })
+
+            addNewLawyer({
+                variables:
+                {
+                    lawyer:
+                    {
+                        name: loggedInUser.name,
+                        description: loggedInLawyer.description ,
+                        expertise: loggedInLawyer.expertise,
+                        email: loggedInUser.email,
+                        address: loggedInLawyer.address,
+                        phone: loggedInLawyer.phone,
+                        seniority: loggedInLawyer.seniority,
+                        img: loggedInLawyer.img,
+                        classactions: "",
+                    }
+                }
+            })
+
             dispatch(setMode("connected"));
             props.close();
         }
@@ -50,7 +88,7 @@ function RegisterLawyerOffice (props) {
                 <hr color="#e6e6e6"/>
             </div>
             <TextField label="תיאור המשרד" 
-                        name="officeDescription"
+                        name="description"
                         required
                         onChange={handleChange}
                         fullWidth={true}
@@ -58,7 +96,7 @@ function RegisterLawyerOffice (props) {
                         rowsMax={5}
                         className={classes.Input}/><br/><br/>
             <Autocomplete multiple
-                          name="officeSpecialty"
+                          name="expertise"
                           required
                           multiline
                           onChange={handleChange}
@@ -66,22 +104,23 @@ function RegisterLawyerOffice (props) {
                           renderInput={(params) => (
                           <TextField {...params}
                                      variant="standard"
+                                     name="expertise"
                                      label="תחומי התמחות של המשרד"/>)}/><br/>
             <TextField label="כתובת המשרד"
-                        name="officeAddress"
+                        name="address"
                         required
                         onChange={handleChange}
                         fullWidth={true}
                         className={classes.Input}/><br/><br/>
             <TextField label="טלפון המשרד"
-                        name="officeTelephone"
+                        name="phone"
                         required
                         onChange={handleChange}
                         fullWidth={true}
                         type="tel"
                         className={classes.Input}/><br/><br/>
             <TextField label="ותק המשרד (בשנים)"
-                        name="officeSeniority"
+                        name="seniority"
                         required
                         defaultValue={0}
                         onChange={handleChange}
@@ -90,7 +129,7 @@ function RegisterLawyerOffice (props) {
                         className={classes.Input}/><br/>
             <label>תמונה: </label>
             <input className={classes.Input}
-                    name="officePicture"
+                    name="img"
                     required
                     onChange={handleChange}
                     id="image"

@@ -1,6 +1,6 @@
 export const CHANGE_LOGGED_LAWYER = "CHANGE_LOGGED_LAWYER";
 
-export function changeLoggedInUser(lawyer) {
+export function changeLoggedInLawyer(lawyer) {
   return {
     type: CHANGE_LOGGED_LAWYER,
     lawyer,
@@ -13,6 +13,7 @@ const initialState = {
     id: "",
     name: "",
     description: "" ,
+    expertise: "",
     email: "",
     address: "",
     phone: "",

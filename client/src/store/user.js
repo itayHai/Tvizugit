@@ -25,12 +25,7 @@ const initialState = {
     displayName: "" ,
     email: "",
     password: "",
-    
-    role: {
-      id: "",
-      engName: "",
-      name: ""
-    },
+    role: "",
   },
 };
 

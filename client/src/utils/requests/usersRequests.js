@@ -4,11 +4,12 @@ const addNewUser = gql`
 mutation ($user: UserInputType!) {
     UserMutations {
       user(user: $user) {
-        id
+        _id
         name
         email
         displayName
         password
+        role
       }
     }
   }

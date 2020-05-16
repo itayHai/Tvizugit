@@ -59,7 +59,7 @@ function ProfileDetails (props) {
             loggedInUser.password = password1;
             }
             dispatch(changeLoggedInUser(loggedInUser));
-            //console.log(loggedInUser);
+            console.log(loggedInUser);
             props.clickNext();
         }
     }
