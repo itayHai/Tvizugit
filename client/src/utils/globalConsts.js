@@ -242,8 +242,8 @@ export const dummyUser = {
   // id:"5ea6dade79e90e30cc08a4bc",
   // name:"איתי הייזלר"
   //   id: "5ea9e2c7d34cb906dcfaf28d",
-  // id: "5ea6db3879e90e30cc08a4be",
-  // name: "רותם חוגי",
-  id: "5ea5c0a54a0ce396ce277da8",
-  name: "עידו פרלמן"
+  id: "5ea6db3879e90e30cc08a4be",
+  name: "רותם חוגי",
+  // id: "5ea5c0a54a0ce396ce277da8",
+  // name: "עידו פרלמן"
 }

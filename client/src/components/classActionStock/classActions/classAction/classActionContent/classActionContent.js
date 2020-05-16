@@ -75,13 +75,13 @@ const ClassActionContent = props => {
         })
     }
 
-    const showMessages = flatennedUsers.find(usr => usr.id === dummyUser.id && !usr.isWaiting) &&
+    const showMessages = flatennedUsers.find(usr => usr.id === dummyUser.id && !usr.isWaiting) ?
         <ManagerMessages
             messages={props.cAction.messages}
             isUserManager={isUserManager}
             delMessClick={(message) => removeMessageHandler(message)}
             addMessClick={(message, title) => addMessageHandler(message, title)}
-        />;
+        />: <div>חכה לתשובה</div>;
     const showJoin = flatennedUsers.find(usr => usr.id === dummyUser.id) ? null : <JoinAction classAction={props.cAction}/>
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
