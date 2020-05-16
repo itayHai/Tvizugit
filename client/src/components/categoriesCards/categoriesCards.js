@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import CategoryCard from "../categoryCard/categoryCard";
 import { categoriesIcons } from "../../utils/globalConsts";
@@ -6,10 +6,7 @@ import classes from "./categoriesCards.module.css";
 import { categoriesRequest } from "../../utils/requests";
 
 function CategoriesCards() {
-  const { loading, error, data } = useQuery(categoriesRequest.getAll);
-  useEffect(() => {
-    console.log("updated");
-  }, [data]);
+  const { loading, data } = useQuery(categoriesRequest.getAll);
 
   if (loading) return <p>Loading...</p>;
 

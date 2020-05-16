@@ -1,6 +1,6 @@
 import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import "./App.css";
+import classes from "./App.module.css";
 import Navbar from "../navbar/navbar";
 import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
@@ -29,30 +29,25 @@ const theme = createMuiTheme({
   direction: "rtl", // Both here and <body dir="rtl">
 });
 
-const styles = {
-  background: "#F1F1F1 0% 0% no-repeat padding-box",
-  width: "100%",
-  margin: "auto",
-  height: "100%",
-};
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <div style={styles} className="App">
+        <div className={classes.App}>
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
-            <Route path="/classActionsStock/:all" component={ClassActionsStock} />
+            <Route path="/classActionsStock" component={ClassActionsStock} />
             <Route path="/lawyers">
               <h1>Lawyers</h1>
             </Route>
           </Switch>
         </div>
       </Router>
+
       <footer
-        style={{ height: 30, backgroundColor: theme.palette.primary.main }}
+        className={classes.footer}
+        style={{ backgroundColor: theme.palette.primary.main }}
       ></footer>
     </ThemeProvider>
   );

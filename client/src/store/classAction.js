@@ -1,14 +1,45 @@
+import client from "../utils/apolloService";
+import gql from "graphql-tag";
+
 export const REMOVE_MESSAGE_ACTION = "REMOVE_MESSAGE_ACTION";
 export const ADD_MESSAGE_ACTION = "ADD_MESSAGE_ACTION";
 export const CHANGED_SORT = "CHANGED_SORT";
 export const UPDATE_CLASS_ACTIONS = "UPDATE_CLASS_ACTIONS";
 export const CHANGE_CURR_ACTION = "CHANGE_CURR_ACTION";
 export const UPDATE_CLASS_ACTION = "UPDATE_CLASS_ACTION";
+export const DELETE_CLASS_ACTION = "DELETE_CLASS_ACTION";
 
 export function updateClassActions(classActions) {
   return {
     type: UPDATE_CLASS_ACTIONS,
     classActions,
+  };
+}
+
+export function deleteClassAction(classActionId) {
+  const DELETE_CLASS_ACTION_MUTATION = gql`
+    mutation deleteClassAction($id: String!) {
+      ClassActionMutation {
+        deleteClassAction(id: $id) {
+          id
+        }
+      }
+    }
+  `;
+
+  return (dispatch) => {
+    client
+      .mutate({
+        mutation: DELETE_CLASS_ACTION_MUTATION,
+        // Any hard coded existing id for now
+        variables: { id: classActionId },
+      })
+      .then((result) =>
+        dispatch({
+          type: DELETE_CLASS_ACTION,
+          classActionToRemove: { id: classActionId },
+        })
+      );
   };
 }
 
@@ -18,6 +49,7 @@ export function changeCurAction(classAction) {
     classAction,
   };
 }
+
 export function updateClassAction(classAction) {
   return {
     type: UPDATE_CLASS_ACTION,
@@ -56,7 +88,6 @@ const initialState = {
 const classActionReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGED_SORT:
-      console.log(action)
       return {
         ...state,
         sortBy: action.payload,
@@ -65,6 +96,13 @@ const classActionReducer = (state = initialState, action) => {
       return {
         ...state,
         classActions: action.classActions,
+      };
+    case DELETE_CLASS_ACTION:
+      return {
+        ...state,
+        classActions: state.classActions.filter(
+          (cAction) => cAction.id !== action.classActionToRemove.id
+        ),
       };
     case UPDATE_CLASS_ACTION:
       const newClassActions = state.classActions.map((cAction) => {
@@ -123,7 +161,7 @@ const removeMessage = (currClassAction, message, classActions) => {
     }
     return cAction;
   });
-  
+
   return classActions;
 };
 

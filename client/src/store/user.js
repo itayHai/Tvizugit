@@ -15,6 +15,7 @@ export function setMode(mode) {
   }
 }
 
+// TODO: This only until evrything is connected to the server
 const initialState = {
   
   mode: 'login',
@@ -28,7 +29,6 @@ const initialState = {
     role: "",
   },
 };
-
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_LOGGED_USER: {
@@ -40,6 +40,7 @@ function userReducer(state = initialState, action) {
     case SET_MODE:
       return {
         ...state,
+
         mode: action.mode
       }
     default: {
