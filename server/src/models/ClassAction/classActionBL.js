@@ -1,4 +1,4 @@
-import ClassActionModel from "./classActionSchema";
+import ClassActionModel from "./classActionModel";
 
 function addClassAction(classActionToAdd) {
   const newClassAction = new ClassActionModel(classActionToAdd);
@@ -18,6 +18,7 @@ function getClassAction({ id }) {
     .populate("leadingUser")
     .populate("users");
 }
+
 
 function getAllClassActions() {
   return ClassActionModel.find({})

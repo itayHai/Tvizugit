@@ -17,3 +17,4 @@ const classActionsStock = (props) => {
 };
 
 export default classActionsStock;
+
