@@ -5,29 +5,91 @@ import ManagerMessages from '../managerMessages/managerMessages';
 import JoinAction from './joinAction/joinAction';
 import { dummyUser } from '../../../../../utils/globalConsts';
 import { useDispatch } from 'react-redux';
-import { removeMessageAction, addMessageAction } from '../../../../../store/classAction';
+import { updateMessagesAction } from '../../../../../store/classAction';
 import DateHandler from '../../../../../utils/dateHandler';
+import { useMutation } from "@apollo/react-hooks";
+import { classActionsRequest } from '../../../../../utils/requests';
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
+    const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
     const isUserManager = props.cAction.leadingUser.id === dummyUser.id;
     const isUserInAction = props.cAction.users.find(({ id }) => id === dummyUser.id);
+    const addMessageHandler = (message, title) => {
+        var todayDate = new Date();
+        const newMessage = {
+            date: todayDate,
+            title: title,
+            content: message,
+        };
+        const messages = [...props.cAction.messages];
+        messages.push(newMessage);
+        updateClassActionServer({
+            variables:
+            {
+                classAction:
+                {
+                    defendants: props.cAction.defendants,
+                    users: props.cAction.users.map(usr => usr.id),
+                    name: props.cAction.name,
+                    category: props.cAction.category.id,
+                    leadingUser: props.cAction.leadingUser.id,
+                    messages: messages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
+                },
+                id: props.cAction.id
+            }
+        }).then((data) => {
+            const messagesServer = data.data.ClassActionMutation.classAction.messages;
+            const newIdMessages = { ...newMessage, id: messagesServer[messagesServer.length - 1].id };
+            const newMessages = [...props.cAction.messages];
+            newMessages.push(newIdMessages);
+            dispatch(updateMessagesAction(props.cAction, newMessages))
+        })
+    }
 
-    const showMessages = isUserInAction ?
+    const removeMessageHandler = (message) => {
+        let newMessages = [...props.cAction.messages];
+        newMessages = newMessages.filter(mes => mes !== message);
+        updateClassActionServer({
+            variables:
+            {
+                classAction:
+                {
+                    defendants: props.cAction.defendants,
+                    users: props.cAction.users.map(usr => usr.id),
+                    name: props.cAction.name,
+                    category: props.cAction.category.id,
+                    leadingUser: props.cAction.leadingUser.id,
+                    messages: newMessages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
+                },
+                id: props.cAction.id
+            }
+        }).then((data) => {
+            dispatch(updateMessagesAction(props.cAction, newMessages))
+        })
+    }
+
+    const showMessages = isUserInAction &&
         <ManagerMessages
             messages={props.cAction.messages}
             isUserManager={isUserManager}
-            delMessClick={(message) => dispatch(removeMessageAction(props.cAction, message))}
-            addMessClick={(message, title) => dispatch(addMessageAction(message, title, props.cAction))}
-        />
-        : null;
-    const showJoin = isUserInAction ? null : <JoinAction />
-
+            delMessClick={(message) => removeMessageHandler(message)}
+            addMessClick={(message, title) => addMessageHandler(message, title)}
+        />;
+    const showJoin = !isUserInAction && <JoinAction classAction={props.cAction} />;
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
+    const allHashtags = props.cAction.hashtags.map((tag, index) => {
+        return <div className={classes.tag} key={index}>
+            {"#" + tag}
+        </div>
+    })
 
     return (
         <div>
-            <h2 className={classes.title}>תיאור תובענה:</h2>
+            <div className={classes.allHashtags}>
+                <h2 className={classes.title}>תיאור תובענה:</h2>
+                {allHashtags}
+            </div>
             {props.cAction.description}
             <div className={classes.joinButton}>
                 <div className={classes.infoRow}>

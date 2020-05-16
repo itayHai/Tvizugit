@@ -1,10 +1,9 @@
 import client from "../utils/apolloService";
 import gql from "graphql-tag";
 
-export const REMOVE_MESSAGE_ACTION = "REMOVE_MESSAGE_ACTION";
-export const ADD_MESSAGE_ACTION = "ADD_MESSAGE_ACTION";
 export const CHANGED_SORT = "CHANGED_SORT";
 export const UPDATE_CLASS_ACTIONS = "UPDATE_CLASS_ACTIONS";
+export const UPDATE_MESSAGES_ACTION = "UPDATE_MESSAGES_ACTION";
 export const CHANGE_CURR_ACTION = "CHANGE_CURR_ACTION";
 export const UPDATE_CLASS_ACTION = "UPDATE_CLASS_ACTION";
 export const DELETE_CLASS_ACTION = "DELETE_CLASS_ACTION";
@@ -62,20 +61,11 @@ export function changeSort(sortBy) {
     payload: sortBy,
   };
 }
-
-export function removeMessageAction(classAction, message) {
+export function updateMessagesAction(classAction, newMessages){
   return {
-    type: REMOVE_MESSAGE_ACTION,
+    type: UPDATE_MESSAGES_ACTION,
     classAction,
-    message,
-  };
-}
-export function addMessageAction(message, title, classAction) {
-  return {
-    type: ADD_MESSAGE_ACTION,
-    message,
-    title,
-    classAction,
+    newMessages,
   };
 }
 
@@ -123,24 +113,16 @@ const classActionReducer = (state = initialState, action) => {
         currClassAction: action.classAction,
       };
     }
-    case REMOVE_MESSAGE_ACTION: {
-      const newClassActions = removeMessage(
-        action.classAction,
-        action.message,
-        [...state.classActions]
-      );
-      return {
-        ...state,
-        classActions: newClassActions,
-      };
-    }
-    case ADD_MESSAGE_ACTION: {
-      const newClassActions = addMessage(
-        action.message,
-        action.title,
-        action.classAction,
-        [...state.classActions]
-      );
+    case UPDATE_MESSAGES_ACTION:{
+      const currClassAction = { ...action.classAction };
+      let newClassActions = [...state.classActions];
+      currClassAction.messages = action.newMessages;
+      newClassActions = newClassActions.map((cAction) => {
+        if (cAction.id === currClassAction.id) {
+          return currClassAction;
+        }
+        return cAction;
+      });
       return {
         ...state,
         classActions: newClassActions,
@@ -151,35 +133,5 @@ const classActionReducer = (state = initialState, action) => {
   }
 };
 
-const removeMessage = (currClassAction, message, classActions) => {
-  currClassAction.messages = currClassAction.messages.filter((mes) => {
-    return mes !== message;
-  });
-  classActions = classActions.map((cAction) => {
-    if (cAction.id === currClassAction.id) {
-      return currClassAction;
-    }
-    return cAction;
-  });
-
-  return classActions;
-};
-
-const addMessage = (message, title, classAction, classActions) => {
-  var todayDate = new Date();
-  const newMessage = {
-    date: todayDate,
-    title: title,
-    content: message,
-  };
-  classAction.messages.push(newMessage);
-  classActions = classActions.map((cAction) => {
-    if (cAction.id === classAction.id) {
-      return classAction;
-    }
-    return cAction;
-  });
-  return classActions;
-};
 
 export default classActionReducer;
