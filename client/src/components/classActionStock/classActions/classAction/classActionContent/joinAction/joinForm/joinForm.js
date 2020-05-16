@@ -4,12 +4,37 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { dummyUser } from '../../../../../../../utils/globalConsts';
 import Button from "@material-ui/core/Button";
 import AlertUser from '../../../../../../alertUser/alertUser';
+import { useSelector } from 'react-redux';
+import { useMutation } from "@apollo/react-hooks";
+import { classActionsRequest } from '../../../../../../../utils/requests';
 
-const JoinForm = () => {
+const JoinForm = (props) => {
     const [open, setOpen] = useState(false);
+    const classAction = { ...props.classAction };
+    const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
 
     const handleClick = () => {
         setOpen(true);
+        classAction.users.push({user:{id:dummyUser.id}, isWaiting: Boolean('true')});
+        updateClassActionServer({
+            variables:
+            {
+                classAction:
+                {
+                    defendants: classAction.defendants,
+                    users: classAction.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
+                    hashtags: classAction.hashtags,
+                    name: classAction.name,
+                    description: classAction.description,
+                    category: classAction.category.id,
+                    status: classAction.status,
+                    leadingUser: classAction.leadingUser.id,
+                },
+                id: classAction.id
+            }
+        }).then(data => {
+            // dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
+        })
     };
 
     const handleClose = () => {

@@ -1,0 +1,11 @@
+.buttons{
+    display: flex;
+    margin: 15px;
+    justify-content: space-between;
+  }
+  .saveButton {
+    float: left;
+    background-color:#009688 !important;
+    color:white !important;
+    margin: 15px
+  }

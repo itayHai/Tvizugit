@@ -18,12 +18,22 @@ const ClassAction = (props) => {
       content = props.classAction[bProp.engName][0];
     }
     if (bProp.engName === "numberOfProsecutors") {
-      content = props.classAction["users"].length;
+      const insideUsers = props.classAction["users"].filter(usr => {
+        if (!usr.isWaiting)
+          return usr
+      })
+      content = insideUsers.length;
     }
     if (bProp.engName === "category") {
       content = props.classAction[bProp.engName].name;
     }
     return { ...bProp, content: content };
+  });
+  const flatennedUsers = props.classAction.users.map(usr => {
+    return {
+      isWaiting: usr.isWaiting,
+      ...usr.user
+    }
   });
   return (
     <ResultBanner
@@ -31,9 +41,7 @@ const ClassAction = (props) => {
       selectedProperties={selectedProperties}
       handleOpenEditAction={() => handleOpenEditAction()}
       editAuth={props.classAction.leadingUser.id === dummyUser.id}
-      showBookmark={props.classAction.users.find(
-        (usr) => usr.id === dummyUser.id
-      )}
+      showBookmark={flatennedUsers.find(usr => (usr.id === dummyUser.id && !usr.isWaiting))}
     >
       <ClassActionContent cAction={props.classAction} />
     </ResultBanner>

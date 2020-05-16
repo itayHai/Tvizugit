@@ -5,6 +5,7 @@ export const CHANGED_SORT = "CHANGED_SORT";
 export const UPDATE_CLASS_ACTIONS = "UPDATE_CLASS_ACTIONS";
 export const UPDATE_MESSAGES_ACTION = "UPDATE_MESSAGES_ACTION";
 export const CHANGE_CURR_ACTION = "CHANGE_CURR_ACTION";
+export const CHANGE_BEFORE_SAVE = "CHANGE_BEFORE_SAVE";
 export const UPDATE_CLASS_ACTION = "UPDATE_CLASS_ACTION";
 export const DELETE_CLASS_ACTION = "DELETE_CLASS_ACTION";
 
@@ -48,6 +49,15 @@ export function changeCurAction(classAction) {
     classAction,
   };
 }
+export function changeActionBeforeSave(classAction = {
+  insideUsers: [],
+  waitingUsers: [],
+}) {
+  return {
+    type: CHANGE_BEFORE_SAVE,
+    classAction,
+  };
+}
 
 export function updateClassAction(classAction) {
   return {
@@ -72,6 +82,10 @@ export function updateMessagesAction(classAction, newMessages){
 const initialState = {
   sortBy: "",
   currClassAction: {},
+  actionBeforeSave: {
+    insideUsers: [],
+    waitingUsers: [],
+  },
   classActions: [],
 };
 
@@ -111,6 +125,12 @@ const classActionReducer = (state = initialState, action) => {
       return {
         ...state,
         currClassAction: action.classAction,
+      };
+    }
+    case CHANGE_BEFORE_SAVE: {
+      return {
+        ...state,
+        actionBeforeSave: action.classAction,
       };
     }
     case UPDATE_MESSAGES_ACTION:{

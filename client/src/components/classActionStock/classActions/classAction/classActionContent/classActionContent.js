@@ -13,6 +13,12 @@ import { classActionsRequest } from '../../../../../utils/requests';
 const ClassActionContent = props => {
     const dispatch = useDispatch();
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
+    const flatennedUsers = props.cAction.users.map(usr => {
+        return {
+            isWaiting: usr.isWaiting,
+            ...usr.user
+        }
+    });
     const isUserManager = props.cAction.leadingUser.id === dummyUser.id;
     const isUserInAction = props.cAction.users.find(({ id }) => id === dummyUser.id);
     const addMessageHandler = (message, title) => {
@@ -30,7 +36,7 @@ const ClassActionContent = props => {
                 classAction:
                 {
                     defendants: props.cAction.defendants,
-                    users: props.cAction.users.map(usr => usr.id),
+                    users: flatennedUsers.map(usr =>{return {user: usr.id, isWaiting: usr.isWaiting }}),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
@@ -40,7 +46,7 @@ const ClassActionContent = props => {
             }
         }).then((data) => {
             const messagesServer = data.data.ClassActionMutation.classAction.messages;
-            const newIdMessages = { ...newMessage, id: messagesServer[messagesServer.length - 1].id };
+            const newIdMessages = { ...newMessage, _id: messagesServer[messagesServer.length - 1]._id };
             const newMessages = [...props.cAction.messages];
             newMessages.push(newIdMessages);
             dispatch(updateMessagesAction(props.cAction, newMessages))
@@ -56,7 +62,7 @@ const ClassActionContent = props => {
                 classAction:
                 {
                     defendants: props.cAction.defendants,
-                    users: props.cAction.users.map(usr => usr.id),
+                    users: flatennedUsers.map(usr =>{return {user: usr.id, isWaiting: usr.isWaiting }}),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
@@ -69,14 +75,14 @@ const ClassActionContent = props => {
         })
     }
 
-    const showMessages = isUserInAction &&
+    const showMessages = flatennedUsers.find(usr => usr.id === dummyUser.id && !usr.isWaiting) &&
         <ManagerMessages
             messages={props.cAction.messages}
             isUserManager={isUserManager}
             delMessClick={(message) => removeMessageHandler(message)}
             addMessClick={(message, title) => addMessageHandler(message, title)}
         />;
-    const showJoin = !isUserInAction && <JoinAction classAction={props.cAction} />;
+    const showJoin = flatennedUsers.find(usr => usr.id === dummyUser.id) ? null : <JoinAction classAction={props.cAction}/>
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
         return <div className={classes.tag} key={index}>
