@@ -46,6 +46,18 @@ function getClassActionsByParams({
       .populate("users");
   }
 
+  if(name === ' ') {
+    return ClassActionModel.find({
+      $or: [
+        { category: { $in: categories } },
+        { hashtags: { $elemMatch: { hashtags } } },
+      ]
+    }) .populate("category")
+    .populate("leadingUser")
+    .populate("users");
+   
+  }
+
   return userId
     ? ClassActionModel.find( {"users.user": userId}).limit(limit)
         .limit(limit) 
@@ -54,8 +66,7 @@ function getClassActionsByParams({
         .populate("users.user")
     : ClassActionModel.find({
         $or: [
-          { name: { "$regex": name.trim(), "$options": "x" }},
-          //{ "$regex": name.trim(), "$options": "x" }
+          { name: { "$regex": name, "$options": "i" }},
           { category: { $in: categories } },
           { hashtags: { $elemMatch: { hashtags } } },
         ],

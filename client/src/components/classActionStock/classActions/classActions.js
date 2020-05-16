@@ -95,10 +95,10 @@ const ClassActions = (props) => {
   let { ids } = useParams();
 
   const filter = useSelector((state) => state.classAction.filter);
-
   let name = filter.name;
   let categories = filter.categories;
   let hashtags = filter.hashtags;
+
   const { loading, error, data } = useQuery(
     getClassActionsByParams(name, categories, hashtags),
     {
@@ -120,7 +120,6 @@ const ClassActions = (props) => {
   if (loading) return <Spinner />;
   if (error) console.log(error);
 
-  console.log(data.ClassActionQueries.classActions);
   dispatch(updateClassActions(data.ClassActionQueries.classActions));
 
   const handleCloseEditAction = () => {

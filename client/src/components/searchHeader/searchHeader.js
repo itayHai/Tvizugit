@@ -48,12 +48,11 @@ const SearchHeader = (props) => {
   }
   const categoryName = data.CategoryQueries.category?.name;
 
-
   return (
     <div className={classes.searchHeader}>
       <h1 className={classes.searchTitle}>{props.title}</h1>
       <div>
-        {filter.name === " " || filter.name === ""
+        {filter.name === " " || filter.name === "" || filter.name ===undefined
           ? ""
           : "תוצאת חיפוש לפי שם: " + filter.name}
       </div>
@@ -63,7 +62,7 @@ const SearchHeader = (props) => {
           : "תוצאת חיפוש לפי קטגוריה: " + categoryName}
       </div>
       <div>
-        {filter.hashtags.length === 0
+        {filter.hashtags?.length === 0 || filter.hashtags === undefined
           ? ""
           : "תוצאת חיפוש לפי תגיות: " + filter.hashtags}
       </div>
