@@ -4,6 +4,7 @@ import {
   GraphQLInputObjectType,
   GraphQLNonNull,
 } from "graphql";
+import { UserRoleType } from "../UserRole/userRoleType";
 
 const UserType = new GraphQLObjectType({
   name: "User",

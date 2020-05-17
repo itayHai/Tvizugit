@@ -10,4 +10,8 @@ function addUser(userToAdd) {
   return newUser.save();
 }
 
-export { getUser, addUser };
+function updateUser(id, userToUpdate) {
+  return UserModel.findOneAndUpdate({ _id: id }, userToUpdate);
+}
+
+export { getUser, addUser, updateUser };
