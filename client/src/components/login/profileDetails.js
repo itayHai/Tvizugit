@@ -3,8 +3,7 @@ import classes from "./login.module.css"
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 import { changeLoggedInUser } from '../../store/user';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 
 function ProfileDetails (props) {
 
@@ -12,16 +11,7 @@ function ProfileDetails (props) {
     const loggedInUser = useSelector(state => state.user.loggedInUser)
     let password1;
     let password2;
-    let fullName = 'שם מלא';
-    let userName = 'שם משתמש';
-    let email = 'אימייל';
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-
-    if(props.role === 'lawyer'){
-        fullName = 'שם המשרד';
-        userName = 'שם משתמש למשרד';
-        email = 'אימייל המשרד';
-    }
 
     const handleChange = (event) => {
         loggedInUser[event.target.name] = event.target.value;
@@ -41,11 +31,11 @@ function ProfileDetails (props) {
             loggedInUser.displayName === "" ||
             loggedInUser.email === "" ||
             ( loggedInUser.password === "" &&
-                ( password1 === undefined ||
-                  password2 === undefined ) ) ){
+                ( !password1 ||
+                  !password2 ) ) ){
             alert("יש למלא את כל השדות")
         }
-        else if ( reg.test(loggedInUser.email) === false ){
+        else if (!reg.test(loggedInUser.email)){
             alert("כתובת מייל אינה תקינה")
         }
         else if( password1 !== undefined && password1.length < 8 ){
@@ -55,11 +45,11 @@ function ProfileDetails (props) {
             alert("הסיסמאות אינן תואמות")
         }
         else{
-            if(password1 !== undefined){
+            if(!password1 !== undefined){
             loggedInUser.password = password1;
             }
             dispatch(changeLoggedInUser(loggedInUser));
-            console.log(loggedInUser);
+            //console.log(loggedInUser);
             props.clickNext();
         }
     }
@@ -71,21 +61,21 @@ function ProfileDetails (props) {
                 <hr color="#e6e6e6"/>
             </div>
             <div className={classes.UserRegister}>
-                <TextField label={fullName}
+                <TextField label={props.role === 'lawyer'? 'שם המשרד': 'שם מלא'}
                            name="displayName"
                            defaultValue={loggedInUser.displayName}
                            required
                            onChange={handleChange}
                            className={classes.Input}
                            fullWidth={true}/><br/><br/>
-                <TextField label={userName}
+                <TextField label={props.role === 'lawyer'? 'שם משתמש למשרד': 'שם משתמש'}
                             name="name"
                             required
                             defaultValue={loggedInUser.name}
                            onChange={handleChange}
                             className={classes.Input}
                             fullWidth={true}/><br/><br/>
-                <TextField label={email}
+                <TextField label={props.role === 'lawyer'? 'אימייל למשרד': 'אימייל'}
                             name="email"
                             required
                             defaultValue={loggedInUser.email}

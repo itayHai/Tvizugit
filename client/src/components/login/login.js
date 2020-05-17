@@ -24,19 +24,19 @@ const Login = (props) => {
       password: "123456"
     }
 
-    const { loading, error, data } = useQuery(usersRequests.getUser, {
-      variables: {
-        email: user.email,
-        password: user.password,
-      }
-    });
+    // const { loading, error, data } = useQuery(usersRequests.getUser, {
+    //   variables: {
+    //     email: user.email,
+    //     password: user.password,
+    //   }
+    // });
 
-    console.log(data);
+    //console.log(data);
 
     //user.displayName = data.UserQueries.user.displayName;
 
-    if (loading) return <p>Loading...</p>;
-    if (error) console.log(error);
+    // if (loading) return <p>Loading...</p>;
+    // if (error) console.log(error);
 
     const changePassword = (event) => {
       user.password = event.target.value;

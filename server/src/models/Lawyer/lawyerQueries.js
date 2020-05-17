@@ -8,7 +8,7 @@ const LawyerQueries = new GraphQLObjectType({
     lawyer: {
       type: LawyerType,
       args: {
-        _id: { type: GraphQLString },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         email: {type: GraphQLString},
       },

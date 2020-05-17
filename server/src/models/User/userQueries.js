@@ -8,7 +8,7 @@ const UserQueries = new GraphQLObjectType({
     user: {
       type: UserType,
       args: {
-        _id: { type: GraphQLString },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         displayName: {type: GraphQLString},
         email: {type: GraphQLString},
