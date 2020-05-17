@@ -29,7 +29,11 @@ function RegisterUser (props) {
                     email:loggedInUser.email,
                     displayName: loggedInUser.displayName,
                     password: loggedInUser.password,
-                    role: "5ea43b8c7157be568022babc", // User role
+                    role: {
+                        id: "5ea43b8c7157be568022babc", // User role
+                        engName: "user",
+                        name: "משתמש"
+                      },
                 }
             }
         })

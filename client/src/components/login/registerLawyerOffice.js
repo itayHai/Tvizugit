@@ -36,7 +36,7 @@ function RegisterLawyerOffice (props) {
             //loggedInLawyer.expertise === "" ||
             loggedInLawyer.address === "" ||
             loggedInLawyer.phone === "" ||
-            loggedInLawyer.seniority === "" ||
+            //loggedInLawyer.seniority === "" ||
             loggedInLawyer.img === "" ){
         
             alert("יש למלא את כל השדות");
@@ -53,7 +53,11 @@ function RegisterLawyerOffice (props) {
                         email:loggedInUser.email,
                         displayName: loggedInUser.displayName,
                         password: loggedInUser.password,
-                        role: "5ea43ce07157be568022babf", //Lawyer role
+                        role: {
+                            id: "5ea43ce07157be568022babf", // Lawyer role
+                            engName: "lawyer",
+                            name: "עורך דין"
+                          },
                     }
                 }
             })

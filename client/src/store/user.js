@@ -21,12 +21,16 @@ const initialState = {
   mode: 'login',
 
   loggedInUser: {
-    id: "",
-    name: "",
-    displayName: "" ,
-    email: "",
-    password: "",
-    role: "",
+    id: "5ea9e2c7d34cb906dcfaf28d",
+    name: "Itay Haizler",
+    displayName: "איתי הייזלר",
+    role: {
+      id: "5ea43b9a7157be568022babd",
+      engName: "viewer",
+      name: "מנהל מערכת"
+    },
+    email: "itay@gmail.com",
+    password: "123456",
   },
 };
 function userReducer(state = initialState, action) {

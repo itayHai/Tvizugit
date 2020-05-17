@@ -21,7 +21,12 @@ const Login = (props) => {
       name: "rotem",
       displayName: "רותם חוגי",
       email: "rotem@gmail.com",
-      password: "123456"
+      password: "123456",
+      role: {
+        id: "5ea43b9a7157be568022babd",
+        engName: "viewer",
+        name: "מנהל מערכת"
+      },
     }
 
     // const { loading, error, data } = useQuery(usersRequests.getUser, {
