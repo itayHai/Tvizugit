@@ -19,8 +19,7 @@ const ClassAction = (props) => {
     }
     if (bProp.engName === "numberOfProsecutors") {
       const insideUsers = props.classAction["users"].filter(usr => {
-        if (!usr.isWaiting)
-          return usr
+          return !usr.isWaiting
       })
       content = insideUsers.length;
     }

@@ -4,7 +4,6 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { dummyUser } from '../../../../../../../utils/globalConsts';
 import Button from "@material-ui/core/Button";
 import AlertUser from '../../../../../../alertUser/alertUser';
-import { useSelector } from 'react-redux';
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../../../../../../utils/requests';
 
@@ -32,8 +31,6 @@ const JoinForm = (props) => {
                 },
                 id: classAction.id
             }
-        }).then(data => {
-            // dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
         })
     };
 

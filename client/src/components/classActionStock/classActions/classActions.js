@@ -3,11 +3,9 @@ import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "../../modal/modal";
-import { classActionsRequest } from "../../../utils/requests";
 import {
   changeCurAction,
-  updateClassActions,
-  changeActionBeforeSave
+  updateClassActions
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
 import { useParams } from "react-router";
@@ -111,7 +109,6 @@ const ClassActions = (props) => {
   }
 
   const handleCloseEditAction = () => {
-    dispatch(changeActionBeforeSave())
     dispatch(changeCurAction({}));
   };
 

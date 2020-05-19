@@ -20,7 +20,6 @@ const ClassActionContent = props => {
         }
     });
     const isUserManager = props.cAction.leadingUser.id === dummyUser.id;
-    const isUserInAction = props.cAction.users.find(({ id }) => id === dummyUser.id);
     const addMessageHandler = (message, title) => {
         var todayDate = new Date();
         const newMessage = {
@@ -81,9 +80,9 @@ const ClassActionContent = props => {
             isUserManager={isUserManager}
             delMessClick={(message) => removeMessageHandler(message)}
             addMessClick={(message, title) => addMessageHandler(message, title)}
-        />: <div>חכה לתשובה</div>;
+        />: null;
     const showJoin = flatennedUsers.find(usr => usr.id === dummyUser.id) ? null : <JoinAction classAction={props.cAction}/>
-    const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע עו"ד';
+    const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע משרד מייצג';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
         return <div className={classes.tag} key={index}>
             {"#" + tag}
@@ -103,7 +102,7 @@ const ClassActionContent = props => {
                         <Gavel className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
                             <h3 className={classes.h3}>{lawyerName}</h3>
-                            <div>עו"ד מייצג</div>
+                            <div>משרד עו"ד מייצג</div>
                         </div>
                     </div>
                     <div className={classes.cellInRow}>

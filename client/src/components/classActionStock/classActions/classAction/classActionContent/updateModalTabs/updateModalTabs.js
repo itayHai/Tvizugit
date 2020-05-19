@@ -20,27 +20,45 @@ function a11yProps(index) {
 }
 
 export default function UpdateModalTabs(props) {
-    const [value, setValue] = React.useState(0);
+    const [tab, setTab] = React.useState(0);
     const stateClassAction = useSelector(state => state.classAction.currClassAction);
-    const actionBeforeSave = useSelector(state => state.classAction.actionBeforeSave);
-    const classAction = { ...stateClassAction };
+    const [classAction] = React.useState({ ...stateClassAction });
     const dispatch = useDispatch();
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleChangeAction = (event) => {
+        classAction[event.target.name] = event.target.value;
     };
+    const handleChangeAutoField = (event, values) => {
+        if (event.target.id.includes("status"))
+            classAction.status = values
+        if (event.target.id.includes("category"))
+            classAction.category = values
+        if (event.target.id.includes("leadingUser"))
+            classAction.leadingUser = values
+        if (event.target.id.includes("lawyer"))
+            classAction.lawyer = values
+    }
+    const handleWaitingUsers = (event, values) => {
+        classAction.waitingUsers = [];
+        for (let index = 0; index < values.length; index++) {
+            classAction.waitingUsers.push(values[index]);
+        }
+    }
+    const handleInsideUsers = (event, values) => {
+        classAction.insideUsers = [];
+        for (let index = 0; index < values.length; index++) {
+            classAction.insideUsers.push(values[index]);
+        }
+    }
     const handleSave = () => {
-        actionBeforeSave.users = classAction.users.map(usr => {
-            if (actionBeforeSave.waitingUsers.includes(usr)) {
+        classAction.users = classAction.users.map(usr => {
+            if (classAction.waitingUsers?.includes(usr))
                 usr.isWaiting = false;
-                return usr;
-            }
+            return usr;
         });
-        actionBeforeSave.users = classAction.users.filter(usr => {
-            if (!actionBeforeSave.insideUsers.includes(usr)) {
-                return usr;
-            }
+        classAction.users = classAction.users.filter(usr => {
+            return !classAction.insideUsers?.includes(usr);
         });
         updateClassActionServer({
             variables:
@@ -48,47 +66,44 @@ export default function UpdateModalTabs(props) {
                 classAction:
                 {
                     defendants: classAction.defendants,
-                    users: actionBeforeSave.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
+                    users: classAction.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
                     hashtags: classAction.hashtags,
-                    name: actionBeforeSave.name ? actionBeforeSave.name : classAction.name,
-                    description: actionBeforeSave.description ? actionBeforeSave.description : classAction.description,
-                    category: actionBeforeSave.category?.id ? actionBeforeSave.category?.id : classAction.category.id,
-                    status: actionBeforeSave.status ? actionBeforeSave.status : classAction.status,
-                    leadingUser: actionBeforeSave.leadingUser?.id ? actionBeforeSave.leadingUser?.id : classAction.leadingUser.id,
+                    name: classAction.name,
+                    description: classAction.description,
+                    category: classAction.category.id,
+                    status: classAction.status,
+                    leadingUser: classAction.leadingUser.id,
                 },
                 id: classAction.id
             }
         }).then(data => {
-            console.log(data)
             dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
             props.close();
         })
-    }
-
-    const handleChangeField = (event) => {
-        classAction[event.target.name] = event.target.value;
     }
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    variant="fullWidth"
-                >
+                    value={tab}
+                    onChange={(event, newValue) => setTab(newValue)}
+                    variant="fullWidth">
                     <Tab label="עריכת פרטי תובענה"{...a11yProps(0)} />
                     <Tab label="עריכת משתתפים" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={tab} index={0}>
                 <UpdateClassAction
                     classAction={classAction}
-                    handleChange={(event) => handleChangeField(event)}
+                    handleChangeAutoField={handleChangeAutoField}
+                    handleChange={handleChangeAction}
                 />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={tab} index={1}>
                 <UpdateUsersClassAction
                     classAction={classAction}
+                    handleInsideUsers={handleInsideUsers}
+                    handleWaitingUsers={handleWaitingUsers}
                 />
             </TabPanel>
             <div className={classes.buttons}>
