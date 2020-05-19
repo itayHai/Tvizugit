@@ -8,11 +8,12 @@ import SearchClassAction from "../searchClassAction/searchClassAction";
 import classes from "./searchHeader.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSort } from "../../store/classAction";
-import CategoryByName from './categoryByName';
-
+import CategoryByName from "./categoryByName";
 
 const SearchHeader = (props) => {
   const [open, setOpen] = useState(false);
+  const filter = useSelector((state) => state.classAction.filter);
+  // const [filter] = useState({ ...filterState });
 
   const handleOpen = () => {
     setOpen(true);
@@ -21,12 +22,11 @@ const SearchHeader = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  // console.log(filter);
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.classAction.filter);
-
-  const names = filter.categories.map(category =>  <CategoryByName key={category} id={category}/> )
-  console.log(names);
+  const names = filter.categories.map((category) => {
+    return <CategoryByName key={category} id={category} />;
+  });
 
   return (
     <div className={classes.searchHeader}>
@@ -39,7 +39,8 @@ const SearchHeader = (props) => {
       <div>
         {filter.categories.length === 0
           ? ""
-          : "תוצאת חיפוש לפי קטגוריה: " + names}
+          : "תוצאת חיפוש לפי קטגוריה: "}
+          {names}
       </div>
       <div>
         {filter.hashtags?.length === 0 || filter.hashtags === undefined

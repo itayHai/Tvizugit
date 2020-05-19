@@ -18,13 +18,18 @@ import Spinner from "../../spinner/spinner";
 const getClassActionsByParams = (params) => {
   return params
     ? gql`
-        query($name: String, $categories: [String]) {
+        query($name: String, $categories: [String], $hashtags: [String]) {
           ClassActionQueries {
-            classActions(name: $name, categories: $categories) {
+            classActions(
+              name: $name
+              categories: $categories
+              hashtags: $hashtags
+            ) {
               id
               name
               description
               category {
+                id
                 name
                 engName
               }

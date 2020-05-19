@@ -7,7 +7,7 @@ import {
   GraphQLNonNull,
 } from "graphql";
 import { ClassActionType } from "./classActionType";
-import { getClassAction, getClassActionsByParams } from "./classActionBL";
+import { getClassAction, getClassActionsByParams, getClassActions, getClassActionsByUser } from "./classActionBL";
 
 const ClassActionQueries = new GraphQLObjectType({
   name: "ClassActionQueryType",
@@ -41,10 +41,14 @@ const ClassActionQueries = new GraphQLObjectType({
         },
       },
       resolve: (parentValue, params) => {
-        console.log(params);
-        //console.log(params.name.trim())
+        if ( Object.keys(params).length === 0) {
+      console.log("Im hereee");
+          return getClassActions();
 
-        return getClassActionsByParams(params);
+        }
+        if (params.userId) {
+          return getClassActionsByUser(params);
+        } else return getClassActionsByParams(params);
       },
     },
     count: {

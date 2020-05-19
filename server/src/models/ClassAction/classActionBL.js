@@ -26,39 +26,41 @@ function getClassAction({ id }) {
 
 }
 
+function getClassActionByUser({ UserId, limit }) {
+  return ClassActionModel.find({ users: UserId })
+    .limit(limit)
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users");
+}
+
+function getClassActions() {
+  return ClassActionModel.find({})
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users");
+}
+
 function getClassActionsByParams({
-  userId,
   name,
   hashtags,
   categories,
-  limit,
 }) {
-  if (
-    userId === undefined &&
-    name === undefined &&
-    hashtags === undefined &&
-    categories === undefined
-  ) {
-    return ClassActionModel.find()
-      .limit(limit)
+ 
+
+  if (name === " ")  {
+    return ClassActionModel.find({
+      $or: [
+        { category: { $in: categories } },
+        { hashtags: { $elemMatch: { hashtags } } },
+      ],
+    })
       .populate("category")
       .populate("leadingUser")
       .populate("users");
   }
 
-  if(name === ' ') {
-    return ClassActionModel.find({
-      $or: [
-        { category: { $in: categories } },
-        { hashtags: { $elemMatch: { hashtags } } },
-      ]
-    }) .populate("category")
-    .populate("leadingUser")
-    .populate("users");
-   
-  }
-
-  return userId
+  return ClassActionModel.find({
     ? ClassActionModel.find( {"users.user": userId}).limit(limit)
         .limit(limit) 
         .populate("category")
@@ -66,7 +68,7 @@ function getClassActionsByParams({
         .populate("users.user")
     : ClassActionModel.find({
         $or: [
-          { name: { "$regex": name, "$options": "i" }},
+          { name: { $regex: name, $options: "i" } },
           { category: { $in: categories } },
           { hashtags: { $elemMatch: { hashtags } } },
         ],
@@ -79,8 +81,10 @@ function getClassActionsByParams({
 
 export {
   addClassAction,
+  getClassActions,
   getClassAction,
   getClassActionsByParams,
   updateClassAction,
   deleteClassAction,
+  getClassActionByUser
 };
