@@ -244,11 +244,10 @@ export const dummyData = [
   },
 ];
 export const dummyUser = {
-  // id:"5ea6dade79e90e30cc08a4bc",
+  // id:"5e9cae20a9c09c48d8be3776",
   // name:"איתי הייזלר"
-  //   id: "5ea9e2c7d34cb906dcfaf28d",
-  // id: "5ea6db3879e90e30cc08a4be",
+  // id: "5ea9e2c7d34cb906dcfaf28d",
   // name: "רותם חוגי",
-  id: "5ea5c0a54a0ce396ce277da8",
+  id: "5e9d8bc9d43a5108ecf17822",
   name: "עידו פרלמן"
 }
