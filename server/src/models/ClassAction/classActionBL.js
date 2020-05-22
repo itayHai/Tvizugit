@@ -26,7 +26,7 @@ function getClassAction({ id }) {
 
 }
 
-function getClassActionByUser({ UserId, limit }) {
+function getClassActionsByUser({ UserId, limit }) {
   return ClassActionModel.find({ users: UserId })
     .limit(limit)
     .populate("category")
@@ -47,6 +47,11 @@ function getClassActionsByParams({
   categories,
 }) {
  
+  if(name === undefined && hashtags === undefined && categories === undefined)
+  {
+    return getClassActions();
+  }
+
 
   if (name === " ")  {
     return ClassActionModel.find({
@@ -86,5 +91,5 @@ export {
   getClassActionsByParams,
   updateClassAction,
   deleteClassAction,
-  getClassActionByUser
+  getClassActionsByUser
 };

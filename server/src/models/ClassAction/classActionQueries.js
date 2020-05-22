@@ -42,7 +42,6 @@ const ClassActionQueries = new GraphQLObjectType({
       },
       resolve: (parentValue, params) => {
         if ( Object.keys(params).length === 0) {
-      console.log("Im hereee");
           return getClassActions();
 
         }
