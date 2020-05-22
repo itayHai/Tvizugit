@@ -24,6 +24,7 @@ export const userSchema = new Schema({
   role: {
     type: String,
     required: true,
+    ref: "userRole"
   },
 });
 
