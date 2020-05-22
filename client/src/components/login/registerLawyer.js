@@ -20,10 +20,11 @@ function RegisterLawyer (props) {
     return(
         <div>
             <div className={classes.UserRegister}>
-                <ProfileDetails clickBack={changeToRegister} 
+                <ProfileDetails role="lawyer"
+                                clickBack={changeToRegister} 
                                 clickNext={regiesterOffice}
                                 textNext="המשך 1/2"
-                                title="הרשמה בתור עורך דין לתביצוגית"> 
+                                title='הרשמה בתור משרד עו"ד לתביצוגית'> 
                                 <GavelIcon/> </ProfileDetails>
             </div>
         </div>

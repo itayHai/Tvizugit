@@ -8,12 +8,8 @@ export const userSchema = new Schema({
   },
   displayName: {
     type: String,
-    required: true
-  },
-  role: {
-    type: String,
+    trim: true,
     required: true,
-    ref: "userRole",
   },
   email: {
     type: String,
@@ -24,6 +20,11 @@ export const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+    ref: "userRole"
   },
 });
 
