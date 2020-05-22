@@ -15,7 +15,6 @@ import './navbar.css';
 
 const Navbar = (props) => {
   const loggedInUser = useSelector(state => state.user.loggedInUser)
-  const mode = useSelector(state => state.user.mode)
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ const Navbar = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const show = mode === "connected" ? 
+  const show = loggedInUser.displayName ? 
   <div>
     <img className="Icon" src={CustomerIcon} alt="Customer"/>
     <label> { loggedInUser.displayName } </label>

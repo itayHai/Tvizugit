@@ -2,19 +2,19 @@ import React from 'react';
 import classes from "./login.module.css"
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
-import { changeLoggedInUser } from '../../store/user';
+import { changeRegisterUser } from '../../store/user';
 import { useDispatch , useSelector } from 'react-redux';
 
 function ProfileDetails (props) {
 
     const dispatch = useDispatch();
-    const loggedInUser = useSelector(state => state.user.loggedInUser)
+    const RegisterUser = useSelector(state => state.user.RegisterUser)
     let password1;
     let password2;
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
     const handleChange = (event) => {
-        loggedInUser[event.target.name] = event.target.value;
+        RegisterUser[event.target.name] = event.target.value;
     }
 
     const changePassword1 = (event) => {
@@ -27,29 +27,28 @@ function ProfileDetails (props) {
 
     const handleSave = () => {
 
-        if( loggedInUser.user === "" || 
-            loggedInUser.displayName === "" ||
-            loggedInUser.email === "" ||
-            ( loggedInUser.password === "" &&
+        if( RegisterUser.user === "" || 
+            RegisterUser.displayName === "" ||
+            RegisterUser.email === "" ||
+            ( RegisterUser.password === "" &&
                 ( !password1 ||
                   !password2 ) ) ){
             alert("יש למלא את כל השדות")
         }
-        else if (!reg.test(loggedInUser.email)){
+        else if (!reg.test(RegisterUser.email)){
             alert("כתובת מייל אינה תקינה")
         }
-        else if( password1 !== undefined && password1.length < 8 ){
+        else if( password1 && password1.length < 8 ){
             alert("יש להזין סיסמא בת 8 תווים לפחות")
         }
         else if( password1 !== password2 ){
             alert("הסיסמאות אינן תואמות")
         }
         else{
-            if(!password1 !== undefined){
-            loggedInUser.password = password1;
+            if(password1){
+                RegisterUser.password = password1;
             }
-            dispatch(changeLoggedInUser(loggedInUser));
-            //console.log(loggedInUser);
+            dispatch(changeRegisterUser(RegisterUser));
             props.clickNext();
         }
     }
@@ -63,7 +62,7 @@ function ProfileDetails (props) {
             <div className={classes.UserRegister}>
                 <TextField label={props.role === 'lawyer'? 'שם המשרד': 'שם מלא'}
                            name="displayName"
-                           defaultValue={loggedInUser.displayName}
+                           defaultValue={RegisterUser.displayName}
                            required
                            onChange={handleChange}
                            className={classes.Input}
@@ -71,14 +70,14 @@ function ProfileDetails (props) {
                 <TextField label={props.role === 'lawyer'? 'שם משתמש למשרד': 'שם משתמש'}
                             name="name"
                             required
-                            defaultValue={loggedInUser.name}
+                            defaultValue={RegisterUser.name}
                            onChange={handleChange}
                             className={classes.Input}
                             fullWidth={true}/><br/><br/>
                 <TextField label={props.role === 'lawyer'? 'אימייל למשרד': 'אימייל'}
                             name="email"
                             required
-                            defaultValue={loggedInUser.email}
+                            defaultValue={RegisterUser.email}
                             onChange={handleChange}
                             className={classes.Input}
                             type="email"
@@ -86,7 +85,7 @@ function ProfileDetails (props) {
                 <TextField label="סיסמא"
                             name="password1"
                             required
-                            defaultValue={loggedInUser.password}
+                            defaultValue={RegisterUser.password}
                             onChange={changePassword1}
                             className={classes.Input}
                             fullWidth={true}
@@ -94,7 +93,7 @@ function ProfileDetails (props) {
                 <TextField label="אימות סיסמא"
                             name="password2"
                             required
-                            defaultValue={loggedInUser.password}
+                            defaultValue={RegisterUser.password}
                             onChange={changePassword2}
                             className={classes.Input}
                             fullWidth={true}

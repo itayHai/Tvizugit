@@ -1,29 +1,29 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import classes from "./login.module.css"
-import { setMode } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import GavelIcon from '@material-ui/icons/Gavel';
 import { TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { specialties } from "../../utils/globalConsts";
 import { useSelector } from 'react-redux';
-import { changeLoggedInLawyer } from '../../store/lawyer';
+import { changeRegisterLawyer } from '../../store/lawyer';
 import { useMutation } from "@apollo/react-hooks";
 import { usersRequests } from '../../utils/requests';
 import { lawyersRequests } from '../../utils/requests';
+import { setMode , changeLoggedInUser } from '../../store/user';
 
 function RegisterLawyerOffice (props) {
 
     const dispatch = useDispatch();
     const Specialties = specialties.sort();
-    const loggedInUser = useSelector(state => state.user.loggedInUser)
-    const loggedInLawyer = useSelector(state => state.lawyer.loggedInLawyer)
+    const RegisterUser = useSelector(state => state.user.RegisterUser)
+    const RegisterLawyer = useSelector(state => state.lawyer.RegisterLawyer)
     const [addNewUser] = useMutation(usersRequests.addNewUser);
     const [addNewLawyer] = useMutation(lawyersRequests.addNewLawyer);
 
     const handleChange = (event) => {
-        loggedInLawyer[event.target.name] = event.target.value;
+        RegisterLawyer[event.target.name] = event.target.value;
     }
   
     function regiesterProfile(){
@@ -32,32 +32,26 @@ function RegisterLawyerOffice (props) {
 
     function finishRegister(){
 
-        if( loggedInLawyer.description === "" ||
-            //loggedInLawyer.expertise === "" ||
-            loggedInLawyer.address === "" ||
-            loggedInLawyer.phone === "" ||
-            //loggedInLawyer.seniority === "" ||
-            loggedInLawyer.img === "" ){
+        if( RegisterLawyer.description === "" ||
+            RegisterLawyer.address === "" ||
+            RegisterLawyer.phone === "" ||
+            RegisterLawyer.img === "" ){
         
             alert("יש למלא את כל השדות");
         }
         else{
-            dispatch(changeLoggedInLawyer(loggedInLawyer));
+            dispatch(changeRegisterLawyer(RegisterLawyer));
 
             addNewUser({
                 variables:
                 {
                     user:
                     {
-                        name: loggedInUser.name,
-                        email:loggedInUser.email,
-                        displayName: loggedInUser.displayName,
-                        password: loggedInUser.password,
-                        role: {
-                            id: "5ea43ce07157be568022babf", // Lawyer role
-                            engName: "lawyer",
-                            name: "עורך דין"
-                          },
+                        name: RegisterUser.name,
+                        email:RegisterUser.email,
+                        displayName: RegisterUser.displayName,
+                        password: RegisterUser.password,
+                        role: "5ea43ce07157be568022babf" // Lawyer role
                     }
                 }
             })
@@ -67,20 +61,20 @@ function RegisterLawyerOffice (props) {
                 {
                     lawyer:
                     {
-                        name: loggedInUser.name,
-                        description: loggedInLawyer.description ,
-                        expertise: loggedInLawyer.expertise,
-                        email: loggedInUser.email,
-                        address: loggedInLawyer.address,
-                        phone: loggedInLawyer.phone,
-                        seniority: loggedInLawyer.seniority,
-                        img: loggedInLawyer.img,
-                        classactions: "",
+                        name: RegisterUser.name,
+                        description: RegisterLawyer.description ,
+                        expertise: RegisterLawyer.expertise,
+                        email: RegisterUser.email,
+                        address: RegisterLawyer.address,
+                        phone: RegisterLawyer.phone,
+                        seniority: RegisterLawyer.seniority,
+                        img: RegisterLawyer.img,
+                        classactions: RegisterLawyer.classactions,
                     }
                 }
             })
 
-            dispatch(setMode("connected"));
+            dispatch(changeLoggedInUser(RegisterUser));
             props.close();
         }
     }

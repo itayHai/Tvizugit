@@ -1,15 +1,15 @@
-export const CHANGE_LOGGED_LAWYER = "CHANGE_LOGGED_LAWYER";
+export const CHANGE_REGISTER_LAWYER = "CHANGE_REGISTER_LAWYER";
 
-export function changeLoggedInLawyer(lawyer) {
+export function changeRegisterLawyer(lawyer) {
   return {
-    type: CHANGE_LOGGED_LAWYER,
+    type: CHANGE_REGISTER_LAWYER,
     lawyer,
   };
 }
 
 const initialState = {
   
-  loggedInLawyer: {
+  RegisterLawyer: {
     id: "",
     name: "",
     description: "" ,
@@ -26,10 +26,10 @@ const initialState = {
 
 function lawyerReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_LOGGED_LAWYER: {
+    case CHANGE_REGISTER_LAWYER: {
       return {
         ...state,
-        loggedInLawyer: action.lawyer,
+        RegisterLawyer: action.lawyer,
       };
     }
     default: {

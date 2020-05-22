@@ -6,10 +6,8 @@ import FacebookIcon from '../../images/icons/facebook_icon.png';
 import GoogleIcon from '../../images/icons/google_icon.png';
 import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
-import { setMode , changeLoggedInUser } from '../../store/user';
+import { setMode , LoginUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
-import { usersRequests } from '../../utils/requests';
-import { useQuery } from "@apollo/react-hooks";
 
 const Login = (props) => {
 
@@ -18,30 +16,16 @@ const Login = (props) => {
 
     // Just for now - change at the next pull request!
     let user = {
-      name: "rotem",
       displayName: "רותם חוגי",
-      email: "rotem@gmail.com",
-      password: "123456",
+      email: "",//"rotem@gmail.com",
+      password: "", // "123456",
+      name: "",
       role: {
-        id: "5ea43b9a7157be568022babd",
+        id: "",
         engName: "viewer",
         name: "מנהל מערכת"
       },
     }
-
-    // const { loading, error, data } = useQuery(usersRequests.getUser, {
-    //   variables: {
-    //     email: user.email,
-    //     password: user.password,
-    //   }
-    // });
-
-    //console.log(data);
-
-    //user.displayName = data.UserQueries.user.displayName;
-
-    // if (loading) return <p>Loading...</p>;
-    // if (error) console.log(error);
 
     const changePassword = (event) => {
       user.password = event.target.value;
@@ -56,18 +40,17 @@ const Login = (props) => {
     }
 
     function login(){
-      if(user.email === ""){
+      if(!user.email){
           alert("יש למלא שם משתמש")
       }
-      else if(reg.test(user.email) === false ){
+      else if(!reg.test(user.email)){
           alert("כתובת מייל אינה תקינה")
       }
-      else if (user.password === ""){
+      else if (!user.password){
         alert("יש למלא סיסמא")
       }
       else{
-        dispatch(changeLoggedInUser(user));
-        dispatch(setMode("connected"));
+        dispatch(LoginUser(user));        
         props.close();
       }
     }

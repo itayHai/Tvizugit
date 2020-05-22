@@ -17,13 +17,17 @@ mutation ($user: UserInputType!) {
 
 const getUser = gql`
 query($email:String!,$password:String!){
-    UserQueries{
-     user(email:$email,password:$password){
-       id
-       displayName
-     }
-    }
- }
+  UserQueries{
+   user(email:$email,password:$password){
+    id
+    name
+    displayName
+    email
+    password
+    role
+   }
+  }
+}
 `;
 
 export default {
