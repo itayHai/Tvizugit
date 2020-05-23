@@ -1,20 +1,21 @@
 import React,{useState} from 'react';
 import classes from './joinForm.module.css';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { dummyUser } from '../../../../../../../utils/globalConsts';
 import Button from "@material-ui/core/Button";
 import AlertUser from '../../../../../../alertUser/alertUser';
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../../../../../../utils/requests';
+import { useSelector } from 'react-redux';
 
 const JoinForm = (props) => {
     const [open, setOpen] = useState(false);
     const classAction = { ...props.classAction };
+    const loggedInUser = useSelector((state) => state.user.loggedInUser);
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
 
     const handleClick = () => {
         setOpen(true);
-        classAction.users.push({user:{id:dummyUser.id}, isWaiting: Boolean('true')});
+        classAction.users.push({user:{id:loggedInUser.id}, isWaiting: Boolean('true')});
         updateClassActionServer({
             variables:
             {
@@ -37,7 +38,7 @@ const JoinForm = (props) => {
     const handleClose = () => {
         setOpen(false);
     };
-    const isUser = Object.keys(dummyUser).length === 0;
+    const isUser = Object.keys(loggedInUser).length === 0;
     const noUserDiv = <div>כדי להצטרף לתובענה עלייך להירשם קודם!</div>;
 
     return (

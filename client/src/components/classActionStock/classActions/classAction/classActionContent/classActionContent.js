@@ -3,8 +3,7 @@ import classes from './classActionContent.module.css';
 import { Gavel, CalendarToday, Person } from '@material-ui/icons';
 import ManagerMessages from '../managerMessages/managerMessages';
 import JoinAction from './joinAction/joinAction';
-import { dummyUser } from '../../../../../utils/globalConsts';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateMessagesAction } from '../../../../../store/classAction';
 import DateHandler from '../../../../../utils/dateHandler';
 import { useMutation } from "@apollo/react-hooks";
@@ -12,6 +11,8 @@ import { classActionsRequest } from '../../../../../utils/requests';
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
+    const loggedInUser = useSelector((state) => state.user.loggedInUser);
+
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
     const flatennedUsers = props.cAction.users.map(usr => {
         return {
@@ -19,7 +20,7 @@ const ClassActionContent = props => {
             ...usr.user
         }
     });
-    const isUserManager = props.cAction.leadingUser.id === dummyUser.id;
+    const isUserManager = props.cAction.leadingUser.id === loggedInUser.id;
     const addMessageHandler = (message, title) => {
         var todayDate = new Date();
         const newMessage = {
@@ -35,7 +36,7 @@ const ClassActionContent = props => {
                 classAction:
                 {
                     defendants: props.cAction.defendants,
-                    users: flatennedUsers.map(usr =>{return {user: usr.id, isWaiting: usr.isWaiting }}),
+                    users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
@@ -61,7 +62,7 @@ const ClassActionContent = props => {
                 classAction:
                 {
                     defendants: props.cAction.defendants,
-                    users: flatennedUsers.map(usr =>{return {user: usr.id, isWaiting: usr.isWaiting }}),
+                    users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
@@ -74,14 +75,14 @@ const ClassActionContent = props => {
         })
     }
 
-    const showMessages = flatennedUsers.find(usr => usr.id === dummyUser.id && !usr.isWaiting) ?
+    const showMessages = flatennedUsers.find(usr => usr.id === loggedInUser.id && !usr.isWaiting) ?
         <ManagerMessages
             messages={props.cAction.messages}
             isUserManager={isUserManager}
             delMessClick={(message) => removeMessageHandler(message)}
             addMessClick={(message, title) => addMessageHandler(message, title)}
-        />: null;
-    const showJoin = flatennedUsers.find(usr => usr.id === dummyUser.id) ? null : <JoinAction classAction={props.cAction}/>
+        /> : null;
+    const showJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id) ? null : <JoinAction classAction={props.cAction} />
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע משרד מייצג';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
         return <div className={classes.tag} key={index}>

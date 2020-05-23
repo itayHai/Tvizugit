@@ -45,10 +45,11 @@ const PlaintiffHomePage = ({ user }) => {
     };
 
     const handleCreateClose = (isSuccess) => {
-        if (isSuccess)
-            setAlert(prevState => ({ ...prevState, open: true }));
-        else
-            setAlert({ message: "הייתה שגיאה בשמירה", severity: "error", open: true });
+        if (isSuccess !== "cancel")
+            if (isSuccess)
+                setAlert(prevState => ({ ...prevState, open: true }));
+            else
+                setAlert({ message: "הייתה שגיאה בשמירה", severity: "error", open: true });
         setCreateOpen(false);
     };
     const loggedInUser = useSelector((state) => state.user.loggedInUser)
@@ -65,7 +66,7 @@ const PlaintiffHomePage = ({ user }) => {
             <Modal show={open} onClose={handleClose}>
                 <SearchClassAction close={handleClose} />
             </Modal>
-            <Modal show={createOpen} onClose={handleCreateClose}>
+            <Modal show={createOpen} onClose={() => handleCreateClose("cancel")}>
                 <CreateClassAction close={handleCreateClose} />
             </Modal>
             <div className={classes.text}>

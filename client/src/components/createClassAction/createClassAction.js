@@ -7,10 +7,9 @@ import { categoriesRequest } from "../../utils/requests";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import TextField from '@material-ui/core/TextField';
-import { dummyUser } from '../../utils/globalConsts';
 import Chip from "@material-ui/core/Chip";
 import { classActionsRequest } from '../../utils/requests';
-import AlertUser from '../alertUser/alertUser';
+import { useSelector } from 'react-redux';
 
 const CreateClassAction = props => {
     const [defendant, setDefendant] = useState("");
@@ -18,6 +17,7 @@ const CreateClassAction = props => {
     let [defendants] = useState([]);
     const { loading, data } = useQuery(categoriesRequest.getAll);
     const [addClassAction] = useMutation(classActionsRequest.addClassAction);
+    const loggedInUser = useSelector((state) => state.user.loggedInUser);
 
     if (loading) return <p>Loading...</p>;
 
@@ -43,8 +43,8 @@ const CreateClassAction = props => {
     const handleSave = () => {
         classAction.openDate = new Date();
         classAction.status = "תובענה חדשה בשוק חבר'ה!";
-        classAction.users.push({ user: dummyUser.id, isWaiting: Boolean(false) });
-        classAction.leadingUser = dummyUser.id;
+        classAction.users.push({ user: loggedInUser.id, isWaiting: Boolean(false) });
+        classAction.leadingUser = loggedInUser.id;
         classAction.defendants = defendants;
         addClassAction({
             variables: {
@@ -105,7 +105,7 @@ const CreateClassAction = props => {
                 />
             </div>
             <div>
-                <Button variant="contained" onClick={props.close}>
+                <Button variant="contained" onClick={() => props.close("cancel")}>
                     ביטול
       </Button>
                 <Button className={classes.SearchButton} onClick={handleSave} >

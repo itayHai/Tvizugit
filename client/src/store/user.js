@@ -29,17 +29,19 @@ export function LoginUser(user) {
     client
       .query({
         query: GET_USER_BY_EMAIL_PASSWORD,
-        variables: { email: user.email , password: user.password },
+        variables: { email: user.email, password: user.password },
       })
-      .then((result) =>{
+      .then((result) => {
         if (result.data.UserQueries.user) {
-        dispatch({
+          dispatch({
             type: CHANGE_LOGGED_USER,
-            user: result.data.UserQueries.user,          
-        })}
-      else{
-        alert("שם משתמש או סיסמא שגויים")
-      }}
+            user: result.data.UserQueries.user,
+          })
+        }
+        else {
+          alert("שם משתמש או סיסמא שגויים")
+        }
+      }
       );
   };
 }
@@ -82,7 +84,18 @@ const initialState = {
     password: "",
   },
 
-  loggedInUser: {}
+  loggedInUser: {
+    displayName: "עידו פרלמן",
+    email: "idoperlman2@gmail.com",
+    id: "5e9d8bc9d43a5108ecf17822",
+    name: "Ido perlman",
+    password: "Ido9101995",
+    role: {
+      engName: "plaintiff",
+      id: "5ea43cd47157be568022babe",
+      name: "תובע"
+    }
+  }
 };
 function userReducer(state = initialState, action) {
   switch (action.type) {

@@ -10,7 +10,7 @@ const AlertUser = (props) => {
     }
     return (
         <div>
-            <Snackbar open={props.open} autoHideDuration={6000} onClose={props.handleClose}>
+            <Snackbar open={props.open} autoHideDuration={3000} onClose={props.handleClose}>
                 <Alert onClose={props.handleClose} severity={props.severity}>
                     {props.message}
                 </Alert>

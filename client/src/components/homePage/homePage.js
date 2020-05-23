@@ -9,13 +9,13 @@ import { classActionsFilters } from "../../utils/globalConsts"
 
 export default function HomePage() {
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
-
   return (
     <div>
       {(Object.keys(loggedInUser).length === 0) &&
         <ViewerHomePage />}
       {
-        (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "viewer") &&
+        Object.keys(loggedInUser).length !== 0 &&
+        //  loggedInUser.role.engName === "viewer") &&
         <PlaintiffHomePage user={loggedInUser} />
       }
       <article className={classes.article}>
