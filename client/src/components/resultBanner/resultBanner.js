@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import { Delete, ExpandMore, Edit } from "@material-ui/icons";
+import { Delete, ExpandMore, Edit, Report } from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,10 +19,12 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  TextField,
 } from "@material-ui/core";
 
 export default function ResultBanner(props) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [reportDialogOpen, setReportDialogOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
@@ -33,6 +35,11 @@ export default function ResultBanner(props) {
   const hadleDeleteClassAction = (entityId) => {
     dispatch(deleteClassAction(entityId));
     setDeleteDialogOpen(false);
+  };
+
+  const hadleReportClassAction = (entityId) => {
+    // dispatch(deleteClassAction(entityId));
+    setReportDialogOpen(false);
   };
 
   let combinedPropertiesToShow = props.selectedProperties.map((p) => {
@@ -49,14 +56,57 @@ export default function ResultBanner(props) {
   return (
     <Card className={classes.root}>
       <div className={classes.rootDiv}>
-        {props.showBookmark && 
+        {props.showBookmark &&
           <div style={{ backgroundColor: "#009688", width: "10px" }} />}
         {combinedPropertiesToShow}
         <CardActions disableSpacing>
-          {props.editAuth && 
+          {props.editAuth &&
             <IconButton onClick={() => props.handleOpenEditAction()}>
               <Edit />
             </IconButton>}
+          <IconButton onClick={() => setReportDialogOpen(true)}>
+            <Report />
+          </IconButton>
+          <Dialog
+            open={reportDialogOpen}
+            onClose={() => setReportDialogOpen(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              האם ברצונך לדווח על התביעה?
+                </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                דיווח על תביעה מגיע למנהלי המערכת שלנו ובהתאם לפירוט נבחן את טענתך ונטפל בהתאם
+                </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                variant="outlined"
+                rows={4}
+                id="reportDesc"
+                label="פירוט הדיווח"
+                fullWidth
+                multiline
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setReportDialogOpen(false)}
+                color="primary"
+              >
+                וואלה התחרטתי
+                  </Button>
+              <Button
+                onClick={() => hadleReportClassAction(props.entityId)}
+                color="primary"
+                autoFocus
+              >
+                כן
+                  </Button>
+            </DialogActions>
+          </Dialog>
           {Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin" && (
             <div>
               <IconButton
