@@ -7,18 +7,22 @@ export const SET_MODE = "SET_MODE";
 
 export function LoginUser(user) {
   const GET_USER_BY_EMAIL_PASSWORD = gql`
-  query($email:String!,$password:String!){
-    UserQueries{
-     user(email:$email,password:$password){
-      id
-      name
-      displayName
-      email
-      password
-      role
-     }
+  query ($email: String!, $password: String!) {
+    UserQueries {
+      user(email: $email, password: $password) {
+        id
+        name
+        displayName
+        email
+        password
+        role {
+          id
+          name
+          engName
+        }
+      }
     }
- }
+  }
 `;
 
   return (dispatch) => {
