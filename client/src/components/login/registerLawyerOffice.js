@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from 'react';
 import Button from "@material-ui/core/Button";
 import classes from "./login.module.css"
 import { useDispatch } from 'react-redux';
@@ -12,15 +12,22 @@ import { useMutation } from "@apollo/react-hooks";
 import { usersRequests } from '../../utils/requests';
 import { lawyersRequests } from '../../utils/requests';
 import { setMode , changeLoggedInUser } from '../../store/user';
+import AlertUser from '../alertUser/alertUser';
 
 function RegisterLawyerOffice (props) {
 
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState("");
     const dispatch = useDispatch();
     const Specialties = specialties.sort();
     const RegisterUser = useSelector(state => state.user.RegisterUser)
     const RegisterLawyer = useSelector(state => state.lawyer.RegisterLawyer)
     const [addNewUser] = useMutation(usersRequests.addNewUser);
     const [addNewLawyer] = useMutation(lawyersRequests.addNewLawyer);
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const handleChange = (event) => {
         RegisterLawyer[event.target.name] = event.target.value;
@@ -37,7 +44,8 @@ function RegisterLawyerOffice (props) {
             RegisterLawyer.phone === "" ||
             RegisterLawyer.img === "" ){
         
-            alert("יש למלא את כל השדות");
+            setMessage("יש למלא את כל השדות");
+            setOpen(true);        
         }
         else{
             dispatch(changeRegisterLawyer(RegisterLawyer));
@@ -145,6 +153,7 @@ function RegisterLawyerOffice (props) {
                         onClick={regiesterProfile}>
                 חזור
                 </Button>
+                <AlertUser open={open} handleClose={handleClose} message={message} severity="error" />
             </p>
         </div>
     )

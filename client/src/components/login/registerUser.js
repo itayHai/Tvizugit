@@ -1,19 +1,19 @@
 import React from "react";
 import PersonIcon from '@material-ui/icons/Person';
 import classes from "./login.module.css"
+import { setMode } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import ProfileDetails from "./profileDetails";
 import { useMutation } from "@apollo/react-hooks";
 import { usersRequests } from '../../utils/requests';
 import { useSelector } from 'react-redux';
-import { setMode , changeLoggedInUser } from '../../store/user';
 
 function RegisterUser (props) {
 
     const dispatch = useDispatch();
-    const [ addNewUser,{ error: mutationError }, ] = useMutation(usersRequests.addNewUser);
-    const RegisterUser = useSelector(state => state.user.RegisterUser);
-
+    const [addNewUser] = useMutation(usersRequests.addNewUser);
+    const loggedInUser = useSelector(state => state.user.loggedInUser)
+  
     function changeToRegister(){
       dispatch(setMode("register"));
     }
@@ -24,20 +24,14 @@ function RegisterUser (props) {
             {
                 user:
                 {
-                    name: RegisterUser.name,
-                    email:RegisterUser.email,
-                    displayName: RegisterUser.displayName,
-                    password: RegisterUser.password,
-                    role: "5ea43b8c7157be568022babc" // User role
+                    name: loggedInUser.name,
+                    email:loggedInUser.email,
+                    displayName: loggedInUser.displayName,
+                    password: loggedInUser.password,
+                    role: "5ea43b8c7157be568022babc", // User role
                 }
             }
         })
-
-        if(mutationError){
-            console.log("Error!");
-        }
-
-        dispatch(changeLoggedInUser(RegisterUser));
 
         props.close();
     }
