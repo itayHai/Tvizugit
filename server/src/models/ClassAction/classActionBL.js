@@ -47,7 +47,7 @@ function getClassActionsByParams({
   categories,
 }) {
  
-  if(name === undefined && hashtags === undefined && categories === undefined)
+  if(!(name && hashtags && categories))
   {
     return getClassActions();
   }
@@ -57,7 +57,7 @@ function getClassActionsByParams({
     return ClassActionModel.find({
       $or: [
         { category: { $in: categories } },
-        { hashtags: { $elemMatch: { hashtags } } },
+        { hashtags: { $in: { hashtags } } },
       ],
     })
       .populate("category")
@@ -75,7 +75,7 @@ function getClassActionsByParams({
         $or: [
           { name: { $regex: name, $options: "i" } },
           { category: { $in: categories } },
-          { hashtags: { $elemMatch: { hashtags } } },
+          { hashtags: { $in: { hashtags } } },
         ],
       })
         .populate("category")
