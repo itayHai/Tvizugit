@@ -11,7 +11,7 @@ import { Delete, ExpandMore, Edit, Report } from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteClassAction } from "../../store/classAction";
+import { deleteClassAction, updateClassAction, changeCurAction } from "../../store/classAction";
 import {
   Dialog,
   DialogTitle,
@@ -21,16 +21,20 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import { useMutation } from "@apollo/react-hooks";
+import { classActionsRequest } from '../../utils/requests'
 
 export default function ResultBanner(props) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
+  const [reportMessage, setReportMessage] = useState('');
   const [expanded, setExpanded] = useState(false);
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const [reportClassAction] = useMutation(classActionsRequest.REPORT)
 
   const hadleDeleteClassAction = (entityId) => {
     dispatch(deleteClassAction(entityId));
@@ -38,7 +42,16 @@ export default function ResultBanner(props) {
   };
 
   const hadleReportClassAction = (entityId) => {
-    // dispatch(deleteClassAction(entityId));
+    reportClassAction({
+      variables: {
+        id: entityId,
+        reportMessage: reportMessage
+      }
+    }).then((data) => {
+      debugger;
+      dispatch(updateClassAction(data.data.ClassActionMutation.reportClassAction))
+      dispatch(changeCurAction({}));
+    })
     setReportDialogOpen(false);
   };
 
@@ -81,6 +94,7 @@ export default function ResultBanner(props) {
                 דיווח על תביעה מגיע למנהלי המערכת שלנו ובהתאם לפירוט נבחן את טענתך ונטפל בהתאם
                 </DialogContentText>
               <TextField
+                onChange={(event) => setReportMessage(event.target.value)}
                 autoFocus
                 margin="dense"
                 variant="outlined"

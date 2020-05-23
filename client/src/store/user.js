@@ -1,5 +1,5 @@
- import client from '../utils/apolloService'
- import { gql } from "apollo-boost";
+import client from '../utils/apolloService'
+import { gql } from "apollo-boost";
 
 export const CHANGE_REGISTER_USER = "CHANGE_REGISTER_USER";
 export const CHANGE_LOGGED_USER = "CHANGE_LOGGED_USER";
@@ -21,10 +21,10 @@ export function LoginUser(user) {
  }
 `;
 
-return {
-  type: CHANGE_LOGGED_USER,
-  user
-}
+  return {
+    type: CHANGE_LOGGED_USER,
+    user
+  }
 
   // return (dispatch) => {
   //   client
@@ -82,16 +82,16 @@ const initialState = {
   },
 
   loggedInUser: {
-    id: "",//"5ea9e2c7d34cb906dcfaf28d",
-    name: "",//"Itay Haizler",
-    displayName: "",//"איתי הייזלר",
-    role: {
-      id: "",//"5ea43b9a7157be568022babd",
-      engName: "",//"viewer",
-      name: ""//"מנהל מערכת"
-    },
-    email: "",//"itay@gmail.com",
-    password: "",//"123456",
+    // id: "5ea9e2c7d34cb906dcfaf28d",
+    // name: "Itay Haizler",
+    // displayName: "איתי הייזלר",
+    // role: {
+    //   id: "5ea43b9a7157be568022babd",
+    //   engName: "viewer",
+    //   name: "מנהל מערכת"
+    // },
+    // email: "itay@gmail.com",
+    // password: "123456",
   },
 };
 function userReducer(state = initialState, action) {
