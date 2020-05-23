@@ -3,18 +3,17 @@ import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "../../modal/modal";
-import { classActionsRequest } from "../../../utils/requests";
 import {
-    changeCurAction,
-    updateClassActions,
+  changeCurAction,
+  updateClassActions
 } from "../../../store/classAction";
-import UpdateClassAction from "./classAction/classActionContent/updateClassAction/updateClassAction";
+import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
 import { useParams } from "react-router";
 import gql from "graphql-tag";
 
 const getClassActionsByParams = (params) => {
-    return params
-        ? gql`
+  return params
+    ? gql`
         ClassActionQueries  {
             classActions(name: $name) {
               id
@@ -47,7 +46,7 @@ const getClassActionsByParams = (params) => {
           }
         }
       `
-        : gql`
+    : gql`
         {
           ClassActionQueries {
             classActions {
@@ -67,8 +66,11 @@ const getClassActionsByParams = (params) => {
                 content
               }
               users {
+                user{
                 id
                 name
+                }
+                isWaiting
               }
               status
               leadingUser {
@@ -85,61 +87,61 @@ const getClassActionsByParams = (params) => {
 };
 
 const ClassActions = (props) => {
-    let { ids } = useParams();
-    const { loading, error, data } = useQuery(
-        getClassActionsByParams(ids), { variables: { ids }, }
-    );
+  let { ids } = useParams();
+  const { loading, error, data } = useQuery(
+    getClassActionsByParams(ids), { variables: { ids }, }
+  );
 
-    const sortBy = useSelector((state) => state.classAction.sortBy);
-    const stateClassActions = useSelector((state) => state.classAction.classActions);
-    const currClassAction = useSelector(
-        (state) => state.classAction.currClassAction
-    );
-    const showEditModal = Object.keys(currClassAction).length !== 0;
+  const sortBy = useSelector((state) => state.classAction.sortBy);
+  const stateClassActions = useSelector((state) => state.classAction.classActions);
+  const currClassAction = useSelector(
+    (state) => state.classAction.currClassAction
+  );
+  const showEditModal = Object.keys(currClassAction).length !== 0;
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    if (loading) return <p>Loading...</p>;
-    if (error) console.log(error);
+  if (loading) return <p>Loading...</p>;
+  if (error) console.log(error);
 
-    if (!ids && stateClassActions.length === 0) {
-        dispatch(updateClassActions(data.ClassActionQueries.classActions));
-    }
+  if (!ids && stateClassActions.length === 0) {
+    dispatch(updateClassActions(data.ClassActionQueries.classActions));
+  }
 
-    const handleCloseEditAction = () => {
-        dispatch(changeCurAction({}));
+  const handleCloseEditAction = () => {
+    dispatch(changeCurAction({}));
+  };
+
+  const compareValues = (key, order = "asc") => {
+    return function innerSort(a, b) {
+      const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
+      const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return order === "desc" ? comparison * -1 : comparison;
     };
+  };
+  const classActions = stateClassActions
+    .sort(compareValues(sortBy))
+    .map((cAction) => {
+      return <ClassAction classAction={cAction} key={cAction.id} />;
+    });
 
-    const compareValues = (key, order = "asc") => {
-        return function innerSort(a, b) {
-            const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
-            const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+  return (
+    <div>
+      <Modal show={showEditModal} onClose={() => handleCloseEditAction()}>
+        <UpdateModalTabs close={() => handleCloseEditAction()} />
+      </Modal>
 
-            let comparison = 0;
-            if (varA > varB) {
-                comparison = 1;
-            } else if (varA < varB) {
-                comparison = -1;
-            }
-            return order === "desc" ? comparison * -1 : comparison;
-        };
-    };
-    const classActions = stateClassActions
-        .sort(compareValues(sortBy))
-        .map((cAction) => {
-            return <ClassAction classAction={cAction} key={cAction.id} />;
-        });
-
-    return (
-        <div>
-            <Modal show={showEditModal} onClose={() => handleCloseEditAction()}>
-                <UpdateClassAction close={() => handleCloseEditAction()} />
-            </Modal>
-
-            {stateClassActions.length === 0 ? "לא נמצאו תביעות בחיפוש" : ""}
-            {classActions}
-        </div>
-    );
+      {stateClassActions.length === 0 ? "לא נמצאו תביעות בחיפוש" : ""}
+      {classActions}
+    </div>
+  );
 };
 
 export default ClassActions;
