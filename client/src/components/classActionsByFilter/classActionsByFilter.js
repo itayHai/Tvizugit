@@ -27,8 +27,10 @@ const getClassActionByUser = () => {
           content
         }
         users {
+          user{
           id
           name
+          }
         }
         status
         leadingUser {
