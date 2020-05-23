@@ -1,6 +1,7 @@
 import ClassActionModel from "./classActionModel";
 
 function addClassAction(classActionToAdd) {
+  classActionToAdd.reported = false;
   const newClassAction = new ClassActionModel(classActionToAdd);
   return newClassAction.save();
 }
@@ -16,6 +17,13 @@ function updateClassAction(id, classActionToAdd) {
     .populate("users.user");
 }
 
+function reportClassAction({ id, reportMessage }) {
+  return ClassActionModel.findOneAndUpdate({ _id: id }, { "reportMessage": reportMessage, reported: true }, { new: true })
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user");
+}
+
 function getClassAction({ id }) {
   return ClassActionModel.findOne({ _id: id })
     .populate("category")
@@ -24,12 +32,12 @@ function getClassAction({ id }) {
 
 }
 
-function getClassActionsByParams({userId, limit}) {
+function getClassActionsByParams({ userId, limit }) {
   return userId
-    ? ClassActionModel.find( {"users.user": userId}).limit(limit)
-        .populate("category")
-        .populate("leadingUser")
-        .populate("users.user")
+    ? ClassActionModel.find({ "users.user": userId }).limit(limit)
+      .populate("category")
+      .populate("leadingUser")
+      .populate("users.user")
     : ClassActionModel.find({})
       .populate("category")
       .populate("leadingUser")
@@ -43,4 +51,5 @@ export {
   getClassActionsByParams,
   updateClassAction,
   deleteClassAction,
+  reportClassAction
 };
