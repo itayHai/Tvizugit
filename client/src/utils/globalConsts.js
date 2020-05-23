@@ -55,6 +55,11 @@ export const statuses = [
   "תוך כדי משפט",
   "במהלך פשרה"
   ];
+  export const lawyerOffices = [
+    'עידו ושות',
+    'אלה ושות',
+    'טלי ושות',
+  ];
 
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,
@@ -241,8 +246,7 @@ export const dummyData = [
 export const dummyUser = {
   // id:"5e9cae20a9c09c48d8be3776",
   // name:"איתי הייזלר"
-  //   id: "5ea9e2c7d34cb906dcfaf28d",
-  // id: "5ea6db3879e90e30cc08a4be",
+  // id: "5ea9e2c7d34cb906dcfaf28d",
   // name: "רותם חוגי",
   id: "5e9d8bc9d43a5108ecf17822",
   name: "עידו פרלמן"

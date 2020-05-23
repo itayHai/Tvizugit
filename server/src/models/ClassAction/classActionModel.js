@@ -10,7 +10,15 @@ export const classActionSchema = new Schema({
       type: String,
     },
   ],
-  users: [{ type: Schema.Types.ObjectId, ref: "user" }],
+  users: [
+    {
+      isWaiting: Boolean,
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "user"
+      }
+    }
+  ],
   hashtags: [
     {
       type: String,
