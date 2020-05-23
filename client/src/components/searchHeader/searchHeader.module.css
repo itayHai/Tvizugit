@@ -3,10 +3,12 @@
   font: Regular 22px/30px Segoe UI;
   letter-spacing: 0px;
   opacity: 1;
+  margin-right: 8px;
 }
 
 .searchHeader {
   padding: 10px 50px;
+  padding-right: 0px;
 }
 
 .buttonRow {

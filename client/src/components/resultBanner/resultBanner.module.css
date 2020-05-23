@@ -24,3 +24,9 @@
 .cellInRow{
     width: 250px;
 }
+
+.img {
+    margin: 16px;
+    width: 60px !important;
+    height: 60px !important;
+}

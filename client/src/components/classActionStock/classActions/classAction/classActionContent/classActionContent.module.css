@@ -18,6 +18,7 @@
 
 .cellNoIcon{
     padding-top: 27px;
+    padding-right: 10px;
 }
 .joinButton{
     display:flex;

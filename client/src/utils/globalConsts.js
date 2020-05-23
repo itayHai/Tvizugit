@@ -102,13 +102,32 @@ export const propertiesToShow = [
     name: "lawyers",
     lawyerProp: [
       {
-        name: "מספר תיקים",
-        engName: "numberOfCases",
+        name: "שם המשרד",
+        engName: "name",
       },
-      {},
+      {
+        name: "התמחות",
+        engName: "expertise",
+      },
+      {
+        name: "מספר תיקים",
+        engName: "classactions",
+      },      
+      {
+        name: "ותק",
+        engName: "seniority",
+      },
     ],
   },
 ];
+
+export const statuses = [
+  'תחילת תביעה - טרום עו"ד',
+  "משא ומתן עם הנתבע",
+  "לפני משפט",
+  "תוך כדי משפט",
+  "במהלך פשרה"
+  ];
 
 export const dummyData = [
   {
