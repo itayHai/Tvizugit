@@ -1,17 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ClassAction from "./classAction/classAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "../../modal/modal";
-import { classActionsRequest } from "../../../utils/requests";
 import {
   changeCurAction,
   updateClassActions,
-  changeFilter,
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
-import UpdateClassAction from "./classAction/classActionContent/updateClassAction/updateClassAction";
-import { useParams } from "react-router";
 import gql from "graphql-tag";
 import Spinner from "../../spinner/spinner";
 
@@ -41,8 +37,10 @@ const getClassActionsByParams = (params) => {
                 content
               }
               users {
-                id
-                name
+                user {
+                  id
+                  name
+                }
               }
               status
               leadingUser {
@@ -97,7 +95,6 @@ const getClassActionsByParams = (params) => {
 };
 
 const ClassActions = (props) => {
-  let { ids } = useParams();
 
   const filter = useSelector((state) => state.classAction.filter);
   let name = filter.name;

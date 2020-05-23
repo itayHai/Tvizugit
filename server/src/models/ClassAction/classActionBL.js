@@ -23,65 +23,51 @@ function getClassAction({ id }) {
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
-
 }
 
-function getClassActionsByUser({ UserId, limit }) {
-  return ClassActionModel.find({ users: UserId })
+function getClassActionsByUser({ userId, limit }) {
+  return ClassActionModel.find({ "users.user": userId })
     .limit(limit)
     .populate("category")
     .populate("leadingUser")
-    .populate("users");
+    .populate("users.user");
 }
 
 function getClassActions() {
   return ClassActionModel.find({})
     .populate("category")
     .populate("leadingUser")
-    .populate("users");
+    .populate("users.user");
 }
 
-function getClassActionsByParams({
-  name,
-  hashtags,
-  categories,
-}) {
- 
-  if(!(name && hashtags && categories))
-  {
+function getClassActionsByParams({ name, hashtags, categories }) {
+  if (!(name && hashtags && categories)) {
     return getClassActions();
   }
+  let categoriesQuery = {};
+  let hashtagsQuery = {};
+  let nameQuery = {};
 
-
-  if (name === " ")  {
-    return ClassActionModel.find({
-      $or: [
-        { category: { $in: categories } },
-        { hashtags: { $in: { hashtags } } },
-      ],
-    })
-      .populate("category")
-      .populate("leadingUser")
-      .populate("users");
+  if (categories.length !== 0) {
+    categoriesQuery = { category: { $in: categories } };
+  }
+  if (hashtags.length !== 0) {
+    hashtagsQuery = { hashtags: { $in: hashtags } };
+  }
+  if (name !== " ") {
+    nameQuery = { name: { $regex: name, $options: "i" } };
   }
 
   return ClassActionModel.find({
-    ? ClassActionModel.find( {"users.user": userId}).limit(limit)
-        .limit(limit) 
-        .populate("category")
-        .populate("leadingUser")
-        .populate("users.user")
-    : ClassActionModel.find({
-        $or: [
-          { name: { $regex: name, $options: "i" } },
-          { category: { $in: categories } },
-          { hashtags: { $in: { hashtags } } },
-        ],
-      })
-        .populate("category")
-        .populate("leadingUser")
-      .populate("users.user");
-
+    $and: [
+      nameQuery,
+      categoriesQuery,
+      hashtagsQuery
+    ]
+  })
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user");
 }
 
 export {
@@ -91,5 +77,5 @@ export {
   getClassActionsByParams,
   updateClassAction,
   deleteClassAction,
-  getClassActionsByUser
+  getClassActionsByUser,
 };
