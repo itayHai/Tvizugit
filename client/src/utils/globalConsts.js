@@ -121,13 +121,7 @@ export const propertiesToShow = [
   },
 ];
 
-export const statuses = [
-  'תחילת תביעה - טרום עו"ד',
-  "משא ומתן עם הנתבע",
-  "לפני משפט",
-  "תוך כדי משפט",
-  "במהלך פשרה"
-  ];
+
 
 export const dummyData = [
   {
