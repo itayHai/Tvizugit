@@ -7,39 +7,41 @@ export const SET_MODE = "SET_MODE";
 
 export function LoginUser(user) {
   const GET_USER_BY_EMAIL_PASSWORD = gql`
-  query($email:String!,$password:String!){
-    UserQueries{
-     user(email:$email,password:$password){
-      id
-      name
-      displayName
-      email
-      password
-      role
-     }
+  query ($email: String!, $password: String!) {
+    UserQueries {
+      user(email: $email, password: $password) {
+        id
+        name
+        displayName
+        email
+        password
+        role {
+          id
+          name
+          engName
+        }
+      }
     }
- }
+  }
 `;
 
-return {
-  type: CHANGE_LOGGED_USER,
-  user
-}
-
-  // return (dispatch) => {
-  //   client
-  //     .query({
-  //       query: GET_USER_BY_EMAIL_PASSWORD,
-  //       // Any hard coded existing id for now
-  //       variables: { email: user.email , password: user.password },
-  //     })
-  //     .then((result) =>
-  //       dispatch({
-  //         type: CHANGE_LOGGED_USER,
-  //         user: result.UserQueries.user,
-  //       })
-  //     );
-  // };
+  return (dispatch) => {
+    client
+      .query({
+        query: GET_USER_BY_EMAIL_PASSWORD,
+        variables: { email: user.email , password: user.password },
+      })
+      .then((result) =>{
+        if (result.data.UserQueries.user) {
+        dispatch({
+            type: CHANGE_LOGGED_USER,
+            user: result.data.UserQueries.user,          
+        })}
+      else{
+        alert("שם משתמש או סיסמא שגויים")
+      }}
+      );
+  };
 }
 
 export function changeLoggedInUser(user) {
@@ -63,7 +65,6 @@ export function setMode(mode) {
   }
 }
 
-// TODO: This only until evrything is connected to the server
 const initialState = {
 
   mode: 'login',
@@ -81,18 +82,7 @@ const initialState = {
     password: "",
   },
 
-  loggedInUser: {
-    id: "",//"5ea9e2c7d34cb906dcfaf28d",
-    name: "",//"Itay Haizler",
-    displayName: "",//"איתי הייזלר",
-    role: {
-      id: "",//"5ea43b9a7157be568022babd",
-      engName: "",//"viewer",
-      name: ""//"מנהל מערכת"
-    },
-    email: "",//"itay@gmail.com",
-    password: "",//"123456",
-  },
+  loggedInUser: {}
 };
 function userReducer(state = initialState, action) {
   switch (action.type) {

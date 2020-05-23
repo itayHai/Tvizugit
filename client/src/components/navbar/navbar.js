@@ -26,7 +26,8 @@ const Navbar = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const show = loggedInUser.displayName ? 
+
+  const show = Object.keys(loggedInUser).length !== 0 ? 
   <div>
     <img className="Icon" src={CustomerIcon} alt="Customer"/>
     <label> { loggedInUser.displayName } </label>

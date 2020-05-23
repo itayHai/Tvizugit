@@ -1,28 +1,35 @@
-import React from 'react';
+import React,{useState} from 'react';
 import classes from "./login.module.css"
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 import { changeRegisterUser } from '../../store/user';
 import { useDispatch , useSelector } from 'react-redux';
+import AlertUser from '../alertUser/alertUser';
 
 function ProfileDetails (props) {
 
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState("");
+    const [password1, setpassword1] = useState("");
+    const [password2, setpassword2] = useState("");
     const dispatch = useDispatch();
     const RegisterUser = useSelector(state => state.user.RegisterUser)
-    let password1;
-    let password2;
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const handleChange = (event) => {
         RegisterUser[event.target.name] = event.target.value;
     }
 
     const changePassword1 = (event) => {
-        password1 = event.target.value;
+        setpassword1(event.target.value);
     }
 
     const changePassword2 = (event) => {
-        password2 = event.target.value;
+        setpassword2(event.target.value);
     }
 
     const handleSave = () => {
@@ -33,16 +40,20 @@ function ProfileDetails (props) {
             ( RegisterUser.password === "" &&
                 ( !password1 ||
                   !password2 ) ) ){
-            alert("יש למלא את כל השדות")
+            setMessage("יש למלא את כל השדות");
+            setOpen(true);
         }
         else if (!reg.test(RegisterUser.email)){
-            alert("כתובת מייל אינה תקינה")
+            setMessage("כתובת מייל אינה תקינה");
+            setOpen(true);
         }
         else if( password1 && password1.length < 8 ){
-            alert("יש להזין סיסמא בת 8 תווים לפחות")
+            setMessage("יש להזין סיסמא בת 8 תווים לפחות");
+            setOpen(true);
         }
         else if( password1 !== password2 ){
-            alert("הסיסמאות אינן תואמות")
+            setMessage("הסיסמאות אינן תואמות");
+            setOpen(true);
         }
         else{
             if(password1){
@@ -103,6 +114,7 @@ function ProfileDetails (props) {
                 <Button className={classes.BackButton} 
                         variant="contained" 
                         onClick={props.clickBack}>חזור</Button>
+                <AlertUser open={open} handleClose={handleClose} message={message} severity="error" />
             </div>
         </div>
     )
