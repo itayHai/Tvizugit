@@ -5,39 +5,6 @@ export const CHANGE_REGISTER_USER = "CHANGE_REGISTER_USER";
 export const CHANGE_LOGGED_USER = "CHANGE_LOGGED_USER";
 export const SET_MODE = "SET_MODE";
 
-// export function addNewUser(user) {
-//   const ADD_NEW_USER = gql`
-//   mutation ($user: UserInputType!) {
-//     UserMutations {
-//       user(user: $user) {
-//         id
-//         name
-//         email
-//         displayName
-//         password
-//         role
-//       }
-//     }
-//   }
-//   `;
-
-//   return (dispatch) => {
-//     client
-//       .mutate({
-//         mutation: ADD_NEW_USER,
-//         // Any hard coded existing id for now
-//         variables: { user: user },
-//       })
-//       .then((result) =>{
-//         {console.log(result)}
-//         dispatch({
-//           type: CHANGE_LOGGED_USER,
-//           user: result.data.UserQueries.user,
-//         })}
-//       );
-//   };
-// }
-
 export function LoginUser(user) {
   const GET_USER_BY_EMAIL_PASSWORD = gql`
   query($email:String!,$password:String!){
@@ -67,10 +34,6 @@ export function LoginUser(user) {
             user: result.data.UserQueries.user,          
         })}
       else{
-        dispatch({
-          type: CHANGE_LOGGED_USER,
-          user: {},
-      })
         alert("שם משתמש או סיסמא שגויים")
       }}
       );
@@ -98,7 +61,6 @@ export function setMode(mode) {
   }
 }
 
-// TODO: This only until evrything is connected to the server
 const initialState = {
 
   mode: 'login',
