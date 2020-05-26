@@ -38,7 +38,33 @@ query($email:String!){
 }
 `;
 
+const getAllLawyers = gql`
+{
+  LawyerQueries {
+    lawyers {
+      id
+      name
+      description
+      expertise
+      email
+      address
+      phone
+      seniority
+      img
+      classactions {    		 
+          id
+					name
+          description
+          status
+        
+      }
+    }
+  }
+}
+`;
+
 export default {
     addNewLawyer,
     getLawyer,
+    getAllLawyers,
 };

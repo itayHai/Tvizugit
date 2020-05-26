@@ -1,5 +1,5 @@
-import { GraphQLObjectType, GraphQLString, GraphQLInt } from "graphql";
-import { getLawyer } from "./lawyerBL";
+import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } from "graphql";
+import { getLawyer, getAllLawyers } from "./lawyerBL";
 import { LawyerType } from "./lawyerType";
 
 const LawyerQueries = new GraphQLObjectType({
@@ -16,6 +16,13 @@ const LawyerQueries = new GraphQLObjectType({
         return getLawyer(params);
       },
     },
+    lawyers: {
+      type: new GraphQLList(LawyerType),
+      args: {},
+      resolve: (root, params, context, ast) => {
+        return getAllLawyers();
+      },
+    }
   }),
 });
 

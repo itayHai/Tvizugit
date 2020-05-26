@@ -37,7 +37,9 @@ const LawyersContent = (props) => {
             </div>
         </div>
         <h2 className={classes.title}>תובענות שהמשרד ייצג בפלטפורמת תביצוגית:</h2>
-        <LawyerCases cases={props.lawyer.classactions}/>
+        {props.lawyer.classactions > 0 ? 
+            <LawyerCases cases={props.lawyer.classactions}/> : 
+            <h3>לא קיימות תובענות במאגר</h3>}
     </div >        
     );
 };

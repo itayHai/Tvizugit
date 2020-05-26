@@ -5,6 +5,7 @@ import Modal from '../../modal/modal';
 import { useParams} from "react-router";
 import ResultBanner from '../../resultBanner/resultBanner';
 import { dummyData } from '../../../utils/globalConsts';
+import { lawyersRequests } from "../../../utils/requests";
 import Lawyer from "./Lawyer/Lawyer";
 
 const lawyersData = [{
@@ -35,8 +36,14 @@ const lawyersData = [{
 ];
 
 const Lawyers = (props) => {
+    const { loading, error, data } = useQuery(
+        lawyersRequests.getAllLawyers
+      );
+    if (loading) return <p>Loading...</p>;
+    if (error) console.log(error);  
 
-    const lawyersElements = lawyersData
+  
+    const lawyersElements = data.LawyerQueries.lawyers
     .map((lawyer) => {
         return <Lawyer lawyer={lawyer} key={lawyer.id} />;
     });

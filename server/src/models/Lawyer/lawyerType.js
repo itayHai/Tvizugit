@@ -3,7 +3,9 @@ import {
   GraphQLString,
   GraphQLInputObjectType,
   GraphQLNonNull,
+  GraphQLList,
 } from "graphql";
+import { ClassActionInputType, ClassActionType } from "../ClassAction/classActionType";
 
 const LawyerType = new GraphQLObjectType({
   name: "Lawyer",
@@ -17,7 +19,7 @@ const LawyerType = new GraphQLObjectType({
     phone: { type: GraphQLString },
     seniority: { type: GraphQLString },
     img: { type: GraphQLString },
-    classactions: { type: GraphQLString },
+    classactions: { type: new GraphQLList(ClassActionType)},
   }),
 });
 
@@ -33,7 +35,10 @@ const LawyerInputType = new GraphQLInputObjectType({
     phone: { type: new GraphQLNonNull(GraphQLString) },
     seniority: { type: new GraphQLNonNull(GraphQLString) },
     img: { type: new GraphQLNonNull(GraphQLString) },
-    classactions: { type: new GraphQLNonNull(GraphQLString) },
+    classactions: {      
+      type: new GraphQLNonNull(
+      new GraphQLList(new GraphQLNonNull(ClassActionInputType))
+    ), },
   }),
 });
 

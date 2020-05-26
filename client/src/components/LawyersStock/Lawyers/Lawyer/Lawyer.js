@@ -12,7 +12,7 @@ const Lawyer = (props) => {
         if (bProp.engName === "classactions") {
           content = props.lawyer[bProp.engName].length;
         }
-        if (bProp.engName === "expertise") {
+        if (bProp.engName === "expertise" && content !== null) {
             content = '';
 
             for (let num = 0; num < props.lawyer["expertise"].length; num++) {
