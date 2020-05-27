@@ -5,21 +5,27 @@ import { useQuery } from "@apollo/react-hooks";
 import Modal from "../../modal/modal";
 import {
   changeCurAction,
-  updateClassActions
+  updateClassActions,
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
-import { useParams } from "react-router";
 import gql from "graphql-tag";
+import Spinner from "../../spinner/spinner";
 
 const getClassActionsByParams = (params) => {
   return params
     ? gql`
-        ClassActionQueries  {
-            classActions(name: $name) {
+        query($name: String, $categories: [String], $hashtags: [String]) {
+          ClassActionQueries {
+            classActions(
+              name: $name
+              categories: $categories
+              hashtags: $hashtags
+            ) {
               id
               name
               description
               category {
+                id
                 name
                 engName
               }
@@ -31,8 +37,10 @@ const getClassActionsByParams = (params) => {
                 content
               }
               users {
-                id
-                name
+                user {
+                  id
+                  name
+                }
               }
               status
               leadingUser {
@@ -87,13 +95,23 @@ const getClassActionsByParams = (params) => {
 };
 
 const ClassActions = (props) => {
-  let { ids } = useParams();
+
+  const filter = useSelector((state) => state.classAction.filter);
+  let name = filter.name;
+  let categories = filter.categories;
+  let hashtags = filter.hashtags;
+
   const { loading, error, data } = useQuery(
-    getClassActionsByParams(ids), { variables: { ids }, }
+    getClassActionsByParams(name, categories, hashtags),
+    {
+      variables: { name, categories, hashtags },
+    }
   );
 
   const sortBy = useSelector((state) => state.classAction.sortBy);
-  const stateClassActions = useSelector((state) => state.classAction.classActions);
+  const stateClassActions = useSelector(
+    (state) => state.classAction.classActions
+  );
   const currClassAction = useSelector(
     (state) => state.classAction.currClassAction
   );
@@ -101,12 +119,10 @@ const ClassActions = (props) => {
 
   const dispatch = useDispatch();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner />;
   if (error) console.log(error);
 
-  if (!ids && stateClassActions.length === 0) {
-    dispatch(updateClassActions(data.ClassActionQueries.classActions));
-  }
+  dispatch(updateClassActions(data.ClassActionQueries.classActions));
 
   const handleCloseEditAction = () => {
     dispatch(changeCurAction({}));
