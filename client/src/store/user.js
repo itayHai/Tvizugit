@@ -1,5 +1,5 @@
- import client from '../utils/apolloService'
- import { gql } from "apollo-boost";
+import client from '../utils/apolloService'
+import { gql } from "apollo-boost";
 
 export const CHANGE_REGISTER_USER = "CHANGE_REGISTER_USER";
 export const CHANGE_LOGGED_USER = "CHANGE_LOGGED_USER";
