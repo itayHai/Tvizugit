@@ -1,8 +1,9 @@
 import UserModel from "./userModel";
+import { UserRoleType } from "../UserRole/userRoleType";
 
 function getUser({ email, password }) {
 
-  return UserModel.findOne({ email: email , password: password });
+  return UserModel.findOne({ email: email , password: password }).populate("role");
 }
 
 function addUser(userToAdd) {

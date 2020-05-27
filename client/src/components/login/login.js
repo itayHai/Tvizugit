@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from 'react';
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import PersonIcon from '@material-ui/icons/Person';
@@ -8,9 +8,13 @@ import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
 import { setMode , LoginUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
+import AlertUser from '../alertUser/alertUser';
+
 
 const Login = (props) => {
 
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState("");
     const dispatch = useDispatch();
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -27,6 +31,10 @@ const Login = (props) => {
       },
     }
 
+  const handleClose = () => {
+      setOpen(false);
+  };
+
     const changePassword = (event) => {
       user.password = event.target.value;
   }
@@ -40,18 +48,22 @@ const Login = (props) => {
     }
 
     function login(){
+
       if(!user.email){
-          alert("יש למלא שם משתמש")
+        setMessage("יש למלא שם משתמש");
+        setOpen(true);
       }
       else if(!reg.test(user.email)){
-          alert("כתובת מייל אינה תקינה")
+        setMessage("כתובת מייל אינה תקינה");
+        setOpen(true);
       }
       else if (!user.password){
-        alert("יש למלא סיסמא")
+        setMessage("יש למלא סיסמא");
+        setOpen(true);
       }
       else{
-        dispatch(LoginUser(user));        
-        props.close();
+        dispatch(LoginUser(user));
+        props.close()
       }
     }
 
@@ -79,6 +91,7 @@ return(
                   fullWidth={true}>
             התחברות
           </Button>
+          <AlertUser open={open} handleClose={handleClose} message={message} severity="error" />
         </p>
         <br/><hr color="#e6e6e6"/>
         <div className={classes.Center}>
