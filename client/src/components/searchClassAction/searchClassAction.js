@@ -11,73 +11,27 @@ import classes from "./searchClassAction.module.css";
 import Spinner from "../spinner/spinner";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { updateClassActions } from "../../store/classAction";
-import gql from "graphql-tag";
-
-const getAllClassActions = gql`
-{
-  ClassActionQueries {
-    classActions {
-      id
-      name
-      description
-      category {
-        name
-        engName
-      }
-      defendants
-      messages {
-        id
-        title
-        date
-        content
-      }
-      users {
-        id
-        name
-      }
-      status
-      leadingUser {
-        id
-        name
-      }
-      openDate
-      successChances
-      hashtags
-    }
-  }
-}
-`
+import { changeFilter } from "../../store/classAction";
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");
   let [hashtags] = useState([]);
   let [chosenCategories] = useState([]);
-  let [chosenName, setChosenName] = useState("");
+  let [chosenName, setChosenName] = useState(" ");
   let categories = null;
-  let classActions = null;
+
   const dispatch = useDispatch();
   let history = useHistory();
-
-  const { loading, data } = useQuery(getAllClassActions);
-  useEffect(() => { }, [data]);
-  
-  {
-    const { loading, data } = useQuery(categoriesRequest.getAll);
-    useEffect(() => { }, [data]);
-    if (loading) return <Spinner />;
-    categories = data.CategoryQueries.categories;
-  }
-
+  const { loading, data } = useQuery(categoriesRequest.getAll);
+  useEffect(() => {}, [data]);
   if (loading) return <Spinner />;
-  
-  classActions = data.ClassActionQueries.classActions;
-  
-  const handleCategoryClick = (name) => {
-    if (chosenCategories.includes(name)) {
-      chosenCategories = chosenCategories.filter((item) => item !== name);
+  categories = data.CategoryQueries.categories;
+
+  const handleCategoryClick = (id) => {
+    if (chosenCategories.includes(id)) {
+      chosenCategories = chosenCategories.filter((item) => item !== id);
     } else {
-      chosenCategories.push(name);
+      chosenCategories.push(id);
     }
   };
 
@@ -113,28 +67,20 @@ const SearchActionClass = (props) => {
   };
 
   const searchButtonHandler = (e) => {
-    let filterdClassActions = classActions.filter((classAction) => {
-      if (hashtags?.filter((hashtag) => classAction.hashtags.includes(hashtag))
-        .length !== 0) {
-        return true;
-      }
-      if (!chosenName) {
-        return chosenCategories.includes(classAction.category.name);
-      }
-      return (
-        chosenCategories.includes(classAction.category.name) ||
-        classAction.name.includes(chosenName)
-      );
-    });
-
-    dispatch(updateClassActions(filterdClassActions));
+    
+    const filter = {
+      name: chosenName,
+      categories: chosenCategories,
+      hashtags: hashtags,
+    };
+    dispatch(changeFilter(filter));
     clearLocalState();
-    history.push("/classActionsStock/searchResult");
+    history.push("/classActionsStock/");
     props.close();
   };
 
   const clearLocalState = () => {
-    setChosenName("");
+    setChosenName(" ");
     chosenCategories = [];
     hashtags = [];
   };

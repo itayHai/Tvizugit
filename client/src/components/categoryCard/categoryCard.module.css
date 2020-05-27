@@ -13,10 +13,29 @@
     box-sizing: content-box;
 }
 
-.CategoryCard:hover{
+.CategoryCard:hover,
+.homePageCategoryCard:hover {
 
     background-color: rgb(216, 210, 210);
 }
+.homePageCategoryCard
+{
+    text-align: center;
+    padding-top:30px;
+    border: 1px solid rgb(207, 204, 204);
+    border-radius: 5px;
+    width: 210px; 
+    height: 110px;
+    text-align: center;
+    box-shadow: grey;
+    background-color: white;
+    font-size: small;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    box-sizing: content-box;
+}
+
+
 
 .CategoryCardClicked{
 

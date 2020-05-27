@@ -47,6 +47,8 @@ const ClassActionType = new GraphQLObjectType({
     leadingUser: { type: UserType },
     representingLawyer: { type: UserType },
     openDate: { type: GraphQLDate },
+    reported: { type: GraphQLBoolean },
+    reportMessage: { type: GraphQLString },  
     successChances: { type: GraphQLString },
     hashtags: { type: new GraphQLList(GraphQLString) }
   }),

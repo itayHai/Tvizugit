@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import CustomerIcon from '../../images/icons/customer_icon.png';
 import './navbar.css';
+import {changeFilter} from "../../store/classAction";
 
 const Navbar = (props) => {
   const loggedInUser = useSelector(state => state.user.loggedInUser)
@@ -36,6 +37,7 @@ const Navbar = (props) => {
           className="login"
           variant="contained"> <PersonIcon/> כניסה  </Button> ;
 
+
   return (
       <AppBar position="static">
         <Toolbar className="navbar">
@@ -46,7 +48,7 @@ const Navbar = (props) => {
               <label className="slogan">לתבוע בידיים טובות</label>
             </div>
           </Link>
-          <Link to="/classActionsStock/all" className="link" >
+          <Link to="/classActionsStock/" className="link" onClick={() => dispatch(changeFilter())}>
             <h3>מאגר התביעות</h3>
           </Link>
           <Link to="/lawyers" className="link" >

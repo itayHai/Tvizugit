@@ -39,6 +39,48 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
 }
 `;
 
+const REPORT = gql`
+mutation reportClassAction($id: String!, $reportMessage: String!) {
+  ClassActionMutation{
+    reportClassAction(id:$id, reportMessage: $reportMessage) {
+      id
+      name
+      description
+      category{
+        id
+        name
+        engName
+      }
+      defendants
+      messages{
+        id
+        title
+        date
+        content
+      }
+      users {
+        user{
+        id
+        name
+        }
+        isWaiting
+      }
+      status
+      leadingUser {
+        id
+        name
+      }
+      reported
+      reportMessage
+      openDate
+      successChances
+      hashtags
+    }
+  }
+}
+`;
+
 export default {
   updateClassActionServer,
+  REPORT,
 };

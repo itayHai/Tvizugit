@@ -28,12 +28,16 @@ const ClassAction = (props) => {
     }
     return { ...bProp, content: content };
   });
+
+  
   const flatennedUsers = props.classAction.users.map(usr => {
     return {
       isWaiting: usr.isWaiting,
       ...usr.user
     }
   });
+
+  
   return (
     <ResultBanner
       entityId={props.classAction.id}

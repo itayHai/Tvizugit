@@ -47,6 +47,8 @@ export const classActionSchema = new Schema({
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
   representingLawyer: { type: String },
   openDate: { type: Date },
+  reported: { type: Boolean },
+  reportMessage: { type: String },
   successChances: { type: String },
 });
 
