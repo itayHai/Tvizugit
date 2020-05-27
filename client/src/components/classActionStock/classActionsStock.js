@@ -11,8 +11,8 @@ const classActionsStock = (props) => {
       className={classes.searchHeader}
       title='מאגר תביעות'
       itemsToSelect={selectOptions}
-      showSort="true"
-      showSearch="true"
+      showSort={true}
+      showSearch={true}
     />
     <ClassActions
     />

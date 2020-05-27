@@ -1,9 +1,6 @@
 import React from 'react';
 import classes from '../../../../classActionStock/classActions/classAction/classActionContent/classActionContent.module.css';
 import { Room, Email, Phone } from '@material-ui/icons';
-import { dummyUser } from '../../../../../utils/globalConsts';
-import { useDispatch } from 'react-redux';
-import { removeMessageAction, addMessageAction } from '../../../../../store/classAction';
 import LawyerCases from './LawyerCases/LawyerCases';
 
 const LawyersContent = (props) => {
@@ -37,7 +34,7 @@ const LawyersContent = (props) => {
             </div>
         </div>
         <h2 className={classes.title}>תובענות שהמשרד ייצג בפלטפורמת תביצוגית:</h2>
-        {props.lawyer.classactions > 0 ? 
+        {props.lawyer.classactions.length > 0 ? 
             <LawyerCases cases={props.lawyer.classactions}/> : 
             <h3>לא קיימות תובענות במאגר</h3>}
     </div >        

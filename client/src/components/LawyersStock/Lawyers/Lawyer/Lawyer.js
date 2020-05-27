@@ -1,9 +1,7 @@
 import React from "react";
 import ResultBanner from "../../../resultBanner/resultBanner";
-import { useDispatch } from "react-redux";
 import { propertiesToShow } from "../../../../utils/globalConsts";
 import LawyerContent from "./LawyerContent/LawyerContent";
-import { string } from "prop-types";
 
 const Lawyer = (props) => {
     const basicProperties = propertiesToShow[1].lawyerProp;

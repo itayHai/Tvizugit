@@ -26,7 +26,7 @@ const SearchHeader = (props) => {
     <div className={classes.searchHeader}>
       <h1 className={classes.searchTitle}>{props.title}</h1>
       <div className={classes.buttonRow}>
-        {props.showSort === "true" ? 
+        {props.showSort ? 
           <SimpleSelect
           className={classes.select}
           label="מיון"
@@ -34,7 +34,7 @@ const SearchHeader = (props) => {
           changed={(event) => dispatch(changeSort(event.target.value))}
         /> : ""  
       }
-      {props.showSearch === "true" ?
+      {props.showSearch ?
         <Button
         className={classes.filterButton}
         onClick={handleOpen}
