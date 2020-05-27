@@ -1,6 +1,7 @@
 import ClassActionModel from "./classActionModel";
 
 function addClassAction(classActionToAdd) {
+  classActionToAdd.reported = false;
   const newClassAction = new ClassActionModel(classActionToAdd);
   return newClassAction.save();
 }
@@ -13,6 +14,13 @@ function updateClassAction(id, classActionToAdd) {
   return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
     new: true,
   })
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user");
+}
+
+function reportClassAction({ id, reportMessage }) {
+  return ClassActionModel.findOneAndUpdate({ _id: id }, { "reportMessage": reportMessage, reported: true }, { new: true })
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
@@ -77,5 +85,6 @@ export {
   getClassActionsByParams,
   updateClassAction,
   deleteClassAction,
+  reportClassAction,
   getClassActionsByUser,
 };

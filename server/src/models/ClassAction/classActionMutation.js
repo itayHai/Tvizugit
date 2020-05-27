@@ -4,6 +4,7 @@ import {
   addClassAction,
   updateClassAction,
   deleteClassAction,
+  reportClassAction,
 } from "./classActionBL";
 
 const ClassActionMutation = new GraphQLObjectType({
@@ -21,6 +22,16 @@ const ClassActionMutation = new GraphQLObjectType({
         } else {
           return addClassAction(classAction);
         }
+      },
+    },
+    reportClassAction: {
+      type: ClassActionType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        reportMessage: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve: (root, params) => {
+        return reportClassAction(params);
       },
     },
     deleteClassAction: {
