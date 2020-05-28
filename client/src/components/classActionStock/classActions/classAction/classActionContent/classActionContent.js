@@ -1,132 +1,172 @@
-import React from 'react';
-import classes from './classActionContent.module.css';
-import { Gavel, CalendarToday, Person, Help, TextFields } from '@material-ui/icons';
-import ManagerMessages from '../managerMessages/managerMessages';
-import JoinAction from './joinAction/joinAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateMessagesAction } from '../../../../../store/classAction';
-import DateHandler from '../../../../../utils/dateHandler';
+import React from "react";
+import classes from "./classActionContent.module.css";
+import { Gavel, CalendarToday, Person } from "@material-ui/icons";
+import ManagerMessages from "../managerMessages/managerMessages";
+import JoinAction from "./joinAction/joinAction";
+import { dummyUser } from "../../../../../utils/globalConsts";
+import { useDispatch } from "react-redux";
+import { updateMessagesAction } from "../../../../../store/classAction";
+import DateHandler from "../../../../../utils/dateHandler";
 import { useMutation } from "@apollo/react-hooks";
-import { classActionsRequest } from '../../../../../utils/requests';
+import { classActionsRequest } from "../../../../../utils/requests";
+import HashtagCreator from "../../../../hashtagCreator/hashtagCreator";
 
-const ClassActionContent = props => {
-    const dispatch = useDispatch();
+const ClassActionContent = (props) => {
+  const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
 
-    const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
-    const flatennedUsers = props.cAction.users.map(usr => {
-        return {
-            isWaiting: usr.isWaiting,
-            ...usr.user
-        }
-    });
+  const [updateClassActionServer] = useMutation(
+    classActionsRequest.updateClassActionServer
+  );
+  const flatennedUsers = props.cAction.users.map((usr) => {
+    return {
+      isWaiting: usr.isWaiting,
+      ...usr.user,
+    };
+  });
     const isUserManager = props.cAction.leadingUser.id === loggedInUser.id;
-    const addMessageHandler = (message, title) => {
-        var todayDate = new Date();
-        const newMessage = {
-            date: todayDate,
-            title: title,
-            content: message,
-        };
-        const messages = [...props.cAction.messages];
-        messages.push(newMessage);
-        updateClassActionServer({
-            variables:
-            {
-                classAction:
-                {
+  const addMessageHandler = (message, title) => {
+    var todayDate = new Date();
+    const newMessage = {
+      date: todayDate,
+      title: title,
+      content: message,
+    };
+    const messages = [...props.cAction.messages];
+    messages.push(newMessage);
+    updateClassActionServer({
+      variables: {
+        classAction: {
                     defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
                     users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
-                    name: props.cAction.name,
-                    category: props.cAction.category.id,
-                    leadingUser: props.cAction.leadingUser.id,
+            return { user: usr.id, isWaiting: usr.isWaiting };
+          }),
+          name: props.cAction.name,
+          category: props.cAction.category.id,
+          leadingUser: props.cAction.leadingUser.id,
                     reason: props.cAction.reason,
                     type: props.cAction.type,
-                    messages: messages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
-                },
-                id: props.cAction.id
-            }
-        }).then((data) => {
-            const messagesServer = data.data.ClassActionMutation.classAction.messages;
-            const newIdMessages = { ...newMessage, _id: messagesServer[messagesServer.length - 1]._id };
-            const newMessages = [...props.cAction.messages];
-            newMessages.push(newIdMessages);
-            dispatch(updateMessagesAction(props.cAction, newMessages))
-        })
-    }
+          messages: messages.map((mes) => {
+            return {
+              title: mes.title,
+              date: new Date(mes.date),
+              content: mes.content,
+            };
+          }),
+        },
+        id: props.cAction.id,
+      },
+    }).then((data) => {
+      const messagesServer = data.data.ClassActionMutation.classAction.messages;
+      const newIdMessages = {
+        ...newMessage,
+        _id: messagesServer[messagesServer.length - 1]._id,
+      };
+      const newMessages = [...props.cAction.messages];
+      newMessages.push(newIdMessages);
+      dispatch(updateMessagesAction(props.cAction, newMessages));
+    });
+  };
 
-    const removeMessageHandler = (message) => {
-        let newMessages = [...props.cAction.messages];
-        newMessages = newMessages.filter(mes => mes !== message);
-        updateClassActionServer({
-            variables:
-            {
-                classAction:
-                {
+  const removeMessageHandler = (message) => {
+    let newMessages = [...props.cAction.messages];
+    newMessages = newMessages.filter((mes) => mes !== message);
+    updateClassActionServer({
+      variables: {
+        classAction: {
                     defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
                     users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
-                    name: props.cAction.name,
-                    category: props.cAction.category.id,
-                    leadingUser: props.cAction.leadingUser.id,
+            return { user: usr.id, isWaiting: usr.isWaiting };
+          }),
+          name: props.cAction.name,
+          category: props.cAction.category.id,
+          leadingUser: props.cAction.leadingUser.id,
                     reason: props.cAction.reason,
                     type: props.cAction.type,
-                    messages: newMessages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
-                },
-                id: props.cAction.id
-            }
-        }).then((data) => {
-            dispatch(updateMessagesAction(props.cAction, newMessages))
-        })
-    }
+          messages: newMessages.map((mes) => {
+            return {
+              title: mes.title,
+              date: new Date(mes.date),
+              content: mes.content,
+            };
+          }),
+        },
+        id: props.cAction.id,
+      },
+    }).then((data) => {
+      dispatch(updateMessagesAction(props.cAction, newMessages));
+    });
+  };
     const defendantsNames = props.cAction.defendants.map(def => def.name).join(', ');
     const showMessages = flatennedUsers.find(usr => usr.id === loggedInUser.id && !usr.isWaiting) ?
-        <ManagerMessages
-            messages={props.cAction.messages}
-            isUserManager={isUserManager}
-            delMessClick={(message) => removeMessageHandler(message)}
-            addMessClick={(message, title) => addMessageHandler(message, title)}
+  const showMessages = flatennedUsers.find(
+    (usr) => usr.id === dummyUser.id && !usr.isWaiting
+  ) ? (
+    <ManagerMessages
+      messages={props.cAction.messages}
+      isUserManager={isUserManager}
+      delMessClick={(message) => removeMessageHandler(message)}
+      addMessClick={(message, title) => addMessageHandler(message, title)}
         /> : null;
     const showJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id) ? null : <JoinAction classAction={props.cAction} />
-    const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע משרד מייצג';
-    const allHashtags = props.cAction.hashtags.map((tag, index) => {
-        return <div className={classes.tag} key={index}>
-            {"#" + tag}
-        </div>
-    })
-
+  const showJoin = flatennedUsers.find(
+    (usr) => usr.id === dummyUser.id
+  ) ? null : (
+    <JoinAction classAction={props.cAction} />
+  );
+  const lawyerName = props.cAction.lawyer
+    ? props.cAction.lawyer
+    : "טרם נקבע משרד מייצג";
+  const allHashtags = props.cAction.hashtags.map((tag, index) => {
     return (
-        <div>
-            <div className={classes.allHashtags}>
-                <h2 className={classes.title}>תיאור תובענה:</h2>
-                {allHashtags}
-            </div>
-            {props.cAction.description}
+      <div className={classes.tag} key={index}>
+        {"#" + tag}
+      </div>
+    );
+  });
+
+  return (
+    <div>
+      <div className={classes.allHashtags}>
+        <h2 className={classes.title}>תיאור תובענה:</h2>
+        {allHashtags}
+        <HashtagCreator
+          description={props.cAction.description}
+          name={props.cAction.name}
+          defendant={props.cAction.defendants}
+        />
+      </div>
+      {props.cAction.description}
             <br></br>
             <h3>נתבעים: </h3>
             {defendantsNames}
-            <div className={classes.joinButton}>
-                <div className={classes.infoRow}>
-                    <div className={classes.cellInRow}>
-                        <Gavel className={classes.icon} color="action" fontSize="large" />
-                        <div className={classes.cellNoIcon}>
+      <div className={classes.joinButton}>
+        <div className={classes.infoRow}>
+          <div className={classes.cellInRow}>
+            <Gavel className={classes.icon} color="action" fontSize="large" />
+            <div className={classes.cellNoIcon}>
                             <h3 className={classes.infoCell}>{lawyerName}</h3>
-                            <div>משרד עו"ד מייצג</div>
-                        </div>
-                    </div>
-                    <div className={classes.cellInRow}>
-                        <CalendarToday className={classes.icon} color="action" fontSize="large" />
-                        <div className={classes.cellNoIcon}>
+              <div>משרד עו"ד מייצג</div>
+            </div>
+          </div>
+          <div className={classes.cellInRow}>
+            <CalendarToday
+              className={classes.icon}
+              color="action"
+              fontSize="large"
+            />
+            <div className={classes.cellNoIcon}>
                             <h3 className={classes.infoCell}>
-                                <DateHandler date={props.cAction.openDate} />
-                            </h3>
-                            <div>תאריך פתיחת התובענה</div>
-                        </div>
-                    </div>
-                    <div className={classes.cellInRow}>
-                        <Person className={classes.icon} color="action" fontSize="large" />
-                        <div className={classes.cellNoIcon}>
+                <DateHandler date={props.cAction.openDate} />
+              </h3>
+              <div>תאריך פתיחת התובענה</div>
+            </div>
+          </div>
+          <div className={classes.cellInRow}>
+            <Person className={classes.icon} color="action" fontSize="large" />
+            <div className={classes.cellNoIcon}>
                             <h3 className={classes.infoCell}>{props.cAction.leadingUser.name}</h3>
-                            <div>מנהל התובענה</div>
+              <div>מנהל התובענה</div>
                         </div>
                     </div>
                     <div className={classes.cellInRow}>
@@ -141,15 +181,14 @@ const ClassActionContent = props => {
                         <div className={classes.cellNoIcon}>
                             <h3 className={classes.infoCell}>{props.cAction.type}</h3>
                             <div>סוג התביעה</div>
-                        </div>
-                    </div>
-                </div>
-                {showJoin}
             </div>
-            {showMessages}
-        </div >
-    );
+          </div>
+        </div>
+        {showJoin}
+      </div>
+      {showMessages}
+    </div>
+  );
 };
-
 
 export default ClassActionContent;
