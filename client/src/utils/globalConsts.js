@@ -54,12 +54,12 @@ export const statuses = [
   "לפני משפט",
   "תוך כדי משפט",
   "במהלך פשרה"
-  ];
-  export const lawyerOffices = [
-    'עידו ושות',
-    'אלה ושות',
-    'טלי ושות',
-  ];
+];
+export const lawyerOffices = [
+  'עידו ושות',
+  'אלה ושות',
+  'טלי ושות',
+];
 
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,
@@ -72,6 +72,13 @@ export const categoriesIcons = {
   נגישות: <Accessible />,
   "גבייה שלא כדין": <MonetizationOn />,
 };
+
+export const resultTypes = {
+  CLASS_ACTION: "classAction",
+  REPORTED_CLASS_ACTION: "reportedClassAction",
+  LAWYER: "lawyer",
+}
+
 export const propertiesToShow = [
   {
     name: "classAction",
@@ -108,6 +115,31 @@ export const propertiesToShow = [
       {},
     ],
   },
+  // {
+  //   name: "reportedClassActions",
+  //   classActionPro: [
+  //     {
+  //       name: "שם התביעה",
+  //       engName: "name",
+  //     },
+  //     {
+  //       name: "הגוף הנתבע",
+  //       engName: "defendants",
+  //     },
+  //     {
+  //       name: "שלב התביעה",
+  //       engName: "status",
+  //     },
+  //     {
+  //       name: "מספר תובעים",
+  //       engName: "numberOfProsecutors",
+  //     },
+  //     {
+  //       name: "קטגוריה",
+  //       engName: "category",
+  //     },
+  //   ],
+  // }
 ];
 
 export const dummyData = [

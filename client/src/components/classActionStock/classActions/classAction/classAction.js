@@ -1,6 +1,6 @@
 import React from "react";
 import ResultBanner from "../../../resultBanner/resultBanner";
-import { propertiesToShow } from "../../../../utils/globalConsts";
+import { propertiesToShow, resultTypes } from "../../../../utils/globalConsts";
 import ClassActionContent from "../classAction/classActionContent/classActionContent";
 import { useDispatch } from "react-redux";
 import { changeCurAction } from "../../../../store/classAction";
@@ -40,6 +40,7 @@ const ClassAction = (props) => {
   
   return (
     <ResultBanner
+      entityType={resultTypes.CLASS_ACTION}
       entityId={props.classAction.id}
       selectedProperties={selectedProperties}
       handleOpenEditAction={() => handleOpenEditAction()}
