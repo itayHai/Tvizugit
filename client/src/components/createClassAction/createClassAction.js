@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stepper, Step, StepLabel,Button } from '@material-ui/core';
+import { Stepper, Step, StepLabel, Button } from '@material-ui/core';
 import classes from "./createClassAction.module.css";
 import { AddCircle } from "@material-ui/icons";
 import { useMutation } from "@apollo/react-hooks";
@@ -13,8 +13,7 @@ function getSteps() {
 }
 
 const CreateClassAction = props => {
-    const [classAction] = useState({ defendants: [], users: [] });
-    let [defendants] = useState([]);
+    const [classAction] = useState({ defendants: [{}, {}, {}, {}], users: [] });
     const [addClassAction] = useMutation(classActionsRequest.addClassAction);
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
     const [activeStep, setActiveStep] = React.useState(0);
@@ -26,14 +25,16 @@ const CreateClassAction = props => {
                 return <ClassActionInfo
                     handleChangeInput={handleChangeInput}
                     handleChangeAutoField={handleChangeAutoField}
+                    classAction={classAction}
                 />;
             case 1:
                 return <ClassActionDefendants
                     handleChangeInput={handleChangeInput}
                     handleChangeAutoField={handleChangeAutoField}
+                    classAction={classAction}
                 />;
             default:
-                return 'Unknown step';
+                return 'שלב לא ידוע';
         }
     }
     const handleNext = () => {
@@ -45,19 +46,27 @@ const CreateClassAction = props => {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-    const handleChangeInput = (event, value) => {
-        classAction[event.target.id] = event.target.value;
+    const handleChangeInput = (event, value, defendantNumber) => {
+        if (event.target.id.includes("defendant"))
+            classAction.defendants[defendantNumber].name = event.target.value;
+        else
+            classAction[event.target.id] = event.target.value;
     }
-    const handleChangeAutoField = (event, values) => {
-        if (event.target.id.includes("category"))
-            classAction.category = values.id
+    const handleChangeAutoField = (event, values, defendantNumber) => {
+        if (event.target.id.includes("defendantType"))
+            classAction.defendants[defendantNumber].type = values;
+        else if (event.target.id.includes("defendantTheme"))
+            classAction.defendants[defendantNumber].theme = values;
+        else
+            classAction[event.target.id.split('-')[0]] = values;
     }
     const handleSave = () => {
         classAction.openDate = new Date();
         classAction.status = "תובענה חדשה בשוק חבר'ה!";
         classAction.users.push({ user: loggedInUser.id, isWaiting: Boolean(false) });
         classAction.leadingUser = loggedInUser.id;
-        classAction.defendants = defendants;
+        classAction.category = classAction.category.id;
+        classAction.defendants = classAction.defendants.filter(def => Object.keys(def).length !== 0)
         addClassAction({
             variables: {
                 classAction

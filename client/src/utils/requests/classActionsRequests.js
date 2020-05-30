@@ -12,7 +12,11 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         name
         engName
       }
-      defendants
+      defendants{
+        name
+        type
+        theme
+      }
       messages{
         _id
         title
@@ -60,7 +64,11 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
         engName
       }
-      defendants
+      defendants{
+        name
+        type
+        theme
+      }
       messages{
         id
         title

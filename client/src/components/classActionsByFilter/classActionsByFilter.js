@@ -19,7 +19,11 @@ const getClassActionByUser = () => {
           name
           engName
         }
-        defendants
+        defendants{
+          name
+          type
+          theme
+        }
         messages {
           _id
           title
@@ -66,7 +70,6 @@ function ClassActionsByFilter({ filter, limit }) {
   }
 
   const { classActions } = data.ClassActionQueries
-
   const ClassActionCards = classActions.map((classAction) => {
     return <ClassActionCard key={classAction.id} classAction={classAction} />;
   });

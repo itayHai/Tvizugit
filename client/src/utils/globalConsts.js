@@ -49,6 +49,7 @@ export const classActionsFilters = {
 }
 
 export const statuses = [
+  "תובענה חדשה בשוק חבר'ה!",
   'תחילת תביעה - טרום עו"ד',
   "משא ומתן עם הנתבע",
   "לפני משפט",
@@ -65,7 +66,16 @@ export const defendantTypes = [
   'סוג כועס',
   'סוג מתוק'
 ];
-
+export const classActionReasons = [
+  'סיבה יפה',
+  'סיבה מעולה',
+  'סיבה מטומטמת'
+];
+export const classActionTypes = [
+  'סוג יפה',
+  'סוג מעולה',
+  'סוג מטומטמת'
+]
 export const lawyerOffices = [
   'עידו ושות',
   'אלה ושות',

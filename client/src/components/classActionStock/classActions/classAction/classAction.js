@@ -17,7 +17,7 @@ const ClassAction = (props) => {
   const selectedProperties = basicProperties.map((bProp) => {
     let content = props.classAction[bProp.engName];
     if (bProp.engName === "defendants") {
-      content = props.classAction[bProp.engName][0];
+      content = props.classAction[bProp.engName][0].name;
     }
     if (bProp.engName === "numberOfProsecutors") {
       const insideUsers = props.classAction["users"].filter(usr => {

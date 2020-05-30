@@ -35,7 +35,7 @@ const ClassActionContent = props => {
             {
                 classAction:
                 {
-                    defendants: props.cAction.defendants,
+                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
                     users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
@@ -61,7 +61,7 @@ const ClassActionContent = props => {
             {
                 classAction:
                 {
-                    defendants: props.cAction.defendants,
+                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
                     users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
                     name: props.cAction.name,
                     category: props.cAction.category.id,

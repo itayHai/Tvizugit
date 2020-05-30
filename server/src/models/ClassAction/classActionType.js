@@ -26,6 +26,22 @@ const UserListInputType = new GraphQLInputObjectType({
     isWaiting: { type: GraphQLBoolean }
   }),
 });
+const defendantType = new GraphQLObjectType({
+  name: "defendantType",
+  fields: () => ({
+    name: { type: GraphQLString },
+    type: { type: GraphQLString },
+    theme: { type: GraphQLString }
+  }),
+});
+const defendantInputType = new GraphQLInputObjectType({
+  name: "defendantInputType",
+  fields: () => ({
+    name: { type: GraphQLString },
+    type: { type: GraphQLString },
+    theme: { type: GraphQLString }
+  }),
+});
 
 const ClassActionType = new GraphQLObjectType({
   name: "ClassActionType",
@@ -39,12 +55,14 @@ const ClassActionType = new GraphQLObjectType({
       type: new GraphQLList(UserListType),
     },
     defendants: {
-      type: new GraphQLList(GraphQLString),
+      type: new GraphQLList(defendantType),
     },
     messages: {
       type: new GraphQLList(MessageType),
     },
     leadingUser: { type: UserType },
+    type:{ type: GraphQLString },
+    reason:{ type: GraphQLString },
     representingLawyer: { type: UserType },
     openDate: { type: GraphQLDate },
     reported: { type: GraphQLBoolean },
@@ -64,7 +82,7 @@ const ClassActionInputType = new GraphQLInputObjectType({
     status: { type: GraphQLString },
     defendants: {
       type: new GraphQLNonNull(
-        new GraphQLList(new GraphQLNonNull(GraphQLString))
+        new GraphQLList(new GraphQLNonNull(defendantInputType))
       ),
     },
     users: {
@@ -78,6 +96,8 @@ const ClassActionInputType = new GraphQLInputObjectType({
     messages :{
       type: new GraphQLList(MessageInputType),
     },
+    type:{ type: GraphQLString },
+    reason:{ type: GraphQLString },
     leadingUser: { type: new GraphQLNonNull(GraphQLString) },
     representingLawyer: { type: GraphQLString },
     openDate: { type: GraphQLDate },

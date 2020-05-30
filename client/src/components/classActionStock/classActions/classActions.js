@@ -29,7 +29,11 @@ const getClassActionsByParams = (params) => {
                 name
                 engName
               }
-              defendants
+              defendants{
+                name
+                type
+                theme
+              }
               messages {
                 _id
                 title
@@ -66,7 +70,11 @@ const getClassActionsByParams = (params) => {
                 name
                 engName
               }
-              defendants
+              defendants{
+                name
+                type
+                theme
+              }
               messages {
                 _id
                 title

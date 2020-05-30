@@ -21,7 +21,7 @@ const JoinForm = (props) => {
             {
                 classAction:
                 {
-                    defendants: classAction.defendants,
+                    defendants: classAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
                     users: classAction.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
                     hashtags: classAction.hashtags,
                     name: classAction.name,
