@@ -49,8 +49,8 @@ const HashtagCreator = (props) => {
     "יותר",
     "בין",
     "אף",
-    "היתה"
-
+    "היתה",
+    "סתם"
   ];
 
   function createWordMap(wordsArray) {

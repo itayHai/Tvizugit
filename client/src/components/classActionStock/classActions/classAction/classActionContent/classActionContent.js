@@ -9,7 +9,6 @@ import { updateMessagesAction } from "../../../../../store/classAction";
 import DateHandler from "../../../../../utils/dateHandler";
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from "../../../../../utils/requests";
-import HashtagCreator from "../../../../hashtagCreator/hashtagCreator";
 
 const ClassActionContent = (props) => {
   const dispatch = useDispatch();
@@ -117,6 +116,8 @@ const ClassActionContent = (props) => {
   const lawyerName = props.cAction.lawyer
     ? props.cAction.lawyer
     : "טרם נקבע משרד מייצג";
+    
+
   const allHashtags = props.cAction.hashtags.map((tag, index) => {
     return (
       <div className={classes.tag} key={index}>
@@ -130,11 +131,7 @@ const ClassActionContent = (props) => {
       <div className={classes.allHashtags}>
         <h2 className={classes.title}>תיאור תובענה:</h2>
         {allHashtags}
-        <HashtagCreator
-          description={props.cAction.description}
-          name={props.cAction.name}
-          defendant={props.cAction.defendants}
-        />
+        
       </div>
       {props.cAction.description}
             <br></br>
