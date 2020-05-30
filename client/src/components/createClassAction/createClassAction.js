@@ -7,9 +7,10 @@ import { classActionsRequest } from '../../utils/requests';
 import { useSelector } from 'react-redux';
 import ClassActionInfo from './classActionInfo/classActionInfo';
 import ClassActionDefendants from './classActionDefendants/classActionDefendants';
+import ClassActionAutoData from './classActionAutoData/classActionAutoData';
 
 function getSteps() {
-    return ['יצירת פרטים ראשוניים', 'פרטי נתבעים'];
+    return ['יצירת פרטים ראשוניים', 'פרטי נתבעים', 'נתונים אוטומטיים'];
 }
 
 const CreateClassAction = props => {
@@ -29,6 +30,12 @@ const CreateClassAction = props => {
                 />;
             case 1:
                 return <ClassActionDefendants
+                    handleChangeInput={handleChangeInput}
+                    handleChangeAutoField={handleChangeAutoField}
+                    defendants={classAction.defendants}
+                />;
+            case 2:
+                return <ClassActionAutoData
                     handleChangeInput={handleChangeInput}
                     handleChangeAutoField={handleChangeAutoField}
                     classAction={classAction}

@@ -2,7 +2,7 @@ import React from 'react';
 import ClassActionDefendant from './classActionDefendant/classActionDefendant';
 
 const ClassActionDefendants = props => {
-    const defendants = props.classAction.defendants.map((def, index) =>{
+    const defendants = props.defendants.map((def, index) =>{
         return (
             <ClassActionDefendant
                 handleChangeInput={props.handleChangeInput}

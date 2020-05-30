@@ -1,6 +1,5 @@
 .SearchClassAction {
-    width: 410px;
-    /* align-content: center !important; */
+    width: 610px;
     padding-bottom: 30px;
   }
   
@@ -21,6 +20,7 @@
   .Title {
     display: flex;
     flex-direction: row;
+    margin-right: 100px;
   }
   
   .SearchIcon {

@@ -17,7 +17,7 @@ const classActionDefendant = props => {
                 placeholder="הגורם הנתבע"
                 id={"defendant" + props.defendantNumber}
                 defaultValue={props.defendant.name}
-                className={classes.InputSearch}
+                className={classes.defendant}
                 fullWidth={true}
                 onChange={(event,value) => handleChange(event,value)}
             />
@@ -37,7 +37,7 @@ const classActionDefendant = props => {
                 defaultValue={props.defendant.theme}
                 autoComplete
                 onChange={(event, values) => handleChangeAuto(event, values)}
-                renderInput={(params) => <TextField {...params} placeholder="עולם תוכן נאשם" fullWidth={true} />}
+                renderInput={(params) => <TextField {...params} placeholder="עולם תוכן" fullWidth={true} />}
             />
         </div>
     );
