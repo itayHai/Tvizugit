@@ -39,6 +39,15 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
 }
 `;
 const addClassAction = gql`
+mutation ($classAction:ClassActionInputType!){
+  ClassActionMutation{
+    classAction(classAction:$classAction){
+      id
+    }
+  }
+}
+`;
+
 const REPORT = gql`
 mutation reportClassAction($id: String!, $reportMessage: String!) {
   ClassActionMutation{
@@ -82,5 +91,6 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
 
 export default {
   updateClassActionServer,
+  addClassAction,
   REPORT,
 };

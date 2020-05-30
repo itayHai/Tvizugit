@@ -12,9 +12,6 @@ import Spinner from "../spinner/spinner";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeFilter } from "../../store/classAction";
-        _id
-        user{
-        }
 
 const SearchActionClass = (props) => {
   const [value, setValue] = useState("");

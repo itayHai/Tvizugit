@@ -11,6 +11,7 @@ import Chip from "@material-ui/core/Chip";
 import { classActionsRequest } from '../../utils/requests';
 import { useSelector } from 'react-redux';
 
+
 const CreateClassAction = props => {
     const [defendant, setDefendant] = useState("");
     const [classAction] = useState({ defendants: [], users: [] });
