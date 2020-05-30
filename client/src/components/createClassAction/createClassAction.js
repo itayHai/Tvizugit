@@ -1,27 +1,50 @@
 import React, { useState } from 'react';
-import Button from "@material-ui/core/Button";
+import { Stepper, Step, StepLabel,Button } from '@material-ui/core';
 import classes from "./createClassAction.module.css";
 import { AddCircle } from "@material-ui/icons";
-import Input from "@material-ui/core/Input";
-import { categoriesRequest } from "../../utils/requests";
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import TextField from '@material-ui/core/TextField';
-import Chip from "@material-ui/core/Chip";
+import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../utils/requests';
 import { useSelector } from 'react-redux';
+import ClassActionInfo from './classActionInfo/classActionInfo';
+import ClassActionDefendants from './classActionDefendants/classActionDefendants';
 
+function getSteps() {
+    return ['יצירת פרטים ראשוניים', 'פרטי נתבעים'];
+}
 
 const CreateClassAction = props => {
-    const [defendant, setDefendant] = useState("");
     const [classAction] = useState({ defendants: [], users: [] });
     let [defendants] = useState([]);
-    const { loading, data } = useQuery(categoriesRequest.getAll);
     const [addClassAction] = useMutation(classActionsRequest.addClassAction);
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
+    const [activeStep, setActiveStep] = React.useState(0);
+    const steps = getSteps();
 
-    if (loading) return <p>Loading...</p>;
-
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <ClassActionInfo
+                    handleChangeInput={handleChangeInput}
+                    handleChangeAutoField={handleChangeAutoField}
+                />;
+            case 1:
+                return <ClassActionDefendants
+                    handleChangeInput={handleChangeInput}
+                    handleChangeAutoField={handleChangeAutoField}
+                />;
+            default:
+                return 'Unknown step';
+        }
+    }
+    const handleNext = () => {
+        if (activeStep === steps.length - 1)
+            handleSave();
+        else
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
     const handleChangeInput = (event, value) => {
         classAction[event.target.id] = event.target.value;
     }
@@ -29,18 +52,6 @@ const CreateClassAction = props => {
         if (event.target.id.includes("category"))
             classAction.category = values.id
     }
-    const keyDownHandler = (event) => {
-        if (["Enter", "Tab", ","].includes(event.key)) {
-            event.preventDefault();
-            defendants.push(defendant.trim());
-            setDefendant("");
-        }
-    };
-
-    const inputChangedHandler = (event) => {
-        setDefendant(event.target.value);
-    };
-
     const handleSave = () => {
         classAction.openDate = new Date();
         classAction.status = "תובענה חדשה בשוק חבר'ה!";
@@ -51,7 +62,6 @@ const CreateClassAction = props => {
             variables: {
                 classAction
             }
-
         }).then(data => {
             props.close(true);
         }).catch(err => {
@@ -59,59 +69,40 @@ const CreateClassAction = props => {
         })
     }
     return (
-        <div>
-            <div className={classes.SearchClassAction}>
-                <div className={classes.Title}>
-                    <AddCircle className={classes.SearchIcon} />
-                    <h1>הוספת תובענה ייצוגית</h1>
-                </div>
-                <Input
-                    placeholder="שם התביעה"
-                    className={classes.InputSearch}
-                    id="name"
-                    autoFocus={true}
-                    fullWidth={true}
-                    onChange={handleChangeInput}
-                />
-                <Input
-                    placeholder="תיאור"
-                    className={classes.InputSearch}
-                    id="description"
-                    fullWidth={true}
-                    onChange={handleChangeInput}
-                />
-                <Input
-                    placeholder=" הגורמים הנתבעים(הגורם הראשון ייחשב כגורם העיקרי)"
-                    className={classes.InputSearch}
-                    fullWidth={true}
-                    value={defendant}
-                    onChange={inputChangedHandler}
-                    onKeyDown={keyDownHandler}
-                />
-                {defendants.map((hashtag, index) => {
-                    return <Chip className={classes.Chip} key={index} label={hashtag} />;
-                })}
-                <Autocomplete
-                    options={data.CategoryQueries.categories}
-                    className={classes.InputSearch}
-                    getOptionSelected={(option, value) => {
-                        return option.id === value.id
-                    }}
-                    getOptionLabel={(cat) => cat.name}
-                    id="category"
-                    autoComplete
-                    onChange={handleChangeAutoField}
-                    includeInputInList
-                    renderInput={(params) => <TextField {...params} placeholder="קטגוריה" fullWidth={true} />}
-                />
+        <div className={classes.SearchClassAction}>
+            <div className={classes.Title}>
+                <AddCircle className={classes.SearchIcon} />
+                <h1>הוספת תובענה ייצוגית</h1>
             </div>
+            <Stepper activeStep={activeStep}>
+                {steps.map((label, index) => {
+                    const stepProps = {};
+                    const labelProps = {};
+                    return (
+                        <Step key={label} {...stepProps}>
+                            <StepLabel {...labelProps}>{label}</StepLabel>
+                        </Step>
+                    );
+                })}
+            </Stepper>
             <div>
-                <Button variant="contained" onClick={() => props.close("cancel")}>
-                    ביטול
-      </Button>
-                <Button className={classes.SearchButton} onClick={handleSave} >
-                    הוספה
-      </Button>
+                <div>
+                    {getStepContent(activeStep)}
+                    <div >
+                        <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                            הקודם
+              </Button>
+                        <Button
+                            className={classes.SearchButton}
+                            variant="contained"
+                            color="primary"
+                            onClick={handleNext}
+                        >
+                            {activeStep === steps.length - 1 ? 'שמור' : 'הבא'}
+                        </Button>
+                    </div>
+                </div>
+
             </div>
         </div>
     );

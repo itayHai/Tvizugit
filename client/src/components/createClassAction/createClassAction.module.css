@@ -1,6 +1,6 @@
 .SearchClassAction {
-    max-width: 410px;
-    align-content: center !important;
+    width: 410px;
+    /* align-content: center !important; */
     padding-bottom: 30px;
   }
   
