@@ -31,7 +31,7 @@ const getClassActionsByParams = (params) => {
               }
               defendants
               messages {
-                id
+                _id
                 title
                 date
                 content
@@ -68,7 +68,7 @@ const getClassActionsByParams = (params) => {
               }
               defendants
               messages {
-                id
+                _id
                 title
                 date
                 content

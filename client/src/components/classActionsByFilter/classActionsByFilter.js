@@ -21,7 +21,7 @@ const getClassActionByUser = () => {
         }
         defendants
         messages {
-          id
+          _id
           title
           date
           content
