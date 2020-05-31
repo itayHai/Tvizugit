@@ -26,16 +26,16 @@ const UserListInputType = new GraphQLInputObjectType({
     isWaiting: { type: GraphQLBoolean }
   }),
 });
-const defendantType = new GraphQLObjectType({
-  name: "defendantType",
+const DefendantType = new GraphQLObjectType({
+  name: "DefendantType",
   fields: () => ({
     name: { type: GraphQLString },
     type: { type: GraphQLString },
     theme: { type: GraphQLString }
   }),
 });
-const defendantInputType = new GraphQLInputObjectType({
-  name: "defendantInputType",
+const DefendantInputType = new GraphQLInputObjectType({
+  name: "DefendantInputType",
   fields: () => ({
     name: { type: GraphQLString },
     type: { type: GraphQLString },
@@ -55,7 +55,7 @@ const ClassActionType = new GraphQLObjectType({
       type: new GraphQLList(UserListType),
     },
     defendants: {
-      type: new GraphQLList(defendantType),
+      type: new GraphQLList(DefendantType),
     },
     messages: {
       type: new GraphQLList(MessageType),
@@ -82,7 +82,7 @@ const ClassActionInputType = new GraphQLInputObjectType({
     status: { type: GraphQLString },
     defendants: {
       type: new GraphQLNonNull(
-        new GraphQLList(new GraphQLNonNull(defendantInputType))
+        new GraphQLList(new GraphQLNonNull(DefendantInputType))
       ),
     },
     users: {

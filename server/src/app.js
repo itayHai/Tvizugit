@@ -26,7 +26,7 @@ app.get("/", (req, res) => res.send("Hello World!!"));
 
 mongoose
   .connect(
-    "mongodb+srv://Idoperlman:Ido9101995@cluster0-aliz5.mongodb.net/test?retryWrites=true&w=majority"
+    "mongodb+srv://Tvizugit:4RmpQFkU4XX9PLgH@cluster0-2kbif.mongodb.net/Tvizugit?retryWrites=true&w=majority"
   )
   .then(app.listen(port, () => console.log(`Server is served on port ${port}`)))
   .catch((err) => console.log(err));
