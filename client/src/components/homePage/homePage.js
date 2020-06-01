@@ -14,8 +14,7 @@ export default function HomePage() {
       {(Object.keys(loggedInUser).length === 0) &&
         <ViewerHomePage />}
       {
-        Object.keys(loggedInUser).length !== 0 &&
-        //  loggedInUser.role.engName === "viewer") &&
+        (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "viewer") &&
         <PlaintiffHomePage user={loggedInUser} />
       }
       <article className={classes.article}>

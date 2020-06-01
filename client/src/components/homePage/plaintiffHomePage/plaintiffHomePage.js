@@ -70,7 +70,7 @@ const PlaintiffHomePage = ({ user }) => {
                 <CreateClassAction close={handleCreateClose} />
             </Modal>
             <div className={classes.text}>
-                {/* {data.ClassActionQueries.count !== 0 ? */}
+
                 <div>
                     <Typography className={classes.headLine} variant="h4">
                         היי {user.displayName}, הנה התביעות שלך
@@ -79,11 +79,12 @@ const PlaintiffHomePage = ({ user }) => {
                         <ClassActionsByFilter filter={classActionsFilters.LOGGED_USER} limit={MAX_CLASS_ACTIONS_LIMIT} />
                     </div>
                 </div>
-                {/* : */}
                 <div>
-                    <Typography className={classes.headLine} variant="h4">
-                        היי {user.displayName}, הגיע הזמן להתחיל את המסע שלך בתביצוגית
+                    {data.ClassActionQueries.count === 0 &&
+                        <Typography className={classes.headLine} variant="h4">
+                            היי {user.displayName}, הגיע הזמן להתחיל את המסע שלך בתביצוגית
                         </Typography>
+                    }
                     <div className={classes.cardsContainer}>
                         <Card className={classes.card}>
                             <CardContent className={classes.carContent} onClick={handleCreateOpen}>
@@ -108,7 +109,6 @@ const PlaintiffHomePage = ({ user }) => {
                     </div>
 
                 </div>
-                {/* } */}
                 <AlertUser open={alert.open} handleClose={handleCloseAlert} message={alert.message} severity={alert.severity} />
 
             </div>

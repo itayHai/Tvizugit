@@ -102,7 +102,7 @@ export const propertiesToShow = [
         engName: "name",
       },
       {
-        name: "הגוף הנתבע",
+        name: "הגוף הנתבע הראשי",
         engName: "defendants",
       },
       {
