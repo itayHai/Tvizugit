@@ -14,7 +14,7 @@ function getSteps() {
 }
 
 const CreateClassAction = props => {
-    const [classAction] = useState({ defendants: [{}, {}, {}, {}], users: [] });
+    const [classAction] = useState({ defendants: [{}, {}, {}, {}, {}], users: [] });
     const [addClassAction] = useMutation(classActionsRequest.addClassAction);
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
     const [activeStep, setActiveStep] = React.useState(0);

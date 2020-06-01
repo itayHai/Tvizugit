@@ -41,6 +41,8 @@ const getClassActionByUser = () => {
           id
           name
         }
+        reason
+        type
         openDate
         successChances
         hashtags

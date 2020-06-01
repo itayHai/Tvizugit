@@ -28,6 +28,8 @@ const JoinForm = (props) => {
                     description: classAction.description,
                     category: classAction.category.id,
                     status: classAction.status,
+                    reason: classAction.reason,
+                    type: classAction.type,
                     leadingUser: classAction.leadingUser.id,
                 },
                 id: classAction.id

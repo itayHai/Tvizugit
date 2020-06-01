@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 const UpdateUsersClassActions = props => {
     return (
         <div
-            style={{ minWidth: "500px", maxWidth: "500px", minHeight: "400px", maxHeight: "400px" }}
+            style={{ minWidth: "500px", maxWidth: "500px", minHeight: "500px", maxHeight: "500px" }}
         >
             {props.classAction.users ?
                 <div> <Autocomplete multiple

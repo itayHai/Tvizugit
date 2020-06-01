@@ -96,8 +96,8 @@ const ClassActionInputType = new GraphQLInputObjectType({
     messages :{
       type: new GraphQLList(MessageInputType),
     },
-    type:{ type: GraphQLString },
-    reason:{ type: GraphQLString },
+    type:{ type:  new GraphQLNonNull(GraphQLString) },
+    reason:{ type:  new GraphQLNonNull(GraphQLString) },
     leadingUser: { type: new GraphQLNonNull(GraphQLString) },
     representingLawyer: { type: GraphQLString },
     openDate: { type: GraphQLDate },

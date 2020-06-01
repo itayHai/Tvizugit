@@ -52,6 +52,8 @@ const getClassActionsByParams = (params) => {
                 name
               }
               openDate
+              reason
+              type
               successChances
               hashtags
             }
@@ -94,6 +96,8 @@ const getClassActionsByParams = (params) => {
                 name
               }
               openDate
+              reason
+              type
               successChances
               hashtags
             }

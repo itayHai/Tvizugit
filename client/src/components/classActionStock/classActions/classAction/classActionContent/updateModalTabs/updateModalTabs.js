@@ -30,14 +30,7 @@ export default function UpdateModalTabs(props) {
         classAction[event.target.name] = event.target.value;
     };
     const handleChangeAutoField = (event, values) => {
-        if (event.target.id.includes("status"))
-            classAction.status = values
-        if (event.target.id.includes("category"))
-            classAction.category = values
-        if (event.target.id.includes("leadingUser"))
-            classAction.leadingUser = values
-        if (event.target.id.includes("lawyer"))
-            classAction.lawyer = values
+        classAction[event.target.id.split('-')[0]] = values;
     }
     const handleWaitingUsers = (event, values) => {
         classAction.waitingUsers = [];
@@ -72,6 +65,8 @@ export default function UpdateModalTabs(props) {
                     description: classAction.description,
                     category: classAction.category.id,
                     status: classAction.status,
+                    reason: classAction.reason,
+                    type: classAction.type,
                     leadingUser: classAction.leadingUser.id,
                 },
                 id: classAction.id

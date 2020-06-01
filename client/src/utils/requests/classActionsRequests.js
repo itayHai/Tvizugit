@@ -36,6 +36,8 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         name
       }
       openDate
+      reason
+      type
       successChances
       hashtags
     }
@@ -88,6 +90,8 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
       }
       reported
+      reason
+      type
       reportMessage
       openDate
       successChances
