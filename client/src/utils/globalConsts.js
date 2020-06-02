@@ -130,10 +130,21 @@ export const propertiesToShow = [
     name: "lawyers",
     lawyerProp: [
       {
-        name: "מספר תיקים",
-        engName: "numberOfCases",
+        name: "שם המשרד",
+        engName: "name",
       },
-      {},
+      {
+        name: "התמחות",
+        engName: "expertise",
+      },
+      {
+        name: "מספר תיקים",
+        engName: "classactions",
+      },      
+      {
+        name: "ותק",
+        engName: "seniority",
+      },
     ],
   },
   // {

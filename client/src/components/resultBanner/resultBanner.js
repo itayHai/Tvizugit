@@ -21,6 +21,7 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import Avatar from '@material-ui/core/Avatar';
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../utils/requests'
 import { resultTypes } from "../../utils/globalConsts";
@@ -94,8 +95,12 @@ export default function ResultBanner(props) {
   return (
     <Card className={classes.root}>
       <div className={classes.rootDiv}>
-        {props.showBookmark &&
-          <div style={{ backgroundColor: "#009688", width: "10px" }} />}
+        {props.showBookmark ? (
+          <div style={{ backgroundColor: "#009688", width: "10px" }} />
+        ) : null}
+        {props.imgUrl ? 
+          (<Avatar className={classes.img} src={props.imgUrl}></Avatar>) 
+          : null}
         {combinedPropertiesToShow}
         <CardActions disableSpacing>
           {resultBannerType === resultTypes.REPORTED_CLASS_ACTION &&

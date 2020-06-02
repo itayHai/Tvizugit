@@ -31,10 +31,10 @@ export const lawyerSchema = new Schema({
   img: {
     type: String,
   },
-  //classactions: [{ type: Schema.Types.ObjectId, ref: "classAction" }],
-  classactions: {
-    type: String,
-  },
+  classactions: [{
+      type: Schema.Types.ObjectId,
+      ref: "classAction"    
+  }],
 });
 
 const LawyerModel = mongoose.model("lawyer", lawyerSchema);

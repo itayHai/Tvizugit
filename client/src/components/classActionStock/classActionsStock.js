@@ -8,8 +8,11 @@ const classActionsStock = (props) => {
   const selectOptions = propertiesToShow[0].classActionPro;
   return <div className={classes.page}>
     <SearchHeader
+      className={classes.searchHeader}
       title='מאגר תביעות'
       itemsToSelect={selectOptions}
+      showSort={true}
+      showSearch={true}
     />
     <ClassActions
     />

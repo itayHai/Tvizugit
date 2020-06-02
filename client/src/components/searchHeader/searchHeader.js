@@ -48,20 +48,25 @@ const SearchHeader = (props) => {
           : "תוצאת חיפוש לפי תגיות: " + filter.hashtags}
       </div>
       <div className={classes.buttonRow}>
-        <SimpleSelect
+        {props.showSort ? 
+          <SimpleSelect
           className={classes.select}
           label="מיון"
           items={props.itemsToSelect}
           changed={(event) => dispatch(changeSort(event.target.value))}
-        />
-
+        /> : ""  
+      }
+      {props.showSearch ?
         <Button
-          className={classes.filterButton}
-          onClick={handleOpen}
-          startIcon={<SortIcon />}
+        className={classes.filterButton}
+        onClick={handleOpen}
+        startIcon={<SortIcon />}
         >
           חפש שוב
-        </Button>
+        </Button> : ""
+      }
+
+
         <Modal show={open} onClose={handleClose}>
           <SearchClassAction close={handleClose} />
         </Modal>

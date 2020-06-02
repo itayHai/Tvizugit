@@ -10,4 +10,10 @@ function addLawyer(LawyerToAdd) {
   return newLawyer.save();
 }
 
-export { getLawyer, addLawyer };
+function getAllLawyers() {
+  return LawyerModel
+    .find()
+    .populate("classactions");
+}
+
+export { getLawyer, addLawyer, getAllLawyers };

@@ -5,6 +5,7 @@ import Navbar from "../navbar/navbar";
 import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import LawyersStock from "../LawyersStock/LawyersStock";
 import { useSelector } from "react-redux";
 import ReportedClassActions from "../reportedClassActions.js/reportedClassActions";
 
@@ -41,10 +42,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
-            <Route path="/classActionsStock" component={ClassActionsStock} />
-            <Route path="/lawyers">
-              <h1>Lawyers</h1>
-            </Route>
+            <Route path="/classActionsStock" component={ClassActionsStock} />              
             <Route path="/reportedClassActions">
               {
                 (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin") ? (
@@ -62,6 +60,7 @@ function App() {
             <Route path="/unauthorize">
               <h1>אל תכנס לפה בחיים שלך!</h1>
             </Route>
+            <Route path="/lawyers" component={LawyersStock} />
           </Switch>
         </div>
       </Router>
