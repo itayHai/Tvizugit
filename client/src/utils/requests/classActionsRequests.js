@@ -12,9 +12,13 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         name
         engName
       }
-      defendants
+      defendants{
+        name
+        type
+        theme
+      }
       messages{
-        id
+        _id
         title
         date
         content
@@ -32,8 +36,19 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         name
       }
       openDate
+      reason
+      type
       successChances
       hashtags
+    }
+  }
+}
+`;
+const addClassAction = gql`
+mutation ($classAction:ClassActionInputType!){
+  ClassActionMutation{
+    classAction(classAction:$classAction){
+      id
     }
   }
 }
@@ -51,7 +66,11 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
         engName
       }
-      defendants
+      defendants{
+        name
+        type
+        theme
+      }
       messages{
         id
         title
@@ -71,6 +90,8 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
       }
       reported
+      reason
+      type
       reportMessage
       openDate
       successChances
@@ -82,5 +103,6 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
 
 export default {
   updateClassActionServer,
+  addClassAction,
   REPORT,
 };

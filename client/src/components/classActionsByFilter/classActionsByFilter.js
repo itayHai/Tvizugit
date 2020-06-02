@@ -19,9 +19,13 @@ const getClassActionByUser = () => {
           name
           engName
         }
-        defendants
+        defendants{
+          name
+          type
+          theme
+        }
         messages {
-          id
+          _id
           title
           date
           content
@@ -37,6 +41,8 @@ const getClassActionByUser = () => {
           id
           name
         }
+        reason
+        type
         openDate
         successChances
         hashtags
@@ -66,7 +72,6 @@ function ClassActionsByFilter({ filter, limit }) {
   }
 
   const { classActions } = data.ClassActionQueries
-
   const ClassActionCards = classActions.map((classAction) => {
     return <ClassActionCard key={classAction.id} classAction={classAction} />;
   });
