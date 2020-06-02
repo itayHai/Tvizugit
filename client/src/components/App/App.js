@@ -4,7 +4,7 @@ import classes from "./App.module.css";
 import Navbar from "../navbar/navbar";
 import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import LawyersStock from "../LawyersStock/LawyersStock";
 import { useSelector } from "react-redux";
 import ReportedClassActions from "../reportedClassActions.js/reportedClassActions";
@@ -42,9 +42,9 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
-            <Route path="/classActionsStock" component={ClassActionsStock} />
-              {
+            <Route path="/classActionsStock" component={ClassActionsStock} />              
             <Route path="/reportedClassActions">
+              {
                 (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin") ? (
                   <ReportedClassActions />
                   //<h1>חרא בפיתה!!!! כל מי שמדווח על תביעה מניאק</h1>

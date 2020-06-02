@@ -1,6 +1,6 @@
 import React from "react";
 import ResultBanner from "../../../resultBanner/resultBanner";
-import { propertiesToShow } from "../../../../utils/globalConsts";
+import { propertiesToShow, resultTypes } from "../../../../utils/globalConsts";
 import LawyerContent from "./LawyerContent/LawyerContent";
 
 const Lawyer = (props) => {
@@ -26,6 +26,7 @@ const Lawyer = (props) => {
 
     return (
         <ResultBanner
+            entityType={resultTypes.LAWYER}
             imgUrl="test"
             entityId={props.lawyer.id}
             selectedProperties = {selectedProperties}>
