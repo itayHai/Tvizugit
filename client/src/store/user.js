@@ -83,19 +83,21 @@ const initialState = {
     email: "",
     password: "",
   },
+ loggedInUser: { }
 
-  loggedInUser: {
-    displayName: "עידו פרלמן",
-    email: "idoperlman2@gmail.com",
-    id: "5e9d8bc9d43a5108ecf17822",
-    name: "Ido perlman",
-    password: "Ido9101995",
-    role: {
-      engName: "viewer",
-      id: "5ea43cd47157be568022babe",
-      name: "תובע"
-    }
-  }
+
+  // loggedInUser: {
+  //   displayName: "עידו פרלמן",
+  //   email: "idoperlman2@gmail.com",
+  //   id: "5e9d8bc9d43a5108ecf17822",
+  //   name: "Ido perlman",
+  //   password: "Ido9101995",
+  //   role: {
+  //     engName: "viewer",
+  //     id: "5ea43cd47157be568022babe",
+  //     name: "תובע"
+  //   }
+  // }
 };
 function userReducer(state = initialState, action) {
   switch (action.type) {
