@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FBShare from "../FBShare/FBshare";
 import classes from "./resultBanner.module.css";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -149,6 +150,7 @@ export default function ResultBanner(props) {
               <IconButton onClick={() => setReportDialogOpen(true)}>
                 <Report />
               </IconButton>
+         <FBShare name={props.name}/>
               <Dialog
                 open={reportDialogOpen}
                 onClose={() => setReportDialogOpen(false)}
