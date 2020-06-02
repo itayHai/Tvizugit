@@ -4,8 +4,10 @@ import classes from "./App.module.css";
 import Navbar from "../navbar/navbar";
 import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
-import LawyersStock from "../LawyersStock/LawyersStock";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LawyersStock from "../LawyersStock/LawyersStock";
+import { useSelector } from "react-redux";
+import ReportedClassActions from "../reportedClassActions.js/reportedClassActions";
 
 // Configure JSS
 
@@ -31,6 +33,8 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const loggedInUser = useSelector(state => state.user.loggedInUser)
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -38,8 +42,25 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
+            <Route path="/classActionsStock" component={ClassActionsStock} />
+              {
+            <Route path="/reportedClassActions">
+                (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin") ? (
+                  <ReportedClassActions />
+                  //<h1>חרא בפיתה!!!! כל מי שמדווח על תביעה מניאק</h1>
+                ) : (
+                    <Redirect
+                      to={{
+                        pathname: "/unauthorize",
+                      }}
+                    />
+                  )
+              }
+            </Route>
+            <Route path="/unauthorize">
+              <h1>אל תכנס לפה בחיים שלך!</h1>
+            </Route>
             <Route path="/lawyers" component={LawyersStock} />
-            <Route path="/classActionsStock/:all" component={ClassActionsStock} />
           </Switch>
         </div>
       </Router>

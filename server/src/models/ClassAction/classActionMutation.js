@@ -5,6 +5,7 @@ import {
   updateClassAction,
   deleteClassAction,
   reportClassAction,
+  cancelReportClassAction,
 } from "./classActionBL";
 
 const ClassActionMutation = new GraphQLObjectType({
@@ -32,6 +33,15 @@ const ClassActionMutation = new GraphQLObjectType({
       },
       resolve: (root, params) => {
         return reportClassAction(params);
+      },
+    },
+    cancelReportClassAction: {
+      type: ClassActionType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (root, params) => {
+        return cancelReportClassAction(params);
       },
     },
     deleteClassAction: {

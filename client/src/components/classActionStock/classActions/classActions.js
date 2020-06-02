@@ -29,9 +29,13 @@ const getClassActionsByParams = (params) => {
                 name
                 engName
               }
-              defendants
+              defendants{
+                name
+                type
+                theme
+              }
               messages {
-                id
+                _id
                 title
                 date
                 content
@@ -48,6 +52,8 @@ const getClassActionsByParams = (params) => {
                 name
               }
               openDate
+              reason
+              type
               successChances
               hashtags
             }
@@ -66,9 +72,13 @@ const getClassActionsByParams = (params) => {
                 name
                 engName
               }
-              defendants
+              defendants{
+                name
+                type
+                theme
+              }
               messages {
-                id
+                _id
                 title
                 date
                 content
@@ -86,6 +96,8 @@ const getClassActionsByParams = (params) => {
                 name
               }
               openDate
+              reason
+              type
               successChances
               hashtags
             }
