@@ -57,6 +57,9 @@ const Navbar = (props) => {
         {
           (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin") &&
           < Link to="/reportedClassActions" className="link" >
+          <Link to="/QuestionsAndAnswers" className="link">
+            <h3>שאלות ותשובות</h3>
+          </Link>
             <h3>ניהול תובענות מדווחות</h3>
           </Link>
         }

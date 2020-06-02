@@ -6,6 +6,7 @@ import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import LawyersStock from "../LawyersStock/LawyersStock";
+import QuestionsAndAnswers from '../questionsAndAnswers/questionsAndAnswers';
 import { useSelector } from "react-redux";
 import ReportedClassActions from "../reportedClassActions.js/reportedClassActions";
 
@@ -61,6 +62,7 @@ function App() {
               <h1>אל תכנס לפה בחיים שלך!</h1>
             </Route>
             <Route path="/lawyers" component={LawyersStock} />
+            <Route path="/QuestionsAndAnswers" component={QuestionsAndAnswers}/>
           </Switch>
         </div>
       </Router>
