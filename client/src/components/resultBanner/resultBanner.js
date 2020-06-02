@@ -253,7 +253,9 @@ export default function ResultBanner(props) {
                 </Dialog>
               </div>
             )}
-          <FBShare name={props.name} />
+
+{resultBannerType === resultTypes.CLASS_ACTION && (
+          <FBShare name={props.name} />)}
 
           <IconButton
             className={clsx(classes.expand, {

@@ -28,7 +28,6 @@ const ClassActionAutoData = (props) => {
 
   const inputChangedHandler = (event) => {
     setValue(event.target.value);
-    props.handleChangeInput(event,hashtags);
   };
 
   const allHashtags = hashtags.map((tag, index) => {
@@ -41,6 +40,8 @@ const ClassActionAutoData = (props) => {
       />
     );
   });
+
+  props.addHashtags(hashtags);
 
   return (
     <div>

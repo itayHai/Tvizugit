@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ShareIcon from "@material-ui/icons/Share";
 
 const FBshare = (props) => {
-  const myLink = "www.tvizugit.co.il/" + props.name.split(" ").join("_");
+  const myLink = "www.tvizugit.co.il/" + props.name?.split(" ").join("_");
   return (
     <ShareLink link={myLink}>
       {(link) => (

@@ -39,6 +39,7 @@ const CreateClassAction = props => {
                     handleChangeInput={handleChangeInput}
                     handleChangeAutoField={handleChangeAutoField}
                     classAction={classAction}
+                    addHashtags= {(hashtags)=>{classAction.hashtags = hashtags}}
                 />;
             default:
                 return 'שלב לא ידוע';
@@ -67,6 +68,9 @@ const CreateClassAction = props => {
         else
             classAction[event.target.id.split('-')[0]] = values;
     }
+
+
+
     const handleSave = () => {
         classAction.openDate = new Date();
         classAction.status = "תובענה חדשה בשוק חבר'ה!";
@@ -74,7 +78,7 @@ const CreateClassAction = props => {
         classAction.leadingUser = loggedInUser.id;
         classAction.category = classAction.category.id;
         classAction.defendants = classAction.defendants.filter(def => Object.keys(def).length !== 0)
-        classAction.hashtags = classAction.hashtags;
+        
         addClassAction({
             variables: {
                 classAction
