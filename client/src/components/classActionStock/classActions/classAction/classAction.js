@@ -4,10 +4,12 @@ import { propertiesToShow, resultTypes } from "../../../../utils/globalConsts";
 import ClassActionContent from "../classAction/classActionContent/classActionContent";
 import { useDispatch } from "react-redux";
 import { changeCurAction } from "../../../../store/classAction";
-import { dummyUser } from "../../../../utils/globalConsts";
+import { useSelector } from "react-redux";
 
 const ClassAction = (props) => {
   const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.user.loggedInUser);
+
   const handleOpenEditAction = () => {
     dispatch(changeCurAction(props.classAction));
   };
@@ -15,7 +17,7 @@ const ClassAction = (props) => {
   const selectedProperties = basicProperties.map((bProp) => {
     let content = props.classAction[bProp.engName];
     if (bProp.engName === "defendants") {
-      content = props.classAction[bProp.engName][0];
+      content = props.classAction[bProp.engName][0].name;
     }
     if (bProp.engName === "numberOfProsecutors") {
       const insideUsers = props.classAction["users"].filter(usr => {
@@ -44,8 +46,8 @@ const ClassAction = (props) => {
       entityId={props.classAction.id}
       selectedProperties={selectedProperties}
       handleOpenEditAction={() => handleOpenEditAction()}
-      editAuth={props.classAction.leadingUser.id === dummyUser.id}
-      showBookmark={flatennedUsers.find(usr => (usr.id === dummyUser.id && !usr.isWaiting))}
+      editAuth={props.classAction.leadingUser.id === loggedInUser.id}
+      showBookmark={flatennedUsers.find(usr => (usr.id === loggedInUser.id && !usr.isWaiting))}
     >
       <ClassActionContent cAction={props.classAction} />
     </ResultBanner>

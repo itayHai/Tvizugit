@@ -7,7 +7,21 @@ export const classActionSchema = new Schema({
   status: { type: String },
   defendants: [
     {
-      type: String,
+      name: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      type: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      theme: {
+        type: String,
+        trim: true,
+        required: true,
+      },
     },
   ],
   users: [
@@ -26,7 +40,7 @@ export const classActionSchema = new Schema({
   ],
   messages: [
     {
-      id: { type: Schema.Types.ObjectId },
+      _id: { type: Schema.Types.ObjectId },
       title: {
         type: String,
         trim: true,
@@ -46,6 +60,8 @@ export const classActionSchema = new Schema({
   ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
   representingLawyer: { type: String },
+  type: { type: String },
+  reason: { type: String },
   openDate: { type: Date },
   reported: { type: Boolean },
   reportMessage: { type: String },
