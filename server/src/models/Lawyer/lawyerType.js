@@ -35,10 +35,7 @@ const LawyerInputType = new GraphQLInputObjectType({
     phone: { type: new GraphQLNonNull(GraphQLString) },
     seniority: { type: new GraphQLNonNull(GraphQLString) },
     img: { type: new GraphQLNonNull(GraphQLString) },
-    classactions: {      
-      type: new GraphQLNonNull(
-      new GraphQLList(new GraphQLNonNull(ClassActionInputType))
-    ), },
+    classactions: { type: new GraphQLList(ClassActionInputType), },
   }),
 });
 
