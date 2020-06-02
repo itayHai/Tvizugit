@@ -26,6 +26,14 @@ function reportClassAction({ id, reportMessage }) {
     .populate("users.user");
 }
 
+function cancelReportClassAction({id}) {
+  return ClassActionModel.findOneAndUpdate({ _id: id }, { "reportMessage": "", reported: false }, { new: true })
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user");
+
+}
+
 function getClassAction({ id }) {
   return ClassActionModel.findOne({ _id: id })
     .populate("category")
@@ -36,6 +44,13 @@ function getClassAction({ id }) {
 function getClassActionsByUser({ userId, limit }) {
   return ClassActionModel.find({ "users.user": userId })
     .limit(limit)
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user");
+}
+
+function getReportedClassActions() {
+  return ClassActionModel.find({ "reported": true })
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
@@ -87,4 +102,6 @@ export {
   deleteClassAction,
   reportClassAction,
   getClassActionsByUser,
+  getReportedClassActions,
+  cancelReportClassAction,
 };

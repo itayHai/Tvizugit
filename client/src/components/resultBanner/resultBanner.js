@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import { Delete, ExpandMore, Edit, Report } from "@material-ui/icons";
+import { Delete, ExpandMore, Edit, Report, RemoveCircle } from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,23 +23,49 @@ import {
 } from "@material-ui/core";
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../utils/requests'
+import { resultTypes } from "../../utils/globalConsts";
 
 export default function ResultBanner(props) {
+  // Initialize state
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [cancelReportDialogOpen, setCancelReportDialogOpen] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
   const [reportMessage, setReportMessage] = useState('');
   const [expanded, setExpanded] = useState(false);
+
+  // Initialize mutations
+  const [reportClassAction] = useMutation(classActionsRequest.REPORT)
+  const [cancelReport] = useMutation(classActionsRequest.CANCEL_REPORT)
+
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
+  const resultBannerType = props.entityType;
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [reportClassAction] = useMutation(classActionsRequest.REPORT)
+
 
   const hadleDeleteClassAction = (entityId) => {
+    if (resultBannerType === resultTypes.REPORTED_CLASS_ACTION) {
+      props.cancelReport(entityId);
+    }
+
     dispatch(deleteClassAction(entityId));
     setDeleteDialogOpen(false);
   };
+
+  const hadleCancelReport = (classActionId) => {
+    cancelReport({
+      variables: {
+        id: classActionId
+      }
+    }).then(data => {
+      props.cancelReport(classActionId);
+      dispatch(updateClassAction(data.data.ClassActionMutation.reportClassAction))
+      dispatch(changeCurAction({}))
+    })
+    setCancelReportDialogOpen(false)
+  }
 
   const hadleReportClassAction = (entityId) => {
     reportClassAction({
@@ -48,7 +74,6 @@ export default function ResultBanner(props) {
         reportMessage: reportMessage
       }
     }).then((data) => {
-      debugger;
       dispatch(updateClassAction(data.data.ClassActionMutation.reportClassAction))
       dispatch(changeCurAction({}));
     })
@@ -73,89 +98,34 @@ export default function ResultBanner(props) {
           <div style={{ backgroundColor: "#009688", width: "10px" }} />}
         {combinedPropertiesToShow}
         <CardActions disableSpacing>
-          {props.editAuth &&
-            <IconButton onClick={() => props.handleOpenEditAction()}>
-              <Edit />
-            </IconButton>}
-          <IconButton onClick={() => setReportDialogOpen(true)}>
-            <Report />
-          </IconButton>
-          <Dialog
-            open={reportDialogOpen}
-            onClose={() => setReportDialogOpen(false)}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">
-              האם ברצונך לדווח על התביעה?
-                </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                דיווח על תביעה מגיע למנהלי המערכת שלנו ובהתאם לפירוט נבחן את טענתך ונטפל בהתאם
-                </DialogContentText>
-              <TextField
-                onChange={(event) => setReportMessage(event.target.value)}
-                autoFocus
-                margin="dense"
-                variant="outlined"
-                rows={4}
-                id="reportDesc"
-                label="פירוט הדיווח"
-                fullWidth
-                multiline
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={() => setReportDialogOpen(false)}
-                color="primary"
-              >
-                וואלה התחרטתי
-                  </Button>
-              <Button
-                onClick={() => hadleReportClassAction(props.entityId)}
-                color="primary"
-                autoFocus
-              >
-                כן
-                  </Button>
-            </DialogActions>
-          </Dialog>
-          {Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin" && (
+          {resultBannerType === resultTypes.REPORTED_CLASS_ACTION &&
             <div>
-              <IconButton
-                aria-label="delete"
-                onClick={
-                  () =>
-                    setDeleteDialogOpen(true) /* dispatch(deleteClassAction()*/
-                }
-              >
-                <Delete />
+              <IconButton onClick={() => setCancelReportDialogOpen(true)}>
+                <RemoveCircle />
               </IconButton>
               <Dialog
-                open={deleteDialogOpen}
-                onClose={() => setDeleteDialogOpen(false)}
+                open={cancelReportDialogOpen}
+                onClose={() => setCancelReportDialogOpen(false)}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
                 <DialogTitle id="alert-dialog-title">
-                  בוודאות בא לך למחוק? אין חרטות
+                  האם ברצונך לדחות את הדיווח?
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    לאחר אישור המחיקה התובענה תמחק ואף משתמש לא יוכל לצפות בה
-                    יותר.
+                    ביטול הדיווח ישאיר את התביעה במערכת ומהווה אישור שלא היה סיבה למחוק את התביעה לפי הדיווח שהתקבל
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                   <Button
-                    onClick={() => setDeleteDialogOpen(false)}
+                    onClick={() => setCancelReportDialogOpen(false)}
                     color="primary"
                   >
                     וואלה התחרטתי
                   </Button>
                   <Button
-                    onClick={() => hadleDeleteClassAction(props.entityId)}
+                    onClick={() => hadleCancelReport(props.entityId)}
                     color="primary"
                     autoFocus
                   >
@@ -164,7 +134,105 @@ export default function ResultBanner(props) {
                 </DialogActions>
               </Dialog>
             </div>
-          )}
+          }
+          {resultBannerType === resultTypes.CLASS_ACTION && props.editAuth &&
+            <IconButton onClick={() => props.handleOpenEditAction()}>
+              <Edit />
+            </IconButton>}
+          {resultBannerType === resultTypes.CLASS_ACTION &&
+            <div>
+              <IconButton onClick={() => setReportDialogOpen(true)}>
+                <Report />
+              </IconButton>
+              <Dialog
+                open={reportDialogOpen}
+                onClose={() => setReportDialogOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  האם ברצונך לדווח על התביעה?
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    דיווח על תביעה מגיע למנהלי המערכת שלנו ובהתאם לפירוט נבחן את טענתך ונטפל בהתאם
+                </DialogContentText>
+                  <TextField
+                    onChange={(event) => setReportMessage(event.target.value)}
+                    autoFocus
+                    margin="dense"
+                    variant="outlined"
+                    rows={4}
+                    id="reportDesc"
+                    label="פירוט הדיווח"
+                    fullWidth
+                    multiline
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => setReportDialogOpen(false)}
+                    color="primary"
+                  >
+                    וואלה התחרטתי
+                  </Button>
+                  <Button
+                    onClick={() => hadleReportClassAction(props.entityId)}
+                    color="primary"
+                    autoFocus
+                  >
+                    כן
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          }
+          {(resultBannerType === resultTypes.CLASS_ACTION || resultBannerType === resultTypes.REPORTED_CLASS_ACTION) &&
+            Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin" &&
+            (
+              <div>
+                <IconButton
+                  aria-label="delete"
+                  onClick={
+                    () =>
+                      setDeleteDialogOpen(true)
+                  }
+                >
+                  <Delete />
+                </IconButton>
+                <Dialog
+                  open={deleteDialogOpen}
+                  onClose={() => setDeleteDialogOpen(false)}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    בוודאות בא לך למחוק? אין חרטות
+                </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      לאחר אישור המחיקה התובענה תמחק ואף משתמש לא יוכל לצפות בה
+                      יותר.
+                  </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      onClick={() => setDeleteDialogOpen(false)}
+                      color="primary"
+                    >
+                      וואלה התחרטתי
+                  </Button>
+                    <Button
+                      onClick={() => hadleDeleteClassAction(props.entityId)}
+                      color="primary"
+                      autoFocus
+                    >
+                      כן
+                  </Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
+            )}
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
