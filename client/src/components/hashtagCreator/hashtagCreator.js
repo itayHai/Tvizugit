@@ -1,4 +1,3 @@
-
 const wordsToIgnore = [
   "אני",
   "אז",
@@ -52,6 +51,7 @@ const wordsToIgnore = [
   "אף",
   "היתה",
   "סתם",
+  "ואני",
 ];
 
 function createWordMap(wordsArray) {
@@ -78,13 +78,17 @@ function sortByCount(wordsMap) {
     return b.total - a.total;
   });
   return finalWordsArray;
-} 
+}
 
 function removeCommonWords(wordsArray) {
   var finalWordsArray = [];
   finalWordsArray = wordsArray.filter((word) => !wordsToIgnore.includes(word));
 
   return finalWordsArray;
+}
+
+function removeDoubleValues(hashtagsArray) {
+  return [...new Set(hashtagsArray)];
 }
 
 export function getHashtags(name, description, defendants) {
@@ -100,10 +104,10 @@ export function getHashtags(name, description, defendants) {
   hashtags = sortedWordsArray.map((word) => word.name);
   hashtags = hashtags.slice(0, 10);
   hashtags.push(...namesArray);
-  defendants = defendants.filter(value => Object.keys(value).length !== 0);
+  defendants = defendants.filter((value) => Object.keys(value).length !== 0);
   defendants.map((defendant) => {
     hashtags.push(defendant.name);
   });
-
+  hashtags = removeDoubleValues(hashtags);
   return hashtags;
 }
