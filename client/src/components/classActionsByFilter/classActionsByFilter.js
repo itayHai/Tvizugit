@@ -71,8 +71,8 @@ function ClassActionsByFilter({ filter, limit }) {
     return <Spinner />
   }
 
-  const { classActions } = data?.ClassActionQueries
-  const ClassActionCards = classActions?.map((classAction) => {
+  const { classActions } = data.ClassActionQueries
+  const ClassActionCards = classActions.map((classAction) => {
     return <ClassActionCard key={classAction.id} classAction={classAction} />;
   });
 
