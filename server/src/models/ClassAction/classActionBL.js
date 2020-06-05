@@ -20,18 +20,25 @@ function updateClassAction(id, classActionToAdd) {
 }
 
 function reportClassAction({ id, reportMessage }) {
-  return ClassActionModel.findOneAndUpdate({ _id: id }, { "reportMessage": reportMessage, reported: true }, { new: true })
+  return ClassActionModel.findOneAndUpdate(
+    { _id: id },
+    { reportMessage: reportMessage, reported: true },
+    { new: true }
+  )
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
 }
 
-function cancelReportClassAction({id}) {
-  return ClassActionModel.findOneAndUpdate({ _id: id }, { "reportMessage": "", reported: false }, { new: true })
+function cancelReportClassAction({ id }) {
+  return ClassActionModel.findOneAndUpdate(
+    { _id: id },
+    { reportMessage: "", reported: false },
+    { new: true }
+  )
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
-
 }
 
 function getClassAction({ id }) {
@@ -50,22 +57,23 @@ function getClassActionsByUser({ userId, limit }) {
 }
 
 function getReportedClassActions() {
-  return ClassActionModel.find({ "reported": true })
+  return ClassActionModel.find({ reported: true })
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
 }
 
-function getClassActions() {
+function getClassActions(limit) {
   return ClassActionModel.find({})
+    .limit(limit)
     .populate("category")
     .populate("leadingUser")
     .populate("users.user");
 }
 
-function getClassActionsByParams({ name, hashtags, categories }) {
+function getClassActionsByParams({ name, hashtags, categories, limit }) {
   if (!(name && hashtags && categories)) {
-    return getClassActions();
+    return getClassActions(limit);
   }
   let categoriesQuery = {};
   let hashtagsQuery = {};
@@ -82,11 +90,7 @@ function getClassActionsByParams({ name, hashtags, categories }) {
   }
 
   return ClassActionModel.find({
-    $and: [
-      nameQuery,
-      categoriesQuery,
-      hashtagsQuery
-    ]
+    $and: [nameQuery, categoriesQuery, hashtagsQuery],
   })
     .populate("category")
     .populate("leadingUser")

@@ -24,7 +24,7 @@ export default function HomePage() {
       }
       <article className={classes.article}>
         <p className={classes.classActionTitle}>התובענות הבולטות ביותר</p>
-        <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} size={4} />
+        <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} limit={6}/>
         <p className={classes.classActionTitle}>קטגוריות התובענות</p>
         <CategoriesCards homePage={true}/>
       </article>
