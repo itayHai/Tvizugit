@@ -52,6 +52,7 @@ const wordsToIgnore = [
   "היתה",
   "סתם",
   "ואני",
+  ""
 ];
 
 function createWordMap(wordsArray) {
