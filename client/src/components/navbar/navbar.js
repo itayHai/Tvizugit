@@ -7,7 +7,7 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import ManageLogin from "../login/manageLogin";
 import Modal from "../modal/modal";
-import { setMode, changeLoggedInUser, RefreshUserByEmail } from '../../store/user';
+import { setMode, changeLoggedInUser, LoginUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import CustomerIcon from '../../images/icons/customer_icon.png';
@@ -15,17 +15,17 @@ import LogoutIcon from '../../images/icons/logout.png';
 import './navbar.css';
 
 const Navbar = (props) => {
+  const loggedInUser = useSelector(state => state.user.loggedInUser)
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const localEmail = localStorage.getItem('localEmail');
-
-  console.log(localEmail);
-
-  if (localEmail !== ""){
-    dispatch(RefreshUserByEmail(localEmail))
+  const localUser = {
+    email: localStorage.getItem('localEmail'),
+    password: localStorage.getItem('localPassword')
   }
 
-  const loggedInUser = useSelector(state => state.user.loggedInUser)
+  if (localUser.email !== "" && localUser.password !== ""){
+    dispatch(LoginUser(localUser))
+  }
 
   const handleOpen = () => {
     setOpen(true);
