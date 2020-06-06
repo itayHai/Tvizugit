@@ -48,6 +48,7 @@ const ClassAction = (props) => {
       handleOpenEditAction={() => handleOpenEditAction()}
       editAuth={props.classAction.leadingUser.id === loggedInUser.id}
       showBookmark={flatennedUsers.find(usr => (usr.id === loggedInUser.id && !usr.isWaiting))}
+      name={props.classAction.name}
     >
       <ClassActionContent cAction={props.classAction} />
     </ResultBanner>

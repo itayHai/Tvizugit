@@ -63,7 +63,7 @@ const Navbar = (props) => {
         <Link to="/classActionsStock/" className="link" onClick={() => dispatch(changeFilter())}>
           <h3>מאגר התביעות</h3>
         </Link>
-        <Link to="/lawyers" className="link" >
+        <Link to="/lawyers" className="link" onClick={() => dispatch(changeFilter())}>
           <h3>מאגר עורכי הדין</h3>
         </Link>
         {
@@ -72,6 +72,9 @@ const Navbar = (props) => {
             <h3>ניהול תובענות מדווחות</h3>
           </Link>
         }
+         <Link to="/QuestionsAndAnswers" className="link">
+            <h3>שאלות ותשובות</h3>
+          </Link>
       <div className="login">
         {show}
       </div>

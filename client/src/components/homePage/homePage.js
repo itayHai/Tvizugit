@@ -6,11 +6,16 @@ import ViewerHomePage from "./viewerHomePage/viewerHomePage"
 import { useSelector } from "react-redux";
 import PlaintiffHomePage from "./plaintiffHomePage/plaintiffHomePage";
 import { classActionsFilters } from "../../utils/globalConsts"
+import {ErrorBoundary} from 'react-error-boundary'
+import ErrorPage from '../errorPage/errorPage';
+
 
 export default function HomePage() {
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
   return (
     <div>
+      <ErrorBoundary FallbackComponent={ErrorPage}>
+
       {(Object.keys(loggedInUser).length === 0) &&
         <ViewerHomePage />}
       {
@@ -19,10 +24,11 @@ export default function HomePage() {
       }
       <article className={classes.article}>
         <p className={classes.classActionTitle}>התובענות הבולטות ביותר</p>
-        <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} size={4} />
+        <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} limit={6}/>
         <p className={classes.classActionTitle}>קטגוריות התובענות</p>
         <CategoriesCards homePage={true}/>
       </article>
+      </ErrorBoundary>
     </div>
   );
 }

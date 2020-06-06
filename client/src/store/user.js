@@ -83,8 +83,7 @@ const initialState = {
     email: "",
     password: "",
   },
-
-  loggedInUser: {}
+ loggedInUser: { }
 };
 function userReducer(state = initialState, action) {
   switch (action.type) {

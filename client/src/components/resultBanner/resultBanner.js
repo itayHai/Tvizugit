@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FBShare from "../FBShare/FBshare";
 import classes from "./resultBanner.module.css";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -7,11 +8,21 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import { Delete, ExpandMore, Edit, Report, RemoveCircle } from "@material-ui/icons";
+import {
+  Delete,
+  ExpandMore,
+  Edit,
+  Report,
+  RemoveCircle,
+} from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteClassAction, updateClassAction, changeCurAction } from "../../store/classAction";
+import {
+  deleteClassAction,
+  updateClassAction,
+  changeCurAction,
+} from "../../store/classAction";
 import {
   Dialog,
   DialogTitle,
@@ -21,9 +32,9 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from "@material-ui/core/Avatar";
 import { useMutation } from "@apollo/react-hooks";
-import { classActionsRequest } from '../../utils/requests'
+import { classActionsRequest } from "../../utils/requests";
 import { resultTypes } from "../../utils/globalConsts";
 
 export default function ResultBanner(props) {
@@ -31,12 +42,12 @@ export default function ResultBanner(props) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [cancelReportDialogOpen, setCancelReportDialogOpen] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
-  const [reportMessage, setReportMessage] = useState('');
+  const [reportMessage, setReportMessage] = useState("");
   const [expanded, setExpanded] = useState(false);
 
   // Initialize mutations
-  const [reportClassAction] = useMutation(classActionsRequest.REPORT)
-  const [cancelReport] = useMutation(classActionsRequest.CANCEL_REPORT)
+  const [reportClassAction] = useMutation(classActionsRequest.REPORT);
+  const [cancelReport] = useMutation(classActionsRequest.CANCEL_REPORT);
 
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
@@ -44,7 +55,6 @@ export default function ResultBanner(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
 
   const hadleDeleteClassAction = (entityId) => {
     if (resultBannerType === resultTypes.REPORTED_CLASS_ACTION) {
@@ -58,26 +68,30 @@ export default function ResultBanner(props) {
   const hadleCancelReport = (classActionId) => {
     cancelReport({
       variables: {
-        id: classActionId
-      }
-    }).then(data => {
+        id: classActionId,
+      },
+    }).then((data) => {
       props.cancelReport(classActionId);
-      dispatch(updateClassAction(data.data.ClassActionMutation.reportClassAction))
-      dispatch(changeCurAction({}))
-    })
-    setCancelReportDialogOpen(false)
-  }
+      dispatch(
+        updateClassAction(data.data.ClassActionMutation.reportClassAction)
+      );
+      dispatch(changeCurAction({}));
+    });
+    setCancelReportDialogOpen(false);
+  };
 
   const hadleReportClassAction = (entityId) => {
     reportClassAction({
       variables: {
         id: entityId,
-        reportMessage: reportMessage
-      }
+        reportMessage: reportMessage,
+      },
     }).then((data) => {
-      dispatch(updateClassAction(data.data.ClassActionMutation.reportClassAction))
+      dispatch(
+        updateClassAction(data.data.ClassActionMutation.reportClassAction)
+      );
       dispatch(changeCurAction({}));
-    })
+    });
     setReportDialogOpen(false);
   };
 
@@ -98,12 +112,12 @@ export default function ResultBanner(props) {
         {props.showBookmark ? (
           <div style={{ backgroundColor: "#009688", width: "10px" }} />
         ) : null}
-        {props.imgUrl ? 
-          (<Avatar className={classes.img} src={props.imgUrl}></Avatar>) 
-          : null}
+        {props.imgUrl ? (
+          <Avatar className={classes.img} src={props.imgUrl}></Avatar>
+        ) : null}
         {combinedPropertiesToShow}
         <CardActions disableSpacing>
-          {resultBannerType === resultTypes.REPORTED_CLASS_ACTION &&
+          {resultBannerType === resultTypes.REPORTED_CLASS_ACTION && (
             <div>
               <IconButton onClick={() => setCancelReportDialogOpen(true)}>
                 <RemoveCircle />
@@ -119,7 +133,8 @@ export default function ResultBanner(props) {
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    ביטול הדיווח ישאיר את התביעה במערכת ומהווה אישור שלא היה סיבה למחוק את התביעה לפי הדיווח שהתקבל
+                    ביטול הדיווח ישאיר את התביעה במערכת ומהווה אישור שלא היה
+                    סיבה למחוק את התביעה לפי הדיווח שהתקבל
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -139,12 +154,13 @@ export default function ResultBanner(props) {
                 </DialogActions>
               </Dialog>
             </div>
-          }
-          {resultBannerType === resultTypes.CLASS_ACTION && props.editAuth &&
+          )}
+          {resultBannerType === resultTypes.CLASS_ACTION && props.editAuth && (
             <IconButton onClick={() => props.handleOpenEditAction()}>
               <Edit />
-            </IconButton>}
-          {resultBannerType === resultTypes.CLASS_ACTION &&
+            </IconButton>
+          )}
+          {resultBannerType === resultTypes.CLASS_ACTION && (
             <div>
               <IconButton onClick={() => setReportDialogOpen(true)}>
                 <Report />
@@ -160,8 +176,9 @@ export default function ResultBanner(props) {
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    דיווח על תביעה מגיע למנהלי המערכת שלנו ובהתאם לפירוט נבחן את טענתך ונטפל בהתאם
-                </DialogContentText>
+                    דיווח על תביעה מגיע למנהלי המערכת שלנו ובהתאם לפירוט נבחן את
+                    טענתך ונטפל בהתאם
+                  </DialogContentText>
                   <TextField
                     onChange={(event) => setReportMessage(event.target.value)}
                     autoFocus
@@ -191,17 +208,15 @@ export default function ResultBanner(props) {
                 </DialogActions>
               </Dialog>
             </div>
-          }
-          {(resultBannerType === resultTypes.CLASS_ACTION || resultBannerType === resultTypes.REPORTED_CLASS_ACTION) &&
-            Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin" &&
-            (
+          )}
+          {(resultBannerType === resultTypes.CLASS_ACTION ||
+            resultBannerType === resultTypes.REPORTED_CLASS_ACTION) &&
+            Object.keys(loggedInUser).length !== 0 &&
+            loggedInUser.role.engName === "admin" && (
               <div>
                 <IconButton
                   aria-label="delete"
-                  onClick={
-                    () =>
-                      setDeleteDialogOpen(true)
-                  }
+                  onClick={() => setDeleteDialogOpen(true)}
                 >
                   <Delete />
                 </IconButton>
@@ -213,12 +228,12 @@ export default function ResultBanner(props) {
                 >
                   <DialogTitle id="alert-dialog-title">
                     בוודאות בא לך למחוק? אין חרטות
-                </DialogTitle>
+                  </DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                       לאחר אישור המחיקה התובענה תמחק ואף משתמש לא יוכל לצפות בה
                       יותר.
-                  </DialogContentText>
+                    </DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button
@@ -226,18 +241,22 @@ export default function ResultBanner(props) {
                       color="primary"
                     >
                       וואלה התחרטתי
-                  </Button>
+                    </Button>
                     <Button
                       onClick={() => hadleDeleteClassAction(props.entityId)}
                       color="primary"
                       autoFocus
                     >
                       כן
-                  </Button>
+                    </Button>
                   </DialogActions>
                 </Dialog>
               </div>
             )}
+
+{resultBannerType === resultTypes.CLASS_ACTION && (
+          <FBShare name={props.name} />)}
+
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,

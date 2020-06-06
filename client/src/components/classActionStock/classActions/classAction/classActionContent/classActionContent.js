@@ -8,6 +8,8 @@ import { updateMessagesAction } from '../../../../../store/classAction';
 import DateHandler from '../../../../../utils/dateHandler';
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../../../../utils/requests';
+import Chip from "@material-ui/core/Chip";
+
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
@@ -89,19 +91,19 @@ const ClassActionContent = props => {
     const showJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id) ? null : <JoinAction classAction={props.cAction} />
     const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע משרד מייצג';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
-        return <div className={classes.tag} key={index}>
-            {"#" + tag}
-        </div>
+        return <Chip label= {"#" + tag} key={index} className={classes.tag}/>
     })
 
     return (
         <div>
             <div className={classes.allHashtags}>
                 <h2 className={classes.title}>תיאור תובענה:</h2>
-                {allHashtags}
             </div>
+
             {props.cAction.description}
             <br></br>
+            <div>{allHashtags}</div>
+
             <h3>נתבעים: </h3>
             {defendantsNames}
             <div className={classes.joinButton}>

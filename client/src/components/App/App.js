@@ -4,10 +4,16 @@ import classes from "./App.module.css";
 import Navbar from "../navbar/navbar";
 import HomePage from "../homePage/homePage";
 import ClassActionsStock from "../classActionStock/classActionsStock";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import LawyersStock from "../LawyersStock/LawyersStock";
 import { useSelector } from "react-redux";
 import ReportedClassActions from "../reportedClassActions.js/reportedClassActions";
+import QuestionsAndAnswers from '../questionsAndAnswers/questionsAndAnswers';
 
 // Configure JSS
 
@@ -33,7 +39,7 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const loggedInUser = useSelector(state => state.user.loggedInUser)
+  const loggedInUser = useSelector((state) => state.user.loggedInUser);
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,21 +47,24 @@ function App() {
         <div className={classes.App}>
           <Navbar />
           <Switch>
+            <Route
+              path="/QuestionsAndAnswers"
+              component={QuestionsAndAnswers}
+            />
             <Route exact path="/" component={HomePage}></Route>
-            <Route path="/classActionsStock" component={ClassActionsStock} />              
+            <Route path="/classActionsStock" component={ClassActionsStock} />
             <Route path="/reportedClassActions">
-              {
-                (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin") ? (
-                  <ReportedClassActions />
-                  //<h1>חרא בפיתה!!!! כל מי שמדווח על תביעה מניאק</h1>
-                ) : (
-                    <Redirect
-                      to={{
-                        pathname: "/unauthorize",
-                      }}
-                    />
-                  )
-              }
+              {Object.keys(loggedInUser).length !== 0 &&
+              loggedInUser.role.engName === "admin" ? (
+                <ReportedClassActions />
+              ) : (
+                //<h1>חרא בפיתה!!!! כל מי שמדווח על תביעה מניאק</h1>
+                <Redirect
+                  to={{
+                    pathname: "/unauthorize",
+                  }}
+                />
+              )}
             </Route>
             <Route path="/unauthorize">
               <h1>אל תכנס לפה בחיים שלך!</h1>
