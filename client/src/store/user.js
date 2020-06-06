@@ -5,6 +5,42 @@ export const CHANGE_REGISTER_USER = "CHANGE_REGISTER_USER";
 export const CHANGE_LOGGED_USER = "CHANGE_LOGGED_USER";
 export const SET_MODE = "SET_MODE";
 
+export function RefreshUserByEmail(user) {
+  const GET_USER_BY_EMAIL = gql`
+  query($email:String!){
+    UserQueries{
+      user(email:$email){
+        id
+        name
+        displayName
+        email
+        password
+        role {
+          id
+          name
+          engName
+        }
+      }
+    }
+  }
+`;
+
+  return (dispatch) => {
+    client
+      .query({
+        query: GET_USER_BY_EMAIL,
+        variables: { email: user.email },
+      })
+      .then((result) =>{
+        if (result.data.UserQueries.user) {
+        dispatch({
+            type: CHANGE_LOGGED_USER,
+            user: result.data.UserQueries.user,          
+        })}}
+      );
+  };
+}
+
 export function LoginUser(user) {
   const GET_USER_BY_EMAIL_PASSWORD = gql`
   query ($email: String!, $password: String!) {
@@ -93,6 +129,7 @@ function userReducer(state = initialState, action) {
       }
     }
     case CHANGE_LOGGED_USER: {
+      localStorage.setItem('localEmail', action.user.email);
       return {
         ...state,
         loggedInUser: action.user,

@@ -7,16 +7,25 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import ManageLogin from "../login/manageLogin";
 import Modal from "../modal/modal";
-import { setMode } from '../../store/user';
+import { setMode, changeLoggedInUser, RefreshUserByEmail } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import CustomerIcon from '../../images/icons/customer_icon.png';
+import LogoutIcon from '../../images/icons/logout.png';
 import './navbar.css';
 
 const Navbar = (props) => {
-  const loggedInUser = useSelector(state => state.user.loggedInUser)
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const localEmail = localStorage.getItem('localEmail');
+
+  console.log(localEmail);
+
+  if (localEmail !== ""){
+    dispatch(RefreshUserByEmail(localEmail))
+  }
+
+  const loggedInUser = useSelector(state => state.user.loggedInUser)
 
   const handleOpen = () => {
     setOpen(true);
@@ -27,10 +36,18 @@ const Navbar = (props) => {
     setOpen(false);
   };
 
+  const logout = () => {
+    dispatch(changeLoggedInUser({}))
+    localStorage.setItem('localEmail', '');
+  }
+
   const show = Object.keys(loggedInUser).length !== 0 ? 
   <div>
     <img className="Icon" src={CustomerIcon} alt="Customer"/>
-    <label> { loggedInUser.displayName } </label>
+    <label> 
+      { loggedInUser.displayName } 
+      <img onClick={logout} className="Icon" src={LogoutIcon} alt="Logout"/>
+    </label>
   </div> :
   <Button onClick={handleOpen} 
           className="login"
