@@ -9,9 +9,9 @@ import { classActionsFilters } from "../../utils/globalConsts"
 
 const getClassActionByUser = () => {
   return gql`
-  query getClassActionByUser ($userId:String) {
+  query getClassActionByUser ($userId:String,$limit:Int) {
     ClassActionQueries {
-      classActions (userId:$userId) {
+      classActions (userId:$userId,limit:$limit) {
         id
         name
         description

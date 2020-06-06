@@ -19,12 +19,15 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-error-boundary": "^2.2.1",
+    "react-facebook-share-link": "^1.0.4",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-widgets": "^4.5.0",
     "react-widgets-simple-number": "^4.1.16",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "use-error-boundary": "^1.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -49,7 +52,6 @@
   },
   "devDependencies": {
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
-    "eslint-plugin-react-hooks": "^3.0.0"
     "eslint-plugin-react-hooks": "^3.0.0",
     "redux-thunk": "^2.3.0"
   }
