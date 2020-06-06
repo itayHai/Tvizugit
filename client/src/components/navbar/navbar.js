@@ -14,7 +14,6 @@ import CustomerIcon from '../../images/icons/customer_icon.png';
 import LogoutIcon from '../../images/icons/logout.png';
 import './navbar.css';
 import { changeFilter } from "../../store/classAction";
-import { Refresh } from "@material-ui/icons";
 
 const Navbar = (props) => {
   const loggedInUser = useSelector(state => state.user.loggedInUser)
