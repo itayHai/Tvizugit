@@ -7,17 +7,27 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import ManageLogin from "../login/manageLogin";
 import Modal from "../modal/modal";
-import { setMode } from '../../store/user';
+import { setMode, changeLoggedInUser, LoginUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import CustomerIcon from '../../images/icons/customer_icon.png';
+import LogoutIcon from '../../images/icons/logout.png';
 import './navbar.css';
 import { changeFilter } from "../../store/classAction";
+import { Refresh } from "@material-ui/icons";
 
 const Navbar = (props) => {
   const loggedInUser = useSelector(state => state.user.loggedInUser)
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const localUser = {
+    email: localStorage.getItem('localEmail'),
+    password: localStorage.getItem('localPassword')
+  }
+
+  if ( !localUser.email !== 'undefined' && localUser.password !== 'undefined' ){
+    dispatch(LoginUser(localUser))
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -28,15 +38,18 @@ const Navbar = (props) => {
     setOpen(false);
   };
 
+  const logout = () => {
+    dispatch(changeLoggedInUser({}));
+  };
+
   const show = Object.keys(loggedInUser).length !== 0 ?
     <div>
       <img className="Icon" src={CustomerIcon} alt="Customer" />
-      <label> {loggedInUser.displayName} </label>
+      <label> {loggedInUser.displayName} <img onClick={logout} className="Icon" src={LogoutIcon} alt="Logout" /></label>
     </div> :
     <Button onClick={handleOpen}
       className="login"
       variant="contained"> <PersonIcon /> כניסה  </Button>;
-
 
   return (
     <AppBar position="static">

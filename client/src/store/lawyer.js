@@ -13,7 +13,7 @@ const initialState = {
     id: "",
     name: "",
     description: "" ,
-    expertise: "",
+    expertise: {},
     email: "",
     address: "",
     phone: "",
