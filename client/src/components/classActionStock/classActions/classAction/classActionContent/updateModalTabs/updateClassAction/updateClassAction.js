@@ -1,19 +1,18 @@
 import React from 'react';
 import classes from './updateClassAction.module.css';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TextField from '@material-ui/core/TextField';
+import {TextareaAutosize,TextField} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useQuery } from "@apollo/react-hooks";
-import { categoriesRequest } from '../../../../../../../utils/requests';
+import { categoriesRequest, lawyersRequests } from '../../../../../../../utils/requests';
 import Spinner from '../../../../../../spinner/spinner';
-import { statuses, lawyerOffices } from '../../../../../../../utils/globalConsts';
-import { classActionReasons, classActionTypes } from '../../../../../../../utils/globalConsts';
+import { statuses,classActionReasons, classActionTypes } from '../../../../../../../utils/globalConsts';
 
 const UpdateClassAction = props => {
+    const { data: dataL, error: errorL, loading: landingL } = useQuery(lawyersRequests.getAllLawyers);
     const { loading, error, data } = useQuery(categoriesRequest.getAll);
-    if (loading) return <Spinner />;
-    if (error) console.log(error);
 
+    if (landingL || loading) return <Spinner />;
+    if (errorL || error) console.log(errorL);
     return (
         <div
             style={{ minWidth: "500px", maxWidth: "500px", minHeight: "500px", maxHeight: "500px" }}
@@ -24,10 +23,14 @@ const UpdateClassAction = props => {
             >
                 <TextField className={classes.ManagerAction} label="שם התובענה" defaultValue={props.classAction.name} name="name" onChange={(event) => props.handleChange(event)}></TextField>
                 <Autocomplete
-                    options={lawyerOffices}
+                    options={dataL.LawyerQueries.lawyers}
                     className={classes.ManagerAction}
-                    defaultValue={props.classAction.lawyer}
-                    id="lawyer"
+                    defaultValue={props.classAction.representingLawyer}
+                    getOptionSelected={(option, value) => {
+                        return option.id === value.id
+                    }}
+                    getOptionLabel={(law) => law.name}
+                    id="representingLawyer"
                     autoComplete
                     onChange={(event, values) => props.handleChangeAutoField(event, values)}
                     includeInputInList

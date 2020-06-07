@@ -59,7 +59,7 @@ export const classActionSchema = new Schema({
     },
   ],
   leadingUser: { type: Schema.Types.ObjectId, ref: "user", required: true },
-  representingLawyer: { type: String },
+  representingLawyer: { type: Schema.Types.ObjectId, ref: "lawyer", required: true },
   type: { type: String },
   reason: { type: String },
   openDate: { type: Date },

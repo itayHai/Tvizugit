@@ -39,7 +39,6 @@ const ClassAction = (props) => {
     }
   });
 
-  
   return (
     <ResultBanner
       entityType={resultTypes.CLASS_ACTION}

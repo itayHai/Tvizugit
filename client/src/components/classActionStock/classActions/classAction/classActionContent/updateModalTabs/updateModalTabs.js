@@ -18,7 +18,24 @@ function a11yProps(index) {
         'aria-controls': `nav-tabpanel-${index}`,
     };
 }
-
+function buildClassAction(classAction) {
+    let classActionToAdd = {
+        defendants: classAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
+        users: classAction.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
+        hashtags: classAction.hashtags,
+        name: classAction.name,
+        description: classAction.description,
+        category: classAction.category.id,
+        status: classAction.status,
+        reason: classAction.reason,
+        type: classAction.type,
+        leadingUser: classAction.leadingUser.id,
+    };
+    if (classAction.representingLawyer) {
+        classActionToAdd.representingLawyer = classAction.representingLawyer.id;
+    }
+    return classActionToAdd;
+}
 export default function UpdateModalTabs(props) {
     const [tab, setTab] = React.useState(0);
     const stateClassAction = useSelector(state => state.classAction.currClassAction);
@@ -53,25 +70,15 @@ export default function UpdateModalTabs(props) {
         classAction.users = classAction.users.filter(usr => {
             return !classAction.insideUsers?.includes(usr);
         });
+        const classActionToSend = buildClassAction(classAction);
         updateClassActionServer({
             variables:
             {
-                classAction:
-                {
-                    defendants: classAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
-                    users: classAction.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
-                    hashtags: classAction.hashtags,
-                    name: classAction.name,
-                    description: classAction.description,
-                    category: classAction.category.id,
-                    status: classAction.status,
-                    reason: classAction.reason,
-                    type: classAction.type,
-                    leadingUser: classAction.leadingUser.id,
-                },
+                classAction: classActionToSend,
                 id: classAction.id
             }
         }).then(data => {
+            console.log(data.data.ClassActionMutation.classAction);
             dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
             props.close();
         })

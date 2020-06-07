@@ -35,6 +35,10 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         id
         name
       }
+      representingLawyer{
+        id
+        name
+      }
       openDate
       reason
       type
@@ -124,6 +128,10 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
       }
       status
       leadingUser {
+        id
+        name
+      }
+      representingLawyer{
         id
         name
       }
