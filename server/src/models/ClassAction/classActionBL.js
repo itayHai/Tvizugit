@@ -22,31 +22,31 @@ function updateClassAction(id, classActionToAdd) {
       .populate("users.user")
       .populate("representingLawyer")
       .then(classAction => {
-        addClassActionToLawyer(classActionToAdd.representingLawyer, classAction.id);
-        if (classAction.representingLawyer) {
-          deleteClassActionToLawyer(classAction.representingLawyer._id, classAction.id);
+        if (classAction) {
+          addClassActionToLawyer(classActionToAdd.representingLawyer, classAction.id);
+          if (classAction.representingLawyer) {
+            deleteClassActionToLawyer(classAction.representingLawyer._id, classAction.id);
+          }
+          return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
+            new: true,
+          })
+            .populate("category")
+            .populate("leadingUser")
+            .populate("users.user")
+            .populate("representingLawyer");
         }
-        return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
-          new: true,
-        })
-          .populate("category")
-          .populate("leadingUser")
-          .populate("users.user")
-          .populate("representingLawyer");
       })
       .catch(err => {
         console.log(err)
       });
-  // } else {
-    }
-    return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
-      new: true,
-    })
-      .populate("category")
-      .populate("leadingUser")
-      .populate("users.user")
-      .populate("representingLawyer");
-  // }
+  }
+  return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
+    new: true,
+  })
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user")
+    .populate("representingLawyer");
 }
 
 function reportClassAction({ id, reportMessage }) {

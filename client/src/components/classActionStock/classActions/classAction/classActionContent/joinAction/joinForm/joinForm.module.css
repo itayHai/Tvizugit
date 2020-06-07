@@ -19,3 +19,8 @@
     font-family: "Segoe UI";
     font-size: large;
   }
+  .gotItButton {
+    float: left;
+    background-color: #009688 !important;
+    color: white !important;
+  }

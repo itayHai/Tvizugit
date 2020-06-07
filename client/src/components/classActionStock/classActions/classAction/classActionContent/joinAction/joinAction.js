@@ -25,7 +25,7 @@ const JoinAction = (props) => {
                  הצטרף לתובענה
         </Button>
             <Modal show={open} onClose={handleClose}>
-                <JoinForm classAction={props.classAction}/>
+                <JoinForm classAction={props.classAction} close={handleClose}/>
             </Modal>
         </div>
     );

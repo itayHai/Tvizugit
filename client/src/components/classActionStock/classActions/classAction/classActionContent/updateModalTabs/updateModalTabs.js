@@ -71,6 +71,7 @@ export default function UpdateModalTabs(props) {
             return !classAction.insideUsers?.includes(usr);
         });
         const classActionToSend = buildClassAction(classAction);
+        console.log(classActionToSend);
         updateClassActionServer({
             variables:
             {
@@ -78,7 +79,6 @@ export default function UpdateModalTabs(props) {
                 id: classAction.id
             }
         }).then(data => {
-            console.log(data.data.ClassActionMutation.classAction);
             dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
             props.close();
         })
