@@ -71,7 +71,6 @@ export default function UpdateModalTabs(props) {
             return !classAction.insideUsers?.includes(usr);
         });
         const classActionToSend = buildClassAction(classAction);
-        console.log(classActionToSend);
         updateClassActionServer({
             variables:
             {

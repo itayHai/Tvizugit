@@ -9,6 +9,7 @@ const ClassActionDefendants = props => {
                 handleChangeAutoField={props.handleChangeAutoField}
                 defendantNumber = {index}
                 defendant={def}
+                showMandatory={props.showMandatory}
                 key={"def" + index}
             />
         )

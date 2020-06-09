@@ -19,6 +19,7 @@ const classActionDefendant = props => {
                 defaultValue={props.defendant.name}
                 className={classes.defendant}
                 fullWidth={true}
+                error = {props.defendantNumber === 0 ? (props.showMandatory && !props.defendant.name) : false}
                 onChange={(event,value) => handleChange(event,value)}
             />
             <Autocomplete
@@ -28,7 +29,7 @@ const classActionDefendant = props => {
                 defaultValue={props.defendant.type}
                 autoComplete
                 onChange={(event, values) => handleChangeAuto(event, values)}
-                renderInput={(params) => <TextField {...params} placeholder="סוג נאשם" fullWidth={true} />}
+                renderInput={(params) => <TextField {...params} error={props.defendantNumber === 0 ? (props.showMandatory && !props.defendant.type) : false}  placeholder="סוג נאשם" fullWidth={true} />}
             />
             <Autocomplete
                 options={defendantThemes}
@@ -37,7 +38,7 @@ const classActionDefendant = props => {
                 defaultValue={props.defendant.theme}
                 autoComplete
                 onChange={(event, values) => handleChangeAuto(event, values)}
-                renderInput={(params) => <TextField {...params} placeholder="עולם תוכן" fullWidth={true} />}
+                renderInput={(params) => <TextField {...params} error={props.defendantNumber === 0 ? (props.showMandatory && !props.defendant.theme) : false} placeholder="עולם תוכן" fullWidth={true} />}
             />
         </div>
     );
