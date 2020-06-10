@@ -48,7 +48,7 @@ const CreateClassAction = props => {
             case 1:
                 return <ClassActionDefendants
                     handleChangeInput={handleChangeInput}
-                    handleChangeAutoField={handleChangeAutoField}
+                    handleChangeDefField={handleChangeDefField}
                     showMandatory={showMandatory}
                     defendants={classAction.defendants}
                 />;
@@ -70,10 +70,19 @@ const CreateClassAction = props => {
                     return true;
                 }
             }
-            return false
-        } else if (step === 1){
-            return (!classAction.defendants[0].name || !classAction.defendants[0].type || !classAction.defendants[0].theme);
+        } else if (step === 1) {
+            if (!(classAction.defendants[0].name && !classAction.defendants[0].type && !classAction.defendants[0].theme)) {
+                return true;
+            } else {
+                for (let index = 1; index < classAction.defendants.length; index++) {
+                    if ((classAction.defendants[index].name || classAction.defendants[index].type || classAction.defendants[index].theme) &&
+                        !(classAction.defendants[index].name && classAction.defendants[index].type && classAction.defendants[index].theme)) {
+                        return true;
+                    }
+                }
+            }
         }
+        return false;
     }
     const handleNext = () => {
         if (!isEmptyFileds(activeStep)) {
@@ -96,17 +105,14 @@ const CreateClassAction = props => {
         else
             classAction[event.target.id] = event.target.value;
     }
-    const handleChangeAutoField = (event, values, defendantNumber) => {
+    const handleChangeAutoField = (event, values, field) => {
         setShowMandatory(false);
-        if (event.target.id.includes("defendantType"))
-            classAction.defendants[defendantNumber].type = values;
-        else if (event.target.id.includes("defendantTheme"))
-            classAction.defendants[defendantNumber].theme = values;
-        else
-            classAction[event.target.id.split('-')[0]] = values;
+        classAction[field] = values;
     }
-
-
+    const handleChangeDefField = (event, values, field, defendantNumber) => {
+        setShowMandatory(false);
+        classAction.defendants[defendantNumber][field] = values;
+    }
 
     const handleSave = () => {
         classAction.openDate = new Date();

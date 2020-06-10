@@ -1,15 +1,23 @@
 import React from 'react';
 import classes from './classActionDefendant.module.css'
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {Input, TextField} from "@material-ui/core";
-import {defendantTypes,defendantThemes} from '../../../../utils/globalConsts';
+import { Input, TextField } from "@material-ui/core";
+import { defendantTypes, defendantThemes } from '../../../../utils/globalConsts';
 
 const classActionDefendant = props => {
-    const handleChange = (event,value) =>{
+    let errorName = false;
+    let errorType = false;
+    let errorTheme = false;
+    if (props.defendantNumber === 0 || (props.defendant.name || props.defendant.type || props.defendant.theme)) {
+        errorName = props.showMandatory && !props.defendant.name;
+        errorType = props.showMandatory && !props.defendant.type;
+        errorTheme = props.showMandatory && !props.defendant.theme;
+    }
+    const handleChange = (event, value) => {
         props.handleChangeInput(event, value, props.defendantNumber)
     }
-    const handleChangeAuto = (event,values)=>{
-        props.handleChangeAutoField(event, values, props.defendantNumber)
+    const handleChangeAuto = (event, values, field) => {
+        props.handleChangeDefField(event, values, field, props.defendantNumber)
     }
     return (
         <div style={{ display: "flex", flexDirection: "row" }}>
@@ -19,26 +27,26 @@ const classActionDefendant = props => {
                 defaultValue={props.defendant.name}
                 className={classes.defendant}
                 fullWidth={true}
-                error = {props.defendantNumber === 0 ? (props.showMandatory && !props.defendant.name) : false}
-                onChange={(event,value) => handleChange(event,value)}
+                error={errorName}
+                onChange={(event, value) => handleChange(event, value)}
             />
             <Autocomplete
                 options={defendantTypes}
                 className={classes.InputSearch}
-                id={"defendantType"+ props.defendantNumber}
+                id={"defendantType" + props.defendantNumber}
                 defaultValue={props.defendant.type}
                 autoComplete
-                onChange={(event, values) => handleChangeAuto(event, values)}
-                renderInput={(params) => <TextField {...params} error={props.defendantNumber === 0 ? (props.showMandatory && !props.defendant.type) : false}  placeholder="סוג נאשם" fullWidth={true} />}
+                onChange={(event, values) => handleChangeAuto(event, values, "type")}
+                renderInput={(params) => <TextField {...params} error={errorType} placeholder="סוג נאשם" fullWidth={true} />}
             />
             <Autocomplete
                 options={defendantThemes}
                 className={classes.InputSearch}
-                id={"defendantTheme"+ props.defendantNumber}
+                id={"defendantTheme" + props.defendantNumber}
                 defaultValue={props.defendant.theme}
                 autoComplete
-                onChange={(event, values) => handleChangeAuto(event, values)}
-                renderInput={(params) => <TextField {...params} error={props.defendantNumber === 0 ? (props.showMandatory && !props.defendant.theme) : false} placeholder="עולם תוכן" fullWidth={true} />}
+                onChange={(event, values) => handleChangeAuto(event, values, "theme")}
+                renderInput={(params) => <TextField {...params} error={errorTheme} placeholder="עולם תוכן" fullWidth={true} />}
             />
         </div>
     );

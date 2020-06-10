@@ -37,7 +37,7 @@ const ClassActionInfo = props => {
                 id="type"
                 defaultValue={props.classAction.type}
                 autoComplete
-                onChange={props.handleChangeAutoField}
+                onChange={(event, values) => props.handleChangeAutoField(event, values,"type")}
                 includeInputInList
                 renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.type} placeholder="סוג תביעה" fullWidth={true} />}
             />
@@ -47,7 +47,7 @@ const ClassActionInfo = props => {
                 id="reason"
                 defaultValue={props.classAction.reason}
                 autoComplete
-                onChange={props.handleChangeAutoField}
+                onChange={(event, values) => props.handleChangeAutoField(event, values,"reason")}
                 includeInputInList
                 renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.reason} placeholder="עילת התביעה" fullWidth={true} />}
             />
@@ -61,7 +61,7 @@ const ClassActionInfo = props => {
                 getOptionLabel={(cat) => cat.name}
                 id="category"
                 autoComplete
-                onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                onChange={(event, values) => props.handleChangeAutoField(event, values, "category")}
                 includeInputInList
                 renderInput={(params) => <TextField error={props.showMandatory && !props.classAction.category} {...params} placeholder="קטגוריה" margin="normal" />}
             />
