@@ -51,6 +51,10 @@ const getClassActionsByParams = (params) => {
                 id
                 name
               }
+              representingLawyer{
+                id
+                name
+              }
               openDate
               reason
               type
@@ -92,6 +96,10 @@ const getClassActionsByParams = (params) => {
               }
               status
               leadingUser {
+                id
+                name
+              }
+              representingLawyer{
                 id
                 name
               }

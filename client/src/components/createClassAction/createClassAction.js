@@ -12,12 +12,28 @@ import ClassActionAutoData from './classActionAutoData/classActionAutoData';
 function getSteps() {
     return ['יצירת פרטים ראשוניים', 'פרטי נתבעים', 'נתונים אוטומטיים'];
 }
-
+const inputsInStep = [
+    {
+        inputs: [
+            "name",
+            "description",
+            "type",
+            "reason",
+            "category"
+        ]
+    },
+    {
+        inputs: [
+            "defendants"
+        ]
+    }
+]
 const CreateClassAction = props => {
     const [classAction] = useState({ defendants: [{}, {}, {}, {}, {}], users: [] });
     const [addClassAction] = useMutation(classActionsRequest.addClassAction);
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
     const [activeStep, setActiveStep] = React.useState(0);
+    const [showMandatory, setShowMandatory] = React.useState(false);
     const steps = getSteps();
 
     function getStepContent(step) {
@@ -26,12 +42,14 @@ const CreateClassAction = props => {
                 return <ClassActionInfo
                     handleChangeInput={handleChangeInput}
                     handleChangeAutoField={handleChangeAutoField}
+                    showMandatory={showMandatory}
                     classAction={classAction}
                 />;
             case 1:
                 return <ClassActionDefendants
                     handleChangeInput={handleChangeInput}
-                    handleChangeAutoField={handleChangeAutoField}
+                    handleChangeDefField={handleChangeDefField}
+                    showMandatory={showMandatory}
                     defendants={classAction.defendants}
                 />;
             case 2:
@@ -39,37 +57,62 @@ const CreateClassAction = props => {
                     handleChangeInput={handleChangeInput}
                     handleChangeAutoField={handleChangeAutoField}
                     classAction={classAction}
-                    addHashtags= {(hashtags)=>{classAction.hashtags = hashtags}}
+                    addHashtags={(hashtags) => { classAction.hashtags = hashtags }}
                 />;
             default:
                 return 'שלב לא ידוע';
         }
     }
+    const isEmptyFileds = (step) => {
+        if (step === 0) {
+            for (let index = 0; index < inputsInStep[step].inputs.length; index++) {
+                if (!classAction[inputsInStep[step].inputs[index]]) {
+                    return true;
+                }
+            }
+        } else if (step === 1) {
+            if (!(classAction.defendants[0].name && !classAction.defendants[0].type && !classAction.defendants[0].theme)) {
+                return true;
+            } else {
+                for (let index = 1; index < classAction.defendants.length; index++) {
+                    if ((classAction.defendants[index].name || classAction.defendants[index].type || classAction.defendants[index].theme) &&
+                        !(classAction.defendants[index].name && classAction.defendants[index].type && classAction.defendants[index].theme)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     const handleNext = () => {
-        if (activeStep === steps.length - 1)
-            handleSave();
-        else
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (!isEmptyFileds(activeStep)) {
+            if (activeStep === steps.length - 1)
+                handleSave();
+            else
+                setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+            setShowMandatory(true);
+        }
     };
     const handleBack = () => {
+        setShowMandatory(false);
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
     const handleChangeInput = (event, value, defendantNumber) => {
+        setShowMandatory(false);
         if (event.target.id.includes("defendant"))
             classAction.defendants[defendantNumber].name = event.target.value;
         else
             classAction[event.target.id] = event.target.value;
     }
-    const handleChangeAutoField = (event, values, defendantNumber) => {
-        if (event.target.id.includes("defendantType"))
-            classAction.defendants[defendantNumber].type = values;
-        else if (event.target.id.includes("defendantTheme"))
-            classAction.defendants[defendantNumber].theme = values;
-        else
-            classAction[event.target.id.split('-')[0]] = values;
+    const handleChangeAutoField = (event, values, field) => {
+        setShowMandatory(false);
+        classAction[field] = values;
     }
-
-
+    const handleChangeDefField = (event, values, field, defendantNumber) => {
+        setShowMandatory(false);
+        classAction.defendants[defendantNumber][field] = values;
+    }
 
     const handleSave = () => {
         classAction.openDate = new Date();
@@ -78,7 +121,7 @@ const CreateClassAction = props => {
         classAction.leadingUser = loggedInUser.id;
         classAction.category = classAction.category.id;
         classAction.defendants = classAction.defendants.filter(def => Object.keys(def).length !== 0)
-        
+
         addClassAction({
             variables: {
                 classAction

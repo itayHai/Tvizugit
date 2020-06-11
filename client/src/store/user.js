@@ -84,6 +84,16 @@ const initialState = {
     password: "",
   },
  loggedInUser: { }
+    // id: "5e9cae20a9c09c48d8be3776",
+    // name: "Itay Haizler",
+    // displayName: "איתי הייזלר",
+    // email: "itay@gmail.com",
+    // password: "123456",
+    // role: {
+    //   engName: "admin",
+    //   id: "5ea43b9a7157be568022babd",
+    //   name: "מנהל מערכת"
+    // }
 };
 function userReducer(state = initialState, action) {
   switch (action.type) {

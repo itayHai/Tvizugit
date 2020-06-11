@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import classes from './joinForm.module.css';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Button from "@material-ui/core/Button";
@@ -15,7 +15,7 @@ const JoinForm = (props) => {
 
     const handleClick = () => {
         setOpen(true);
-        classAction.users.push({user:{id:loggedInUser.id}, isWaiting: Boolean('true')});
+        classAction.users.push({ user: { id: loggedInUser.id }, isWaiting: Boolean('true') });
         updateClassActionServer({
             variables:
             {
@@ -41,13 +41,18 @@ const JoinForm = (props) => {
         setOpen(false);
     };
     const isUser = Object.keys(loggedInUser).length === 0;
-    const noUserDiv = <div>כדי להצטרף לתובענה עלייך להירשם קודם!</div>;
 
     return (
         <div className={classes.joinForm}>
             <h1> הצטרפות לתובענה</h1>
             {isUser ?
-                noUserDiv :
+            <div>
+                <h3> היי, על מנת להצטרף לתביעה אנחנו רוצים קודם להכיר אותך</h3>
+                <h4>זה די פשוט, לחץ על "כניסה" בצד שמאל למעלה</h4>
+                <Button 
+                onClick={() => props.close()}
+                 className={classes.gotItButton}>הבנתי!</Button> 
+                </div>:
                 <div>
                     על מנת להצטרף לתובענה עלייך לדעת כמה דברים:
                 <ul className={classes.intructions}>

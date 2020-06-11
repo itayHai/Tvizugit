@@ -9,9 +9,9 @@ import { classActionReasons, classActionTypes } from '../../../utils/globalConst
 const ClassActionInfo = props => {
     const { loading, data } = useQuery(categoriesRequest.getAll);
     if (loading) return <p>Loading...</p>;
-
     return (
         <div>
+            כל השדות בדף הן חובה
             <Input
                 placeholder="שם התביעה"
                 className={classes.InputSearch}
@@ -20,6 +20,7 @@ const ClassActionInfo = props => {
                 autoFocus={true}
                 fullWidth={true}
                 onChange={props.handleChangeInput}
+                error={props.showMandatory && !props.classAction.name}
             />
             <Input
                 placeholder="תיאור"
@@ -28,6 +29,7 @@ const ClassActionInfo = props => {
                 defaultValue={props.classAction.description}
                 fullWidth={true}
                 onChange={props.handleChangeInput}
+                error={props.showMandatory && !props.classAction.description}
             />
             <Autocomplete
                 options={classActionTypes}
@@ -35,9 +37,9 @@ const ClassActionInfo = props => {
                 id="type"
                 defaultValue={props.classAction.type}
                 autoComplete
-                onChange={props.handleChangeAutoField}
+                onChange={(event, values) => props.handleChangeAutoField(event, values,"type")}
                 includeInputInList
-                renderInput={(params) => <TextField {...params} placeholder="סוג תביעה" fullWidth={true} />}
+                renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.type} placeholder="סוג תביעה" fullWidth={true} />}
             />
             <Autocomplete
                 options={classActionReasons}
@@ -45,9 +47,9 @@ const ClassActionInfo = props => {
                 id="reason"
                 defaultValue={props.classAction.reason}
                 autoComplete
-                onChange={props.handleChangeAutoField}
+                onChange={(event, values) => props.handleChangeAutoField(event, values,"reason")}
                 includeInputInList
-                renderInput={(params) => <TextField {...params} placeholder="עילת התביעה" fullWidth={true} />}
+                renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.reason} placeholder="עילת התביעה" fullWidth={true} />}
             />
             <Autocomplete
                 options={data.CategoryQueries.categories}
@@ -59,9 +61,9 @@ const ClassActionInfo = props => {
                 getOptionLabel={(cat) => cat.name}
                 id="category"
                 autoComplete
-                onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                onChange={(event, values) => props.handleChangeAutoField(event, values, "category")}
                 includeInputInList
-                renderInput={(params) => <TextField {...params} placeholder="קטגוריה" margin="normal" />}
+                renderInput={(params) => <TextField error={props.showMandatory && !props.classAction.category} {...params} placeholder="קטגוריה" margin="normal" />}
             />
         </div>
     );

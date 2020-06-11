@@ -89,11 +89,9 @@ const ClassActionContent = props => {
             addMessClick={(message, title) => addMessageHandler(message, title)}
         /> : null;
     const showJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id) ? null : <JoinAction classAction={props.cAction} />
-    const lawyerName = props.cAction.lawyer ? props.cAction.lawyer : 'טרם נקבע משרד מייצג';
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
         return <Chip label= {"#" + tag} key={index} className={classes.tag}/>
     })
-
     return (
         <div>
             <div className={classes.allHashtags}>
@@ -111,7 +109,7 @@ const ClassActionContent = props => {
                     <div className={classes.cellInRow}>
                         <Gavel className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{lawyerName}</h3>
+                            <h3 className={classes.infoCell}>{props.cAction.representingLawyer ? props.cAction.representingLawyer.name : 'טרם נקבע משרד מייצג'}</h3>
                             <div>משרד עו"ד מייצג</div>
                         </div>
                     </div>

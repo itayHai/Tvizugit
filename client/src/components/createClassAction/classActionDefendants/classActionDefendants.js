@@ -6,9 +6,10 @@ const ClassActionDefendants = props => {
         return (
             <ClassActionDefendant
                 handleChangeInput={props.handleChangeInput}
-                handleChangeAutoField={props.handleChangeAutoField}
+                handleChangeDefField={props.handleChangeDefField}
                 defendantNumber = {index}
                 defendant={def}
+                showMandatory={props.showMandatory}
                 key={"def" + index}
             />
         )

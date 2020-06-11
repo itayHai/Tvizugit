@@ -2,3 +2,7 @@
     margin-top: 40px;
     direction: rtl;
   }
+  .inputError{
+    display: flex;
+    flex-direction: row;
+  }
