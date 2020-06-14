@@ -6,6 +6,11 @@ function getUser({ email, password }) {
   return UserModel.findOne({ email: email , password: password }).populate("role");
 }
 
+function getUser({ email }) {
+
+  return UserModel.findOne({ email: email }).populate("role");
+}
+
 function addUser(userToAdd) {
   const newUser = new UserModel(userToAdd);
   return newUser.save();
