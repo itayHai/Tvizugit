@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import CustomerIcon from '../../images/icons/customer_icon.png';
 import LogoutIcon from '../../images/icons/logout.png';
-import './navbar.css';
+import classes from './navbar.module.css';
 import { changeFilter } from "../../store/classAction";
 
 const Navbar = (props) => {
@@ -43,8 +43,8 @@ const Navbar = (props) => {
 
   const show = Object.keys(loggedInUser).length !== 0 ?
     <div>
-      <img className="Icon" src={CustomerIcon} alt="Customer" />
-      <label> {loggedInUser.displayName} <img onClick={logout} className="Icon" src={LogoutIcon} alt="Logout" /></label>
+      <img className={classes.Icon} src={CustomerIcon} alt="Customer" />
+      <label> {loggedInUser.displayName} <img onClick={logout} className={classes.Icon} src={LogoutIcon} alt="Logout" /></label>
     </div> :
     <Button onClick={handleOpen}
       className="login"
@@ -52,30 +52,30 @@ const Navbar = (props) => {
 
   return (
     <AppBar position="static">
-      <Toolbar className="navbar">
-        <Link to="/" className="link">
-          <GavelIcon className="icon" fontSize="large" />
-          <div className="titleContainer">
-            <label className="mainTitle">תביצוגית</label>
-            <label className="slogan">לתבוע בידיים טובות</label>
+      <Toolbar className={classes.navbar}>
+        <Link to="/" className={classes.link}>
+          <GavelIcon className={classes.icon} fontSize="large" />
+          <div className={classes.titleContainer}>
+            <label className={classes.mainTitle}>תביצוגית</label>
+            <label className={classes.slogan}>לתבוע בידיים טובות</label>
           </div>
         </Link>
-        <Link to="/classActionsStock/" className="link" onClick={() => dispatch(changeFilter())}>
+        <Link to="/classActionsStock/" className={classes.link} onClick={() => dispatch(changeFilter())}>
           <h3>מאגר התביעות</h3>
         </Link>
-        <Link to="/lawyers" className="link" onClick={() => dispatch(changeFilter())}>
+        <Link to="/lawyers" className={classes.link} onClick={() => dispatch(changeFilter())}>
           <h3>מאגר עורכי הדין</h3>
         </Link>
         {
           (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "admin") &&
-          < Link to="/reportedClassActions" className="link" >
+          < Link to="/reportedClassActions" className={classes.link} >
             <h3>ניהול תובענות מדווחות</h3>
           </Link>
         }
-         <Link to="/QuestionsAndAnswers" className="link">
+         <Link to="/QuestionsAndAnswers" className={classes.link}>
             <h3>שאלות ותשובות</h3>
           </Link>
-      <div className="login">
+      <div className={classes.login}>
         {show}
       </div>
       <Modal show={open} onClose={handleClose}>
