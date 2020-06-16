@@ -20,7 +20,7 @@ mutation ($lawyer: LawyerInputType!) {
 `;
 
 const updateLawyer = gql`
-mutation ($id: String, $lawyer:LawyerInputType) {
+mutation ($id: String, $lawyer:LawyerInputType!) {
   LawyerMutations {
     lawyer (lawyer: $lawyer, id:$id) {
       id
