@@ -23,7 +23,7 @@ const ManagerMessages = props => {
     };
     const messagesToshow = props.messages.map((mes) => {
         return <ManagerMessage
-            key={mes._id}
+            key={mes.id}
             message={mes}
             isUserManager={props.isUserManager}
             deleteClick={props.delMessClick}

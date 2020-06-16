@@ -48,7 +48,7 @@ const ClassActionContent = props => {
             }
         }).then((data) => {
             const messagesServer = data.data.ClassActionMutation.classAction.messages;
-            const newIdMessages = { ...newMessage, _id: messagesServer[messagesServer.length - 1]._id };
+            const newIdMessages = { ...newMessage, id: messagesServer[messagesServer.length - 1].id };
             const newMessages = [...props.cAction.messages];
             newMessages.push(newIdMessages);
             dispatch(updateMessagesAction(props.cAction, newMessages))

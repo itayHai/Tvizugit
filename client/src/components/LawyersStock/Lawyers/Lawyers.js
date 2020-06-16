@@ -12,7 +12,10 @@ const Lawyers = (props) => {
     if (loading) {
     return <Spinner />
     }
-    if (error) console.log(error);  
+    if (error) {
+        console.log(error);  
+        return "HARA"
+    } 
 
   
     const lawyersElements = data.LawyerQueries.lawyers

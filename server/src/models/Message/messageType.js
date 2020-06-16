@@ -11,7 +11,7 @@ import { GraphQLDate } from "graphql-compose";
 const MessageType = new GraphQLObjectType({
     name: "MessageType",
     fields: () => ({
-        _id: { type: GraphQLString },
+        id: { type: GraphQLString },
         title: {
             type: GraphQLString,
         },

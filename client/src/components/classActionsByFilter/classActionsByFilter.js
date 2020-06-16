@@ -25,7 +25,7 @@ const getClassActionByUser = () => {
           theme
         }
         messages {
-          _id
+          id
           title
           date
           content

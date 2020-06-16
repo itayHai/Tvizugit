@@ -40,7 +40,7 @@ export const classActionSchema = new Schema({
   ],
   messages: [
     {
-      _id: { type: Schema.Types.ObjectId },
+      id: { type: Schema.Types.ObjectId },
       title: {
         type: String,
         trim: true,

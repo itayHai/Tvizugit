@@ -18,7 +18,7 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         theme
       }
       messages{
-        _id
+        id
         title
         date
         content

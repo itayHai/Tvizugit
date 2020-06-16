@@ -35,7 +35,7 @@ const getClassActionsByParams = (params) => {
                 theme
               }
               messages {
-                _id
+                id
                 title
                 date
                 content
@@ -78,7 +78,7 @@ const getClassActionsByParams = (params) => {
                 theme
               }
               messages {
-                _id
+                id
                 title
                 date
                 content
