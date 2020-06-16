@@ -19,6 +19,18 @@ mutation ($lawyer: LawyerInputType!) {
   }
 `;
 
+const updateLawyer = gql`
+mutation ($id: String, $lawyer:LawyerInputType) {
+  LawyerMutations {
+    lawyer (lawyer: $lawyer, id:$id) {
+      id
+			description
+			expertise
+    }
+  }
+}
+`;
+
 const getLawyer = gql`
 query($email:String!){
   LawyerQueries{
@@ -67,4 +79,5 @@ export default {
     addNewLawyer,
     getLawyer,
     getAllLawyers,
+    updateLawyer
 };

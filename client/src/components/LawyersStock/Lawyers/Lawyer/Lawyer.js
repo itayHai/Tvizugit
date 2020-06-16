@@ -29,7 +29,8 @@ const Lawyer = (props) => {
             entityType={resultTypes.LAWYER}
             imgUrl="test"
             entityId={props.lawyer.id}
-            selectedProperties = {selectedProperties}>
+            selectedProperties = {selectedProperties}
+            lawyer={props.lawyer}>
             <LawyerContent lawyer={props.lawyer}/>
         </ResultBanner>
     );

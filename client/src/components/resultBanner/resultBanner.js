@@ -6,6 +6,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
+import EditLawyer from "../LawyersStock/Lawyers/Lawyer/EditLawyer/EditLawyer"
 import IconButton from "@material-ui/core/IconButton";
 import { Delete, ExpandMore, Edit, Report, RemoveCircle } from "@material-ui/icons";
 import Divider from "@material-ui/core/Divider";
@@ -33,6 +34,7 @@ export default function ResultBanner(props) {
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
   const [reportMessage, setReportMessage] = useState('');
   const [expanded, setExpanded] = useState(false);
+  const [editLawyerOpen, setEditLawyerOpen] = useState(false);
 
   // Initialize mutations
   const [reportClassAction] = useMutation(classActionsRequest.REPORT)
@@ -238,6 +240,16 @@ export default function ResultBanner(props) {
                 </Dialog>
               </div>
             )}
+            {resultBannerType === resultTypes.LAWYER && (
+              <div>
+                <IconButton onClick={() => setEditLawyerOpen(true)}>
+                  <Edit/>
+                </IconButton>
+              <EditLawyer lawyer={props.lawyer} close={() => setEditLawyerOpen(false)} editOpen={editLawyerOpen}/>
+              </div>
+            )
+
+            }
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
