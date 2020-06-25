@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import {gql} from 'apollo-boost';
 
 const updateClassActionServer = gql`
 mutation ($classAction: ClassActionInputType!, $id: String) {
@@ -27,6 +27,7 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -34,6 +35,7 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
       leadingUser {
         id
         name
+        displayName
       }
       representingLawyer{
         id
@@ -81,6 +83,7 @@ query getReportedClassActions {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -88,13 +91,14 @@ query getReportedClassActions {
       leadingUser {
         id
         name
+        displayName
       }
       reported
       reportMessage
     } 
   }
 }
-`
+`;
 
 const REPORT = gql`
 mutation reportClassAction($id: String!, $reportMessage: String!) {
@@ -123,6 +127,7 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -170,6 +175,7 @@ mutation cancelReportClassAction($id: String!) {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -177,6 +183,7 @@ mutation cancelReportClassAction($id: String!) {
       leadingUser {
         id
         name
+        displayName
       }
       reported
       reportMessage
@@ -193,5 +200,5 @@ export default {
   GET_REPORTED,
   addClassAction,
   REPORT,
-  CANCEL_REPORT,
+  CANCEL_REPORT
 };
