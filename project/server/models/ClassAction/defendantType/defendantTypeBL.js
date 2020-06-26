@@ -1,7 +1,7 @@
-import defendantTypeModel from "./defendantTypeModel";
+import defendantTypeModel from './defendantTypeModel';
 
-function getDefendantTypes() {
-    return defendantTypeModel.find({});
+function getDefendantTypes () {
+  return defendantTypeModel.find({});
 }
 
-export { getDefendantTypes };
+export {getDefendantTypes};

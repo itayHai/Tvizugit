@@ -1,4 +1,4 @@
-import typeClassActionModel from "./typeClassActionModel";
-import typeClassActionQueries from "./typeClassActionQueries";
+import typeClassActionModel from './typeClassActionModel';
+import typeClassActionQueries from './typeClassActionQueries';
 
-export { typeClassActionModel, typeClassActionQueries  };
+export {typeClassActionModel, typeClassActionQueries};

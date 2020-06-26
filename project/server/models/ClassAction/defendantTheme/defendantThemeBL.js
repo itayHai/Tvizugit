@@ -1,7 +1,7 @@
-import defendantThemeModel from "./defendantThemeModel";
+import defendantThemeModel from './defendantThemeModel';
 
-function getDefendantThemes() {
-    return defendantThemeModel.find({});
+function getDefendantThemes () {
+  return defendantThemeModel.find({});
 }
 
-export { getDefendantThemes };
+export {getDefendantThemes};

@@ -1,4 +1,4 @@
-import defendantThemeModel from "./defendantThemeModel";
-import defendantThemeQueries from "./defendantThemeQueries";
+import defendantThemeModel from './defendantThemeModel';
+import defendantThemeQueries from './defendantThemeQueries';
 
-export { defendantThemeModel , defendantThemeQueries  };
+export {defendantThemeModel, defendantThemeQueries};

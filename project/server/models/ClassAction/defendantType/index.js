@@ -1,4 +1,4 @@
-import defendantTypeModel from "./defendantTypeModel";
-import defendantTypeQueries from "./defendantTypeQueries";
+import defendantTypeModel from './defendantTypeModel';
+import defendantTypeQueries from './defendantTypeQueries';
 
-export { defendantTypeModel, defendantTypeQueries  };
+export {defendantTypeModel, defendantTypeQueries};

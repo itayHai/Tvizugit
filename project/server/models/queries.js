@@ -1,52 +1,52 @@
-import { GraphQLObjectType } from "graphql";
-import { UserQueries } from "./User";
-import { LawyerQueries } from "./Lawyer";
-import { ClassActionQueries } from "./ClassAction";
-import { CategoryQueries } from "./Category";
-import { UserRoleQueries } from "./UserRole";
-import { classActionReasonQueries } from "./ClassAction/Reason"
-import { typeClassActionQueries } from "./ClassAction/Type"
-import { defendantTypeQueries } from "./ClassAction/defendantType"
-import { defendantThemeQueries } from "./ClassAction/defendantTheme"
+import {GraphQLObjectType} from 'graphql';
+import {UserQueries} from './User';
+import {LawyerQueries} from './Lawyer';
+import {ClassActionQueries} from './ClassAction';
+import {CategoryQueries} from './Category';
+import {UserRoleQueries} from './UserRole';
+import {classActionReasonQueries} from './ClassAction/Reason';
+import {typeClassActionQueries} from './ClassAction/Type';
+import {defendantTypeQueries} from './ClassAction/defendantType';
+import {defendantThemeQueries} from './ClassAction/defendantTheme';
 
 export default new GraphQLObjectType({
-  name: "Queries",
+  name: 'Queries',
   fields: () => ({
     UserRoleQueries: {
       type: UserRoleQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     CategoryQueries: {
       type: CategoryQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     ClassActionQueries: {
       type: ClassActionQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     typeClassActionQueries: {
       type: typeClassActionQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     defendantTypeQueries: {
       type: defendantTypeQueries,
-      resolve: () => true,
+      resolve: () => true
     },
-    defendantThemeQueries : {
+    defendantThemeQueries: {
       type: defendantThemeQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     UserQueries: {
       type: UserQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     LawyerQueries: {
       type: LawyerQueries,
-      resolve: () => true,
+      resolve: () => true
     },
     classActionReasonQueries: {
       type: classActionReasonQueries,
-      resolve: () => true,
+      resolve: () => true
     }
-  }),
+  })
 });

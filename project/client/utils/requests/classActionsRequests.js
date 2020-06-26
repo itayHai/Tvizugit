@@ -216,7 +216,7 @@ const getAllClassActionTypes = gql`
     }
   }
   `;
-  const getAllClassActionReasons = gql`
+const getAllClassActionReasons = gql`
   {
     classActionReasonQueries{
      classActionReasons{
@@ -227,7 +227,7 @@ const getAllClassActionTypes = gql`
    }
  }
   `;
-  const getAllDefendantsTypes = gql`
+const getAllDefendantsTypes = gql`
   {
     defendantTypeQueries {
       defendantTypes {
@@ -237,7 +237,7 @@ const getAllClassActionTypes = gql`
     }
   }
   `;
-  const getAllDefendantsThemes = gql`
+const getAllDefendantsThemes = gql`
   {
     defendantThemeQueries{
       defendantThemes{
@@ -248,6 +248,7 @@ const getAllClassActionTypes = gql`
  }
  
   `;
+
 export default {
   updateClassActionServer,
   getAllClassActionTypes,

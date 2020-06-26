@@ -1,16 +1,16 @@
 import {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-  } from "graphql";
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt
+} from 'graphql';
 
-  const ClassActionReasonType = new GraphQLObjectType({
-    name: "ClassActionReasonType",
-    fields: () => ({
-      id: {type: GraphQLString},
-      idAI:{type: GraphQLInt},
-      name: { type: GraphQLString }
-    }),
-  });
+const ClassActionReasonType = new GraphQLObjectType({
+  name: 'ClassActionReasonType',
+  fields: () => ({
+    id: {type: GraphQLString},
+    idAI: {type: GraphQLInt},
+    name: {type: GraphQLString}
+  })
+});
 
-export { ClassActionReasonType };
+export {ClassActionReasonType};

@@ -1,7 +1,7 @@
-import typeClassActionModel from "./typeClassActionModel";
+import typeClassActionModel from './typeClassActionModel';
 
-function getTypesOfClassAction() {
-    return typeClassActionModel.find({});
+function getTypesOfClassAction () {
+  return typeClassActionModel.find({});
 }
 
-export { getTypesOfClassAction };
+export {getTypesOfClassAction};

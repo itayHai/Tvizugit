@@ -1,7 +1,7 @@
-import classActionReasonModel from "./classActionReasonModel";
+import classActionReasonModel from './classActionReasonModel';
 
-function getClassActionReasons() {
+function getClassActionReasons () {
   return classActionReasonModel.find({});
 }
 
-export { getClassActionReasons };
+export {getClassActionReasons};
