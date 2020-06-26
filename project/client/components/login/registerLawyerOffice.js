@@ -24,6 +24,11 @@ function RegisterLawyerOffice (props) {
     const RegisterLawyer = useSelector(state => state.lawyer.RegisterLawyer)
     const [addNewUser] = useMutation(usersRequests.addNewUser);
     const [addNewLawyer] = useMutation(lawyersRequests.addNewLawyer);
+    const [srcImg, setsrcImg] = useState(null);
+
+    const imageChange = (event) => {
+        setsrcImg(URL.createObjectURL(event.target.files[0]))
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -112,7 +117,6 @@ function RegisterLawyerOffice (props) {
                           name="expertise"
                           required
                           multiline
-                          //defaultValue={RegisterLawyer.expertise}
                           onChange={handleChange}
                           options={Specialties}
                           renderInput={(params) => (
@@ -142,17 +146,16 @@ function RegisterLawyerOffice (props) {
                         onChange={handleChange}
                         fullWidth={true}
                         type="number"
-                        className={classes.Input}/><br/>
+                        className={classes.Input}/><br/><br/>
+
             <label>תמונה: </label>
-            <input className={classes.Input}
+            <input  type="file"
                     name="img"
-                    required
-                    //defaultValue={RegisterLawyer.img}
-                    onChange={handleChange}
-                    id="image"
-                    variant="contained"
-                    type="file"
-                    accept="image/png, image/jpeg"/><br/><br/>
+                    onChange={imageChange}
+                    accept="image/png, image/jpeg"
+                    id="image"/>
+            <img className={classes.ProfileIcon} src={srcImg}/>
+            <br/>
             <p>
                 <Button className={classes.ProfileButton} 
                         variant="contained" 

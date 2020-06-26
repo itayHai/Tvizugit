@@ -53,6 +53,7 @@
             let filesAmount = input.files.length;
             for (i = 0; i < filesAmount; i++) {
               let reader = new FileReader();
+              console.log(reader)
               reader.onload = function(event) {
                 $($.parseHTML("<img>"))
                   .attr("src", event.target.result)
@@ -63,7 +64,9 @@
           }
         };
         $("#input-files").on("change", function() {
+          console.log(this);
           imagesPreview(this, "div.preview-images");
+          
         });
       });
     </script>
