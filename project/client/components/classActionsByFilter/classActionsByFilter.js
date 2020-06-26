@@ -16,13 +16,20 @@ const getClassActionByUser = () => {
         name
         description
         category {
+          id
           name
           engName
         }
         defendants{
           name
-          type
-          theme
+          type{
+            id
+            name
+          }
+          theme{
+            id
+            name
+          }
         }
         messages {
           _id
@@ -44,9 +51,19 @@ const getClassActionByUser = () => {
           name
           displayName
         }
-        reason
-        type
+        representingLawyer{
+          id
+          name
+        }
         openDate
+        reason{
+          id
+          name
+        }
+        type{
+          id
+          name
+        }
         successChances
         hashtags
       }

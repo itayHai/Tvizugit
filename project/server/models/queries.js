@@ -4,6 +4,10 @@ import { LawyerQueries } from "./Lawyer";
 import { ClassActionQueries } from "./ClassAction";
 import { CategoryQueries } from "./Category";
 import { UserRoleQueries } from "./UserRole";
+import { classActionReasonQueries } from "./ClassAction/Reason"
+import { typeClassActionQueries } from "./ClassAction/Type"
+import { defendantTypeQueries } from "./ClassAction/defendantType"
+import { defendantThemeQueries } from "./ClassAction/defendantTheme"
 
 export default new GraphQLObjectType({
   name: "Queries",
@@ -20,6 +24,18 @@ export default new GraphQLObjectType({
       type: ClassActionQueries,
       resolve: () => true,
     },
+    typeClassActionQueries: {
+      type: typeClassActionQueries,
+      resolve: () => true,
+    },
+    defendantTypeQueries: {
+      type: defendantTypeQueries,
+      resolve: () => true,
+    },
+    defendantThemeQueries : {
+      type: defendantThemeQueries,
+      resolve: () => true,
+    },
     UserQueries: {
       type: UserQueries,
       resolve: () => true,
@@ -28,5 +44,9 @@ export default new GraphQLObjectType({
       type: LawyerQueries,
       resolve: () => true,
     },
+    classActionReasonQueries: {
+      type: classActionReasonQueries,
+      resolve: () => true,
+    }
   }),
 });

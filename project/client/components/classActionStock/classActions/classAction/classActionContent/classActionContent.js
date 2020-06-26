@@ -133,14 +133,14 @@ const ClassActionContent = props => {
                     <div className={classes.cellInRow}>
                         <Help className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{props.cAction.reason}</h3>
+                            <h3 className={classes.infoCell}>{props.cAction.reason.name}</h3>
                             <div>עילת התביעה</div>
                         </div>
                     </div>
                     <div className={classes.cellInRow}>
                         <TextFields className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{props.cAction.type}</h3>
+                            <h3 className={classes.infoCell}>{props.cAction.type.name}</h3>
                             <div>סוג התביעה</div>
                         </div>
                     </div>

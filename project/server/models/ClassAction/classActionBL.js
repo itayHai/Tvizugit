@@ -17,10 +17,14 @@ function updateClassAction(id, classActionToAdd) {
       _id: id, $or: [{ representingLawyer: { $exists: false } },
       { representingLawyer: { $ne: classActionToAdd.representingLawyer } }]
     })
-      .populate("category")
-      .populate("leadingUser")
-      .populate("users.user")
-      .populate("representingLawyer")
+    .populate("category")
+    .populate("leadingUser")
+    .populate("users.user")
+    .populate("representingLawyer")
+    .populate("defendants.type")
+    .populate("defendants.theme")
+    .populate("type")
+    .populate("reason")
       .then(classAction => {
         if (classAction) {
           addClassActionToLawyer(classActionToAdd.representingLawyer, classAction.id);
@@ -30,10 +34,14 @@ function updateClassAction(id, classActionToAdd) {
           return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
             new: true,
           })
-            .populate("category")
-            .populate("leadingUser")
-            .populate("users.user")
-            .populate("representingLawyer");
+          .populate("category")
+          .populate("leadingUser")
+          .populate("users.user")
+          .populate("representingLawyer")
+          .populate("defendants.type")
+          .populate("defendants.theme")
+          .populate("type")
+          .populate("reason");
         }
       })
       .catch(err => {
@@ -43,10 +51,14 @@ function updateClassAction(id, classActionToAdd) {
   return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
     new: true,
   })
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users.user")
-    .populate("representingLawyer");
+  .populate("category")
+  .populate("leadingUser")
+  .populate("users.user")
+  .populate("representingLawyer")
+  .populate("defendants.type")
+  .populate("defendants.theme")
+  .populate("type")
+  .populate("reason");
 }
 
 function reportClassAction({ id, reportMessage }) {
@@ -55,10 +67,14 @@ function reportClassAction({ id, reportMessage }) {
     { reportMessage: reportMessage, reported: true },
     { new: true }
   )
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users.user")
-    .populate("representingLawyer");
+  .populate("category")
+  .populate("leadingUser")
+  .populate("users.user")
+  .populate("representingLawyer")
+  .populate("defendants.type")
+  .populate("defendants.theme")
+  .populate("type")
+  .populate("reason");
 
 }
 
@@ -68,19 +84,27 @@ function cancelReportClassAction({ id }) {
     { reportMessage: "", reported: false },
     { new: true }
   )
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users.user")
-    .populate("representingLawyer");
+  .populate("category")
+  .populate("leadingUser")
+  .populate("users.user")
+  .populate("representingLawyer")
+  .populate("defendants.type")
+  .populate("defendants.theme")
+  .populate("type")
+  .populate("reason");
 
 }
 
 function getClassAction({ id }) {
   return ClassActionModel.findOne({ _id: id })
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users.user")
-    .populate("representingLawyer");
+  .populate("category")
+  .populate("leadingUser")
+  .populate("users.user")
+  .populate("representingLawyer")
+  .populate("defendants.type")
+  .populate("defendants.theme")
+  .populate("type")
+  .populate("reason");
 
 }
 
@@ -90,16 +114,24 @@ function getClassActionsByUser({ userId, limit }) {
     .populate("category")
     .populate("leadingUser")
     .populate("users.user")
-    .populate("representingLawyer");
+    .populate("representingLawyer")
+    .populate("defendants.type")
+    .populate("defendants.theme")
+    .populate("type")
+    .populate("reason");
 
 }
 
 function getReportedClassActions() {
   return ClassActionModel.find({ reported: true })
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users.user")
-    .populate("representingLawyer");
+  .populate("category")
+  .populate("leadingUser")
+  .populate("users.user")
+  .populate("representingLawyer")
+  .populate("defendants.type")
+  .populate("defendants.theme")
+  .populate("type")
+  .populate("reason");
 
 }
 
@@ -109,7 +141,11 @@ function getClassActions(limit) {
     .populate("category")
     .populate("leadingUser")
     .populate("users.user")
-    .populate("representingLawyer");
+    .populate("representingLawyer")
+    .populate("defendants.type")
+    .populate("defendants.theme")
+    .populate("type")
+    .populate("reason");
 
 }
 
@@ -134,10 +170,14 @@ function getClassActionsByParams({ name, hashtags, categories, limit }) {
   return ClassActionModel.find({
     $and: [nameQuery, categoriesQuery, hashtagsQuery],
   })
-    .populate("category")
-    .populate("leadingUser")
-    .populate("users.user")
-    .populate("representingLawyer");
+  .populate("category")
+  .populate("leadingUser")
+  .populate("users.user")
+  .populate("representingLawyer")
+  .populate("defendants.type")
+  .populate("defendants.theme")
+  .populate("type")
+  .populate("reason");
 
 }
 

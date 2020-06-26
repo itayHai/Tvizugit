@@ -5,12 +5,17 @@ import {
   GraphQLList,
   GraphQLInputObjectType,
   GraphQLBoolean,
+  GraphQLInt,
   GraphQLID,
 } from "graphql";
 import { GraphQLDate } from "graphql-compose";
 import { UserType, UserInputType } from "../User/userType";
 import { CategoryType } from "../Category/cateogryType";
 import {MessageType, MessageInputType} from '../Message/messageType';
+import {ClassActionReasonType} from './Reason/classActionReasonType';
+import {typeOfClassActionType} from './Type/typeClassActionType';
+import {typeOfDefendantType} from './defendantType/typeOfDefendantType';
+import {DefendantThemeType} from './defendantTheme/defendantThemeType';
 
 const UserListType = new GraphQLObjectType({
   name: "UserListType",
@@ -30,8 +35,8 @@ const DefendantType = new GraphQLObjectType({
   name: "DefendantType",
   fields: () => ({
     name: { type: GraphQLString },
-    type: { type: GraphQLString },
-    theme: { type: GraphQLString }
+    type: { type: typeOfDefendantType },
+    theme: { type: DefendantThemeType }
   }),
 });
 const DefendantInputType = new GraphQLInputObjectType({
@@ -61,8 +66,8 @@ const ClassActionType = new GraphQLObjectType({
       type: new GraphQLList(MessageType),
     },
     leadingUser: { type: UserType },
-    type:{ type: GraphQLString },
-    reason:{ type: GraphQLString },
+    type:{ type: typeOfClassActionType },
+    reason:{ type: ClassActionReasonType },
     representingLawyer: { type: UserType },
     openDate: { type: GraphQLDate },
     reported: { type: GraphQLBoolean },
