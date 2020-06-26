@@ -1,0 +1,26 @@
+.joinForm{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 400px;
+}
+.intructions{
+    text-align: right;
+}
+.JoinButton {
+    background-color:#009688 !important;
+    color:white !important;
+}
+.agree{
+      display: flex !important;
+      flex-direction: column;
+}
+.textBox{
+    font-family: "Segoe UI";
+    font-size: large;
+  }
+  .gotItButton {
+    float: left;
+    background-color: #009688 !important;
+    color: white !important;
+  }
