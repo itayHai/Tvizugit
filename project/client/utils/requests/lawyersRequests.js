@@ -13,7 +13,6 @@ mutation ($lawyer: LawyerInputType!) {
         phone
         seniority
         img
-        classactions
       }
     }
   }

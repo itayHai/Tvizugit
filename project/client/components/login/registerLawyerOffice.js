@@ -62,28 +62,34 @@ function RegisterLawyerOffice (props) {
                         role: "5ea43ce07157be568022babf" // Lawyer role
                     }
                 }
-            })
+            }).then(data => {
 
-            addNewLawyer({
-                variables:
-                {
-                    lawyer:
+                addNewLawyer({
+                    variables:
                     {
-                        name: RegisterUser.name,
-                        description: RegisterLawyer.description ,
-                        expertise: RegisterLawyer.expertise,
-                        email: RegisterUser.email,
-                        address: RegisterLawyer.address,
-                        phone: RegisterLawyer.phone,
-                        seniority: RegisterLawyer.seniority,
-                        img: RegisterLawyer.img,
-                        classactions: RegisterLawyer.classactions,
+                        lawyer:
+                        {
+                            name: RegisterUser.name,
+                            description: RegisterLawyer.description ,
+                            expertise: RegisterLawyer.expertise,
+                            email: RegisterUser.email,
+                            address: RegisterLawyer.address,
+                            phone: RegisterLawyer.phone,
+                            seniority: RegisterLawyer.seniority,
+                            img: RegisterLawyer.img
+                        }
                     }
-                }
+                }).then(data => {
+                    dispatch(changeLoggedInUser(RegisterUser));
+                    props.close();
+                }).catch(data => {
+                    setMessage("התרחשה תקלה אנא פנה למנהל מערכת");
+                    setOpen(true); 
+                })
+            }).catch(data => {
+                setMessage("מייל המשרד כבר רשום במערכת");
+                setOpen(true); 
             })
-
-            dispatch(changeLoggedInUser(RegisterUser));
-            props.close();
         }
     }
 
@@ -98,6 +104,7 @@ function RegisterLawyerOffice (props) {
                         required
                         onChange={handleChange}
                         fullWidth={true}
+                        defaultValue={RegisterLawyer.description}
                         multiline
                         rowsMax={5}
                         className={classes.Input}/><br/><br/>
@@ -105,6 +112,7 @@ function RegisterLawyerOffice (props) {
                           name="expertise"
                           required
                           multiline
+                          //defaultValue={RegisterLawyer.expertise}
                           onChange={handleChange}
                           options={Specialties}
                           renderInput={(params) => (
@@ -116,11 +124,13 @@ function RegisterLawyerOffice (props) {
                         name="address"
                         required
                         onChange={handleChange}
+                        defaultValue={RegisterLawyer.address}
                         fullWidth={true}
                         className={classes.Input}/><br/><br/>
             <TextField label="טלפון המשרד"
                         name="phone"
                         required
+                        defaultValue={RegisterLawyer.phone}
                         onChange={handleChange}
                         fullWidth={true}
                         type="tel"
@@ -128,7 +138,7 @@ function RegisterLawyerOffice (props) {
             <TextField label="ותק המשרד (בשנים)"
                         name="seniority"
                         required
-                        defaultValue={0}
+                        defaultValue={RegisterLawyer.seniority}
                         onChange={handleChange}
                         fullWidth={true}
                         type="number"
@@ -137,6 +147,7 @@ function RegisterLawyerOffice (props) {
             <input className={classes.Input}
                     name="img"
                     required
+                    //defaultValue={RegisterLawyer.img}
                     onChange={handleChange}
                     id="image"
                     variant="contained"
