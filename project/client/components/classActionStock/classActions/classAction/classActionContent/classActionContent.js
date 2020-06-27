@@ -42,7 +42,7 @@ const ClassActionContent = props => {
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
-                    reason: props.cAction.reason,
+                    reasons: props.cAction.reasons.map(res => res.id),
                     type: props.cAction.type,
                     messages: messages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
                 },
@@ -70,7 +70,7 @@ const ClassActionContent = props => {
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
-                    reason: props.cAction.reason,
+                    reasons: props.cAction.reasons.map(res => res.id),
                     type: props.cAction.type,
                     messages: newMessages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
                 },
@@ -81,6 +81,7 @@ const ClassActionContent = props => {
         })
     }
     const defendantsNames = props.cAction.defendants.map(def => def.name).join(', ');
+    const reasonsNames = props.cAction.reasons.map(res => res.name).join(', ');
     const showMessages = flatennedUsers.find(usr => usr.id === loggedInUser.id && !usr.isWaiting) ?
         <ManagerMessages
             messages={props.cAction.messages}
@@ -105,6 +106,8 @@ const ClassActionContent = props => {
 
             <h3>נתבעים: </h3>
             {defendantsNames}
+            <h3>עילות התביעה: </h3>
+            {reasonsNames}
             <div className={classes.joinButton}>
                 <div className={classes.infoRow}>
                     <div className={classes.cellInRow}>
@@ -130,17 +133,11 @@ const ClassActionContent = props => {
                             <div>מנהל התובענה</div>
                         </div>
                     </div>
-                    <div className={classes.cellInRow}>
-                        <Help className={classes.icon} color="action" fontSize="large" />
-                        <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{props.cAction.reason}</h3>
-                            <div>עילת התביעה</div>
-                        </div>
-                    </div>
+
                     <div className={classes.cellInRow}>
                         <TextFields className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{props.cAction.type}</h3>
+                            <h3 className={classes.infoCell}>{props.cAction.type.name}</h3>
                             <div>סוג התביעה</div>
                         </div>
                     </div>

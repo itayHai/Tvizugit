@@ -14,8 +14,14 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
       }
       defendants{
         name
-        type
-        theme
+        type{
+          id
+          name
+        }
+        theme{
+          id
+          name
+        }
       }
       messages{
         _id
@@ -42,8 +48,14 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         name
       }
       openDate
-      reason
-      type
+      reasons{
+        id
+        name
+      }
+      type{
+        id
+        name
+      }
       successChances
       hashtags
     }
@@ -141,7 +153,9 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
       }
       reported
-      reason
+      reasons{
+        id
+      }
       type
       reportMessage
       openDate
@@ -194,9 +208,55 @@ mutation cancelReportClassAction($id: String!) {
   }
 }
 `;
+const getAllClassActionTypes = gql`
+{
+  typeClassActionQueries{
+      typesOfClassActions{
+        id
+        name
+      }
+    }
+  }
+  `;
+const getAllClassActionReasons = gql`
+  {
+    classActionReasonQueries{
+     classActionReasons{
+       id
+       name
+     }
+     
+   }
+ }
+  `;
+const getAllDefendantsTypes = gql`
+  {
+    defendantTypeQueries {
+      defendantTypes {
+        id
+        name
+      }
+    }
+  }
+  `;
+const getAllDefendantsThemes = gql`
+  {
+    defendantThemeQueries{
+      defendantThemes{
+       id
+       name
+     }
+   }
+ }
+ 
+  `;
 
 export default {
   updateClassActionServer,
+  getAllClassActionTypes,
+  getAllClassActionReasons,
+  getAllDefendantsThemes,
+  getAllDefendantsTypes,
   GET_REPORTED,
   addClassAction,
   REPORT,

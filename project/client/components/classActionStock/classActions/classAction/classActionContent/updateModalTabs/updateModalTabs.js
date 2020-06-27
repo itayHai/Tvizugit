@@ -20,15 +20,15 @@ function a11yProps(index) {
 }
 function buildClassAction(classAction) {
     let classActionToAdd = {
-        defendants: classAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
+        defendants: classAction.defendants.map(def => { return { name: def.name, type: def.type.id, theme: def.theme.id } }),
         users: classAction.users.map(usr => { return { user: usr.user.id, isWaiting: usr.isWaiting } }),
         hashtags: classAction.hashtags,
         name: classAction.name,
         description: classAction.description,
         category: classAction.category.id,
         status: classAction.status,
-        reason: classAction.reason,
-        type: classAction.type,
+        reasons: classAction.reasons.map(res => res.id),
+        type: classAction.type.id,
         leadingUser: classAction.leadingUser.id,
     };
     if (classAction.representingLawyer) {
@@ -53,6 +53,12 @@ export default function UpdateModalTabs(props) {
         classAction.waitingUsers = [];
         for (let index = 0; index < values.length; index++) {
             classAction.waitingUsers.push(values[index]);
+        }
+    }
+    const handleReasons = (event, values) => {
+        classAction.reasons = [];
+        for (let index = 0; index < values.length; index++) {
+            classAction.reasons.push(values[index]);
         }
     }
     const handleInsideUsers = (event, values) => {
@@ -98,6 +104,7 @@ export default function UpdateModalTabs(props) {
                     classAction={classAction}
                     handleChangeAutoField={handleChangeAutoField}
                     handleChange={handleChangeAction}
+                    handleReasons={handleReasons}
                 />
             </TabPanel>
             <TabPanel value={tab} index={1}>

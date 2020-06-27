@@ -18,7 +18,7 @@ const inputsInStep = [
             "name",
             "description",
             "type",
-            "reason",
+            "reasons",
             "category"
         ]
     },
@@ -44,6 +44,7 @@ const CreateClassAction = props => {
                     handleChangeAutoField={handleChangeAutoField}
                     showMandatory={showMandatory}
                     classAction={classAction}
+                    handleReasons={handleReasons}
                 />;
             case 1:
                 return <ClassActionDefendants
@@ -71,7 +72,7 @@ const CreateClassAction = props => {
                 }
             }
         } else if (step === 1) {
-            if (!(classAction.defendants[0].name && !classAction.defendants[0].type && !classAction.defendants[0].theme)) {
+            if (!(classAction.defendants[0].name && classAction.defendants[0].type && classAction.defendants[0].theme)) {
                 return true;
             } else {
                 for (let index = 1; index < classAction.defendants.length; index++) {
@@ -113,15 +114,23 @@ const CreateClassAction = props => {
         setShowMandatory(false);
         classAction.defendants[defendantNumber][field] = values;
     }
-
+    const handleReasons = (event, values) => {
+        classAction.reasons = [];
+        for (let index = 0; index < values.length; index++) {
+            classAction.reasons.push(values[index]);
+        }
+    }
     const handleSave = () => {
         classAction.openDate = new Date();
         classAction.status = "תובענה חדשה בשוק חבר'ה!";
         classAction.users.push({ user: loggedInUser.id, isWaiting: Boolean(false) });
         classAction.leadingUser = loggedInUser.id;
         classAction.category = classAction.category.id;
-        classAction.defendants = classAction.defendants.filter(def => Object.keys(def).length !== 0)
-
+        classAction.defendants = classAction.defendants.filter(def => Object.keys(def).length !== 0);
+        classAction.defendants = classAction.defendants.map(def => { return { name: def.name, type: def.type.id, theme: def.theme.id } });
+        classAction.type = classAction.type.id;
+        classAction.reasons = classAction.reasons.map(res => res.id);
+        
         addClassAction({
             variables: {
                 classAction

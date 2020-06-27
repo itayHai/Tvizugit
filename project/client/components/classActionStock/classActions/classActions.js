@@ -31,57 +31,14 @@ const getClassActionsByParams = (params) => {
               }
               defendants{
                 name
-                type
-                theme
-              }
-              messages {
-                _id
-                title
-                date
-                content
-              }
-              users {
-                user {
+                type{
                   id
                   name
-                  displayName
                 }
-              }
-              status
-              leadingUser {
-                id
-                name
-                displayName
-              }
-              representingLawyer{
-                id
-                name
-              }
-              openDate
-              reason
-              type
-              successChances
-              hashtags
-            }
-          }
-        }
-      `
-    : gql`
-        {
-          ClassActionQueries {
-            classActions {
-              id
-              name
-              description
-              category {
-                id
-                name
-                engName
-              }
-              defendants{
-                name
-                type
-                theme
+                theme{
+                  id
+                  name
+                }
               }
               messages {
                 _id
@@ -108,13 +65,81 @@ const getClassActionsByParams = (params) => {
                 name
               }
               openDate
-              reason
-              type
+              reasons{
+                id
+                name
+              }
+              type{
+                id
+                name
+              }
               successChances
               hashtags
             }
           }
         }
+      `
+    : gql`
+    {
+      ClassActionQueries {
+        classActions {
+          id
+          name
+          description
+          category {
+            id
+            name
+            engName
+          }
+          defendants{
+            name
+            type{
+              id
+              name
+            }
+            theme{
+              id
+              name
+            }
+          }
+          messages {
+            _id
+            title
+            date
+            content
+          }
+          users {
+            user{
+            id
+            name
+            displayName
+            }
+            isWaiting
+          }
+          status
+          leadingUser {
+            id
+            name
+            displayName
+          }
+          representingLawyer{
+            id
+            name
+          }
+          openDate
+          reasons{
+            id
+            name
+          }
+          type{
+            id
+            name
+          }
+          successChances
+          hashtags
+        }
+      }
+    }
       `;
 };
 

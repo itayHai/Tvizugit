@@ -3,16 +3,18 @@ import classes from './updateClassAction.module.css';
 import {TextareaAutosize,TextField} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useQuery } from "@apollo/react-hooks";
-import { categoriesRequest, lawyersRequests } from '../../../../../../../utils/requests';
+import { categoriesRequest, lawyersRequests, classActionsRequest } from '../../../../../../../utils/requests';
 import Spinner from '../../../../../../spinner/spinner';
 import { statuses,classActionReasons, classActionTypes } from '../../../../../../../utils/globalConsts';
 
 const UpdateClassAction = props => {
     const { data: dataL, error: errorL, loading: landingL } = useQuery(lawyersRequests.getAllLawyers);
+    const { data: dataT, error: errorT, loading: landingT } = useQuery(classActionsRequest.getAllClassActionTypes);
+    const { data: dataR, error: errorR, loading: landingR } = useQuery(classActionsRequest.getAllClassActionReasons);
     const { loading, error, data } = useQuery(categoriesRequest.getAll);
 
-    if (landingL || loading) return <Spinner />;
-    if (errorL || error) console.log(errorL);
+    if (landingL || loading || landingT || landingR) return <Spinner />;
+    if (errorL || error || errorT || errorR) console.log(errorL);
     return (
         <div
             style={{ minWidth: "500px", maxWidth: "500px", minHeight: "500px", maxHeight: "500px" }}
@@ -36,20 +38,28 @@ const UpdateClassAction = props => {
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="משרד מייצג" margin="normal" />}
                 />
-                <Autocomplete
-                    options={classActionReasons}
+                <Autocomplete multiple
+                    options={dataR.classActionReasonQueries.classActionReasons}
                     className={classes.ManagerAction}
-                    defaultValue={props.classAction.reason}
-                    id="reason"
+                    defaultValue={props.classAction.reasons}
+                    getOptionSelected={(option, value) => {
+                        return option.id === value.id
+                    }}
+                    getOptionLabel={(reason) => reason.name}
+                    id="reasons"
                     autoComplete
-                    onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                    onChange={(event, values) => props.handleReasons(event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="עילת תובענה" margin="normal" />}
                 />
                 <Autocomplete
-                    options={classActionTypes}
+                    options={dataT.typeClassActionQueries.typesOfClassActions}
                     className={classes.ManagerAction}
                     defaultValue={props.classAction.type}
+                    getOptionSelected={(option, value) => {
+                        return option.id === value.id
+                    }}
+                    getOptionLabel={(type) => type.name}
                     id="type"
                     autoComplete
                     onChange={(event, values) => props.handleChangeAutoField(event, values)}
