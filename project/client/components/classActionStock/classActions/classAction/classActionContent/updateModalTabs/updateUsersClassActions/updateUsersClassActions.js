@@ -11,7 +11,7 @@ const UpdateUsersClassActions = props => {
             {props.classAction.users ?
                 <div> <Autocomplete multiple
                     options={props.classAction.users.filter(usr => usr.isWaiting)}
-                    getOptionLabel={(usr) => usr.user?.name}
+                    getOptionLabel={(usr) => usr.user.displayName}
                     id="waitingUsers"
                     defaultValue={props.classAction.waitingUsers}
                     onChange={(event, values) => props.handleWaitingUsers(event, values)}
@@ -22,7 +22,7 @@ const UpdateUsersClassActions = props => {
                     <Divider orientation="vertical" flexItem />
                     <Autocomplete multiple
                         options={props.classAction.users.filter(usr => !usr.isWaiting && usr.user.id !== props.classAction.leadingUser.id)}
-                        getOptionLabel={(usr) => usr.user.name}
+                        getOptionLabel={(usr) => usr.user.displayName}
                         id="insideUsers"
                         defaultValue={props.classAction.insideUsers}
                         onChange={(event, values) => props.handleInsideUsers(event, values)}

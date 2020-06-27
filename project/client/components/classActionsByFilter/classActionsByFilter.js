@@ -34,12 +34,15 @@ const getClassActionByUser = () => {
           user{
           id
           name
+          displayName
           }
+          isWaiting
         }
         status
         leadingUser {
           id
           name
+          displayName
         }
         reason
         type
@@ -70,7 +73,6 @@ function ClassActionsByFilter({ filter, limit }) {
   if (loading) {
     return <Spinner />
   }
-
   const { classActions } = data.ClassActionQueries
   const ClassActionCards = classActions.map((classAction) => {
     return <ClassActionCard key={classAction.id} classAction={classAction} />;

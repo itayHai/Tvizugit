@@ -89,6 +89,7 @@ const ClassActionContent = props => {
             addMessClick={(message, title) => addMessageHandler(message, title)}
         /> : null;
     const showJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id) ? null : <JoinAction classAction={props.cAction} />
+    const showPendingJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id && usr.isWaiting) ? <h3 className = {classes.pending}>בקשתך להצטרפות בבדיקה</h3> : null;
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
         return <Chip label= {"#" + tag} key={index} className={classes.tag}/>
     })
@@ -125,7 +126,7 @@ const ClassActionContent = props => {
                     <div className={classes.cellInRow}>
                         <Person className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{props.cAction.leadingUser.name}</h3>
+                            <h3 className={classes.infoCell}>{props.cAction.leadingUser.displayName}</h3>
                             <div>מנהל התובענה</div>
                         </div>
                     </div>
@@ -145,6 +146,7 @@ const ClassActionContent = props => {
                     </div>
                 </div>
                 {showJoin}
+                {showPendingJoin}
             </div>
             {showMessages}
         </div >

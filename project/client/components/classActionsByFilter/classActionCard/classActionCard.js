@@ -19,7 +19,9 @@ const ClassActionCard = ({ classAction }, props) => {
     dispatch(changeFilter({ name: name, categories: [], hashtags: [] }));
     history.push("/classActionsStock/");
   };
-
+  const insideUsers = users.filter(usr => {
+    return !usr.isWaiting
+  })
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -28,7 +30,7 @@ const ClassActionCard = ({ classAction }, props) => {
         <br />
         <img className={classes.icon} src={people_icon} alt="members" />
         <label>
-          <b>{users.length}</b> כבר הצטרפו למאבק
+          <b>{insideUsers.length}</b> כבר הצטרפו למאבק
         </label>
         <br />
         <img className={classes.icon} src={trophy_icon} alt="trophy" />

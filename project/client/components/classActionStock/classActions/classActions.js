@@ -44,12 +44,14 @@ const getClassActionsByParams = (params) => {
                 user {
                   id
                   name
+                  displayName
                 }
               }
               status
               leadingUser {
                 id
                 name
+                displayName
               }
               representingLawyer{
                 id
@@ -91,6 +93,7 @@ const getClassActionsByParams = (params) => {
                 user{
                 id
                 name
+                displayName
                 }
                 isWaiting
               }
@@ -98,6 +101,7 @@ const getClassActionsByParams = (params) => {
               leadingUser {
                 id
                 name
+                displayName
               }
               representingLawyer{
                 id
