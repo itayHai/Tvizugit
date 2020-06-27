@@ -65,7 +65,7 @@ const getClassActionsByParams = (params) => {
                 name
               }
               openDate
-              reason{
+              reasons{
                 id
                 name
               }
@@ -127,7 +127,7 @@ const getClassActionsByParams = (params) => {
             name
           }
           openDate
-          reason{
+          reasons{
             id
             name
           }

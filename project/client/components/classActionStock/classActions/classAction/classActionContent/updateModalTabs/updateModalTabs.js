@@ -27,7 +27,7 @@ function buildClassAction(classAction) {
         description: classAction.description,
         category: classAction.category.id,
         status: classAction.status,
-        reason: classAction.reason.id,
+        reasons: classAction.reasons.map(res => res.id),
         type: classAction.type.id,
         leadingUser: classAction.leadingUser.id,
     };
@@ -53,6 +53,12 @@ export default function UpdateModalTabs(props) {
         classAction.waitingUsers = [];
         for (let index = 0; index < values.length; index++) {
             classAction.waitingUsers.push(values[index]);
+        }
+    }
+    const handleReasons = (event, values) => {
+        classAction.reasons = [];
+        for (let index = 0; index < values.length; index++) {
+            classAction.reasons.push(values[index]);
         }
     }
     const handleInsideUsers = (event, values) => {
@@ -98,6 +104,7 @@ export default function UpdateModalTabs(props) {
                     classAction={classAction}
                     handleChangeAutoField={handleChangeAutoField}
                     handleChange={handleChangeAction}
+                    handleReasons={handleReasons}
                 />
             </TabPanel>
             <TabPanel value={tab} index={1}>

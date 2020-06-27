@@ -26,7 +26,7 @@ function updateClassAction (id, classActionToAdd) {
       .populate('defendants.type')
       .populate('defendants.theme')
       .populate('type')
-      .populate('reason')
+      .populate('reasons')
       .then(classAction => {
         if (classAction) {
           addClassActionToLawyer(classActionToAdd.representingLawyer, classAction.id);
@@ -44,7 +44,7 @@ function updateClassAction (id, classActionToAdd) {
             .populate('defendants.type')
             .populate('defendants.theme')
             .populate('type')
-            .populate('reason');
+            .populate('reasons');
         }
       })
       .catch(err => {
@@ -62,7 +62,7 @@ function updateClassAction (id, classActionToAdd) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function reportClassAction ({id, reportMessage}) {
@@ -78,7 +78,7 @@ function reportClassAction ({id, reportMessage}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function cancelReportClassAction ({id}) {
@@ -94,7 +94,7 @@ function cancelReportClassAction ({id}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function getClassAction ({id}) {
@@ -106,7 +106,7 @@ function getClassAction ({id}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function getClassActionsByUser ({userId, limit}) {
@@ -119,7 +119,7 @@ function getClassActionsByUser ({userId, limit}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function getReportedClassActions () {
@@ -131,7 +131,7 @@ function getReportedClassActions () {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function getClassActions (limit) {
@@ -144,7 +144,7 @@ function getClassActions (limit) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 function getClassActionsByParams ({name, hashtags, categories, limit}) {
@@ -175,7 +175,7 @@ function getClassActionsByParams ({name, hashtags, categories, limit}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reason');
+    .populate('reasons');
 }
 
 export {

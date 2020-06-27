@@ -13,7 +13,7 @@ const ClassActionInfo = props => {
     if (loading || landingT || landingR) return <p>Loading...</p>;
     return (
         <div>
-            כל השדות בדף הן חובה
+            כל השדות בדף הן חובה. עילת התביעה הראשונה שתבחר, תוצג כראשית 
             <Input
                 placeholder="שם התביעה"
                 className={classes.InputSearch}
@@ -47,19 +47,19 @@ const ClassActionInfo = props => {
                 includeInputInList
                 renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.type} placeholder="סוג תביעה" fullWidth={true} />}
             />
-            <Autocomplete
+            <Autocomplete multiple
                 options={dataR.classActionReasonQueries.classActionReasons}
                 className={classes.InputSearch}
                 getOptionSelected={(option, value) => {
                     return option.id === value.id
                 }}
                 getOptionLabel={(reason) => reason.name}
-                id="reason"
-                defaultValue={props.classAction.reason}
+                id="reasons"
+                defaultValue={props.classAction.reasons}
                 autoComplete
-                onChange={(event, values) => props.handleChangeAutoField(event, values,"reason")}
+                onChange={(event, values) => props.handleReasons(event, values)}
                 includeInputInList
-                renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.reason} placeholder="עילת התביעה" fullWidth={true} />}
+                renderInput={(params) => <TextField {...params} error={props.showMandatory && !props.classAction.reasons} placeholder="עילת התביעה" fullWidth={true} />}
             />
             <Autocomplete
                 options={data.CategoryQueries.categories}

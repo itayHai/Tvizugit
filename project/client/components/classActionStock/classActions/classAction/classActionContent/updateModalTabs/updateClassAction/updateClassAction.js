@@ -38,17 +38,17 @@ const UpdateClassAction = props => {
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="משרד מייצג" margin="normal" />}
                 />
-                <Autocomplete
+                <Autocomplete multiple
                     options={dataR.classActionReasonQueries.classActionReasons}
                     className={classes.ManagerAction}
-                    defaultValue={props.classAction.reason}
+                    defaultValue={props.classAction.reasons}
                     getOptionSelected={(option, value) => {
                         return option.id === value.id
                     }}
                     getOptionLabel={(reason) => reason.name}
-                    id="reason"
+                    id="reasons"
                     autoComplete
-                    onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                    onChange={(event, values) => props.handleReasons(event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="עילת תובענה" margin="normal" />}
                 />

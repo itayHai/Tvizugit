@@ -18,7 +18,7 @@ const inputsInStep = [
             "name",
             "description",
             "type",
-            "reason",
+            "reasons",
             "category"
         ]
     },
@@ -44,6 +44,7 @@ const CreateClassAction = props => {
                     handleChangeAutoField={handleChangeAutoField}
                     showMandatory={showMandatory}
                     classAction={classAction}
+                    handleReasons={handleReasons}
                 />;
             case 1:
                 return <ClassActionDefendants
@@ -113,7 +114,12 @@ const CreateClassAction = props => {
         setShowMandatory(false);
         classAction.defendants[defendantNumber][field] = values;
     }
-
+    const handleReasons = (event, values) => {
+        classAction.reasons = [];
+        for (let index = 0; index < values.length; index++) {
+            classAction.reasons.push(values[index]);
+        }
+    }
     const handleSave = () => {
         classAction.openDate = new Date();
         classAction.status = "תובענה חדשה בשוק חבר'ה!";
@@ -123,8 +129,8 @@ const CreateClassAction = props => {
         classAction.defendants = classAction.defendants.filter(def => Object.keys(def).length !== 0);
         classAction.defendants = classAction.defendants.map(def => { return { name: def.name, type: def.type.id, theme: def.theme.id } });
         classAction.type = classAction.type.id;
-        classAction.reason = classAction.reason.id;
-
+        classAction.reasons = classAction.reasons.map(res => res.id);
+        
         addClassAction({
             variables: {
                 classAction

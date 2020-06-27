@@ -56,7 +56,7 @@ const getClassActionByUser = () => {
           name
         }
         openDate
-        reason{
+        reasons{
           id
           name
         }

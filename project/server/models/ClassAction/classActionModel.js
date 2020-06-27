@@ -61,7 +61,7 @@ export const classActionSchema = new Schema({
   leadingUser: {type: Schema.Types.ObjectId, ref: 'user', required: true},
   representingLawyer: {type: Schema.Types.ObjectId, ref: 'lawyer'},
   type: {type: Schema.Types.ObjectId, ref: 'classActionType', required: true},
-  reason: {type: Schema.Types.ObjectId, ref: 'classActionReason', required: true},
+  reasons: [{type: Schema.Types.ObjectId, ref: 'classActionReason', required: true}],
   openDate: {type: Date},
   reported: {type: Boolean},
   reportMessage: {type: String},

@@ -67,7 +67,7 @@ const ClassActionType = new GraphQLObjectType({
     },
     leadingUser: {type: UserType},
     type: {type: typeOfClassActionType},
-    reason: {type: ClassActionReasonType},
+    reasons: {type: new GraphQLList(ClassActionReasonType)},
     representingLawyer: {type: UserType},
     openDate: {type: GraphQLDate},
     reported: {type: GraphQLBoolean},
@@ -102,7 +102,8 @@ const ClassActionInputType = new GraphQLInputObjectType({
       type: new GraphQLList(MessageInputType)
     },
     type: {type: new GraphQLNonNull(GraphQLString)},
-    reason: {type: new GraphQLNonNull(GraphQLString)},
+    reasons: {type: new GraphQLNonNull(
+      new GraphQLList(new GraphQLNonNull(GraphQLString)))},
     leadingUser: {type: new GraphQLNonNull(GraphQLString)},
     representingLawyer: {type: GraphQLString},
     openDate: {type: GraphQLDate},

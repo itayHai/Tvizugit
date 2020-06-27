@@ -48,7 +48,7 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         name
       }
       openDate
-      reason{
+      reasons{
         id
         name
       }
@@ -153,7 +153,9 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
       }
       reported
-      reason
+      reasons{
+        id
+      }
       type
       reportMessage
       openDate
