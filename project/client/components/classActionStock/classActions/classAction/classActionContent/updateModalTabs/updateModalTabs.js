@@ -30,10 +30,9 @@ function buildClassAction(classAction) {
         reasons: classAction.reasons.map(res => res.id),
         type: classAction.type.id,
         leadingUser: classAction.leadingUser.id,
+        representingLawyer : classAction.representingLawyer?.id ? classAction.representingLawyer.id : null
     };
-    if (classAction.representingLawyer) {
-        classActionToAdd.representingLawyer = classAction.representingLawyer.id;
-    }
+
     return classActionToAdd;
 }
 export default function UpdateModalTabs(props) {
@@ -46,8 +45,8 @@ export default function UpdateModalTabs(props) {
     const handleChangeAction = (event) => {
         classAction[event.target.name] = event.target.value;
     };
-    const handleChangeAutoField = (event, values) => {
-        classAction[event.target.id.split('-')[0]] = values;
+    const handleChangeAutoField = (id, event, values) => {
+        classAction[id] = values;
     }
     const handleWaitingUsers = (event, values) => {
         classAction.waitingUsers = [];
