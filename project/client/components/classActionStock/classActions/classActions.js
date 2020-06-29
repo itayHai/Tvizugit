@@ -41,7 +41,7 @@ const getClassActionsByParams = (params) => {
                 }
               }
               messages {
-                id
+                _id
                 title
                 date
                 content
