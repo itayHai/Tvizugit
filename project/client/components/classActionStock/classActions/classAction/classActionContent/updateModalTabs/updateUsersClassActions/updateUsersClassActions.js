@@ -14,7 +14,7 @@ const UpdateUsersClassActions = props => {
                     getOptionLabel={(usr) => usr.user.displayName}
                     id="waitingUsers"
                     defaultValue={props.classAction.waitingUsers}
-                    onChange={(event, values) => props.handleWaitingUsers(event, values)}
+                    onChange={(event, values) => props.handleUsers("waitingUsers",event, values)}
                     renderInput={(params) => (
                         <TextField {...params}
                             variant="standard"
@@ -25,7 +25,7 @@ const UpdateUsersClassActions = props => {
                         getOptionLabel={(usr) => usr.user.displayName}
                         id="insideUsers"
                         defaultValue={props.classAction.insideUsers}
-                        onChange={(event, values) => props.handleInsideUsers(event, values)}
+                        onChange={(event, values) => props.handleUsers("insideUsers",event, values)}
                         renderInput={(params) => (
                             <TextField {...params}
                                 variant="standard"

@@ -60,7 +60,7 @@ const Navbar = (props) => {
             <label className={classes.slogan}>לתבוע בידיים טובות</label>
           </div>
         </Link>
-        <Link to="/classActionsStock/" className={classes.link} onClick={() => dispatch(changeFilter())}>
+        <Link to="/classActionsStock" className={classes.link} onClick={() => dispatch(changeFilter())}>
           <h3>מאגר התביעות</h3>
         </Link>
         <Link to="/lawyers" className={classes.link} onClick={() => dispatch(changeFilter())}>
