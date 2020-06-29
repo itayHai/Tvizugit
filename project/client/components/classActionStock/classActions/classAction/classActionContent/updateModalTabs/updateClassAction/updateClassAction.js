@@ -34,7 +34,7 @@ const UpdateClassAction = props => {
                     getOptionLabel={(law) => law.name}
                     id="representingLawyer"
                     autoComplete
-                    onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                    onChange={(event, values) => props.handleChangeAutoField("representingLawyer",event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="משרד מייצג" margin="normal" />}
                 />
@@ -48,7 +48,7 @@ const UpdateClassAction = props => {
                     getOptionLabel={(reason) => reason.name}
                     id="reasons"
                     autoComplete
-                    onChange={(event, values) => props.handleReasons(event, values)}
+                    onChange={(event, values) => props.handleReasons("reasons",event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="עילת תובענה" margin="normal" />}
                 />
@@ -62,7 +62,7 @@ const UpdateClassAction = props => {
                     getOptionLabel={(type) => type.name}
                     id="type"
                     autoComplete
-                    onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                    onChange={(event, values) => props.handleChangeAutoField("type",event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="סוג תובענה" margin="normal" />}
                 />
@@ -72,7 +72,7 @@ const UpdateClassAction = props => {
                     defaultValue={props.classAction.status}
                     id="status"
                     autoComplete
-                    onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                    onChange={(event, values) => props.handleChangeAutoField("status",event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="שלב התובענה" margin="normal" />}
                 />
@@ -86,7 +86,7 @@ const UpdateClassAction = props => {
                     getOptionLabel={(cat) => cat.name}
                     id="category"
                     autoComplete
-                    onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                    onChange={(event, values) => props.handleChangeAutoField("category",event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="קטגוריה" margin="normal" />}
                 />
@@ -99,7 +99,7 @@ const UpdateClassAction = props => {
                             getOptionLabel={(user) => user.user.name}
                             id="leadingUser"
                             autoComplete
-                            onChange={(event, values) => props.handleChangeAutoField(event, values)}
+                            onChange={(event, values) => props.handleChangeAutoField("leadingUser",event, values)}
                             includeInputInList
                             renderInput={(params) => <TextField {...params} placeholder="מנהל תובענה" margin="normal" />}
                         />
