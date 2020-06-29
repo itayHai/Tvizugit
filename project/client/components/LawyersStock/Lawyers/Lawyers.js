@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { lawyersRequests } from "../../../utils/requests";
 import Lawyer from "./Lawyer/Lawyer";
 import Spinner from "../../spinner/spinner";
 
 const Lawyers = (props) => {
+
     const { loading, error, data } = useQuery(
-        lawyersRequests.getAllLawyers
+        lawyersRequests.getAllLawyers, {
+            fetchPolicy: "network-only"   
+        }
       );
 
     if (loading) {

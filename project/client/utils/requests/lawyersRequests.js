@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import {gql} from 'apollo-boost';
 
 const addNewLawyer = gql`
 mutation ($lawyer: LawyerInputType!) {
@@ -20,7 +20,7 @@ mutation ($lawyer: LawyerInputType!) {
 `;
 
 const updateLawyer = gql`
-mutation ($id: String, $lawyer:LawyerInputType!) {
+mutation updateLawyer ($id: String, $lawyer:LawyerInputType!) {
   LawyerMutations {
     lawyer (lawyer: $lawyer, id:$id) {
       id
@@ -76,8 +76,8 @@ const getAllLawyers = gql`
 `;
 
 export default {
-    addNewLawyer,
-    getLawyer,
-    getAllLawyers,
-    updateLawyer
+  addNewLawyer,
+  getLawyer,
+  getAllLawyers,
+  updateLawyer
 };

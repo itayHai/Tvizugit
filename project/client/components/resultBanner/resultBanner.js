@@ -255,12 +255,14 @@ export default function ResultBanner(props) {
                 </Dialog>
               </div>
             )}
-            {resultBannerType === resultTypes.LAWYER && (
+            {resultBannerType === resultTypes.LAWYER && loggedInUser.email === props.lawyer.email && (
               <div>
                 <IconButton onClick={() => setEditLawyerOpen(true)}>
                   <Edit/>
                 </IconButton>
-              <EditLawyer lawyer={props.lawyer} close={() => setEditLawyerOpen(false)} editOpen={editLawyerOpen}/>
+              <EditLawyer lawyer={props.lawyer} 
+                          close={() => setEditLawyerOpen(false)} 
+                          editOpen={editLawyerOpen}/>
               </div>
             )
 
