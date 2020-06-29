@@ -29,14 +29,11 @@ function deleteClassActionToLawyer (id, classActionID) {
     .then(lawyer => {
       const classactions = lawyer.classactions;
       const index = classactions.indexOf(classActionID);
-
-      console.log(index);
       if (index > -1) {
         classactions.splice(index, 1);
       }
       lawyer.classactions = classactions;
       const newLawyer = new LawyerModel(lawyer);
-
 
       return newLawyer.save();
     })
