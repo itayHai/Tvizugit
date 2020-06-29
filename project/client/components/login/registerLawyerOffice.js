@@ -28,6 +28,7 @@ function RegisterLawyerOffice (props) {
 
     const imageChange = (event) => {
         setsrcImg(URL.createObjectURL(event.target.files[0]))
+        RegisterLawyer[event.target.name] = event.target.value;
     }
 
     const handleClose = () => {
@@ -36,11 +37,31 @@ function RegisterLawyerOffice (props) {
 
     const handleChange = (event) => {
         RegisterLawyer[event.target.name] = event.target.value;
-    }
-  
+    };
+
     function regiesterProfile(){
       dispatch(setMode("lawyerProfile"));
     }
+
+    const uploadFile = async (req, res) => {
+        try {
+          console.log(req.file);
+      
+          await upload(req, res);
+      
+          console.log(req.file);
+          if (!req.file) {
+            return res.send('You must select a file.');
+          }
+      
+          return res.send('File has been uploaded.');
+        }
+        catch (err) {
+          console.log(err);
+      
+          return res.send(`Error when trying upload image: ${err}`);
+        }
+      };
 
     function finishRegister(){
 
@@ -49,10 +70,12 @@ function RegisterLawyerOffice (props) {
             RegisterLawyer.phone === "" ||
             RegisterLawyer.img === "" ){
         
+            console.log(RegisterLawyer);
             setMessage("יש למלא את כל השדות");
             setOpen(true);        
         }
         else{
+
             dispatch(changeRegisterLawyer(RegisterLawyer));
 
             addNewUser({
