@@ -24,7 +24,7 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         }
       }
       messages{
-        id
+        _id
         title
         date
         content

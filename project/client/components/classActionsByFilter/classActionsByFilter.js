@@ -32,7 +32,7 @@ const getClassActionByUser = () => {
           }
         }
         messages {
-          id
+          _id
           title
           date
           content
