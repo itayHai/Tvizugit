@@ -48,7 +48,7 @@ const UpdateClassAction = props => {
                     getOptionLabel={(reason) => reason.name}
                     id="reasons"
                     autoComplete
-                    onChange={(event, values) => props.handleReasons(event, values)}
+                    onChange={(event, values) => props.handleReasons("reasons",event, values)}
                     includeInputInList
                     renderInput={(params) => <TextField {...params} placeholder="עילת תובענה" margin="normal" />}
                 />

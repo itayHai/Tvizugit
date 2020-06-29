@@ -48,22 +48,10 @@ export default function UpdateModalTabs(props) {
     const handleChangeAutoField = (id, event, values) => {
         classAction[id] = values;
     }
-    const handleWaitingUsers = (event, values) => {
-        classAction.waitingUsers = [];
+    const handleArrayFields = (id, event, values) => {
+        classAction[id] = [];
         for (let index = 0; index < values.length; index++) {
-            classAction.waitingUsers.push(values[index]);
-        }
-    }
-    const handleReasons = (event, values) => {
-        classAction.reasons = [];
-        for (let index = 0; index < values.length; index++) {
-            classAction.reasons.push(values[index]);
-        }
-    }
-    const handleInsideUsers = (event, values) => {
-        classAction.insideUsers = [];
-        for (let index = 0; index < values.length; index++) {
-            classAction.insideUsers.push(values[index]);
+            classAction[id].push(values[index]);
         }
     }
     const handleSave = () => {
@@ -103,14 +91,13 @@ export default function UpdateModalTabs(props) {
                     classAction={classAction}
                     handleChangeAutoField={handleChangeAutoField}
                     handleChange={handleChangeAction}
-                    handleReasons={handleReasons}
+                    handleReasons={handleArrayFields}
                 />
             </TabPanel>
             <TabPanel value={tab} index={1}>
                 <UpdateUsersClassAction
                     classAction={classAction}
-                    handleInsideUsers={handleInsideUsers}
-                    handleWaitingUsers={handleWaitingUsers}
+                    handleUsers={handleArrayFields}
                 />
             </TabPanel>
             <div className={classes.buttons}>
