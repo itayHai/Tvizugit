@@ -4,7 +4,8 @@
 
 .infoRow{
     display:flex;
-    flex-direction:row;
+    flex-direction: row;
+    justify-content: space-between;
     padding-bottom:15px;
 }
 .infoCell{
@@ -32,4 +33,7 @@
 }
 .tag{
     margin: 15px 5px !important;
+}
+.pending{
+    margin-top: 30px;
 }

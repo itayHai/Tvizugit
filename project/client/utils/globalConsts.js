@@ -56,31 +56,6 @@ export const statuses = [
   "תוך כדי משפט",
   "במהלך פשרה"
 ];
-export const defendantThemes = [
-'עולם תוכן נחמד',
-'עולם תוכן כועס',
-'עולם תוכן מתוק'
-];
-export const defendantTypes = [
-  'סוג נחמד',
-  'סוג כועס',
-  'סוג מתוק'
-];
-export const classActionReasons = [
-  'סיבה יפה',
-  'סיבה מעולה',
-  'סיבה מטומטמת'
-];
-export const classActionTypes = [
-  'סוג יפה',
-  'סוג מעולה',
-  'סוג מטומטמת'
-]
-export const lawyerOffices = [
-  'עידו ושות',
-  'אלה ושות',
-  'טלי ושות',
-];
 
 export const categoriesIcons = {
   "חוק הגנת הצרכן": <Accessibility />,

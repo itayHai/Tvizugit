@@ -16,13 +16,20 @@ const getClassActionByUser = () => {
         name
         description
         category {
+          id
           name
           engName
         }
         defendants{
           name
-          type
-          theme
+          type{
+            id
+            name
+          }
+          theme{
+            id
+            name
+          }
         }
         messages {
           id
@@ -34,16 +41,29 @@ const getClassActionByUser = () => {
           user{
           id
           name
+          displayName
           }
+          isWaiting
         }
         status
         leadingUser {
           id
           name
+          displayName
         }
-        reason
-        type
+        representingLawyer{
+          id
+          name
+        }
         openDate
+        reasons{
+          id
+          name
+        }
+        type{
+          id
+          name
+        }
         successChances
         hashtags
       }
@@ -70,7 +90,6 @@ function ClassActionsByFilter({ filter, limit }) {
   if (loading) {
     return <Spinner />
   }
-
   const { classActions } = data.ClassActionQueries
   const ClassActionCards = classActions.map((classAction) => {
     return <ClassActionCard key={classAction.id} classAction={classAction} />;

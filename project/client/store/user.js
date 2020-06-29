@@ -40,6 +40,8 @@ export function LoginUser(user) {
         }
         else {
           alert("שם משתמש או סיסמא שגויים")
+          localStorage.setItem('localEmail', 'undefined');
+          localStorage.setItem('localPassword', 'undefined');
         }
       }
       );

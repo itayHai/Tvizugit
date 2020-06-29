@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import {gql} from 'apollo-boost';
 
 const updateClassActionServer = gql`
 mutation ($classAction: ClassActionInputType!, $id: String) {
@@ -14,8 +14,14 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
       }
       defendants{
         name
-        type
-        theme
+        type{
+          id
+          name
+        }
+        theme{
+          id
+          name
+        }
       }
       messages{
         id
@@ -27,6 +33,7 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -34,14 +41,21 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
       leadingUser {
         id
         name
+        displayName
       }
       representingLawyer{
         id
         name
       }
       openDate
-      reason
-      type
+      reasons{
+        id
+        name
+      }
+      type{
+        id
+        name
+      }
       successChances
       hashtags
     }
@@ -81,6 +95,7 @@ query getReportedClassActions {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -88,13 +103,14 @@ query getReportedClassActions {
       leadingUser {
         id
         name
+        displayName
       }
       reported
       reportMessage
     } 
   }
 }
-`
+`;
 
 const REPORT = gql`
 mutation reportClassAction($id: String!, $reportMessage: String!) {
@@ -123,6 +139,7 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -136,7 +153,9 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
         name
       }
       reported
-      reason
+      reasons{
+        id
+      }
       type
       reportMessage
       openDate
@@ -170,6 +189,7 @@ mutation cancelReportClassAction($id: String!) {
         user{
         id
         name
+        displayName
         }
         isWaiting
       }
@@ -177,6 +197,7 @@ mutation cancelReportClassAction($id: String!) {
       leadingUser {
         id
         name
+        displayName
       }
       reported
       reportMessage
@@ -187,11 +208,57 @@ mutation cancelReportClassAction($id: String!) {
   }
 }
 `;
+const getAllClassActionTypes = gql`
+{
+  typeClassActionQueries{
+      typesOfClassActions{
+        id
+        name
+      }
+    }
+  }
+  `;
+const getAllClassActionReasons = gql`
+  {
+    classActionReasonQueries{
+     classActionReasons{
+       id
+       name
+     }
+     
+   }
+ }
+  `;
+const getAllDefendantsTypes = gql`
+  {
+    defendantTypeQueries {
+      defendantTypes {
+        id
+        name
+      }
+    }
+  }
+  `;
+const getAllDefendantsThemes = gql`
+  {
+    defendantThemeQueries{
+      defendantThemes{
+       id
+       name
+     }
+   }
+ }
+ 
+  `;
 
 export default {
   updateClassActionServer,
+  getAllClassActionTypes,
+  getAllClassActionReasons,
+  getAllDefendantsThemes,
+  getAllDefendantsTypes,
   GET_REPORTED,
   addClassAction,
   REPORT,
-  CANCEL_REPORT,
+  CANCEL_REPORT
 };

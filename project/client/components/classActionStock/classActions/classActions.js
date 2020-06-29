@@ -31,55 +31,14 @@ const getClassActionsByParams = (params) => {
               }
               defendants{
                 name
-                type
-                theme
-              }
-              messages {
-                id
-                title
-                date
-                content
-              }
-              users {
-                user {
+                type{
                   id
                   name
                 }
-              }
-              status
-              leadingUser {
-                id
-                name
-              }
-              representingLawyer{
-                id
-                name
-              }
-              openDate
-              reason
-              type
-              successChances
-              hashtags
-            }
-          }
-        }
-      `
-    : gql`
-        {
-          ClassActionQueries {
-            classActions {
-              id
-              name
-              description
-              category {
-                id
-                name
-                engName
-              }
-              defendants{
-                name
-                type
-                theme
+                theme{
+                  id
+                  name
+                }
               }
               messages {
                 id
@@ -91,6 +50,7 @@ const getClassActionsByParams = (params) => {
                 user{
                 id
                 name
+                displayName
                 }
                 isWaiting
               }
@@ -98,19 +58,88 @@ const getClassActionsByParams = (params) => {
               leadingUser {
                 id
                 name
+                displayName
               }
               representingLawyer{
                 id
                 name
               }
               openDate
-              reason
-              type
+              reasons{
+                id
+                name
+              }
+              type{
+                id
+                name
+              }
               successChances
               hashtags
             }
           }
         }
+      `
+    : gql`
+    {
+      ClassActionQueries {
+        classActions {
+          id
+          name
+          description
+          category {
+            id
+            name
+            engName
+          }
+          defendants{
+            name
+            type{
+              id
+              name
+            }
+            theme{
+              id
+              name
+            }
+          }
+          messages {
+            _id
+            title
+            date
+            content
+          }
+          users {
+            user{
+            id
+            name
+            displayName
+            }
+            isWaiting
+          }
+          status
+          leadingUser {
+            id
+            name
+            displayName
+          }
+          representingLawyer{
+            id
+            name
+          }
+          openDate
+          reasons{
+            id
+            name
+          }
+          type{
+            id
+            name
+          }
+          successChances
+          hashtags
+        }
+      }
+    }
       `;
 };
 

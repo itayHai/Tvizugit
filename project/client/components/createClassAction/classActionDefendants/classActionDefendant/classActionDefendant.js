@@ -2,9 +2,12 @@ import React from 'react';
 import classes from './classActionDefendant.module.css'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Input, TextField } from "@material-ui/core";
-import { defendantTypes, defendantThemes } from '../../../../utils/globalConsts';
+import { classActionsRequest } from "../../../../utils/requests";
+import { useQuery } from "@apollo/react-hooks";
 
 const classActionDefendant = props => {
+    const { data: dataType, error: errorDefType, loading: landingType } = useQuery(classActionsRequest.getAllDefendantsTypes);
+    const { data: dataTheme, error: errorDefTheme, loading: landingTheme } = useQuery(classActionsRequest.getAllDefendantsThemes);
     let errorName = false;
     let errorType = false;
     let errorTheme = false;
@@ -19,6 +22,7 @@ const classActionDefendant = props => {
     const handleChangeAuto = (event, values, field) => {
         props.handleChangeDefField(event, values, field, props.defendantNumber)
     }
+    if (landingType || landingTheme) return <p>Loading...</p>;
     return (
         <div style={{ display: "flex", flexDirection: "row" }}>
             <Input
@@ -31,19 +35,27 @@ const classActionDefendant = props => {
                 onChange={(event, value) => handleChange(event, value)}
             />
             <Autocomplete
-                options={defendantTypes}
+                options={dataType.defendantTypeQueries.defendantTypes}
                 className={classes.InputSearch}
+                getOptionSelected={(option, value) => {
+                    return option.id === value.id
+                }}
+                getOptionLabel={(type) => type.name}
                 id={"defendantType" + props.defendantNumber}
-                defaultValue={props.defendant.type}
+                defaultValue={props.defendant.type?.name}
                 autoComplete
                 onChange={(event, values) => handleChangeAuto(event, values, "type")}
                 renderInput={(params) => <TextField {...params} error={errorType} placeholder="סוג נאשם" fullWidth={true} />}
             />
             <Autocomplete
-                options={defendantThemes}
+                options={dataTheme.defendantThemeQueries.defendantThemes}
                 className={classes.InputSearch}
+                getOptionSelected={(option, value) => {
+                    return option.id === value.id
+                }}
+                getOptionLabel={(theme) => theme.name}
                 id={"defendantTheme" + props.defendantNumber}
-                defaultValue={props.defendant.theme}
+                defaultValue={props.defendant.theme?.name}
                 autoComplete
                 onChange={(event, values) => handleChangeAuto(event, values, "theme")}
                 renderInput={(params) => <TextField {...params} error={errorTheme} placeholder="עולם תוכן" fullWidth={true} />}
