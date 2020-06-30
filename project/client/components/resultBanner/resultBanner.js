@@ -37,6 +37,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { useMutation } from "@apollo/react-hooks";
 import { classActionsRequest } from "../../utils/requests";
 import { resultTypes } from "../../utils/globalConsts";
+import AlertUser from "../alertUser/alertUser";
 
 export default function ResultBanner(props) {
   // Initialize state
@@ -46,11 +47,17 @@ export default function ResultBanner(props) {
   const [reportMessage, setReportMessage] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [editLawyerOpen, setEditLawyerOpen] = useState(false);
-
+  const [reportedAlertOpen, setReportedAlert] = useState(false);
+  const [deletedAlertOpen, setDeletedAlert] = useState(false);
   // Initialize mutations
   const [reportClassAction] = useMutation(classActionsRequest.REPORT);
   const [cancelReport] = useMutation(classActionsRequest.CANCEL_REPORT);
+  const [deleteReport] = useMutation(classActionsRequest.DELETE_CLASS_ACTION_MUTATION);
 
+  const filter = useSelector((state) => state.classAction.filter);
+  let name = filter.name;
+  let categories = filter.categories;
+  let hashtags = filter.hashtags;
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.loggedInUser);
   const resultBannerType = props.entityType;
@@ -59,11 +66,16 @@ export default function ResultBanner(props) {
   };
 
   const hadleDeleteClassAction = (entityId) => {
-    if (resultBannerType === resultTypes.REPORTED_CLASS_ACTION) {
-      props.cancelReport(entityId);
-    }
+    deleteReport({ variables: { id: entityId } }).then((data => {
+      setDeletedAlert(true)
 
-    dispatch(deleteClassAction(entityId));
+      props.refetch(name, categories, hashtags);
+      if (resultBannerType === resultTypes.REPORTED_CLASS_ACTION) {
+        props.cancelReport(entityId);
+      }
+    }));
+
+
     setDeleteDialogOpen(false);
   };
 
@@ -89,6 +101,7 @@ export default function ResultBanner(props) {
         reportMessage: reportMessage,
       },
     }).then((data) => {
+      setReportedAlert(true);
       dispatch(
         updateClassAction(data.data.ClassActionMutation.reportClassAction)
       );
@@ -209,6 +222,7 @@ export default function ResultBanner(props) {
                   </Button>
                 </DialogActions>
               </Dialog>
+              <AlertUser open={reportedAlertOpen} handleClose={() => setReportedAlert(false)} message="הדיווח הושלם בהצלחה!" severity="success" />
             </div>
           )}
           {(resultBannerType === resultTypes.CLASS_ACTION ||
@@ -253,6 +267,7 @@ export default function ResultBanner(props) {
                     </Button>
                   </DialogActions>
                 </Dialog>
+                <AlertUser open={deletedAlertOpen} handleClose={() => setDeletedAlert(false)} message="התביעה נמחקה בהצלחה!" severity="success" />
               </div>
             )}
             {resultBannerType === resultTypes.LAWYER && loggedInUser.email === props.lawyer.email && (
@@ -265,10 +280,8 @@ export default function ResultBanner(props) {
                           editOpen={editLawyerOpen}/>
               </div>
             )
-
-            }
-{resultBannerType === resultTypes.CLASS_ACTION && (
-          <FBShare name={props.name} />)}
+          {resultBannerType === resultTypes.CLASS_ACTION && (
+            <FBShare name={props.name} />)}
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,

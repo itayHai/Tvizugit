@@ -16,8 +16,7 @@ export function updateClassActions(classActions) {
   };
 }
 
-export function changeFilter(filter={name:"", categories:[], hashtags:[]})
-{
+export function changeFilter(filter = { name: "", categories: [], hashtags: [] }) {
   return {
     type: CHANGE_FILTER,
     filter
@@ -26,30 +25,10 @@ export function changeFilter(filter={name:"", categories:[], hashtags:[]})
 }
 
 export function deleteClassAction(classActionId) {
-  const DELETE_CLASS_ACTION_MUTATION = gql`
-    mutation deleteClassAction($id: String!) {
-      ClassActionMutation {
-        deleteClassAction(id: $id) {
-          id
-        }
-      }
-    }
-  `;
-
-  return (dispatch) => {
-    client
-      .mutate({
-        mutation: DELETE_CLASS_ACTION_MUTATION,
-        // Any hard coded existing id for now
-        variables: { id: classActionId },
-      })
-      .then((result) =>
-        dispatch({
-          type: DELETE_CLASS_ACTION,
-          classActionToRemove: { id: classActionId },
-        })
-      );
-  };
+  return {
+    type: DELETE_CLASS_ACTION,
+    classActionToRemove: { id: classActionId },
+  }
 }
 
 export function changeCurAction(classAction) {
@@ -71,7 +50,7 @@ export function changeSort(sortBy) {
     payload: sortBy,
   };
 }
-export function updateMessagesAction(classAction, newMessages){
+export function updateMessagesAction(classAction, newMessages) {
   return {
     type: UPDATE_MESSAGES_ACTION,
     classAction,
@@ -83,10 +62,10 @@ const initialState = {
   sortBy: "",
   currClassAction: {},
   classActions: [],
-  filter:{
-    name:"",
-    categories:[],
-    hashtags:[]
+  filter: {
+    name: "",
+    categories: [],
+    hashtags: []
   }
 };
 
@@ -128,7 +107,7 @@ const classActionReducer = (state = initialState, action) => {
         currClassAction: action.classAction,
       };
     }
-    case UPDATE_MESSAGES_ACTION:{
+    case UPDATE_MESSAGES_ACTION: {
       const currClassAction = { ...action.classAction };
       let newClassActions = [...state.classActions];
       currClassAction.messages = action.newMessages;
@@ -143,10 +122,10 @@ const classActionReducer = (state = initialState, action) => {
         classActions: newClassActions,
       };
     }
-    case CHANGE_FILTER:{
+    case CHANGE_FILTER: {
       return {
         ...state,
-        filter:action.filter
+        filter: action.filter
 
       }
     }

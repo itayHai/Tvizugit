@@ -72,6 +72,16 @@ mutation ($classAction:ClassActionInputType!){
 }
 `;
 
+const DELETE_CLASS_ACTION_MUTATION = gql`
+    mutation deleteClassAction($id: String!) {
+      ClassActionMutation {
+        deleteClassAction(id: $id) {
+          id
+        }
+      }
+    }
+  `;
+
 const GET_REPORTED = gql`
 query getReportedClassActions {
   ClassActionQueries {
@@ -84,9 +94,19 @@ query getReportedClassActions {
         name
         engName
       }
-      defendants
+      defendants{
+        name
+        type{
+          id
+          name
+        }
+        theme{
+          id
+          name
+        }
+      }
       messages{
-        id
+        _id
         title
         date
         content
@@ -126,11 +146,17 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
       }
       defendants{
         name
-        type
-        theme
+        type{
+          id
+          name
+        }
+        theme{
+          id
+          name
+        }
       }
       messages{
-        id
+        _id
         title
         date
         content
@@ -156,7 +182,10 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
       reasons{
         id
       }
-      type
+      type {
+        idAI
+        name
+      }
       reportMessage
       openDate
       successChances
@@ -178,9 +207,19 @@ mutation cancelReportClassAction($id: String!) {
         name
         engName
       }
-      defendants
+      defendants{
+        name
+        type{
+          id
+          name
+        }
+        theme{
+          id
+          name
+        }
+      }
       messages{
-        id
+        _id
         title
         date
         content
@@ -260,5 +299,6 @@ export default {
   GET_REPORTED,
   addClassAction,
   REPORT,
-  CANCEL_REPORT
+  CANCEL_REPORT,
+  DELETE_CLASS_ACTION_MUTATION
 };
