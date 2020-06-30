@@ -7,7 +7,7 @@ import ReportedClassAction from './ReportedClassAction/reportedClassAction';
 import AlertUser from '../alertUser/alertUser';
 
 const ReportedClassActions = (props) => {
-    const [getReportedClassActions, {loading, error, data }] = useLazyQuery(classActionsRequest.GET_REPORTED,{
+    const [getReportedClassActions, {loading, error, data ,refetch}] = useLazyQuery(classActionsRequest.GET_REPORTED,{
         fetchPolicy: 'network-only',
       });
     const [reportedClassActions, setReportedClassActions] = useState([]);
@@ -36,7 +36,7 @@ const ReportedClassActions = (props) => {
     }
 
     const reportedCAElements = reportedClassActions.length !== 0 ? reportedClassActions.map(
-        (currClassAction) => <ReportedClassAction key={currClassAction.id} cancelReport={handleCancelReport} classAction={currClassAction} />) :
+        (currClassAction) => <ReportedClassAction key={currClassAction.id} refetch={refetch} cancelReport={handleCancelReport} classAction={currClassAction} />) :
         <div>
             <h2>אין תובענות מדווחות</h2>
         </div>
