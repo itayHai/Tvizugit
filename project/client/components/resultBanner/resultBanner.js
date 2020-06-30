@@ -280,7 +280,7 @@ export default function ResultBanner(props) {
                           close={() => setEditLawyerOpen(false)} 
                           editOpen={editLawyerOpen}/>
               </div>
-            )
+            )}
 
           {resultBannerType === resultTypes.CLASS_ACTION && (
             <FBShare name={props.name} />)}
