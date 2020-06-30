@@ -10,7 +10,10 @@ function addLawyer (LawyerToAdd) {
 
   return newLawyer.save();
 }
-
+function updateLawyer (id, lawyer) {
+  return LawyerModel.findOneAndUpdate({_id: id}, lawyer)
+    .populate('classactions');
+}
 function addClassActionToLawyer (id, classActionID) {
   LawyerModel.findOne({_id: id})
     .then(lawyer => {
@@ -29,6 +32,7 @@ function deleteClassActionToLawyer (id, classActionID) {
     .then(lawyer => {
       const classactions = lawyer.classactions;
       const index = classactions.indexOf(classActionID);
+
       if (index > -1) {
         classactions.splice(index, 1);
       }
@@ -48,4 +52,5 @@ function getAllLawyers () {
     .populate('classactions');
 }
 
-export {getLawyer, addLawyer, getAllLawyers, addClassActionToLawyer, deleteClassActionToLawyer};
+export {getLawyer, addLawyer, getAllLawyers, addClassActionToLawyer, deleteClassActionToLawyer, updateLawyer};
+

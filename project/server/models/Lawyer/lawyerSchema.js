@@ -10,9 +10,9 @@ export const lawyerSchema = new Schema({
     type: String,
     required: true,
   },
-  expertise: {
+  expertise: [{
     type: String,
-  },
+  }],
   email: {
     type: String,
     trim: true,
