@@ -6,7 +6,7 @@
     "configurations": [{
         "type": "node",
         "request": "launch",
-        "name": "Tvizugit Server",
+        "name": "server App.js",
         "program": "${workspaceRoot}/project/server/app.js",
         "outFiles": ["${workspaceRoot}/project/dist/server/**/*.js"]
     }, ]

@@ -41,6 +41,7 @@ const ClassAction = (props) => {
 
   return (
     <ResultBanner
+      refetch={props.refetch}
       entityType={resultTypes.CLASS_ACTION}
       entityId={props.classAction.id}
       selectedProperties={selectedProperties}
