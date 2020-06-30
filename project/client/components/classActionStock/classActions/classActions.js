@@ -82,7 +82,7 @@ const getClassActionsByParams = (params) => {
     : gql`
     {
       ClassActionQueries {
-        classActions {
+        classActions{
           id
           name
           description
@@ -150,12 +150,11 @@ const ClassActions = (props) => {
   let categories = filter.categories;
   let hashtags = filter.hashtags;
 
-  const { loading, error, data } = useQuery(
-    getClassActionsByParams(name, categories, hashtags),
+  const { loading, error, data, refetch  } = useQuery(getClassActionsByParams(name, categories, hashtags),
     {
+      fetchPolicy: 'no-cache',
       variables: { name, categories, hashtags },
-    }
-  );
+    });
 
   const sortBy = useSelector((state) => state.classAction.sortBy);
   const stateClassActions = useSelector(
@@ -194,7 +193,7 @@ const ClassActions = (props) => {
   const classActions = stateClassActions
     .sort(compareValues(sortBy))
     .map((cAction) => {
-      return <ClassAction classAction={cAction} key={cAction.id} />;
+      return <ClassAction refetch={refetch} classAction={cAction} key={cAction.id} />;
     });
 
   return (
