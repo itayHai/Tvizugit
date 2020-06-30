@@ -18,9 +18,15 @@ import { lawyersRequests } from '../../../../../utils/requests';
 import AlertUser from '../../../../alertUser/alertUser';
 
 const EditLawyer = (props) => {
-  const editLawyer = {...props.lawyer};  
+  const [editLawyer, setEditLawyer] = useState({...props.lawyer});  
   const [openMessage, setOpenMessage] = useState(false);
   const [message, setMessage] = useState("");
+  const [isErrorName, SetIsErrorName] = useState(false);
+  const [isErrorDesc, SetIsErrorDesc] = useState(false);
+  const [isErrorAddress, SetIsErrorAddress] = useState(false);
+  const [isErrorPhone, SetIsErrorPhone] = useState(false);
+  const [isErrorSen, SetIsErrorSen] = useState(false);
+  const [isErrorExp, SetIsErrorExp] = useState(false);
   const [updateLawyer] = useMutation(lawyersRequests.updateLawyer);
 
     const handleChange = (event) => {
@@ -32,16 +38,48 @@ const EditLawyer = (props) => {
     }
 
     const handleSave= () => {
-      if( editLawyer.description === "" ||
-      editLawyer.address === "" ||
-      editLawyer.phone === "" ||
-      editLawyer.name === "" || 
-      editLawyer.expertise.length < 1 || 
-      editLawyer.seniority === ""){
-  
-      alert("יש למלא את כל השדות");
+      if( editLawyer.description === "") {
+        SetIsErrorDesc(true);
+      } else {
+        SetIsErrorDesc(false);  
+      } 
+      
+      if ( editLawyer.address === "" ) {
+        SetIsErrorAddress(true);
+      } else {
+        SetIsErrorAddress(false);
       }
-      else {
+
+      if ( editLawyer.name === "" ) {
+        SetIsErrorName(true);
+      } else {
+        SetIsErrorName(false);
+      }
+
+      if ( editLawyer.phone === "" ) {
+        SetIsErrorPhone(true);
+      } else {
+        SetIsErrorPhone(false);
+      }
+
+      if ( editLawyer.seniority === "" ) {
+        SetIsErrorSen(true);
+      } else {
+        SetIsErrorSen(false);
+      }
+
+      if ( editLawyer.expertise.length < 1 ) {
+        SetIsErrorExp(true);
+      } else {
+        SetIsErrorExp(false);
+      }
+      
+      if (!(editLawyer.description === "" || 
+            editLawyer.address === ""  || 
+            editLawyer.name === "" || 
+            editLawyer.phone === "" || 
+            editLawyer.seniority === "" || 
+            editLawyer.expertise.length < 1 )) {
         updateLawyer ({
           variables:
           {
@@ -64,6 +102,7 @@ const EditLawyer = (props) => {
         
       }
     }
+
     return(
       <div>
         <Dialog
@@ -80,6 +119,7 @@ const EditLawyer = (props) => {
             <TextField label="שם המשרד" 
                         name="name"
                         required
+                        error={isErrorName}
                         fullWidth={true}
                         multiline
                         onChange={handleChange}
@@ -89,8 +129,9 @@ const EditLawyer = (props) => {
             <TextField label="תיאור המשרד" 
                         name="description"
                         required
+                        error={isErrorDesc}
                         fullWidth={true}
-                        multiline
+                        multiline                        
                         rowsMax={5}
                         onChange={handleChange}
                         className={classes.Input}
@@ -105,12 +146,14 @@ const EditLawyer = (props) => {
                                      variant="standard"
                                      name="expertise"
                                      id="expertise"
+                                     error={isErrorExp}
                                      label="תחומי התמחות של המשרד"/>)}
                                      onChange={handleChangeAutoField}
                                      defaultValue={props.lawyer.expertise}/><br/>
             <TextField label="כתובת המשרד"
                         name="address"
                         required
+                        error={isErrorAddress}
                         fullWidth={true}
                         onChange={handleChange}
                         className={classes.Input}
@@ -118,6 +161,7 @@ const EditLawyer = (props) => {
             <TextField label="טלפון המשרד"
                         name="phone"
                         required
+                        error={isErrorPhone}
                         fullWidth={true}
                         onChange={handleChange}
                         type="tel"
@@ -126,6 +170,7 @@ const EditLawyer = (props) => {
             <TextField label="ותק המשרד (בשנים)"
                         name="seniority"
                         required
+                        error={isErrorSen}
                         defaultValue={0}
                         onChange={handleChange}
                         fullWidth={true}
