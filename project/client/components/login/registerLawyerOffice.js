@@ -25,7 +25,6 @@ function RegisterLawyerOffice (props) {
     const [addNewUser] = useMutation(usersRequests.addNewUser);
     const [addNewLawyer] = useMutation(lawyersRequests.addNewLawyer);
     const [srcImg, setsrcImg] = useState(null);
-    let i = 0;
 
     const imageChange = (event) => {
         setsrcImg(URL.createObjectURL(event.target.files[0]))
@@ -52,7 +51,9 @@ function RegisterLawyerOffice (props) {
         if( RegisterLawyer.description === "" ||
             RegisterLawyer.address === "" ||
             RegisterLawyer.phone === "" ||
-            RegisterLawyer.expertise === {} ||
+            RegisterLawyer.seniority === "" ||
+            RegisterLawyer.expertise.length == undefined ||
+            RegisterLawyer.expertise.length == 0 ||
             RegisterLawyer.img === "" ){
         
             setMessage("יש למלא את כל השדות");

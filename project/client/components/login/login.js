@@ -20,14 +20,14 @@ const Login = (props) => {
 
     // Just for now - change at the next pull request!
     let user = {
-      displayName: "רותם חוגי",
-      email: "",//"rotem@gmail.com",
-      password: "", // "123456",
+      displayName: "",
+      email: "",
+      password: "",
       name: "",
       role: {
         id: "",
-        engName: "viewer",
-        name: "מנהל מערכת"
+        engName: "",
+        name: ""
       },
     }
 

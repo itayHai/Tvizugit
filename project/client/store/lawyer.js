@@ -11,7 +11,7 @@ const initialState = {
 
   RegisterLawyer: {
     id: '',
-    name: '', 
+    name: '',
     description: '',
     expertise: {},
     email: '',
