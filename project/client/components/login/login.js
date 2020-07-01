@@ -18,17 +18,12 @@ const Login = (props) => {
     const dispatch = useDispatch();
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    // Just for now - change at the next pull request!
     let user = {
       displayName: "",
       email: "",
       password: "",
       name: "",
-      role: {
-        id: "",
-        engName: "",
-        name: ""
-      },
+      role: ""
     }
 
   const handleClose = () => {
