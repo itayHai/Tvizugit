@@ -65,7 +65,8 @@ const initialState = {
   filter: {
     name: "",
     categories: [],
-    hashtags: []
+    hashtags: [],
+    userId: ""
   }
 };
 
