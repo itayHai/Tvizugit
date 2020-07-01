@@ -8,7 +8,7 @@ import { updateMessagesAction, updateClassAction, changeCurAction } from '../../
 import DateHandler from '../../../../../utils/dateHandler';
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../../../../utils/requests';
-import Chip from "@material-ui/core/Chip";
+import { Chip, Tooltip, Typography } from "@material-ui/core";
 import { Button } from '@material-ui/core';
 
 
@@ -112,6 +112,7 @@ const ClassActionContent = props => {
             dispatch(updateMessagesAction(props.cAction, newMessages))
         })
     }
+
     const defendantsNames = props.cAction.defendants.map(def => def.name).join(', ');
     const reasonsNames = props.cAction.reasons.map(res => res.name).join(', ');
     const showMessages = flatennedUsers.find(usr => usr.id === loggedInUser.id && !usr.isWaiting) ?
@@ -172,14 +173,29 @@ const ClassActionContent = props => {
                             <div>תאריך פתיחת התובענה</div>
                         </div>
                     </div>
-                    <div className={classes.cellInRow}>
-                        <Person className={classes.icon} color="action" fontSize="large" />
-                        <div className={classes.cellNoIcon}>
-                            <h3 className={classes.infoCell}>{props.cAction.leadingUser.displayName}</h3>
-                            <div>מנהל התובענה</div>
+                    {loggedInUser.role.engName === "lawyer" ? <Tooltip
+                        title={
+                            <React.Fragment>
+                                <Typography color="inherit">ליצירת קשר</Typography>
+                                <Typography>{props.cAction.leadingUser.email}</Typography>
+                            </React.Fragment>
+                        }
+                    >
+                        <div className={classes.cellInRow}>
+                            <Person className={classes.icon} color="action" fontSize="large" />
+                            <div className={classes.cellNoIcon}>
+                                <h3 className={classes.infoCell}>{props.cAction.leadingUser.displayName}</h3>
+                                <div>מנהל התובענה</div>
+                            </div>
                         </div>
-                    </div>
-
+                    </Tooltip> :
+                        <div className={classes.cellInRow}>
+                            <Person className={classes.icon} color="action" fontSize="large" />
+                            <div className={classes.cellNoIcon}>
+                                <h3 className={classes.infoCell}>{props.cAction.leadingUser.displayName}</h3>
+                                <div>מנהל התובענה</div>
+                            </div>
+                        </div>}
                     <div className={classes.cellInRow}>
                         <TextFields className={classes.icon} color="action" fontSize="large" />
                         <div className={classes.cellNoIcon}>

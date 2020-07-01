@@ -17,7 +17,7 @@ const UpdateClassAction = props => {
     if (errorL || error || errorT || errorR) console.log(errorL);
     return (
         <div
-            style={{ minWidth: "500px", maxWidth: "500px", minHeight: "500px", maxHeight: "500px" }}
+            style={{ minWidth: "500px", maxWidth: "500px", minHeight: "600px", maxHeight: "600px" }}
         >
             <br></br>
             <TextareaAutosize autoFocus className={classes.textBox} rowsMin={3} defaultValue={props.classAction.description} name="description" onChange={(event) => props.handleChange(event)}></TextareaAutosize>
@@ -36,7 +36,7 @@ const UpdateClassAction = props => {
                     autoComplete
                     onChange={(event, values) => props.handleChangeAutoField("representingLawyer",event, values)}
                     includeInputInList
-                    renderInput={(params) => <TextField {...params} placeholder="משרד מייצג" margin="normal" />}
+                    renderInput={(params) => <TextField {...params} label="משרד מייצג" margin="normal" />}
                 />
                 <Autocomplete multiple
                     options={dataR.classActionReasonQueries.classActionReasons}
@@ -50,7 +50,7 @@ const UpdateClassAction = props => {
                     autoComplete
                     onChange={(event, values) => props.handleReasons("reasons",event, values)}
                     includeInputInList
-                    renderInput={(params) => <TextField {...params} placeholder="עילת תובענה" margin="normal" />}
+                    renderInput={(params) => <TextField {...params} label="עילת תובענה" margin="normal" />}
                 />
                 <Autocomplete
                     options={dataT.typeClassActionQueries.typesOfClassActions}
@@ -64,7 +64,7 @@ const UpdateClassAction = props => {
                     autoComplete
                     onChange={(event, values) => props.handleChangeAutoField("type",event, values)}
                     includeInputInList
-                    renderInput={(params) => <TextField {...params} placeholder="סוג תובענה" margin="normal" />}
+                    renderInput={(params) => <TextField {...params} label="סוג תובענה" margin="normal" />}
                 />
                 <Autocomplete
                     options={statuses}
@@ -74,7 +74,7 @@ const UpdateClassAction = props => {
                     autoComplete
                     onChange={(event, values) => props.handleChangeAutoField("status",event, values)}
                     includeInputInList
-                    renderInput={(params) => <TextField {...params} placeholder="שלב התובענה" margin="normal" />}
+                    renderInput={(params) => <TextField {...params} label="שלב התובענה" margin="normal" />}
                 />
                 <Autocomplete
                     options={data.CategoryQueries.categories}
@@ -88,23 +88,8 @@ const UpdateClassAction = props => {
                     autoComplete
                     onChange={(event, values) => props.handleChangeAutoField("category",event, values)}
                     includeInputInList
-                    renderInput={(params) => <TextField {...params} placeholder="קטגוריה" margin="normal" />}
+                    renderInput={(params) => <TextField {...params} label="קטגוריה" margin="normal" />}
                 />
-                {
-                    props.classAction.users ?
-                        <Autocomplete
-                            options={props.classAction.users}
-                            defaultValue={props.classAction.users.find(user => props.classAction.leadingUser.id === user.user.id)}
-                            className={classes.ManagerAction}
-                            getOptionLabel={(user) => user.user.name}
-                            id="leadingUser"
-                            autoComplete
-                            onChange={(event, values) => props.handleChangeAutoField("leadingUser",event, values)}
-                            includeInputInList
-                            renderInput={(params) => <TextField {...params} placeholder="מנהל תובענה" margin="normal" />}
-                        />
-                        : null
-                }
             </div>
         </div>
     );

@@ -98,6 +98,7 @@ export default function UpdateModalTabs(props) {
                 <UpdateUsersClassAction
                     classAction={classAction}
                     handleUsers={handleArrayFields}
+                    handleChangeAutoField={handleChangeAutoField}
                 />
             </TabPanel>
             <div className={classes.buttons}>
