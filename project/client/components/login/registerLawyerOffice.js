@@ -24,13 +24,23 @@ function RegisterLawyerOffice (props) {
     const RegisterLawyer = useSelector(state => state.lawyer.RegisterLawyer)
     const [addNewUser] = useMutation(usersRequests.addNewUser);
     const [addNewLawyer] = useMutation(lawyersRequests.addNewLawyer);
+    const [srcImg, setsrcImg] = useState(null);
+    let i = 0;
 
+    const imageChange = (event) => {
+        setsrcImg(URL.createObjectURL(event.target.files[0]))
+        RegisterLawyer[event.target.name] = event.target.value;
+    }
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleChange = (event) => {
         RegisterLawyer[event.target.name] = event.target.value;
+    }
+
+    const handleChangeExpertise = (event, value) => {
+        RegisterLawyer.expertise = value;
     }
   
     function regiesterProfile(){
@@ -42,6 +52,7 @@ function RegisterLawyerOffice (props) {
         if( RegisterLawyer.description === "" ||
             RegisterLawyer.address === "" ||
             RegisterLawyer.phone === "" ||
+            RegisterLawyer.expertise === {} ||
             RegisterLawyer.img === "" ){
         
             setMessage("יש למלא את כל השדות");
@@ -69,7 +80,7 @@ function RegisterLawyerOffice (props) {
                     {
                         lawyer:
                         {
-                            name: RegisterUser.name,
+                            name: RegisterUser.displayName,
                             description: RegisterLawyer.description ,
                             expertise: RegisterLawyer.expertise,
                             email: RegisterUser.email,
@@ -82,7 +93,7 @@ function RegisterLawyerOffice (props) {
                 }).then(data => {
                     dispatch(changeLoggedInUser(RegisterUser));
                     props.close();
-                }).catch(data => {
+                }).catch(data => { 
                     setMessage("התרחשה תקלה אנא פנה למנהל מערכת");
                     setOpen(true); 
                 })
@@ -112,8 +123,7 @@ function RegisterLawyerOffice (props) {
                           name="expertise"
                           required
                           multiline
-                          //defaultValue={RegisterLawyer.expertise}
-                          onChange={handleChange}
+                          onChange={handleChangeExpertise}
                           options={Specialties}
                           renderInput={(params) => (
                           <TextField {...params}
@@ -147,12 +157,12 @@ function RegisterLawyerOffice (props) {
             <input className={classes.Input}
                     name="img"
                     required
-                    //defaultValue={RegisterLawyer.img}
-                    onChange={handleChange}
+                    onChange={imageChange}
                     id="image"
                     variant="contained"
                     type="file"
-                    accept="image/png, image/jpeg"/><br/><br/>
+                    accept="image/png, image/jpeg"/>
+            <img className={classes.ProfileIcon} src={srcImg}/>
             <p>
                 <Button className={classes.ProfileButton} 
                         variant="contained" 
