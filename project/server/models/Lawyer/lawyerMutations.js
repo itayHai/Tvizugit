@@ -1,20 +1,25 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from "graphql";
-import { addLawyer } from "./lawyerBL";
+import { addLawyer, updateLawyer } from "./lawyerBL";
 import { LawyerType, LawyerInputType } from "./lawyerType";
 
-const LawyerMutation = new GraphQLObjectType({
+const LawyerMutations = new GraphQLObjectType({
   name: "LawyerMutationType",
   fields: () => ({
     lawyer: {
       type: LawyerType,
       args: {
+        id: { type: GraphQLString },  
         lawyer: { type: new GraphQLNonNull(LawyerInputType) },
       },
-      resolve: (root, { lawyer }, context, ast) => {
-        return addLawyer(lawyer);
+      resolve: (root, { id, lawyer }, context, ast) => {
+        if (id) {
+          return updateLawyer(id, lawyer);
+        } else {
+          return addLawyer(lawyer);
+        }
       },
     },
   }),
 });
 
-export default LawyerMutation;
+export default LawyerMutations;

@@ -7,6 +7,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
+import EditLawyer from "../LawyersStock/Lawyers/Lawyer/EditLawyer/EditLawyer"
 import IconButton from "@material-ui/core/IconButton";
 import {
   Delete,
@@ -45,6 +46,7 @@ export default function ResultBanner(props) {
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
   const [expanded, setExpanded] = useState(false);
+  const [editLawyerOpen, setEditLawyerOpen] = useState(false);
   const [reportedAlertOpen, setReportedAlert] = useState(false);
   const [deletedAlertOpen, setDeletedAlert] = useState(false);
 
@@ -267,6 +269,16 @@ export default function ResultBanner(props) {
                   </DialogActions>
                 </Dialog>
                 <AlertUser open={deletedAlertOpen} handleClose={() => setDeletedAlert(false)} message="התביעה נמחקה בהצלחה!" severity="success" />
+              </div>
+            )}
+            {resultBannerType === resultTypes.LAWYER && loggedInUser.email === props.lawyer.email && (
+              <div>
+                <IconButton onClick={() => setEditLawyerOpen(true)}>
+                  <Edit/>
+                </IconButton>
+              <EditLawyer lawyer={props.lawyer} 
+                          close={() => setEditLawyerOpen(false)} 
+                          editOpen={editLawyerOpen}/>
               </div>
             )}
 
