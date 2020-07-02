@@ -52,8 +52,8 @@ function RegisterLawyerOffice (props) {
             RegisterLawyer.address === "" ||
             RegisterLawyer.phone === "" ||
             RegisterLawyer.seniority === "" ||
-            RegisterLawyer.expertise.length == undefined ||
-            RegisterLawyer.expertise.length == 0 ||
+            RegisterLawyer.expertise.length === undefined ||
+            RegisterLawyer.expertise.length === 0 ||
             RegisterLawyer.img === "" ){
         
             setMessage("יש למלא את כל השדות");
