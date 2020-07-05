@@ -15,7 +15,6 @@ import { Button } from '@material-ui/core';
 const ClassActionContent = props => {
     const dispatch = useDispatch();
     const [predicted, setPredicted] = useState(false)
-
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
     const [predictWinRate, { loading, error, data }] = useLazyQuery(classActionsRequest.PREDICT, {
         options: () => ({
@@ -204,7 +203,7 @@ const ClassActionContent = props => {
                         </div>
                     </div>
                 </div>
-                {showJoin}
+                {loggedInUser.role.engName !== "lawyer" && showJoin}
                 {showPendingJoin}
             </div>
             {showMessages}
