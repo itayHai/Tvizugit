@@ -8,6 +8,8 @@ import {classActionReasonQueries} from './ClassAction/Reason';
 import {typeClassActionQueries} from './ClassAction/Type';
 import {defendantTypeQueries} from './ClassAction/defendantType';
 import {defendantThemeQueries} from './ClassAction/defendantTheme';
+import PredicationQuery from '../utils/PredicationQuery'
+import PredictionQuery from '../utils/PredicationQuery';
 
 export default new GraphQLObjectType({
   name: 'Queries',
@@ -46,6 +48,10 @@ export default new GraphQLObjectType({
     },
     classActionReasonQueries: {
       type: classActionReasonQueries,
+      resolve: () => true
+    },
+    PredicationQuery: {
+      type: PredictionQuery,
       resolve: () => true
     }
   })

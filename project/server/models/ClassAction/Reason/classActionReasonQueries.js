@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLString, GraphQLList} from 'graphql';
+import {GraphQLObjectType, GraphQLList} from 'graphql';
 import {ClassActionReasonType} from './classActionReasonType';
 import {getClassActionReasons} from './classActionReasonBL';
 

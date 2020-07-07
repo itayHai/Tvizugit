@@ -4,6 +4,7 @@ import graphqlHTTP from "express-graphql";
 import { rootQueries, rootMutations } from "./models";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import cors from "cors";
+import path from 'path'
 
 const app = express();
 const port = 8000;
@@ -22,11 +23,14 @@ app.use(
   })
 );
 
+app.use('/static', express.static(path.join(__dirname, '../..','/server/files')));
 app.get("/", (req, res) => res.send("Hello World!!"));
 
 mongoose
   .connect(
     "mongodb+srv://Tvizugit:4RmpQFkU4XX9PLgH@cluster0-2kbif.mongodb.net/Tvizugit?retryWrites=true&w=majority"
   )
-  .then(app.listen(port, () => console.log(`Server is served on port ${port}`)))
+  .then(app.listen(port, () => {
+    console.log(`Server is served on port ${port}`)
+  }))
   .catch((err) => console.log(err));
