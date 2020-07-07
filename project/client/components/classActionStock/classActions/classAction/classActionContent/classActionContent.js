@@ -71,13 +71,13 @@ const ClassActionContent = props => {
             {
                 classAction:
                 {
-                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
+                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type.id, theme: def.theme.id } }),
                     users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
                     reasons: props.cAction.reasons.map(res => res.id),
-                    type: props.cAction.type,
+                    type: props.cAction.type.id,
                     messages: messages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
                 },
                 id: props.cAction.id
