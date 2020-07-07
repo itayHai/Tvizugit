@@ -10,18 +10,17 @@ import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../../../../utils/requests';
 import Chip from "@material-ui/core/Chip";
 import { Button } from '@material-ui/core';
-import AlertUser from '../../../../alertUser/alertUser';
 
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
     const [predicted, setPredicted] = useState(false)
-    const [predictedAlertOpen, setPredictedAlert] = useState(false)
 
-    
     const loggedInUser = useSelector((state) => state.user.loggedInUser);
-    const [predictWinRate, { loading, error, data, refetch }] = useLazyQuery(classActionsRequest.PREDICT, {
-        fetchPolicy: 'network-only',
+    const [predictWinRate, { loading, error, data }] = useLazyQuery(classActionsRequest.PREDICT, {
+        options: () => ({
+            fetchPolicy: 'network-only',
+        })
     });
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
 
@@ -52,7 +51,6 @@ const ClassActionContent = props => {
         }).then((data) => {
             dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
             dispatch(changeCurAction({}));
-            setPredictedAlert(true);
         });
         setPredicted(true);
     }
@@ -130,7 +128,6 @@ const ClassActionContent = props => {
     })
     return (
         <div>
-            <AlertUser open={predictedAlertOpen} handleClose={() => setPredictedAlert(false)} message="יש תוצאה! סקרן? גם אנחנו, תרענן את העמוד ותוכל לצפות בנתונים החדשים" severity="success" />
             {isUserManager && (props.cAction.winRate === null) &&
                 <div>
                     <h5>

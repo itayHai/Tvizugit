@@ -91,7 +91,7 @@ const PlaintiffHomePage = ({ user }) => {
                                 history.push("/classActionsStock/");
                             }
                             }
-                        ><More fontSize="small"/>לכל התביעות לחץ כאן </IconButton>
+                        ><More fontSize="small"/>לכל התביעות שלך לחץ כאן </IconButton>
                     }
                 </div>
                 <div className={classes.myClassActions}>

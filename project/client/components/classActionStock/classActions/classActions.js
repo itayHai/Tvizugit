@@ -163,8 +163,10 @@ const ClassActions = (props) => {
 
   const { loading, error, data, refetch } = useQuery(getClassActionsByParams(name, categories, hashtags, userId),
     {
-      fetchPolicy: 'no-cache',
       variables: { name, categories, hashtags, userId },
+      options: () => ({
+        fetchPolicy: 'network-only',
+      })
     });
 
   const sortBy = useSelector((state) => state.classAction.sortBy);

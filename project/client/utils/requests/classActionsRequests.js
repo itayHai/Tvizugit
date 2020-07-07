@@ -177,19 +177,9 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
       leadingUser {
         id
         name
-      }
-      representingLawyer{
-        id
-        name
+        displayName
       }
       reported
-      reasons{
-        id
-      }
-      type {
-        idAI
-        name
-      }
       reportMessage
       openDate
       winRate {
