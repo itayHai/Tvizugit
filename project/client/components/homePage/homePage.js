@@ -19,12 +19,12 @@ export default function HomePage() {
       {(Object.keys(loggedInUser).length === 0) &&
         <ViewerHomePage />}
       {
-        (Object.keys(loggedInUser).length !== 0 && loggedInUser.role.engName === "viewer") &&
+        (Object.keys(loggedInUser).length !== 0) &&
         <PlaintiffHomePage user={loggedInUser} />
       }
       <article className={classes.article}>
         <p className={classes.classActionTitle}>התובענות הבולטות ביותר</p>
-        <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} limit={6}/>
+        <ClassActionsByFilter filter={classActionsFilters.MOST_PROMINENT} limit={5}/>
         <p className={classes.classActionTitle}>קטגוריות התובענות</p>
         <CategoriesCards homePage={true}/>
       </article>

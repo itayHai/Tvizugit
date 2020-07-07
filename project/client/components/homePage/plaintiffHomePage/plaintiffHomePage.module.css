@@ -14,10 +14,15 @@
     font-size: x-large;
 }
 
+.userHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
 .sectionButtons {
     width: 20vw;
     margin-top: 4vh !important;
-    margin-right: 4vw !important;
     font-weight: normal !important;
     font-size: 22px !important;
     box-shadow: 1px 2px 6px #00000029 !important;
@@ -40,7 +45,7 @@
     height: 50vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .card {
