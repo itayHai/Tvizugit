@@ -6,20 +6,22 @@ import Modal from "../../modal/modal";
 import {
   changeCurAction,
   updateClassActions,
+  changeFilter,
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
 import gql from "graphql-tag";
 import Spinner from "../../spinner/spinner";
 
-const getClassActionsByParams = (params) => {
-  return params
+const getClassActionsByParams = (name, categories, hashtags, userId) => {
+  return (name || categories || hashtags || userId)
     ? gql`
-        query($name: String, $categories: [String], $hashtags: [String]) {
+        query($name: String, $categories: [String], $hashtags: [String], $userId:String) {
           ClassActionQueries {
             classActions(
-              name: $name
-              categories: $categories
-              hashtags: $hashtags
+              name: $name,
+              categories: $categories,
+              hashtags: $hashtags,
+              userId: $userId
             ) {
               id
               name
@@ -157,11 +159,12 @@ const ClassActions = (props) => {
   let name = filter.name;
   let categories = filter.categories;
   let hashtags = filter.hashtags;
+  let userId = filter.userId;
 
-  const { loading, error, data, refetch  } = useQuery(getClassActionsByParams(name, categories, hashtags),
+  const { loading, error, data, refetch } = useQuery(getClassActionsByParams(name, categories, hashtags, userId),
     {
       fetchPolicy: 'no-cache',
-      variables: { name, categories, hashtags },
+      variables: { name, categories, hashtags, userId },
     });
 
   const sortBy = useSelector((state) => state.classAction.sortBy);
@@ -177,6 +180,12 @@ const ClassActions = (props) => {
 
   if (loading) return <Spinner />;
   if (error) console.log(error);
+  // dispatch(changeFilter({
+  //   name: "",
+  //   categories: [],
+  //   hashtags: [],
+  //   userId: ""
+  // }));
 
   dispatch(updateClassActions(data.ClassActionQueries.classActions));
 

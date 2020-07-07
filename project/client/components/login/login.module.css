@@ -19,6 +19,11 @@
     color:white !important;
   }
 
+  .ProfileIcon {
+    width: 50px; 
+    height: 50px;
+  }
+
   .LogoIcon {
     width: 29px;
     height: 29px;

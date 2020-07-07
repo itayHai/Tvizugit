@@ -68,7 +68,7 @@ const ClassActionQueries = new GraphQLObjectType({
         },
       },
       resolve: async (parentValue, params) => {
-        const data = await getClassActionsByParams(params);
+        const data = (params.userId ? await getClassActionsByUser(params) : await getClassActionsByParams(params));
 
         return data.length;
       },

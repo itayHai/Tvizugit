@@ -1,6 +1,8 @@
 .root {
     max-width: 20vw;
     min-width: 275px;
+    margin-left: 1vw;
+    margin-right: 1vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
