@@ -23,7 +23,8 @@ app.use(
   })
 );
 
-app.use('/static', express.static(path.join(__dirname, '../..','/server/files')));
+app.use('/static', express.static(path.join(__dirname, '../..','project/server/files')));
+console.log(path.join(__dirname, '../..','/server/files'))
 app.get("/", (req, res) => res.send("Hello World!!"));
 
 mongoose

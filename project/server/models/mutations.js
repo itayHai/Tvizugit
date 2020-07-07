@@ -4,6 +4,7 @@ import { LawyerMutations } from "./Lawyer";
 import { ClassActionMutation } from "./ClassAction";
 import { CategoryMutation } from "./Category";
 import { UserRoleMutations } from "./UserRole";
+import { WinRateMutations } from './ClassAction/WinRate'
 
 export default new GraphQLObjectType({
   name: "Mutations",
@@ -28,5 +29,9 @@ export default new GraphQLObjectType({
       type: LawyerMutations,
       resolve: () => true,
     },
+    WinRateMutations: {
+      type: WinRateMutations,
+      resolve: () => true,
+    }
   }),
 });

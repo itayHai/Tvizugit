@@ -1,7 +1,7 @@
 import ClassActionModel from './classActionModel';
-import {addClassActionToLawyer, deleteClassActionToLawyer} from '../Lawyer/lawyerBL';
+import { addClassActionToLawyer, deleteClassActionToLawyer } from '../Lawyer/lawyerBL';
 
-function addClassAction (classActionToAdd) {
+function addClassAction(classActionToAdd) {
   classActionToAdd.reported = false;
   const newClassAction = new ClassActionModel(classActionToAdd);
 
@@ -9,15 +9,15 @@ function addClassAction (classActionToAdd) {
   return newClassAction.save();
 }
 
-function deleteClassAction ({id}) {
-  return ClassActionModel.deleteOne({_id: id});
+function deleteClassAction({ id }) {
+  return ClassActionModel.deleteOne({ _id: id });
 }
 
-function updateClassAction (id, classActionToAdd) {
+function updateClassAction(id, classActionToAdd) {
   if (classActionToAdd.representingLawyer) {
     ClassActionModel.findOne({
-      _id: id, $or: [{representingLawyer: {$exists: false}},
-        {representingLawyer: {$ne: classActionToAdd.representingLawyer}}]
+      _id: id, $or: [{ representingLawyer: { $exists: false } },
+      { representingLawyer: { $ne: classActionToAdd.representingLawyer } }]
     })
       .populate('category')
       .populate('leadingUser')
@@ -27,6 +27,7 @@ function updateClassAction (id, classActionToAdd) {
       .populate('defendants.theme')
       .populate('type')
       .populate('reasons')
+      .populate('winRate')
       .then(classAction => {
         if (classAction) {
           addClassActionToLawyer(classActionToAdd.representingLawyer, classAction.id);
@@ -34,7 +35,7 @@ function updateClassAction (id, classActionToAdd) {
             deleteClassActionToLawyer(classAction.representingLawyer._id, classAction.id);
           }
 
-          return ClassActionModel.findOneAndUpdate({_id: id}, classActionToAdd, {
+          return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
             new: true
           })
             .populate('category')
@@ -44,7 +45,8 @@ function updateClassAction (id, classActionToAdd) {
             .populate('defendants.type')
             .populate('defendants.theme')
             .populate('type')
-            .populate('reasons');
+            .populate('reasons')
+            .populate('winRate');
         }
       })
       .catch(err => {
@@ -52,7 +54,7 @@ function updateClassAction (id, classActionToAdd) {
       });
   }
 
-  return ClassActionModel.findOneAndUpdate({_id: id}, classActionToAdd, {
+  return ClassActionModel.findOneAndUpdate({ _id: id }, classActionToAdd, {
     new: true
   })
     .populate('category')
@@ -62,14 +64,15 @@ function updateClassAction (id, classActionToAdd) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function reportClassAction ({id, reportMessage}) {
+function reportClassAction({ id, reportMessage }) {
   return ClassActionModel.findOneAndUpdate(
-    {_id: id},
-    {reportMessage, reported: true},
-    {new: true}
+    { _id: id },
+    { reportMessage, reported: true },
+    { new: true }
   )
     .populate('category')
     .populate('leadingUser')
@@ -78,14 +81,15 @@ function reportClassAction ({id, reportMessage}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function cancelReportClassAction ({id}) {
+function cancelReportClassAction({ id }) {
   return ClassActionModel.findOneAndUpdate(
-    {_id: id},
-    {reportMessage: '', reported: false},
-    {new: true}
+    { _id: id },
+    { reportMessage: '', reported: false },
+    { new: true }
   )
     .populate('category')
     .populate('leadingUser')
@@ -94,11 +98,12 @@ function cancelReportClassAction ({id}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function getClassAction ({id}) {
-  return ClassActionModel.findOne({_id: id})
+function getClassAction({ id }) {
+  return ClassActionModel.findOne({ _id: id })
     .populate('category')
     .populate('leadingUser')
     .populate('users.user')
@@ -106,11 +111,12 @@ function getClassAction ({id}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function getClassActionsByUser ({userId, limit}) {
-  return ClassActionModel.find({'users.user': userId})
+function getClassActionsByUser({ userId, limit }) {
+  return ClassActionModel.find({ 'users.user': userId })
     .limit(limit)
     .populate('category')
     .populate('leadingUser')
@@ -119,11 +125,12 @@ function getClassActionsByUser ({userId, limit}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function getReportedClassActions () {
-  return ClassActionModel.find({reported: true})
+function getReportedClassActions() {
+  return ClassActionModel.find({ reported: true })
     .populate('category')
     .populate('leadingUser')
     .populate('users.user')
@@ -131,10 +138,11 @@ function getReportedClassActions () {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function getClassActions (limit) {
+function getClassActions(limit) {
   return ClassActionModel.find({})
     .limit(limit)
     .populate('category')
@@ -144,10 +152,11 @@ function getClassActions (limit) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
 }
 
-function getClassActionsByParams ({name, hashtags, categories, limit}) {
+function getClassActionsByParams({ name, hashtags, categories, limit }) {
   if (!(name && hashtags && categories)) {
     return getClassActions(limit);
   }
@@ -156,13 +165,13 @@ function getClassActionsByParams ({name, hashtags, categories, limit}) {
   let nameQuery = {};
 
   if (categories.length !== 0) {
-    categoriesQuery = {category: {$in: categories}};
+    categoriesQuery = { category: { $in: categories } };
   }
   if (hashtags.length !== 0) {
-    hashtagsQuery = {hashtags: {$in: hashtags}};
+    hashtagsQuery = { hashtags: { $in: hashtags } };
   }
   if (name !== ' ') {
-    nameQuery = {name: {$regex: name, $options: 'i'}};
+    nameQuery = { name: { $regex: name, $options: 'i' } };
   }
 
   return ClassActionModel.find({
@@ -175,7 +184,9 @@ function getClassActionsByParams ({name, hashtags, categories, limit}) {
     .populate('defendants.type')
     .populate('defendants.theme')
     .populate('type')
-    .populate('reasons');
+    .populate('reasons')
+    .populate('winRate');
+
 }
 
 export {

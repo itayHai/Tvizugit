@@ -64,7 +64,11 @@ const getClassActionByUser = () => {
           id
           name
         }
-        successChances
+        winRate {
+          id
+          idAI
+          name
+        }
         hashtags
       }
     }

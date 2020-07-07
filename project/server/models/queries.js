@@ -9,7 +9,7 @@ import {typeClassActionQueries} from './ClassAction/Type';
 import {defendantTypeQueries} from './ClassAction/defendantType';
 import {defendantThemeQueries} from './ClassAction/defendantTheme';
 import PredicationQuery from '../utils/PredicationQuery'
-import PredictionQuery from '../utils/PredicationQuery';
+import {WinRateQueries} from './ClassAction/WinRate';
 
 export default new GraphQLObjectType({
   name: 'Queries',
@@ -51,8 +51,12 @@ export default new GraphQLObjectType({
       resolve: () => true
     },
     PredicationQuery: {
-      type: PredictionQuery,
+      type: PredicationQuery,
       resolve: () => true
-    }
+    },
+    WinRateQueries : {
+      type: WinRateQueries,
+      resolve: () => true
+    },
   })
 });

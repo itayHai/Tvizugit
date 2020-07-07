@@ -73,7 +73,11 @@ const getClassActionsByParams = (params) => {
                 id
                 name
               }
-              successChances
+              winRate {
+                id
+                idAI
+                name
+              }
               hashtags
             }
           }
@@ -135,7 +139,11 @@ const getClassActionsByParams = (params) => {
             id
             name
           }
-          successChances
+          winRate {
+            id
+            idAI
+            name
+          }
           hashtags
         }
       }

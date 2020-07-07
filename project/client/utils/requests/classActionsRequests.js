@@ -56,7 +56,11 @@ mutation ($classAction: ClassActionInputType!, $id: String) {
         id
         name
       }
-      successChances
+      winRate {
+        id
+        idAI
+        name
+      }
       hashtags
     }
   }
@@ -188,7 +192,11 @@ mutation reportClassAction($id: String!, $reportMessage: String!) {
       }
       reportMessage
       openDate
-      successChances
+      winRate {
+        id
+        idAI
+        name
+      }
       hashtags
     }
   }
@@ -241,7 +249,11 @@ mutation cancelReportClassAction($id: String!) {
       reported
       reportMessage
       openDate
-      successChances
+      winRate {
+        id
+        idAI
+        name
+      }
       hashtags
     }
   }
@@ -290,6 +302,18 @@ const getAllDefendantsThemes = gql`
  
   `;
 
+const PREDICT = gql`
+query ($id: String) {
+  PredicationQuery {
+    predict (id: $id) {
+      id
+      idAI
+      name
+    }
+  }
+}
+`
+
 export default {
   updateClassActionServer,
   getAllClassActionTypes,
@@ -300,5 +324,6 @@ export default {
   addClassAction,
   REPORT,
   CANCEL_REPORT,
-  DELETE_CLASS_ACTION_MUTATION
+  DELETE_CLASS_ACTION_MUTATION,
+  PREDICT
 };

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { getHashtags } from "../../hashtagCreator/hashtagCreator";
-import { Input } from "@material-ui/core";
+import { Input, Button } from "@material-ui/core";
 import classes from "./classActionAutoData.module.css";
 import Chip from "@material-ui/core/Chip";
+import { classActionsRequest } from "../../../utils/requests";
 
 const ClassActionAutoData = (props) => {
+
   const tags = getHashtags(
     props.classAction.name,
     props.classAction.description,
@@ -64,6 +66,11 @@ const ClassActionAutoData = (props) => {
       </div>
       <div>
         <h2>סיכויי ההצלחה של התובענה </h2>
+        {/* <h5>
+        האם ברצונך שהמערכת תנסה לנבא עבורך מה טווח הזכייה הצפוי? (על סמך מאגר תביעות עבר?)
+        </h5>
+        <Button size="small" onClick={predictWinRate}>כן, בדוק ושמור עבורי את טווח הזכייה</Button>
+         */}
       </div>
     </div>
   );
