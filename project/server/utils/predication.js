@@ -1,6 +1,7 @@
 import { getClassActionReasons } from '../models/ClassAction/Reason/classActionReasonBL';
 import { getClassAction } from '../models/ClassAction/classActionBL';
 import * as tf from '@tensorflow/tfjs';
+import { getWinRates, getWinRate, getWinRateByIdAI } from '../models/ClassAction/WinRate/winRateBL';
 
 const sheled = {
   // representingLawyer: 0,
@@ -13,7 +14,7 @@ async function predict(id) {
   const arrPredict = new Array(65);
   arrPredict[0] = 1;
   const model = await tf.loadLayersModel('http://localhost:8000/static/model.json');
-  const classAction = await getClassAction(id);
+  const classAction = await getClassAction({id});
   const caReasons = {};
   classAction.reasons.forEach(reason => {
     caReasons[reason.idAI] = true;
@@ -43,7 +44,7 @@ async function predict(id) {
     }
   })
 
-  return predictedId;
+  return await getWinRateByIdAI(predictedId);
 }
 
 export { predict };

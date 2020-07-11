@@ -5,13 +5,14 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import people_icon from "../../../images/icons/people_icon.png";
 import trophy_icon from "../../../images/icons/trophy_icon.png";
+import TimelineIcon from '@material-ui/icons/Timeline';
 import classes from "./classActionCard.module.css";
 import { useHistory } from "react-router-dom";
 import { changeFilter } from "../../../store/classAction";
 import { useDispatch } from "react-redux";
 
 const ClassActionCard = ({ classAction }, props) => {
-  const { name, users, successChances } = classAction;
+  const { name, users, status, winRate } = classAction;
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -33,10 +34,18 @@ const ClassActionCard = ({ classAction }, props) => {
           <b>{insideUsers.length}</b> כבר הצטרפו למאבק
         </label>
         <br />
-        <img className={classes.icon} src={trophy_icon} alt="trophy" />
+        <TimelineIcon className={classes.icon} />
         <label>
-          <b>{successChances}</b> סיכויי זכייה
+          {status}
         </label>
+        {winRate !== null && 
+        <div>
+          <img className={classes.icon} src={trophy_icon} alt="trophy" />
+          <label>
+          טווח הזכייה הצפוי הוא <b>{winRate.name}</b> ש"ח
+          </label>
+        </div>
+        }
       </CardContent>
       <CardActions>
         <Button size="small" onClick={readMoreClicked}>

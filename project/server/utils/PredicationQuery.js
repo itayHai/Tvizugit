@@ -1,11 +1,12 @@
-import { init } from "./predication";
+import { init, predict } from "./predication";
 import { GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
+import { WinRateType } from "../models/ClassAction/WinRate/winRateType";
 
 const PredicationQuery = new GraphQLObjectType({
   name: "PredicationQueryType",
   fields: () => ({
     predict: {
-      type: GraphQLInt,
+      type: WinRateType,
       args: {
         id: { type: GraphQLString }
       },

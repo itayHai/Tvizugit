@@ -7,12 +7,13 @@ import ReportedClassAction from './ReportedClassAction/reportedClassAction';
 import AlertUser from '../alertUser/alertUser';
 
 const ReportedClassActions = (props) => {
-    const [getReportedClassActions, {loading, error, data ,refetch}] = useLazyQuery(classActionsRequest.GET_REPORTED,{
+    const [getReportedClassActions, { loading, error, data, refetch }] = useLazyQuery(classActionsRequest.GET_REPORTED, {
         fetchPolicy: 'network-only',
-      });
+    });
     const [reportedClassActions, setReportedClassActions] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [unreportAlertOpen, setUnreportAlert] = useState(false);
+    const [deletedAlertOpen, setDeletedAlert] = useState(false);
 
     useEffect(() => {
         getReportedClassActions()
@@ -23,16 +24,16 @@ const ReportedClassActions = (props) => {
         setReportedClassActions(data.ClassActionQueries.reportedClassActions)
     }
 
-    if (loading || !dataLoaded ) {
+    if (loading || !dataLoaded) {
         return <Spinner />
     }
     if (error) {
         console.log(error)
     }
 
-    const handleCancelReport = (classActionId) => {
+    const handleCancelReport = (classActionId, isDeleted) => {
         setReportedClassActions(reportedClassActions.filter((currCA) => currCA.id !== classActionId))
-        setUnreportAlert(true);
+        isDeleted ? setDeletedAlert(true) : setUnreportAlert(true);
     }
 
     const reportedCAElements = reportedClassActions.length !== 0 ? reportedClassActions.map(
@@ -41,13 +42,12 @@ const ReportedClassActions = (props) => {
             <h2>אין תובענות מדווחות</h2>
         </div>
 
-
     return (
         <div className={classes.page}>
             <h1 className={classes.title}>תובענות מדווחות</h1>
             {reportedCAElements}
-          <AlertUser open={unreportAlertOpen} handleClose={() => setUnreportAlert(false)} message="הדיווח נדחה" severity="success" />
-
+            <AlertUser open={unreportAlertOpen} handleClose={() => setUnreportAlert(false)} message="הדיווח נדחה" severity="success" />
+            <AlertUser open={deletedAlertOpen} handleClose={() => setDeletedAlert(false)} message="התביעה נמחקה בהצלחה!" severity="success" />
         </div>)
 }
 

@@ -16,6 +16,7 @@ import {ClassActionReasonType} from './Reason/classActionReasonType';
 import {typeOfClassActionType} from './Type/typeClassActionType';
 import {typeOfDefendantType} from './defendantType/typeOfDefendantType';
 import {DefendantThemeType} from './defendantTheme/defendantThemeType';
+import { WinRateType } from './WinRate/winRateType';
 
 const UserListType = new GraphQLObjectType({
   name: 'UserListType',
@@ -72,7 +73,7 @@ const ClassActionType = new GraphQLObjectType({
     openDate: {type: GraphQLDate},
     reported: {type: GraphQLBoolean},
     reportMessage: {type: GraphQLString},
-    successChances: {type: GraphQLString},
+    winRate: {type: WinRateType},
     hashtags: {type: new GraphQLList(GraphQLString)}
   })
 });
@@ -107,7 +108,7 @@ const ClassActionInputType = new GraphQLInputObjectType({
     leadingUser: {type: new GraphQLNonNull(GraphQLString)},
     representingLawyer: {type: GraphQLString},
     openDate: {type: GraphQLDate},
-    successChances: {type: GraphQLString}
+    winRate: {type: GraphQLString}
   })
 });
 

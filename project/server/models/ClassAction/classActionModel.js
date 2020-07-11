@@ -1,4 +1,5 @@
 import {Schema, model} from 'mongoose';
+import { WinRateType } from './WinRate/winRateType';
 
 export const classActionSchema = new Schema({
   name: {type: String, required: true},
@@ -65,7 +66,7 @@ export const classActionSchema = new Schema({
   openDate: {type: Date},
   reported: {type: Boolean},
   reportMessage: {type: String},
-  successChances: {type: String}
+  winRate: {type: Schema.Types.ObjectId, ref: 'winRate'}
 });
 
 const ClassActionModel = model('classAction', classActionSchema);

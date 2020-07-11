@@ -1,27 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './classActionContent.module.css';
 import { Gavel, CalendarToday, Person, Help, TextFields } from '@material-ui/icons';
 import ManagerMessages from '../managerMessages/managerMessages';
 import JoinAction from './joinAction/joinAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateMessagesAction } from '../../../../../store/classAction';
+import { updateMessagesAction, updateClassAction, changeCurAction } from '../../../../../store/classAction';
 import DateHandler from '../../../../../utils/dateHandler';
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { classActionsRequest } from '../../../../../utils/requests';
 import Chip from "@material-ui/core/Chip";
+import { Button } from '@material-ui/core';
 
 
 const ClassActionContent = props => {
     const dispatch = useDispatch();
-    const loggedInUser = useSelector((state) => state.user.loggedInUser);
+    const [predicted, setPredicted] = useState(false)
 
+    const loggedInUser = useSelector((state) => state.user.loggedInUser);
+    const [predictWinRate, { loading, error, data }] = useLazyQuery(classActionsRequest.PREDICT, {
+        options: () => ({
+            fetchPolicy: 'network-only',
+        })
+    });
     const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
+
     const flatennedUsers = props.cAction.users.map(usr => {
         return {
             isWaiting: usr.isWaiting,
             ...usr.user
         }
     });
+
+    if (data && !predicted) {
+        updateClassActionServer({
+            variables:
+            {
+                classAction:
+                {
+                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type.id, theme: def.theme.id } }),
+                    users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
+                    name: props.cAction.name,
+                    category: props.cAction.category.id,
+                    leadingUser: props.cAction.leadingUser.id,
+                    reasons: props.cAction.reasons.map(res => res.id),
+                    type: props.cAction.type.id,
+                    winRate: data.PredicationQuery.predict.id
+                },
+                id: props.cAction.id
+            }
+        }).then((data) => {
+            dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
+            dispatch(changeCurAction({}));
+        });
+        setPredicted(true);
+    }
     const isUserManager = props.cAction.leadingUser.id === loggedInUser.id;
     const addMessageHandler = (message, title) => {
         var todayDate = new Date();
@@ -37,13 +69,13 @@ const ClassActionContent = props => {
             {
                 classAction:
                 {
-                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type, theme: def.theme } }),
+                    defendants: props.cAction.defendants.map(def => { return { name: def.name, type: def.type.id, theme: def.theme.id } }),
                     users: flatennedUsers.map(usr => { return { user: usr.id, isWaiting: usr.isWaiting } }),
                     name: props.cAction.name,
                     category: props.cAction.category.id,
                     leadingUser: props.cAction.leadingUser.id,
                     reasons: props.cAction.reasons.map(res => res.id),
-                    type: props.cAction.type,
+                    type: props.cAction.type.id,
                     messages: messages.map((mes) => { return { title: mes.title, date: new Date(mes.date), content: mes.content } }),
                 },
                 id: props.cAction.id
@@ -90,18 +122,32 @@ const ClassActionContent = props => {
             addMessClick={(message, title) => addMessageHandler(message, title)}
         /> : null;
     const showJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id) ? null : <JoinAction classAction={props.cAction} />
-    const showPendingJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id && usr.isWaiting) ? <h3 className = {classes.pending}>בקשתך להצטרפות בבדיקה</h3> : null;
+    const showPendingJoin = flatennedUsers.find(usr => usr.id === loggedInUser.id && usr.isWaiting) ? <h3 className={classes.pending}>בקשתך להצטרפות בבדיקה</h3> : null;
     const allHashtags = props.cAction.hashtags.map((tag, index) => {
-        return <Chip label= {"#" + tag} key={index} className={classes.tag}/>
+        return <Chip label={"#" + tag} key={index} className={classes.tag} />
     })
     return (
         <div>
+            {isUserManager && (props.cAction.winRate === null) &&
+                <div>
+                    <h5>
+                        האם ברצונך שהמערכת תנסה לנבא עבורך מה טווח הזכייה הצפוי? (על סמך מאגר תביעות עבר)
+                    </h5>
+                    <Button size="small" variant="contained" onClick={() => predictWinRate({ variables: { id: props.cAction.id } })}>כן, בדוק ושמור עבורי את טווח הזכייה</Button>
+                </div>
+            }
             <div className={classes.allHashtags}>
                 <h2 className={classes.title}>תיאור תובענה:</h2>
             </div>
 
             {props.cAction.description}
             <br></br>
+            {props.cAction.winRate &&
+                <div>
+                    <h2 className={classes.title}>טווח הזכייה המשוער של המערכת הוא {props.cAction.winRate.name} ש"ח</h2>
+                </div>
+            }
+
             <div>{allHashtags}</div>
 
             <h3>נתבעים: </h3>

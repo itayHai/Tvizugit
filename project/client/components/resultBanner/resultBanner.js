@@ -54,7 +54,7 @@ export default function ResultBanner(props) {
   const [reportClassAction] = useMutation(classActionsRequest.REPORT);
   const [cancelReport] = useMutation(classActionsRequest.CANCEL_REPORT);
   const [deleteReport] = useMutation(classActionsRequest.DELETE_CLASS_ACTION_MUTATION);
-
+  
   const filter = useSelector((state) => state.classAction.filter);
   let name = filter.name;
   let categories = filter.categories;
@@ -70,9 +70,10 @@ export default function ResultBanner(props) {
     deleteReport({ variables: { id: entityId } }).then((data => {
       setDeletedAlert(true)
 
-      props.refetch(name, categories, hashtags);
       if (resultBannerType === resultTypes.REPORTED_CLASS_ACTION) {
-        props.cancelReport(entityId);
+        props.cancelReport(entityId, true);
+      } else {
+        props.refetch(name, categories, hashtags);
       }
     }));
 
@@ -102,11 +103,11 @@ export default function ResultBanner(props) {
         reportMessage: reportMessage,
       },
     }).then((data) => {
-      setReportedAlert(true);
       dispatch(
         updateClassAction(data.data.ClassActionMutation.reportClassAction)
       );
       dispatch(changeCurAction({}));
+      setReportedAlert(true);      
     });
     setReportDialogOpen(false);
   };
@@ -271,16 +272,16 @@ export default function ResultBanner(props) {
                 <AlertUser open={deletedAlertOpen} handleClose={() => setDeletedAlert(false)} message="התביעה נמחקה בהצלחה!" severity="success" />
               </div>
             )}
-            {resultBannerType === resultTypes.LAWYER && loggedInUser.email === props.lawyer.email && (
-              <div>
-                <IconButton onClick={() => setEditLawyerOpen(true)}>
-                  <Edit/>
-                </IconButton>
-              <EditLawyer lawyer={props.lawyer} 
-                          close={() => setEditLawyerOpen(false)} 
-                          editOpen={editLawyerOpen}/>
-              </div>
-            )}
+          {resultBannerType === resultTypes.LAWYER && loggedInUser.email === props.lawyer.email && (
+            <div>
+              <IconButton onClick={() => setEditLawyerOpen(true)}>
+                <Edit />
+              </IconButton>
+              <EditLawyer lawyer={props.lawyer}
+                close={() => setEditLawyerOpen(false)}
+                editOpen={editLawyerOpen} />
+            </div>
+          )}
 
           {resultBannerType === resultTypes.CLASS_ACTION && (
             <FBShare name={props.name} />)}
