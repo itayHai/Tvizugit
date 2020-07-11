@@ -30,7 +30,7 @@ function buildClassAction(classAction) {
         reasons: classAction.reasons.map(res => res.id),
         type: classAction.type.id,
         leadingUser: classAction.leadingUser.id,
-        representingLawyer : classAction.representingLawyer?.id ? classAction.representingLawyer.id : null
+        representingLawyer: classAction.representingLawyer?.id ? classAction.representingLawyer.id : null
     };
 
     return classActionToAdd;
@@ -40,7 +40,8 @@ export default function UpdateModalTabs(props) {
     const stateClassAction = useSelector(state => state.classAction.currClassAction);
     const [classAction] = React.useState({ ...stateClassAction });
     const dispatch = useDispatch();
-    const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer);
+    const [updateClassActionServer] = useMutation(classActionsRequest.updateClassActionServer
+    );
 
     const handleChangeAction = (event) => {
         classAction[event.target.name] = event.target.value;
@@ -74,6 +75,7 @@ export default function UpdateModalTabs(props) {
             dispatch(updateClassAction(data.data.ClassActionMutation.classAction));
             props.close();
         })
+
     }
     return (
         <div className={classes.root}>
