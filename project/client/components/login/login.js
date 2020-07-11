@@ -1,15 +1,11 @@
 import React,{useState} from 'react';
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import PersonIcon from '@material-ui/icons/Person';
-import FacebookIcon from '../../images/icons/facebook_icon.png';
-import GoogleIcon from '../../images/icons/google_icon.png';
 import classes from "./login.module.css"
 import { TextField } from "@material-ui/core";
 import { setMode , LoginUser } from '../../store/user';
 import { useDispatch } from 'react-redux';
 import AlertUser from '../alertUser/alertUser';
-
 
 const Login = (props) => {
 
@@ -79,25 +75,22 @@ return(
                    fullWidth={true}
                    required
                    type="password"/>
-        <p>
+        <p><br/>
           <Button className={classes.LoginButton} 
                   variant="contained" 
                   onClick={login}
                   fullWidth={true}>
             התחברות
+          </Button></p>
+          <p>
+          <Button className={classes.RegisterButton} 
+                  variant="contained" 
+                  onClick={changeToRegister}
+                  fullWidth={true}>
+            משתמש חדש? הרשם עכשיו!
           </Button>
           <AlertUser open={open} handleClose={handleClose} message={message} severity="error" />
         </p>
-        <br/><hr color="#e6e6e6"/>
-        <div className={classes.Center}>
-          <label>או כניסה דרך הרשתות החברתיות</label>
-          <p>
-              <img className={classes.LogoIcon} src={FacebookIcon} alt="FaceBook"/>
-              <span> </span>
-              <img className={classes.LogoIcon} src={GoogleIcon} alt="Google"/>
-          </p>
-          <Link onClick={changeToRegister}>אין לך חשבון?</Link>
-        </div>
       </div>
   )
 }
