@@ -7,20 +7,26 @@ import {
   changeCurAction,
   updateClassActions,
   changeFilter,
+  changeSort,
 } from "../../../store/classAction";
 import UpdateModalTabs from "./classAction/classActionContent/updateModalTabs/updateModalTabs";
 import gql from "graphql-tag";
 import Spinner from "../../spinner/spinner";
 
 const getClassActionsByParams = (name, categories, hashtags, userId) => {
-  return (name || categories || hashtags || userId)
+  return name || categories || hashtags || userId
     ? gql`
-        query($name: String, $categories: [String], $hashtags: [String], $userId:String) {
+        query(
+          $name: String
+          $categories: [String]
+          $hashtags: [String]
+          $userId: String
+        ) {
           ClassActionQueries {
             classActions(
-              name: $name,
-              categories: $categories,
-              hashtags: $hashtags,
+              name: $name
+              categories: $categories
+              hashtags: $hashtags
               userId: $userId
             ) {
               id
@@ -31,13 +37,13 @@ const getClassActionsByParams = (name, categories, hashtags, userId) => {
                 name
                 engName
               }
-              defendants{
+              defendants {
                 name
-                type{
+                type {
                   id
                   name
                 }
-                theme{
+                theme {
                   id
                   name
                 }
@@ -49,10 +55,10 @@ const getClassActionsByParams = (name, categories, hashtags, userId) => {
                 content
               }
               users {
-                user{
-                id
-                name
-                displayName
+                user {
+                  id
+                  name
+                  displayName
                 }
                 isWaiting
               }
@@ -62,16 +68,16 @@ const getClassActionsByParams = (name, categories, hashtags, userId) => {
                 name
                 displayName
               }
-              representingLawyer{
+              representingLawyer {
                 id
                 name
               }
               openDate
-              reasons{
+              reasons {
                 id
                 name
               }
-              type{
+              type {
                 id
                 name
               }
@@ -86,82 +92,82 @@ const getClassActionsByParams = (name, categories, hashtags, userId) => {
         }
       `
     : gql`
-    {
-      ClassActionQueries {
-        classActions{
-          id
-          name
-          description
-          category {
-            id
-            name
-            engName
-          }
-          defendants{
-            name
-            type{
+        {
+          ClassActionQueries {
+            classActions {
               id
               name
-            }
-            theme{
-              id
-              name
-            }
-          }
-          messages {
-            _id
-            title
-            date
-            content
-          }
-          users {
-            user{
-            id
-            name
-            displayName
-            }
-            isWaiting
-          }
-          status
-          leadingUser {
-            id
-            name
-            displayName
-          }
-          representingLawyer{
-            id
-            name
-          }
-          openDate
-          reasons{
-            id
-            name
-          }
-          type{
-            id
-            name
-          }
+              description
+              category {
+                id
+                name
+                engName
+              }
+              defendants {
+                name
+                type {
+                  id
+                  name
+                }
+                theme {
+                  id
+                  name
+                }
+              }
+              messages {
+                _id
+                title
+                date
+                content
+              }
+              users {
+                user {
+                  id
+                  name
+                  displayName
+                }
+                isWaiting
+              }
+              status
+              leadingUser {
+                id
+                name
+                displayName
+              }
+              representingLawyer {
+                id
+                name
+              }
+              openDate
+              reasons {
+                id
+                name
+              }
+              type {
+                id
+                name
+              }
           winRate {
             id
             idAI
             name
           }
-          hashtags
+              hashtags
+            }
+          }
         }
-      }
-    }
       `;
 };
 
 const ClassActions = (props) => {
-
   const filter = useSelector((state) => state.classAction.filter);
   let name = filter.name;
   let categories = filter.categories;
   let hashtags = filter.hashtags;
   let userId = filter.userId;
 
-  const { loading, error, data, refetch } = useQuery(getClassActionsByParams(name, categories, hashtags, userId),
+  const { loading, error, data, refetch } = useQuery(
+    getClassActionsByParams(name, categories, hashtags, userId),
     {
       variables: { name, categories, hashtags, userId },
       options: () => ({
@@ -182,12 +188,6 @@ const ClassActions = (props) => {
 
   if (loading) return <Spinner />;
   if (error) console.log(error);
-  // dispatch(changeFilter({
-  //   name: "",
-  //   categories: [],
-  //   hashtags: [],
-  //   userId: ""
-  // }));
 
   dispatch(updateClassActions(data.ClassActionQueries.classActions));
 
@@ -197,9 +197,20 @@ const ClassActions = (props) => {
 
   const compareValues = (key, order = "asc") => {
     return function innerSort(a, b) {
-      const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
-      const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+      let varA = "";
+      let varB = "";
 
+      if (key === "category") {
+        varA = a[key]["name"].toUpperCase();
+        varB = b[key]["name"].toUpperCase();
+      } else if (key === "numberOfProsecutors") {
+        order = "desc";
+        varA =  a["users"].filter(user => !user.isWaiting).length;
+        varB = b["users"].filter(user => !user.isWaiting).length;
+      } else {
+        varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
+        varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+      }
       let comparison = 0;
       if (varA > varB) {
         comparison = 1;
@@ -212,7 +223,9 @@ const ClassActions = (props) => {
   const classActions = stateClassActions
     .sort(compareValues(sortBy))
     .map((cAction) => {
-      return <ClassAction refetch={refetch} classAction={cAction} key={cAction.id} />;
+      return (
+        <ClassAction refetch={refetch} classAction={cAction} key={cAction.id} />
+      );
     });
 
   return (
