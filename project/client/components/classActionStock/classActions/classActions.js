@@ -205,8 +205,8 @@ const ClassActions = (props) => {
         varB = b[key]["name"].toUpperCase();
       } else if (key === "numberOfProsecutors") {
         order = "desc";
-        varA = a["users"].length;
-        varB = b["users"].length;
+        varA =  a["users"].filter(user => !user.isWaiting).length;
+        varB = b["users"].filter(user => !user.isWaiting).length;
       } else {
         varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
         varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
