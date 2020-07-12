@@ -98,6 +98,7 @@ const EditLawyer = (props) => {
           }
       }).then(data => {
         props.close();
+        props.refetch();
       })
         
       }
