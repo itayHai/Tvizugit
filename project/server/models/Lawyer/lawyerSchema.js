@@ -35,6 +35,9 @@ export const lawyerSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "classAction"    
   }],
+  idAI: {
+    type: Schema.Types.Number
+  }
 });
 
 const LawyerModel = mongoose.model("lawyer", lawyerSchema);
