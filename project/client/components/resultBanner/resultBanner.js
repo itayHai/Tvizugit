@@ -279,6 +279,7 @@ export default function ResultBanner(props) {
               </IconButton>
               <EditLawyer lawyer={props.lawyer}
                 close={() => setEditLawyerOpen(false)}
+                refetch={props.lawyerRefetch}
                 editOpen={editLawyerOpen} />
             </div>
           )}

@@ -26,6 +26,7 @@ const Lawyer = (props) => {
 
     return (
         <ResultBanner
+            lawyerRefetch={props.refetch}
             entityType={resultTypes.LAWYER}
             imgUrl="test"
             entityId={props.lawyer.id}

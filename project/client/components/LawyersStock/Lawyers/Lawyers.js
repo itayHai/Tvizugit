@@ -6,7 +6,7 @@ import Spinner from "../../spinner/spinner";
 
 const Lawyers = (props) => {
 
-    const { loading, error, data } = useQuery(
+    const { loading, error, data, refetch } = useQuery(
         lawyersRequests.getAllLawyers, {
             fetchPolicy: "network-only"   
         }
@@ -23,7 +23,7 @@ const Lawyers = (props) => {
   
     const lawyersElements = data.LawyerQueries.lawyers
     .map((lawyer) => {
-        return <Lawyer lawyer={lawyer} key={lawyer.id} />;
+        return <Lawyer lawyer={lawyer} key={lawyer.id} refetch={refetch}/>;
     });
 
     return (

@@ -94,10 +94,12 @@ const EditLawyer = (props) => {
                   phone: editLawyer.phone,
                   seniority: editLawyer.seniority,
                   img: editLawyer.img,
+                  idAI: editLawyer.idAI,
               },              
           }
       }).then(data => {
         props.close();
+        props.refetch();
       })
         
       }

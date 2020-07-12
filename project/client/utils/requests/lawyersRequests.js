@@ -13,6 +13,7 @@ mutation ($lawyer: LawyerInputType!) {
         phone
         seniority
         img
+        idAI
       }
     }
   }
@@ -44,6 +45,7 @@ query($email:String!){
       seniority
       img
       classactions
+      idAI
     }
   }
 }
@@ -69,6 +71,7 @@ const getAllLawyers = gql`
           status
         
       }
+      idAI
     }
   }
 }

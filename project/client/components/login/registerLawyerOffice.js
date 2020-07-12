@@ -61,6 +61,7 @@ function RegisterLawyerOffice (props) {
         }
         else{
             dispatch(changeRegisterLawyer(RegisterLawyer));
+            RegisterLawyer.idAI = Math.floor(Math.random() * 10000);
 
             addNewUser({
                 variables:
@@ -88,7 +89,8 @@ function RegisterLawyerOffice (props) {
                             address: RegisterLawyer.address,
                             phone: RegisterLawyer.phone,
                             seniority: RegisterLawyer.seniority,
-                            img: RegisterLawyer.img
+                            img: RegisterLawyer.img,
+                            idAI: RegisterLawyer.idAI,
                         }
                     }
                 }).then(data => {
