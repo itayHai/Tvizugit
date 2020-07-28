@@ -67,6 +67,7 @@ const getClassActionsByParams = (name, categories, hashtags, userId) => {
                 id
                 name
                 displayName
+                email
               }
               representingLawyer {
                 id
@@ -133,6 +134,7 @@ const getClassActionsByParams = (name, categories, hashtags, userId) => {
                 id
                 name
                 displayName
+            email
               }
               representingLawyer {
                 id
